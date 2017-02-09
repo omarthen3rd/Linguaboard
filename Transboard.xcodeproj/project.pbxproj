@@ -14,6 +14,9 @@
 		562539FB1E4C014800EAD653 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 562539F91E4C014800EAD653 /* LaunchScreen.storyboard */; };
 		56253A061E4C014800EAD653 /* TransboardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56253A051E4C014800EAD653 /* TransboardTests.swift */; };
 		56253A111E4C014800EAD653 /* TransboardUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56253A101E4C014800EAD653 /* TransboardUITests.swift */; };
+		56253A251E4C017100EAD653 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56253A241E4C017100EAD653 /* KeyboardViewController.swift */; };
+		56253A291E4C017100EAD653 /* Translate.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 56253A221E4C017100EAD653 /* Translate.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		56253A2F1E4C026600EAD653 /* Keyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56253A2E1E4C026600EAD653 /* Keyboard.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,7 +34,28 @@
 			remoteGlobalIDString = 562539EC1E4C014800EAD653;
 			remoteInfo = Transboard;
 		};
+		56253A271E4C017100EAD653 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 562539E51E4C014800EAD653 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 56253A211E4C017100EAD653;
+			remoteInfo = Translate;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		56253A2D1E4C017100EAD653 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				56253A291E4C017100EAD653 /* Translate.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		562539ED1E4C014800EAD653 /* Transboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Transboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -47,6 +71,10 @@
 		56253A0C1E4C014800EAD653 /* TransboardUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TransboardUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		56253A101E4C014800EAD653 /* TransboardUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransboardUITests.swift; sourceTree = "<group>"; };
 		56253A121E4C014800EAD653 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		56253A221E4C017100EAD653 /* Translate.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Translate.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		56253A241E4C017100EAD653 /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
+		56253A261E4C017100EAD653 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		56253A2E1E4C026600EAD653 /* Keyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Keyboard.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +99,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		56253A1F1E4C017100EAD653 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -80,6 +115,7 @@
 				562539EF1E4C014800EAD653 /* Transboard */,
 				56253A041E4C014800EAD653 /* TransboardTests */,
 				56253A0F1E4C014800EAD653 /* TransboardUITests */,
+				56253A231E4C017100EAD653 /* Translate */,
 				562539EE1E4C014800EAD653 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -90,6 +126,7 @@
 				562539ED1E4C014800EAD653 /* Transboard.app */,
 				56253A011E4C014800EAD653 /* TransboardTests.xctest */,
 				56253A0C1E4C014800EAD653 /* TransboardUITests.xctest */,
+				56253A221E4C017100EAD653 /* Translate.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -125,6 +162,16 @@
 			path = TransboardUITests;
 			sourceTree = "<group>";
 		};
+		56253A231E4C017100EAD653 /* Translate */ = {
+			isa = PBXGroup;
+			children = (
+				56253A241E4C017100EAD653 /* KeyboardViewController.swift */,
+				56253A2E1E4C026600EAD653 /* Keyboard.storyboard */,
+				56253A261E4C017100EAD653 /* Info.plist */,
+			);
+			path = Translate;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -135,10 +182,12 @@
 				562539E91E4C014800EAD653 /* Sources */,
 				562539EA1E4C014800EAD653 /* Frameworks */,
 				562539EB1E4C014800EAD653 /* Resources */,
+				56253A2D1E4C017100EAD653 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				56253A281E4C017100EAD653 /* PBXTargetDependency */,
 			);
 			name = Transboard;
 			productName = Transboard;
@@ -181,6 +230,23 @@
 			productReference = 56253A0C1E4C014800EAD653 /* TransboardUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		56253A211E4C017100EAD653 /* Translate */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 56253A2A1E4C017100EAD653 /* Build configuration list for PBXNativeTarget "Translate" */;
+			buildPhases = (
+				56253A1E1E4C017100EAD653 /* Sources */,
+				56253A1F1E4C017100EAD653 /* Frameworks */,
+				56253A201E4C017100EAD653 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Translate;
+			productName = Translate;
+			productReference = 56253A221E4C017100EAD653 /* Translate.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -208,6 +274,11 @@
 						ProvisioningStyle = Automatic;
 						TestTargetID = 562539EC1E4C014800EAD653;
 					};
+					56253A211E4C017100EAD653 = {
+						CreatedOnToolsVersion = 8.3;
+						DevelopmentTeam = AEA87WCYYX;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = 562539E81E4C014800EAD653 /* Build configuration list for PBXProject "Transboard" */;
@@ -226,6 +297,7 @@
 				562539EC1E4C014800EAD653 /* Transboard */,
 				56253A001E4C014800EAD653 /* TransboardTests */,
 				56253A0B1E4C014800EAD653 /* TransboardUITests */,
+				56253A211E4C017100EAD653 /* Translate */,
 			);
 		};
 /* End PBXProject section */
@@ -252,6 +324,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		56253A201E4C017100EAD653 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				56253A2F1E4C026600EAD653 /* Keyboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,6 +363,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		56253A1E1E4C017100EAD653 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				56253A251E4C017100EAD653 /* KeyboardViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -295,6 +383,11 @@
 			isa = PBXTargetDependency;
 			target = 562539EC1E4C014800EAD653 /* Transboard */;
 			targetProxy = 56253A0D1E4C014800EAD653 /* PBXContainerItemProxy */;
+		};
+		56253A281E4C017100EAD653 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 56253A211E4C017100EAD653 /* Translate */;
+			targetProxy = 56253A271E4C017100EAD653 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -414,6 +507,7 @@
 		56253A161E4C014800EAD653 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = AEA87WCYYX;
 				INFOPLIST_FILE = Transboard/Info.plist;
@@ -427,6 +521,7 @@
 		56253A171E4C014800EAD653 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = AEA87WCYYX;
 				INFOPLIST_FILE = Transboard/Info.plist;
@@ -495,6 +590,34 @@
 			};
 			name = Release;
 		};
+		56253A2B1E4C017100EAD653 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = AEA87WCYYX;
+				INFOPLIST_FILE = Translate/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.omar.Transboard.Translate;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		56253A2C1E4C017100EAD653 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = AEA87WCYYX;
+				INFOPLIST_FILE = Translate/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.omar.Transboard.Translate;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -528,6 +651,14 @@
 			buildConfigurations = (
 				56253A1C1E4C014800EAD653 /* Debug */,
 				56253A1D1E4C014800EAD653 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		56253A2A1E4C017100EAD653 /* Build configuration list for PBXNativeTarget "Translate" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				56253A2B1E4C017100EAD653 /* Debug */,
+				56253A2C1E4C017100EAD653 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
