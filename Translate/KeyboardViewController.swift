@@ -35,6 +35,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     @IBOutlet var row2: UIView!
     @IBOutlet var row3: UIView!
     
+    @IBOutlet var pickerViewFrom: UIPickerView!
+    
     @IBAction func shiftKeyPressed(_ sender: UIButton) {
         
         self.shiftStatus = self.shiftStatus > 0 ? 0 : 1
@@ -96,13 +98,14 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
                 self.shouldRemoveConstraint = true
                 updateViewConstraints()
             }
-            updateViewConstraints()
         } else if (self.view.traitCollection.verticalSizeClass == UIUserInterfaceSizeClass.regular) {
+            print("else")
             if shouldRemoveConstraint {
                 self.expandedHeight = 250
                 self.shouldRemoveConstraint = true
                 updateViewConstraints()
             }
+            updateViewConstraints()
         }
     }
     
@@ -129,17 +132,24 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     // MARK: - Picker view data source
     
-    override func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         let arr = whichOne(0)
         return arr[row]
     }
     
-    override func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return langArr.count
     }
     
-    override func numberOfComponents(in pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+        let arr = whichOne(0)
+        fromButton.setTitle(arr[row], for: .normal)
+        
     }
     
     // MARK: - Functions
@@ -147,6 +157,9 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     func loadInterface() {
         
         self.shiftStatus = 1
+        
+        self.pickerViewFrom.delegate = self
+        self.pickerViewFrom.dataSource = self
         
         // spaceDoubleTap initializers
         let spaceDoubleTap = UITapGestureRecognizer(target: self, action: #selector(self.spaceKeyDoubleTapped(_:)))
