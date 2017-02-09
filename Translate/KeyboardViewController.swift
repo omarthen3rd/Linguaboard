@@ -11,12 +11,16 @@ import Alamofire
 
 class KeyboardViewController: UIInputViewController {
 
+    var langArr: [String : String] = ["fa": "Persian", "mg": "Malagasy", "ig": "Igbo", "pl": "Polish", "ro": "Romanian", "tl": "Filipino", "bn": "Bengali", "id": "Indonesian", "la": "Latin", "st": "Sesotho", "xh": "Xhosa", "sk": "Slovak", "da": "Danish", "lo": "Lao", "si": "Sinhala", "pt": "Portuguese", "bg": "Bulgarian", "tg": "Tajik", "gd": "Scots Gaelic", "te": "Telugu", "pa": "Punjabi", "ha": "Hausa", "ps": "Pashto", "ne": "Nepali", "sq": "Albanian", "et": "Estonian", "cy": "Welsh", "ms": "Malay", "bs": "Bosnian", "sw": "Swahili", "is": "Icelandic", "fi": "Finnish", "eo": "Esperanto", "sl": "Slovenian", "en": "English", "mi": "Maori", "es": "Spanish", "ny": "Chichewa", "km": "Khmer", "ja": "Japanese", "tr": "Turkish", "sd": "Sindhi", "kn": "Kannada", "az": "Azerbaijani", "kk": "Kazakh", "zh-TW": "Chinese (Traditional)", "no": "Norwegian", "fy": "Frisian", "uz": "Uzbek", "de": "German", "ko": "Korean", "lt": "Lithuanian", "ky": "Kyrgyz", "sm": "Samoan", "be": "Belarusian", "mn": "Mongolian", "ta": "Tamil", "eu": "Basque", "gu": "Gujarati", "gl": "Galician", "uk": "Ukrainian", "el": "Greek", "ml": "Malayalam", "vi": "Vietnamese", "mt": "Maltese", "it": "Italian", "so": "Somali", "ceb": "Cebuano", "hr": "Croatian", "lv": "Latvian", "zh": "Chinese (Simplified)", "ht": "Haitian Creole", "su": "Sundanese", "ur": "Urdu", "ca": "Catalan", "cs": "Czech", "sr": "Serbian", "my": "Myanmar (Burmese)", "am": "Amharic", "af": "Afrikaans", "hu": "Hungarian", "co": "Corsican", "lb": "Luxembourgish", "ru": "Russian", "mr": "Marathi", "ga": "Irish", "ku": "Kurdish (Kurmanji)", "hmn": "Hmong", "hy": "Armenian", "sn": "Shona", "sv": "Swedish", "th": "Thai", "ka": "Georgian", "jw": "Javanese", "mk": "Macedonian", "haw": "Hawaiian", "yo": "Yoruba", "zu": "Zulu", "nl": "Dutch", "yi": "Yiddish", "iw": "Hebrew", "hi": "Hindi", "ar": "Arabic", "fr": "French"]
+    
     var shiftStatus: Int! // 0: off, 1: on, 2: lock
     
     @IBOutlet var nextKeyboardButton: UIButton!
     @IBOutlet var shiftButton: UIButton!
     @IBOutlet var spaceButton: UIButton!
     @IBOutlet var translateButton: UIButton!
+    @IBOutlet var fromButton: UIButton!
+    @IBOutlet var toButton: UIButton!
     
     @IBOutlet var row1: UIView!
     @IBOutlet var row2: UIView!
@@ -122,6 +126,55 @@ class KeyboardViewController: UIInputViewController {
         self.translateButton.imageView?.contentMode = .scaleAspectFit
         
         self.nextKeyboardButton.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .allTouchEvents)
+        
+    }
+    
+    func translateCaller() {
+        
+        let inputText = (textDocumentProxy.documentContextBeforeInput ?? "") + (textDocumentProxy.documentContextAfterInput ?? "")
+        
+        var keyFrom = ""
+        var keyTo = ""
+        
+        var buttonFrom = ""
+        var buttonTo = ""
+        
+        buttonFrom = toButton.currentTitle!
+        buttonTo = toButton.currentTitle!
+        
+        let keyFromArr = (langArr as NSDictionary).allKeys(for: buttonFrom)
+        for key in keyFromArr {
+            keyFrom = key as! String
+        }
+        
+        let keyToArr = (langArr as NSDictionary).allKeys(for: buttonTo)
+        for key in keyToArr {
+            keyTo = key as! String
+        }
+        
+        googleTranslate(inputText, keyFrom, keyTo)
+        
+    }
+    
+    func googleTranslate(_ text: String, _ langFrom: String, _ langTo: String) {
+        
+        let spacelessString = text.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        
+        Alamofire.request("https://translation.googleapis.com/language/translate/v2?key=AIzaSyAVrMMcGIKmC-PrPgQzTOGJGFIEc6MUTGw&source=\(langFrom)&target=\(langTo)&q=\(spacelessString!)").responseJSON { (Response) in
+            
+            if let value = Response.result.value {
+                
+                let json = JSON(value)
+                
+                for translation in json["data"]["translations"].arrayValue {
+                    
+                    let text = translation["translatedText"].stringValue
+                    print(text)
+                    
+                }
+            }
+            
+        }
         
     }
     

@@ -566,12 +566,14 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="250"/>
                     <connections>
+                        <outlet property="fromButton" destination="xnj-9Q-XgR" id="1nn-89-xI9"/>
                         <outlet property="nextKeyboardButton" destination="BEL-X4-bfA" id="FVq-fw-avj"/>
                         <outlet property="row1" destination="lFF-bI-CmW" id="Ct7-Ar-n4M"/>
                         <outlet property="row2" destination="Xfh-Gq-rnk" id="geD-Uh-dUH"/>
                         <outlet property="row3" destination="fOe-tw-2jj" id="kzO-L9-Tae"/>
                         <outlet property="shiftButton" destination="hXY-jJ-TcQ" id="KTg-GG-y3i"/>
                         <outlet property="spaceButton" destination="GhG-s5-oQg" id="RKv-kL-oqs"/>
+                        <outlet property="toButton" destination="Mey-hc-NDv" id="lhe-hP-PPI"/>
                         <outlet property="translateButton" destination="BDh-Q3-3fV" id="4dh-lI-geU"/>
                     </connections>
                 </viewController>

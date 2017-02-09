@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3606464C831FF2FA3577046A /* Pods_Translate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C1B5C54F468754D73275DD2 /* Pods_Translate.framework */; };
+		560E9AFC1E4C294100A80C6C /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560E9AFB1E4C294100A80C6C /* SwiftyJSON.swift */; };
 		562539F11E4C014800EAD653 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562539F01E4C014800EAD653 /* AppDelegate.swift */; };
 		562539F31E4C014800EAD653 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562539F21E4C014800EAD653 /* ViewController.swift */; };
 		562539F61E4C014800EAD653 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 562539F41E4C014800EAD653 /* Main.storyboard */; };
@@ -62,6 +63,7 @@
 /* Begin PBXFileReference section */
 		077A9007618E6539E70D7975 /* Pods_Transboard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Transboard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2309305F3F45E9F2CF8C60F6 /* Pods-Transboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Transboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-Transboard/Pods-Transboard.release.xcconfig"; sourceTree = "<group>"; };
+		560E9AFB1E4C294100A80C6C /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		562539ED1E4C014800EAD653 /* Transboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Transboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		562539F01E4C014800EAD653 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		562539F21E4C014800EAD653 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 		56253A231E4C017100EAD653 /* Translate */ = {
 			isa = PBXGroup;
 			children = (
+				560E9AFB1E4C294100A80C6C /* SwiftyJSON.swift */,
 				56253A241E4C017100EAD653 /* KeyboardViewController.swift */,
 				56253A2E1E4C026600EAD653 /* Keyboard.storyboard */,
 				56253A261E4C017100EAD653 /* Info.plist */,
@@ -483,6 +486,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				56253A251E4C017100EAD653 /* KeyboardViewController.swift in Sources */,
+				560E9AFC1E4C294100A80C6C /* SwiftyJSON.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
