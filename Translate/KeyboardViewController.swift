@@ -16,12 +16,17 @@ class KeyboardViewController: UIInputViewController {
     @IBOutlet var shiftButton: UIButton!
     @IBOutlet var spaceButton: UIButton!
     
+    @IBOutlet var row1: UIView!
+    @IBOutlet var row2: UIView!
+    @IBOutlet var row3: UIView!
+    
     @IBAction func shiftKeyPressed(_ sender: UIButton) {
         
         self.shiftStatus = self.shiftStatus > 0 ? 0 : 1
         
-        self.shiftKeys()
-        
+        self.shiftKeys(row1)
+        self.shiftKeys(row2)
+        self.shiftKeys(row3)
         
     }
     
@@ -32,7 +37,6 @@ class KeyboardViewController: UIInputViewController {
         if shiftStatus == 1 {
             self.shiftKeyPressed(self.shiftButton)
         }
-        
         
     }
     
@@ -82,10 +86,37 @@ class KeyboardViewController: UIInputViewController {
         
         self.shiftStatus = 1
         
-        // initializers
-        let spaceDoubleTap = UITapGestureRecognizer(target: <#T##Any?#>, action: <#T##Selector?#>)
+        // spaceDoubleTap initializers
+        let spaceDoubleTap = UITapGestureRecognizer(target: self, action: #selector(self.spaceKeyDoubleTapped(_:)))
+        spaceDoubleTap.numberOfTapsRequired = 2
+        spaceDoubleTap.delaysTouchesEnded = false
+        self.spaceButton.addGestureRecognizer(spaceDoubleTap)
+        
+        // shift key double and triple hold
+        let shiftDoubleTap = UITapGestureRecognizer(target: self, action: #selector(self.shiftKeyDoubleTapped(_:)))
+        let shiftTripleTap = UITapGestureRecognizer(target: self, action: #selector(self.shiftKeyPressed(_:)))
+        
+        shiftDoubleTap.numberOfTapsRequired = 2
+        shiftTripleTap.numberOfTapsRequired = 3
+        
+        shiftDoubleTap.delaysTouchesEnded = false
+        shiftTripleTap.delaysTouchesEnded = false
+        
+        self.shiftButton.addGestureRecognizer(shiftDoubleTap)
+        self.shiftButton.addGestureRecognizer(shiftTripleTap)
         
         self.nextKeyboardButton.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .allTouchEvents)
+        
+    }
+    
+    func spaceKeyDoubleTapped(_ sender: UIButton) {
+        
+        self.textDocumentProxy.deleteBackward()
+        self.textDocumentProxy.insertText(". ")
+        
+        if shiftStatus == 0 {
+            self.shiftKeyPressed(self.shiftButton)
+        }
         
     }
     
@@ -93,19 +124,35 @@ class KeyboardViewController: UIInputViewController {
         
         self.shiftStatus = 2
         
-        self.shiftKeys()
+        self.shiftKeys(row1)
+        self.shiftKeys(row2)
+        self.shiftKeys(row3)
         
     }
     
-    func shiftKeys() {
+    func shiftKeys(_ containerView: UIView) {
         
         if shiftStatus == 0 {
             
-            
+            for view in containerView.subviews {
+                if let button = view as? UIButton {
+                    let buttonTitle = button.titleLabel?.text!
+                    let text = buttonTitle?.lowercased()
+                    button.setTitle("\(text!)", for: .normal)
+                    button.titleLabel?.font = UIFont.systemFont(ofSize: 20)
+                }
+            }
             
         } else {
             
-            
+            for view in containerView.subviews {
+                if let button = view as? UIButton {
+                    let buttonTitle = button.titleLabel?.text!
+                    let text = buttonTitle?.uppercased()
+                    button.setTitle("\(text!)", for: .normal)
+                    button.titleLabel?.font = UIFont.systemFont(ofSize: 20)
+                }
+            }
             
         }
         
