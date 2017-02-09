@@ -15,6 +15,7 @@ class KeyboardViewController: UIInputViewController {
     @IBOutlet var nextKeyboardButton: UIButton!
     @IBOutlet var shiftButton: UIButton!
     @IBOutlet var spaceButton: UIButton!
+    @IBOutlet var translateButton: UIButton!
     
     @IBOutlet var row1: UIView!
     @IBOutlet var row2: UIView!
@@ -105,6 +106,14 @@ class KeyboardViewController: UIInputViewController {
         self.shiftButton.addGestureRecognizer(shiftDoubleTap)
         self.shiftButton.addGestureRecognizer(shiftTripleTap)
         
+        // button ui
+        let image = UIImage(named: "translate")?.withRenderingMode(.alwaysTemplate)
+        let image2 = UIImage(named: "translate_selected")?.withRenderingMode(.alwaysTemplate)
+        self.translateButton.setImage(image, for: .normal)
+        self.translateButton.setImage(image2, for: .highlighted)
+        self.translateButton.tintColor = UIColor.white
+        self.translateButton.imageView?.contentMode = .scaleAspectFit
+        
         self.nextKeyboardButton.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .allTouchEvents)
         
     }
@@ -153,7 +162,6 @@ class KeyboardViewController: UIInputViewController {
                     button.titleLabel?.font = UIFont.systemFont(ofSize: 20)
                 }
             }
-            
         }
         
     }
