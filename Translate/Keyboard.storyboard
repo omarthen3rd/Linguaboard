@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16E154a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="cjp-66-VOW">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12100" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="cjp-66-VOW">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12072"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -47,10 +47,10 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BDh-Q3-3fV">
-                                        <rect key="frame" x="320" y="0.0" width="55" height="50"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BDh-Q3-3fV">
+                                        <rect key="frame" x="320" y="0.5" width="55" height="50"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" image="translate"/>
                                         <state key="highlighted" image="translate_selected"/>
                                     </button>
                                 </subviews>
@@ -355,12 +355,11 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fOe-tw-2jj">
                                 <rect key="frame" x="0.0" y="150" width="375" height="50"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hXY-jJ-TcQ">
-                                        <rect key="frame" x="0.0" y="0.0" width="55" height="50"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="up">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hXY-jJ-TcQ">
+                                        <rect key="frame" x="0.0" y="0.0" width="56" height="50"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" image="shift"/>
+                                        <state key="highlighted" image="shift_selected"/>
                                         <connections>
                                             <action selector="shiftKeyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="D6L-40-Nwx"/>
                                         </connections>
@@ -435,12 +434,11 @@
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="8LM-qd-aDk"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IFK-9u-PrL">
-                                        <rect key="frame" x="320" y="0.0" width="55" height="50"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="bk">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IFK-9u-PrL">
+                                        <rect key="frame" x="319" y="0.5" width="56" height="50"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" image="bk"/>
+                                        <state key="highlighted" image="bk_selected"/>
                                         <connections>
                                             <action selector="backSpaceButton:" destination="cjp-66-VOW" eventType="touchUpInside" id="rIE-MY-hVx"/>
                                         </connections>
@@ -584,6 +582,32 @@
                         <outlet property="spaceButton" destination="GhG-s5-oQg" id="RKv-kL-oqs"/>
                         <outlet property="toButton" destination="Mey-hc-NDv" id="lhe-hP-PPI"/>
                         <outlet property="translateButton" destination="BDh-Q3-3fV" id="4dh-lI-geU"/>
+                        <outletCollection property="keyCollection" destination="iOk-NJ-t0m" collectionClass="NSMutableArray" id="kYW-wx-GpM"/>
+                        <outletCollection property="keyCollection" destination="xTF-cx-jWT" collectionClass="NSMutableArray" id="RR3-Dp-dA5"/>
+                        <outletCollection property="keyCollection" destination="v2v-D5-ooA" collectionClass="NSMutableArray" id="BVO-f6-l0r"/>
+                        <outletCollection property="keyCollection" destination="yzY-vo-FNG" collectionClass="NSMutableArray" id="Bvl-Gd-r1s"/>
+                        <outletCollection property="keyCollection" destination="MRh-e0-qID" collectionClass="NSMutableArray" id="8LN-fT-vX1"/>
+                        <outletCollection property="keyCollection" destination="6JN-EN-XAI" collectionClass="NSMutableArray" id="tNl-Q9-vbv"/>
+                        <outletCollection property="keyCollection" destination="fWJ-cL-NjA" collectionClass="NSMutableArray" id="UzP-9L-f1g"/>
+                        <outletCollection property="keyCollection" destination="4DO-0m-3L2" collectionClass="NSMutableArray" id="xrb-Bi-VIA"/>
+                        <outletCollection property="keyCollection" destination="ldp-6Z-NaE" collectionClass="NSMutableArray" id="FfD-an-4Us"/>
+                        <outletCollection property="keyCollection" destination="blM-pR-a2J" collectionClass="NSMutableArray" id="eAe-EE-dNd"/>
+                        <outletCollection property="keyCollection" destination="JC8-Aw-oJj" collectionClass="NSMutableArray" id="TFl-8X-7f5"/>
+                        <outletCollection property="keyCollection" destination="Yws-Rv-i7u" collectionClass="NSMutableArray" id="Vbd-zt-y73"/>
+                        <outletCollection property="keyCollection" destination="kn3-rC-TNa" collectionClass="NSMutableArray" id="RcB-MM-M9a"/>
+                        <outletCollection property="keyCollection" destination="pci-Wb-omz" collectionClass="NSMutableArray" id="3kP-Ib-rK1"/>
+                        <outletCollection property="keyCollection" destination="let-PN-mof" collectionClass="NSMutableArray" id="yiA-AB-IRl"/>
+                        <outletCollection property="keyCollection" destination="Elb-Ph-3ha" collectionClass="NSMutableArray" id="c0j-Fg-RcT"/>
+                        <outletCollection property="keyCollection" destination="hql-dR-tYY" collectionClass="NSMutableArray" id="a0A-Md-07Q"/>
+                        <outletCollection property="keyCollection" destination="S3B-rt-4qn" collectionClass="NSMutableArray" id="QZT-cP-fmd"/>
+                        <outletCollection property="keyCollection" destination="7me-PZ-2db" collectionClass="NSMutableArray" id="azT-V9-oib"/>
+                        <outletCollection property="keyCollection" destination="soJ-oY-YUt" collectionClass="NSMutableArray" id="DFa-wR-n76"/>
+                        <outletCollection property="keyCollection" destination="Ri2-cP-tWF" collectionClass="NSMutableArray" id="Tnx-Oh-hbg"/>
+                        <outletCollection property="keyCollection" destination="cRU-EY-Nqy" collectionClass="NSMutableArray" id="xw5-RI-FTk"/>
+                        <outletCollection property="keyCollection" destination="6ga-da-KgQ" collectionClass="NSMutableArray" id="heM-ap-z1Y"/>
+                        <outletCollection property="keyCollection" destination="kb7-fZ-olG" collectionClass="NSMutableArray" id="MS6-QJ-lPS"/>
+                        <outletCollection property="keyCollection" destination="VFy-F7-0Mx" collectionClass="NSMutableArray" id="cVW-Rc-I7D"/>
+                        <outletCollection property="keyCollection" destination="Umt-h8-rtM" collectionClass="NSMutableArray" id="VaM-d8-AS6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4TV-qd-Y7S" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -592,6 +616,11 @@
         </scene>
     </scenes>
     <resources>
-        <image name="translate_selected" width="92" height="92"/>
+        <image name="bk" width="35" height="35"/>
+        <image name="bk_selected" width="35" height="35"/>
+        <image name="shift" width="35" height="35"/>
+        <image name="shift_selected" width="35" height="35"/>
+        <image name="translate" width="35" height="35"/>
+        <image name="translate_selected" width="35" height="35"/>
     </resources>
 </document>

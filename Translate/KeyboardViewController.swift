@@ -17,13 +17,14 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     var shiftStatus: Int! // 0: off, 1: on, 2: lock
     var expandedHeight: CGFloat = 250
-    var heightConstraint = NSLayoutConstraint()
+    var heightConstraint: NSLayoutConstraint!
     var shouldRemoveConstraint = false
     var didOpenPicker1 = false
     var didOpenPicker2 = false
     
     // MARK: - IBActions and IBOutlets
     
+    @IBOutlet var keyCollection: [UIButton]!
     @IBOutlet var nextKeyboardButton: UIButton!
     @IBOutlet var shiftButton: UIButton!
     @IBOutlet var spaceButton: UIButton!
@@ -77,38 +78,37 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     // MARK: - Default override functions
     
-    override func updateViewConstraints() {
-        super.updateViewConstraints()
-                
-        loadBoardHeight(expandedHeight, shouldRemoveConstraint)
-        
-    }
-    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         if (self.view.traitCollection.verticalSizeClass == UIUserInterfaceSizeClass.compact) {
             if !shouldRemoveConstraint {
                 print("if")
-                self.expandedHeight = 195
-                self.shouldRemoveConstraint = false
-                updateViewConstraints()
+                self.expandedHeight = 200
+                self.updateViewConstraints()
                 self.shouldRemoveConstraint = true
             } else {
-                self.expandedHeight = 195
+                print("else")
+                self.expandedHeight = 200
+                self.updateViewConstraints()
                 self.shouldRemoveConstraint = true
-                updateViewConstraints()
             }
         } else if (self.view.traitCollection.verticalSizeClass == UIUserInterfaceSizeClass.regular) {
-            print("else")
             if shouldRemoveConstraint {
+                print("ran this")
                 self.expandedHeight = 250
+                self.updateViewConstraints()
                 self.shouldRemoveConstraint = true
-                updateViewConstraints()
             }
-            updateViewConstraints()
         }
+
     }
     
+    override func updateViewConstraints() {
+        super.updateViewConstraints()
+
+        loadBoardHeight(expandedHeight, shouldRemoveConstraint)
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
                 
@@ -181,12 +181,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.shiftButton.addGestureRecognizer(shiftTripleTap)
         
         // button ui
-        let image = UIImage(named: "translate")?.withRenderingMode(.alwaysTemplate)
-        let image2 = UIImage(named: "translate_selected")?.withRenderingMode(.alwaysTemplate)
-        self.translateButton.setImage(image, for: .normal)
-        self.translateButton.setImage(image2, for: .highlighted)
-        self.translateButton.tintColor = UIColor.white
-        self.translateButton.imageView?.contentMode = .scaleAspectFit
+        // self.translateButton.imageView?.contentMode = .scaleAspectFit
         
         self.nextKeyboardButton.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .allTouchEvents)
         
@@ -196,11 +191,13 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         if !removeOld {
             heightConstraint = NSLayoutConstraint(item: self.view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 0.0, constant: expanded)
-            self.inputView?.addConstraint(heightConstraint)
+            self.heightConstraint.priority = UILayoutPriorityDefaultHigh
+            self.view?.addConstraint(heightConstraint)
         } else if removeOld {
             self.inputView?.removeConstraint(heightConstraint)
             heightConstraint = NSLayoutConstraint(item: self.view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 0.0, constant: expanded)
-            self.inputView?.addConstraint(heightConstraint)
+            self.heightConstraint.priority = UILayoutPriorityDefaultHigh
+            self.view?.addConstraint(heightConstraint)
         }
         
     }
