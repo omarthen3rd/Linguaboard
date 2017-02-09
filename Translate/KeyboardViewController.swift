@@ -9,14 +9,20 @@
 import UIKit
 import Alamofire
 
-class KeyboardViewController: UIInputViewController {
+class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
+    // MARK: - Variables declaration
+    
     var langArr: [String : String] = ["fa": "Persian", "mg": "Malagasy", "ig": "Igbo", "pl": "Polish", "ro": "Romanian", "tl": "Filipino", "bn": "Bengali", "id": "Indonesian", "la": "Latin", "st": "Sesotho", "xh": "Xhosa", "sk": "Slovak", "da": "Danish", "lo": "Lao", "si": "Sinhala", "pt": "Portuguese", "bg": "Bulgarian", "tg": "Tajik", "gd": "Scots Gaelic", "te": "Telugu", "pa": "Punjabi", "ha": "Hausa", "ps": "Pashto", "ne": "Nepali", "sq": "Albanian", "et": "Estonian", "cy": "Welsh", "ms": "Malay", "bs": "Bosnian", "sw": "Swahili", "is": "Icelandic", "fi": "Finnish", "eo": "Esperanto", "sl": "Slovenian", "en": "English", "mi": "Maori", "es": "Spanish", "ny": "Chichewa", "km": "Khmer", "ja": "Japanese", "tr": "Turkish", "sd": "Sindhi", "kn": "Kannada", "az": "Azerbaijani", "kk": "Kazakh", "zh-TW": "Chinese (Traditional)", "no": "Norwegian", "fy": "Frisian", "uz": "Uzbek", "de": "German", "ko": "Korean", "lt": "Lithuanian", "ky": "Kyrgyz", "sm": "Samoan", "be": "Belarusian", "mn": "Mongolian", "ta": "Tamil", "eu": "Basque", "gu": "Gujarati", "gl": "Galician", "uk": "Ukrainian", "el": "Greek", "ml": "Malayalam", "vi": "Vietnamese", "mt": "Maltese", "it": "Italian", "so": "Somali", "ceb": "Cebuano", "hr": "Croatian", "lv": "Latvian", "zh": "Chinese (Simplified)", "ht": "Haitian Creole", "su": "Sundanese", "ur": "Urdu", "ca": "Catalan", "cs": "Czech", "sr": "Serbian", "my": "Myanmar (Burmese)", "am": "Amharic", "af": "Afrikaans", "hu": "Hungarian", "co": "Corsican", "lb": "Luxembourgish", "ru": "Russian", "mr": "Marathi", "ga": "Irish", "ku": "Kurdish (Kurmanji)", "hmn": "Hmong", "hy": "Armenian", "sn": "Shona", "sv": "Swedish", "th": "Thai", "ka": "Georgian", "jw": "Javanese", "mk": "Macedonian", "haw": "Hawaiian", "yo": "Yoruba", "zu": "Zulu", "nl": "Dutch", "yi": "Yiddish", "iw": "Hebrew", "hi": "Hindi", "ar": "Arabic", "fr": "French"]
     
     var shiftStatus: Int! // 0: off, 1: on, 2: lock
     var expandedHeight: CGFloat = 250
     var heightConstraint = NSLayoutConstraint()
     var shouldRemoveConstraint = false
+    var didOpenPicker1 = false
+    var didOpenPicker2 = false
+    
+    // MARK: - IBActions and IBOutlets
     
     @IBOutlet var nextKeyboardButton: UIButton!
     @IBOutlet var shiftButton: UIButton!
@@ -67,6 +73,8 @@ class KeyboardViewController: UIInputViewController {
         
     }
     
+    // MARK: - Default override functions
+    
     override func updateViewConstraints() {
         super.updateViewConstraints()
                 
@@ -97,7 +105,6 @@ class KeyboardViewController: UIInputViewController {
             }
         }
     }
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -119,6 +126,23 @@ class KeyboardViewController: UIInputViewController {
         // The app has just changed the document's contents, the document context has been updated.
         
     }
+    
+    // MARK: - Picker view data source
+    
+    override func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        let arr = whichOne(0)
+        return arr[row]
+    }
+    
+    override func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return langArr.count
+    }
+    
+    override func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    // MARK: - Functions
     
     func loadInterface() {
         
@@ -164,6 +188,32 @@ class KeyboardViewController: UIInputViewController {
             self.inputView?.removeConstraint(heightConstraint)
             heightConstraint = NSLayoutConstraint(item: self.view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 0.0, constant: expanded)
             self.inputView?.addConstraint(heightConstraint)
+        }
+        
+    }
+    
+    func deleteAllText() {
+        
+        if let text = self.textDocumentProxy.documentContextBeforeInput {
+            for _ in text.characters {
+                self.textDocumentProxy.deleteBackward()
+            }
+        }
+        
+    }
+    
+    func whichOne(_ int: Int) -> Array<String> {
+        
+        if int == 0 {
+            
+            let langNames = [String](langArr.values).sorted { $0.localizedCaseInsensitiveCompare($1) == ComparisonResult.orderedAscending }
+            return langNames
+            
+        } else {
+            
+            let langCodes = [String](langArr.keys).sorted { $0.localizedCaseInsensitiveCompare($1) == ComparisonResult.orderedAscending }
+            return langCodes
+            
         }
         
     }
