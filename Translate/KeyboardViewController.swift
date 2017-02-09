@@ -9,6 +9,20 @@
 import UIKit
 import Alamofire
 
+extension UIButton {
+    
+    func setBackgroundColor(color: UIColor, forState: UIControlState) {
+        
+        UIGraphicsBeginImageContext(CGSize(width: 1, height: 1))
+        UIGraphicsGetCurrentContext()!.setFillColor(color.cgColor)
+        UIGraphicsGetCurrentContext()!.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
+        let colorImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        self.setBackgroundImage(colorImage, for: forState)
+    }
+}
+
 class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
     // MARK: - Variables declaration
@@ -302,24 +316,14 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         if shiftStatus == 0 {
             
-            for view in containerView.subviews {
-                if let button = view as? UIButton {
-                    let buttonTitle = button.titleLabel?.text!
-                    let text = buttonTitle?.lowercased()
-                    button.setTitle("\(text!)", for: .normal)
-                    button.titleLabel?.font = UIFont.systemFont(ofSize: 20)
-                }
+            for letter in self.keyCollection {
+                letter.setTitle(letter.titleLabel?.text?.lowercased(), for: .normal)
             }
             
         } else {
             
-            for view in containerView.subviews {
-                if let button = view as? UIButton {
-                    let buttonTitle = button.titleLabel?.text!
-                    let text = buttonTitle?.uppercased()
-                    button.setTitle("\(text!)", for: .normal)
-                    button.titleLabel?.font = UIFont.systemFont(ofSize: 20)
-                }
+            for letter in self.keyCollection {
+                letter.setTitle(letter.titleLabel?.text?.uppercased(), for: .normal)
             }
         }
         
