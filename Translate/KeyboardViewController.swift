@@ -14,6 +14,9 @@ class KeyboardViewController: UIInputViewController {
     var langArr: [String : String] = ["fa": "Persian", "mg": "Malagasy", "ig": "Igbo", "pl": "Polish", "ro": "Romanian", "tl": "Filipino", "bn": "Bengali", "id": "Indonesian", "la": "Latin", "st": "Sesotho", "xh": "Xhosa", "sk": "Slovak", "da": "Danish", "lo": "Lao", "si": "Sinhala", "pt": "Portuguese", "bg": "Bulgarian", "tg": "Tajik", "gd": "Scots Gaelic", "te": "Telugu", "pa": "Punjabi", "ha": "Hausa", "ps": "Pashto", "ne": "Nepali", "sq": "Albanian", "et": "Estonian", "cy": "Welsh", "ms": "Malay", "bs": "Bosnian", "sw": "Swahili", "is": "Icelandic", "fi": "Finnish", "eo": "Esperanto", "sl": "Slovenian", "en": "English", "mi": "Maori", "es": "Spanish", "ny": "Chichewa", "km": "Khmer", "ja": "Japanese", "tr": "Turkish", "sd": "Sindhi", "kn": "Kannada", "az": "Azerbaijani", "kk": "Kazakh", "zh-TW": "Chinese (Traditional)", "no": "Norwegian", "fy": "Frisian", "uz": "Uzbek", "de": "German", "ko": "Korean", "lt": "Lithuanian", "ky": "Kyrgyz", "sm": "Samoan", "be": "Belarusian", "mn": "Mongolian", "ta": "Tamil", "eu": "Basque", "gu": "Gujarati", "gl": "Galician", "uk": "Ukrainian", "el": "Greek", "ml": "Malayalam", "vi": "Vietnamese", "mt": "Maltese", "it": "Italian", "so": "Somali", "ceb": "Cebuano", "hr": "Croatian", "lv": "Latvian", "zh": "Chinese (Simplified)", "ht": "Haitian Creole", "su": "Sundanese", "ur": "Urdu", "ca": "Catalan", "cs": "Czech", "sr": "Serbian", "my": "Myanmar (Burmese)", "am": "Amharic", "af": "Afrikaans", "hu": "Hungarian", "co": "Corsican", "lb": "Luxembourgish", "ru": "Russian", "mr": "Marathi", "ga": "Irish", "ku": "Kurdish (Kurmanji)", "hmn": "Hmong", "hy": "Armenian", "sn": "Shona", "sv": "Swedish", "th": "Thai", "ka": "Georgian", "jw": "Javanese", "mk": "Macedonian", "haw": "Hawaiian", "yo": "Yoruba", "zu": "Zulu", "nl": "Dutch", "yi": "Yiddish", "iw": "Hebrew", "hi": "Hindi", "ar": "Arabic", "fr": "French"]
     
     var shiftStatus: Int! // 0: off, 1: on, 2: lock
+    var expandedHeight: CGFloat = 250
+    var heightConstraint = NSLayoutConstraint()
+    var shouldRemoveConstraint = false
     
     @IBOutlet var nextKeyboardButton: UIButton!
     @IBOutlet var shiftButton: UIButton!
@@ -67,11 +70,34 @@ class KeyboardViewController: UIInputViewController {
     override func updateViewConstraints() {
         super.updateViewConstraints()
                 
-        let heightConstraint = NSLayoutConstraint(item: self.view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 0.0, constant: 250)
-        heightConstraint.priority = UILayoutPriorityDefaultHigh
-        self.view?.addConstraint(heightConstraint)
+        loadBoardHeight(expandedHeight, shouldRemoveConstraint)
         
     }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        if (self.view.traitCollection.verticalSizeClass == UIUserInterfaceSizeClass.compact) {
+            if !shouldRemoveConstraint {
+                print("if")
+                self.expandedHeight = 195
+                self.shouldRemoveConstraint = false
+                updateViewConstraints()
+                self.shouldRemoveConstraint = true
+            } else {
+                self.expandedHeight = 195
+                self.shouldRemoveConstraint = true
+                updateViewConstraints()
+            }
+            updateViewConstraints()
+        } else if (self.view.traitCollection.verticalSizeClass == UIUserInterfaceSizeClass.regular) {
+            if shouldRemoveConstraint {
+                self.expandedHeight = 250
+                self.shouldRemoveConstraint = true
+                updateViewConstraints()
+            }
+        }
+    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -126,6 +152,19 @@ class KeyboardViewController: UIInputViewController {
         self.translateButton.imageView?.contentMode = .scaleAspectFit
         
         self.nextKeyboardButton.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .allTouchEvents)
+        
+    }
+    
+    func loadBoardHeight(_ expanded: CGFloat, _ removeOld: Bool) {
+        
+        if !removeOld {
+            heightConstraint = NSLayoutConstraint(item: self.view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 0.0, constant: expanded)
+            self.inputView?.addConstraint(heightConstraint)
+        } else if removeOld {
+            self.inputView?.removeConstraint(heightConstraint)
+            heightConstraint = NSLayoutConstraint(item: self.view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 0.0, constant: expanded)
+            self.inputView?.addConstraint(heightConstraint)
+        }
         
     }
     
