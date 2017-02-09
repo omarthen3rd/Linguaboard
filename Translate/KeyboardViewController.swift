@@ -10,7 +10,7 @@ import UIKit
 
 class KeyboardViewController: UIInputViewController {
 
-    var shiftStatus: Int! // 0: off, 1: on, 2: caps-lock
+    var shiftStatus: Int! // 0: off, 1: on, 2: lock
     
     @IBOutlet var nextKeyboardButton: UIButton!
     @IBOutlet var shiftButton: UIButton!
@@ -44,6 +44,12 @@ class KeyboardViewController: UIInputViewController {
     @IBAction func returnKeyPressed(_ sender: UIButton) {
         
         self.textDocumentProxy.insertText("\n")
+        
+    }
+    
+    @IBAction func spaceKeyPressed(_ sender: UIButton) {
+        
+        self.textDocumentProxy.insertText(" ")
         
     }
     
