@@ -44,6 +44,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     @IBOutlet var shiftButton: UIButton!
     @IBOutlet var spaceButton: UIButton!
     @IBOutlet var backspaceButton: UIButton!
+    @IBOutlet var altBoard: UIButton!
 
     @IBOutlet var langSelectorView: UIView!
     @IBOutlet var fromButton: UIButton!
@@ -266,26 +267,31 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         // button ui
         
         for letter in self.allKeys {
-            // letter.layer.cornerRadius = 8
+            letter.layer.cornerRadius = 8
             letter.layer.masksToBounds = true
             letter.setBackgroundColor(color: UIColor.darkGray, forState: .highlighted)
         }
         
-        self.shiftButton.setImage(UIImage(named: "shift1")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        self.shiftButton.setImage(UIImage(named: "shift1_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
+        self.shiftButton.setImage(UIImage(named: "shift1"), for: .normal)
+        self.shiftButton.setImage(UIImage(named: "shift1_selected"), for: .highlighted)
         self.shiftButton.tintColor = UIColor.white
 
-        self.translateButton.setImage(UIImage(named: "translate")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        self.translateButton.setImage(UIImage(named: "translate_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
+        self.translateButton.setImage(UIImage(named: "translate"), for: .normal)
+        self.translateButton.setImage(UIImage(named: "translate_selected"), for: .highlighted)
         self.translateButton.tintColor = UIColor.white
         
-        self.backspaceButton.setImage(UIImage(named: "bk")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        self.backspaceButton.setImage(UIImage(named: "bk_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
+        self.backspaceButton.setImage(UIImage(named: "bk"), for: .normal)
+        self.backspaceButton.setImage(UIImage(named: "bk_selected"), for: .highlighted)
         self.backspaceButton.tintColor = UIColor.white
         
-        self.nextKeyboardButton.setImage(UIImage(named: "otherBoard")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        self.nextKeyboardButton.setImage(UIImage(named: "otherBoard_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
+        self.nextKeyboardButton.setImage(UIImage(named: "otherBoard"), for: .normal)
+        self.nextKeyboardButton.setImage(UIImage(named: "otherBoard_selected") , for: .highlighted)
         self.nextKeyboardButton.tintColor = UIColor.white
+        
+        self.altBoard.setImage(UIImage(named: "altBoard"), for: .normal)
+        self.altBoard.setImage(UIImage(named: "altBoard_selected"), for: .highlighted)
+        self.altBoard.tintColor = UIColor.white
+
         
         self.nextKeyboardButton.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .allTouchEvents)
         self.translateButton.addTarget(self, action: #selector(self.translateCaller), for: .touchUpInside)
@@ -439,6 +445,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.shiftButton.setImage(UIImage(named: shiftButtonImage), for: .normal)
         let shiftButtonSelected = "shift\(self.shiftStatus!)_selected"
         self.shiftButton.setImage(UIImage(named: shiftButtonSelected), for: .highlighted)
+        self.shiftButton.tintColor = UIColor.white
         
     }
     

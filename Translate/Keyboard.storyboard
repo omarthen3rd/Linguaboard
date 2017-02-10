@@ -510,7 +510,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mYU-BM-DgM">
                                         <rect key="frame" x="0.0" y="0.0" width="55" height="50"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="123">
+                                        <state key="normal">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
@@ -612,6 +612,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="250"/>
                     <connections>
+                        <outlet property="altBoard" destination="mYU-BM-DgM" id="lQJ-uB-5Ic"/>
                         <outlet property="backspaceButton" destination="IFK-9u-PrL" id="W3X-kY-JJH"/>
                         <outlet property="fromButton" destination="xnj-9Q-XgR" id="1nn-89-xI9"/>
                         <outlet property="hideView" destination="zWx-AH-STF" id="HTM-Tp-MAQ"/>
@@ -690,6 +691,8 @@
                         <outletCollection property="allKeys" destination="BEL-X4-bfA" collectionClass="NSMutableArray" id="aAs-S6-9Lh"/>
                         <outletCollection property="allKeys" destination="GhG-s5-oQg" collectionClass="NSMutableArray" id="rta-ga-Wlj"/>
                         <outletCollection property="allKeys" destination="rB8-wj-Im3" collectionClass="NSMutableArray" id="kMe-dA-VgF"/>
+                        <outletCollection property="allKeys" destination="nmy-pr-Z9Q" collectionClass="NSMutableArray" id="8kW-TI-NjR"/>
+                        <outletCollection property="allKeys" destination="zWx-AH-STF" collectionClass="NSMutableArray" id="tqd-75-jRm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4TV-qd-Y7S" userLabel="First Responder" sceneMemberID="firstResponder"/>
