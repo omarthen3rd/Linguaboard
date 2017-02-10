@@ -148,17 +148,24 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     // MARK: - Default override functions
     
+    override func updateViewConstraints() {
+        super.updateViewConstraints()
+        
+        loadBoardHeight(expandedHeight, shouldRemoveConstraint)
+        
+    }
+    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         if (self.view.traitCollection.verticalSizeClass == UIUserInterfaceSizeClass.compact) {
             if !shouldRemoveConstraint {
                 print("if")
-                self.expandedHeight = 200
+                self.expandedHeight = 180
                 self.updateViewConstraints()
                 self.shouldRemoveConstraint = true
             } else {
                 print("else")
-                self.expandedHeight = 200
+                self.expandedHeight = 180
                 self.updateViewConstraints()
                 self.shouldRemoveConstraint = true
             }
@@ -173,12 +180,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
 
     }
     
-    override func updateViewConstraints() {
-        super.updateViewConstraints()
-
-        loadBoardHeight(expandedHeight, shouldRemoveConstraint)
-        
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
                 
@@ -269,7 +270,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         for letter in self.allKeys {
             letter.layer.cornerRadius = 5
             letter.layer.masksToBounds = true
-            letter.backgroundColor = UIColor.black
+            letter.backgroundColor = UIColor.darkGray
             letter.setBackgroundColor(color: UIColor.darkGray, forState: .highlighted)
         }
         
@@ -304,10 +305,12 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     func loadBoardHeight(_ expanded: CGFloat, _ removeOld: Bool) {
         
         if !removeOld {
+            print("ran !removeOld")
             heightConstraint = NSLayoutConstraint(item: self.view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 0.0, constant: expanded)
             self.heightConstraint.priority = UILayoutPriorityDefaultHigh
             self.view?.addConstraint(heightConstraint)
         } else if removeOld {
+            print("ran removeOld")
             self.inputView?.removeConstraint(heightConstraint)
             heightConstraint = NSLayoutConstraint(item: self.view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 0.0, constant: expanded)
             self.heightConstraint.priority = UILayoutPriorityDefaultHigh
