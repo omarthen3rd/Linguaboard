@@ -267,8 +267,9 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         // button ui
         
         for letter in self.allKeys {
-            letter.layer.cornerRadius = 8
+            letter.layer.cornerRadius = 5
             letter.layer.masksToBounds = true
+            letter.backgroundColor = UIColor.black
             letter.setBackgroundColor(color: UIColor.darkGray, forState: .highlighted)
         }
         
@@ -429,7 +430,11 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     func shiftKeys(_ containerView: UIView) {
         
         if shiftStatus == 0 {
-            
+            let shiftButtonImage: String = "shift\(self.shiftStatus!)"
+            self.shiftButton.setImage(UIImage(named: shiftButtonImage), for: .normal)
+            let shiftButtonSelected = "shift\(self.shiftStatus!)_selected"
+            self.shiftButton.setImage(UIImage(named: shiftButtonSelected), for: .highlighted)
+
             for letter in self.keyCollection {
                 letter.setTitle(letter.titleLabel?.text?.lowercased(), for: .normal)
             }
@@ -442,8 +447,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         }
         
         let shiftButtonImage: String = "shift\(self.shiftStatus!)"
-        self.shiftButton.setImage(UIImage(named: shiftButtonImage), for: .normal)
         let shiftButtonSelected = "shift\(self.shiftStatus!)_selected"
+        self.shiftButton.setImage(UIImage(named: shiftButtonSelected), for: .normal)
         self.shiftButton.setImage(UIImage(named: shiftButtonSelected), for: .highlighted)
         self.shiftButton.tintColor = UIColor.white
         
