@@ -22,6 +22,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5BA-cI-ZKv">
+                                <rect key="frame" x="0.0" y="70" width="375" height="180"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.1247571244" green="0.1247571244" blue="0.1247571244" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="cjp-66-VOW" id="IQt-k2-het"/>
+                                    <outlet property="delegate" destination="cjp-66-VOW" id="gWI-ev-3vl"/>
+                                </connections>
+                            </pickerView>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rw4-V2-bSB">
+                                <rect key="frame" x="0.0" y="70" width="375" height="180"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.1247571244" green="0.1247571244" blue="0.1247571244" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </pickerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a1G-de-1eL">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                 <subviews>
@@ -939,7 +955,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N8B-kN-DzN">
                                         <rect key="frame" x="257" y="4" width="51" height="42"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title=",">
+                                        <state key="normal" title="T">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -970,22 +986,6 @@
                                     <constraint firstItem="GhG-s5-oQg" firstAttribute="height" secondItem="wkV-19-SIz" secondAttribute="height" constant="-8" id="yOk-pf-l2F"/>
                                 </constraints>
                             </view>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5BA-cI-ZKv">
-                                <rect key="frame" x="0.0" y="70" width="375" height="180"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.1247571244" green="0.1247571244" blue="0.1247571244" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="cjp-66-VOW" id="IQt-k2-het"/>
-                                    <outlet property="delegate" destination="cjp-66-VOW" id="gWI-ev-3vl"/>
-                                </connections>
-                            </pickerView>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rw4-V2-bSB">
-                                <rect key="frame" x="0.0" y="70" width="375" height="180"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.1247571244" green="0.1247571244" blue="0.1247571244" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" red="0.12475712435233166" green="0.12475712435233166" blue="0.12475712435233166" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>

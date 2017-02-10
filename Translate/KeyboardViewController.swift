@@ -106,7 +106,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     @IBAction func showPickerOne(_ button: UIButton) {
             
         if didOpenPicker1 == true {
-                
+            
+            self.toButton.layer.opacity = 0.2
             didOpenPicker1 = false
             pickerViewFrom.isHidden = false
             pickerViewTo.isHidden = true
@@ -115,7 +116,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.row3.isHidden = !didOpenPicker1
             
         } else {
-                
+            
+            self.toButton.layer.opacity = 1.0
             didOpenPicker1 = true
             pickerViewFrom.isHidden = true
             self.row1.isHidden = !didOpenPicker1
@@ -129,6 +131,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         if didOpenPicker2 == true {
             
+            self.fromButton.layer.opacity = 0.2
             didOpenPicker2 = false
             pickerViewTo.isHidden = false
             pickerViewFrom.isHidden = true
@@ -138,6 +141,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             
         } else {
             
+            self.fromButton.layer.opacity = 1.0
             didOpenPicker2 = true
             pickerViewTo.isHidden = true
             self.row1.isHidden = !didOpenPicker2
