@@ -242,7 +242,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         pickerViewTo.selectRow(26, inComponent: 0, animated: true)
         pickerViewTo.isHidden = true
         
-        translateShowView.isHidden = false
         numbersRow1.isHidden = true
         numbersRow2.isHidden = true
         symbolsNumbersRow3.isHidden = true
