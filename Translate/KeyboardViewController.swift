@@ -56,7 +56,9 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     @IBOutlet var hideView: UIButton!
     
     @IBOutlet var row1: UIView!
+    @IBOutlet var numbersRow1: UIView!
     @IBOutlet var row2: UIView!
+    @IBOutlet var numbersRow2: UIView!
     @IBOutlet var row3: UIView!
     
     @IBOutlet var pickerViewFrom: UIPickerView!
@@ -146,6 +148,36 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
     }
     
+    @IBAction func switchKeyBoardMode(_ button: UIButton) {
+        
+        self.numbersRow1.isHidden = true
+        self.numbersRow2.isHidden = true
+        
+        switch (button.tag) {
+            
+        case 1:
+            
+            self.row1.isHidden = true
+            self.row2.isHidden = true
+            self.numbersRow1.isHidden = false
+            self.numbersRow2.isHidden = false
+            
+            self.altBoard.setImage(UIImage(named: "altBoard"), for: .normal)
+            self.altBoard.setImage(UIImage(named: "altBoard_selected"), for: .highlighted)
+            self.altBoard.tag = 0
+            
+        default:
+            
+            self.row1.isHidden = false
+            self.row2.isHidden = false
+            self.altBoard.setImage(UIImage(named: "abcBoard"), for: .normal)
+            self.altBoard.setImage(UIImage(named: "abcBoard_selected"), for: .highlighted)
+            self.altBoard.tag = 1
+            
+        }
+        
+    }
+    
     // MARK: - Default override functions
     
     override func updateViewConstraints() {
@@ -203,6 +235,13 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     // MARK: - Picker view data source
     
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        let arr = whichOne(0)
+        let titleData = arr[row]
+        let myTitle = NSAttributedString(string: titleData, attributes: [NSForegroundColorAttributeName:UIColor.white])
+        return myTitle
+    }
+    
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         let arr = whichOne(0)
         return arr[row]
@@ -243,6 +282,9 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         pickerViewFrom.isHidden = true
         pickerViewTo.isHidden = true
         translateShowView.isHidden = true
+        numbersRow1.isHidden = true
+        numbersRow2.isHidden = true
+        self.altBoard.tag = 1
         
         // spaceDoubleTap initializers
         
@@ -271,7 +313,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             letter.layer.cornerRadius = 5
             letter.layer.masksToBounds = true
             letter.backgroundColor = UIColor.darkGray
-            letter.setBackgroundColor(color: UIColor.darkGray, forState: .highlighted)
+            letter.setBackgroundColor(color: UIColor(red:0.20, green:0.20, blue:0.20, alpha:1.0), forState: .highlighted)
         }
         
         self.shiftButton.setImage(UIImage(named: "shift1"), for: .normal)
@@ -294,7 +336,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.altBoard.setImage(UIImage(named: "altBoard_selected"), for: .highlighted)
         self.altBoard.tintColor = UIColor.white
 
-        
         self.nextKeyboardButton.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .allTouchEvents)
         self.translateButton.addTarget(self, action: #selector(self.translateCaller), for: .touchUpInside)
         self.sendToInput.addTarget(self, action: #selector(self.addToText), for: .touchUpInside)
