@@ -56,6 +56,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     @IBOutlet var numbersRow2: UIView!
     @IBOutlet var row3: UIView!
     @IBOutlet var symbolsNumbersRow3: UIView!
+    @IBOutlet var row4: UIView!
     
     @IBOutlet var pickerViewTo: UIPickerView!
     
@@ -101,6 +102,14 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         if didOpenPicker2 == true {
             
+            row4.subviews[0].isUserInteractionEnabled = false
+            row4.subviews[1].isUserInteractionEnabled = false
+            row4.subviews[2].isUserInteractionEnabled = false
+            row4.subviews[3].isUserInteractionEnabled = false
+            row4.subviews[0].layer.opacity = 0.3
+            row4.subviews[1].layer.opacity = 0.3
+            row4.subviews[2].layer.opacity = 0.3
+            row4.subviews[3].layer.opacity = 0.3
             didOpenPicker2 = false
             pickerViewTo.isHidden = false
             self.row1.isHidden = !didOpenPicker2
@@ -109,6 +118,14 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             
         } else {
             
+            row4.subviews[0].isUserInteractionEnabled = true
+            row4.subviews[1].isUserInteractionEnabled = true
+            row4.subviews[2].isUserInteractionEnabled = true
+            row4.subviews[3].isUserInteractionEnabled = true
+            row4.subviews[0].layer.opacity = 1
+            row4.subviews[1].layer.opacity = 1
+            row4.subviews[2].layer.opacity = 1
+            row4.subviews[3].layer.opacity = 1
             didOpenPicker2 = true
             pickerViewTo.isHidden = true
             self.row1.isHidden = !didOpenPicker2
@@ -228,7 +245,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         let arr = whichOne(0)
         self.selectedLanguage = arr[row]
-        
+        self.sendToInput.setTitle("Translating to: \(self.selectedLanguage)", for: .normal)
     }
     
     // MARK: - Functions
@@ -275,7 +292,20 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             letter.layer.masksToBounds = true
             letter.backgroundColor = UIColor.darkGray
             letter.setBackgroundColor(color: UIColor(red:0.20, green:0.20, blue:0.20, alpha:1.0), forState: .highlighted)
+            if letter == sendToInput {
+                letter.setTitle("Translating to: \(self.selectedLanguage)", for: .normal)
+                letter.layer.cornerRadius = 20
+                letter.layer.borderWidth = 1.5
+                letter.layer.borderColor = UIColor.darkGray.cgColor
+                letter.backgroundColor = UIColor.clear
+                letter.setBackgroundColor(color: UIColor.clear, forState: .highlighted)
+            } else if letter == hideView {
+                letter.layer.cornerRadius = 20
+            }
         }
+        
+        self.sendToInput.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+        self.sendToInput.titleLabel?.layer.opacity = 0.7
         
         self.shiftButton.setImage(UIImage(named: "shift1"), for: .normal)
         self.shiftButton.setImage(UIImage(named: "shift1_selected"), for: .highlighted)
@@ -298,7 +328,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.altBoard.tintColor = UIColor.white
 
         self.nextKeyboardButton.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .allTouchEvents)
-        self.hideView.addTarget(self, action: #selector(self.addToText), for: .touchUpInside)
+        self.hideView.addTarget(self, action: #selector(self.translateCaller), for: .touchUpInside)
         
     }
     
@@ -349,6 +379,9 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         deleteAllText()
         self.textDocumentProxy.insertText(self.sendToInput.currentTitle!)
+        self.sendToInput.setTitle("Translating to: \(self.selectedLanguage)", for: .normal)
+        self.hideView.removeTarget(self, action: #selector(self.addToText), for: .touchUpInside)
+        self.hideView.addTarget(self, action: #selector(self.translateCaller), for: .touchUpInside)
         
     }
     
@@ -364,7 +397,19 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         }
         
         googleTranslate(inputText, "en", keyTo)
-                
+        
+        if (hideView.actions(forTarget: self, forControlEvent: .touchUpInside)!.contains("addToText")) {
+            
+            self.hideView.removeTarget(self, action: #selector(self.addToText), for: .touchUpInside)
+            
+        } else {
+            
+            self.hideView.removeTarget(self, action: #selector(self.translateCaller), for: .touchUpInside)
+            self.hideView.addTarget(self, action: #selector(self.addToText), for: .touchUpInside)
+            
+            
+        }
+        
     }
     
     func googleTranslate(_ text: String, _ langFrom: String, _ langTo: String) {
@@ -430,7 +475,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         let shiftButtonImage: String = "shift\(self.shiftStatus!)"
         let shiftButtonSelected = "shift\(self.shiftStatus!)_selected"
-        self.shiftButton.setImage(UIImage(named: shiftButtonSelected), for: .normal)
+        self.shiftButton.setImage(UIImage(named: shiftButtonImage), for: .normal)
         self.shiftButton.setImage(UIImage(named: shiftButtonSelected), for: .highlighted)
         self.shiftButton.tintColor = UIColor.white
         

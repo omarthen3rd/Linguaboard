@@ -38,6 +38,11 @@
                                         <state key="normal">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="20"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </button>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zWx-AH-STF">
                                         <rect key="frame" x="328" y="4" width="43.5" height="42"/>
@@ -984,6 +989,7 @@
                         <outlet property="row1" destination="lFF-bI-CmW" id="Ct7-Ar-n4M"/>
                         <outlet property="row2" destination="Xfh-Gq-rnk" id="geD-Uh-dUH"/>
                         <outlet property="row3" destination="fOe-tw-2jj" id="kzO-L9-Tae"/>
+                        <outlet property="row4" destination="wkV-19-SIz" id="kfL-03-0rv"/>
                         <outlet property="sendToInput" destination="nmy-pr-Z9Q" id="UlJ-Es-xmU"/>
                         <outlet property="shiftButton" destination="hXY-jJ-TcQ" id="KTg-GG-y3i"/>
                         <outlet property="spaceButton" destination="GhG-s5-oQg" id="RKv-kL-oqs"/>
