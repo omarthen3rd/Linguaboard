@@ -33,8 +33,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     var expandedHeight: CGFloat = 250
     var heightConstraint: NSLayoutConstraint!
     var shouldRemoveConstraint = false
-    var didOpenPicker1 = false
-    var didOpenPicker2 = false
+    var didOpenPicker1 = true
+    var didOpenPicker2 = true
     
     // MARK: - IBActions and IBOutlets
     
@@ -43,10 +43,16 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     @IBOutlet var nextKeyboardButton: UIButton!
     @IBOutlet var shiftButton: UIButton!
     @IBOutlet var spaceButton: UIButton!
-    @IBOutlet var translateButton: UIButton!
     @IBOutlet var backspaceButton: UIButton!
+
+    @IBOutlet var langSelectorView: UIView!
     @IBOutlet var fromButton: UIButton!
     @IBOutlet var toButton: UIButton!
+    @IBOutlet var translateButton: UIButton!
+
+    @IBOutlet var translateShowView: UIView!
+    @IBOutlet var sendToInput: UIButton!
+    @IBOutlet var hideView: UIButton!
     
     @IBOutlet var row1: UIView!
     @IBOutlet var row2: UIView!
@@ -113,6 +119,30 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.row3.isHidden = !didOpenPicker1
         }
             
+    }
+    
+    @IBAction func showPickerTwo(_ button: UIButton) {
+        
+        if didOpenPicker2 == true {
+            
+            didOpenPicker2 = false
+            pickerViewTo.isHidden = false
+            pickerViewFrom.isHidden = true
+            self.row1.isHidden = !didOpenPicker2
+            self.row2.isHidden = !didOpenPicker2
+            self.row3.isHidden = !didOpenPicker2
+            
+        } else {
+            
+            didOpenPicker2 = true
+            pickerViewTo.isHidden = true
+            self.row1.isHidden = !didOpenPicker2
+            self.row2.isHidden = !didOpenPicker2
+            self.row3.isHidden = !didOpenPicker2
+            
+        }
+
+        
     }
     
     // MARK: - Default override functions
@@ -208,13 +238,19 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         pickerViewFrom.selectRow(21, inComponent: 0, animated: true)
         pickerViewTo.selectRow(26, inComponent: 0, animated: true)
         
+        pickerViewFrom.isHidden = true
+        pickerViewTo.isHidden = true
+        translateShowView.isHidden = true
+        
         // spaceDoubleTap initializers
+        
         let spaceDoubleTap = UITapGestureRecognizer(target: self, action: #selector(self.spaceKeyDoubleTapped(_:)))
         spaceDoubleTap.numberOfTapsRequired = 2
         spaceDoubleTap.delaysTouchesEnded = false
         self.spaceButton.addGestureRecognizer(spaceDoubleTap)
         
         // shift key double and triple hold
+        
         let shiftDoubleTap = UITapGestureRecognizer(target: self, action: #selector(self.shiftKeyDoubleTapped(_:)))
         let shiftTripleTap = UITapGestureRecognizer(target: self, action: #selector(self.shiftKeyPressed(_:)))
         
@@ -228,6 +264,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.shiftButton.addGestureRecognizer(shiftTripleTap)
         
         // button ui
+        
         for letter in self.allKeys {
             // letter.layer.cornerRadius = 8
             letter.layer.masksToBounds = true
@@ -251,6 +288,9 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.nextKeyboardButton.tintColor = UIColor.white
         
         self.nextKeyboardButton.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .allTouchEvents)
+        self.translateButton.addTarget(self, action: #selector(self.translateCaller), for: .touchUpInside)
+        self.sendToInput.addTarget(self, action: #selector(self.addToText), for: .touchUpInside)
+        self.hideView.addTarget(self, action: #selector(self.hideTranslateView), for: .touchUpInside)
         
     }
     
@@ -265,16 +305,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             heightConstraint = NSLayoutConstraint(item: self.view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 0.0, constant: expanded)
             self.heightConstraint.priority = UILayoutPriorityDefaultHigh
             self.view?.addConstraint(heightConstraint)
-        }
-        
-    }
-    
-    func deleteAllText() {
-        
-        if let text = self.textDocumentProxy.documentContextBeforeInput {
-            for _ in text.characters {
-                self.textDocumentProxy.deleteBackward()
-            }
         }
         
     }
@@ -295,6 +325,31 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
     }
     
+    func hideTranslateView() {
+        
+        self.langSelectorView.isHidden = false
+        self.translateShowView.isHidden = true
+        
+    }
+    
+    
+    func deleteAllText() {
+        
+        if let text = self.textDocumentProxy.documentContextBeforeInput {
+            for _ in text.characters {
+                self.textDocumentProxy.deleteBackward()
+            }
+        }
+        
+    }
+    
+    func addToText() {
+        
+        deleteAllText()
+        self.textDocumentProxy.insertText(self.sendToInput.currentTitle!)
+        
+    }
+    
     func translateCaller() {
         
         let inputText = (textDocumentProxy.documentContextBeforeInput ?? "") + (textDocumentProxy.documentContextAfterInput ?? "")
@@ -302,11 +357,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         var keyFrom = ""
         var keyTo = ""
         
-        var buttonFrom = ""
-        var buttonTo = ""
-        
-        buttonFrom = toButton.currentTitle!
-        buttonTo = toButton.currentTitle!
+        let buttonFrom = fromButton.currentTitle
+        let buttonTo = toButton.currentTitle!
         
         let keyFromArr = (langArr as NSDictionary).allKeys(for: buttonFrom)
         for key in keyFromArr {
@@ -319,6 +371,9 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         }
         
         googleTranslate(inputText, keyFrom, keyTo)
+        
+        self.langSelectorView.isHidden = true
+        self.translateShowView.isHidden = false
         
     }
     
@@ -335,7 +390,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
                 for translation in json["data"]["translations"].arrayValue {
                     
                     let text = translation["translatedText"].stringValue
-                    print(text)
+                    self.sendToInput.setTitle(text, for: .normal)
                     
                 }
             }
@@ -380,9 +435,9 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             }
         }
         
-        let shiftButtonImage = "shift\(self.shiftStatus))"
+        let shiftButtonImage: String = "shift\(self.shiftStatus!)"
         self.shiftButton.setImage(UIImage(named: shiftButtonImage), for: .normal)
-        let shiftButtonSelected = "shift\(self.shiftStatus)_selected"
+        let shiftButtonSelected = "shift\(self.shiftStatus!)_selected"
         self.shiftButton.setImage(UIImage(named: shiftButtonSelected), for: .highlighted)
         
     }

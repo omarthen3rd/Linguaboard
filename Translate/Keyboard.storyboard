@@ -28,16 +28,22 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xnj-9Q-XgR">
                                         <rect key="frame" x="0.0" y="0.0" width="160" height="50"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="lang_from">
+                                        <state key="normal" title="English">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="showPickerOne:" destination="cjp-66-VOW" eventType="touchUpInside" id="gid-vZ-cOu"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mey-hc-NDv">
                                         <rect key="frame" x="160" y="0.0" width="160" height="50"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="lang_to">
+                                        <state key="normal" title="French">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="showPickerTwo:" destination="cjp-66-VOW" eventType="touchUpInside" id="3hx-MS-mab"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BDh-Q3-3fV">
                                         <rect key="frame" x="320" y="0.5" width="55" height="50"/>
@@ -58,6 +64,34 @@
                                     <constraint firstItem="xnj-9Q-XgR" firstAttribute="centerY" secondItem="Mey-hc-NDv" secondAttribute="centerY" id="veI-TL-mtM"/>
                                     <constraint firstItem="xnj-9Q-XgR" firstAttribute="height" secondItem="Mey-hc-NDv" secondAttribute="height" id="wqM-zQ-FWe"/>
                                     <constraint firstItem="xnj-9Q-XgR" firstAttribute="leading" secondItem="0Qn-YJ-hQL" secondAttribute="leading" id="zFh-gw-6gC"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a1G-de-1eL">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nmy-pr-Z9Q">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zWx-AH-STF">
+                                        <rect key="frame" x="320" y="0.5" width="55" height="50"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="x"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.19126457250000001" green="0.19126457250000001" blue="0.19126457250000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="nmy-pr-Z9Q" firstAttribute="centerY" secondItem="a1G-de-1eL" secondAttribute="centerY" id="Bc9-rQ-tX1"/>
+                                    <constraint firstItem="nmy-pr-Z9Q" firstAttribute="width" secondItem="a1G-de-1eL" secondAttribute="width" multiplier="0.852" id="HDh-zG-hKI"/>
+                                    <constraint firstItem="nmy-pr-Z9Q" firstAttribute="width" secondItem="zWx-AH-STF" secondAttribute="width" multiplier="5.8" id="UOC-B4-FZF"/>
+                                    <constraint firstItem="nmy-pr-Z9Q" firstAttribute="height" secondItem="a1G-de-1eL" secondAttribute="height" id="W1s-ER-dUs"/>
+                                    <constraint firstItem="nmy-pr-Z9Q" firstAttribute="centerY" secondItem="zWx-AH-STF" secondAttribute="centerY" id="YBn-7n-q6q"/>
+                                    <constraint firstItem="nmy-pr-Z9Q" firstAttribute="height" secondItem="zWx-AH-STF" secondAttribute="height" id="dkz-1M-iCb"/>
+                                    <constraint firstItem="nmy-pr-Z9Q" firstAttribute="leading" secondItem="a1G-de-1eL" secondAttribute="leading" id="fqy-hV-Sdg"/>
+                                    <constraint firstItem="zWx-AH-STF" firstAttribute="leading" secondItem="nmy-pr-Z9Q" secondAttribute="trailing" id="z0K-mw-KnY"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lFF-bI-CmW">
@@ -545,14 +579,16 @@
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </pickerView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="tXR-K5-bHD" firstAttribute="top" secondItem="wkV-19-SIz" secondAttribute="bottom" id="21i-Ag-N96"/>
+                            <constraint firstItem="a1G-de-1eL" firstAttribute="width" secondItem="b2E-6b-KOA" secondAttribute="width" id="2ga-gV-XWM"/>
                             <constraint firstAttribute="width" secondItem="fOe-tw-2jj" secondAttribute="width" id="4jd-jp-vG2"/>
                             <constraint firstAttribute="width" secondItem="lFF-bI-CmW" secondAttribute="width" id="5jO-Pi-nhy"/>
                             <constraint firstItem="fOe-tw-2jj" firstAttribute="height" secondItem="b2E-6b-KOA" secondAttribute="height" multiplier="0.2" id="BUD-hT-euE"/>
                             <constraint firstItem="0Qn-YJ-hQL" firstAttribute="top" secondItem="8zO-aw-7lF" secondAttribute="bottom" id="BUp-5j-6yP"/>
                             <constraint firstAttribute="width" secondItem="0Qn-YJ-hQL" secondAttribute="width" id="Bgl-QF-OpE"/>
+                            <constraint firstItem="a1G-de-1eL" firstAttribute="height" secondItem="b2E-6b-KOA" secondAttribute="height" multiplier="0.2" id="Fp2-FU-vte"/>
                             <constraint firstItem="fOe-tw-2jj" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="LLd-XH-oI0"/>
                             <constraint firstItem="Xfh-Gq-rnk" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="MdT-ha-4TE"/>
                             <constraint firstItem="wkV-19-SIz" firstAttribute="height" secondItem="b2E-6b-KOA" secondAttribute="height" multiplier="0.2" id="O9T-Ut-9ua"/>
@@ -563,6 +599,8 @@
                             <constraint firstItem="wkV-19-SIz" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="Yve-cT-olJ"/>
                             <constraint firstItem="lFF-bI-CmW" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="Zao-Kg-XbD"/>
                             <constraint firstItem="0Qn-YJ-hQL" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="chf-k7-FKQ"/>
+                            <constraint firstItem="a1G-de-1eL" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="d44-at-CDb"/>
+                            <constraint firstItem="a1G-de-1eL" firstAttribute="top" secondItem="8zO-aw-7lF" secondAttribute="bottom" id="deb-2L-1sg"/>
                             <constraint firstAttribute="width" secondItem="wkV-19-SIz" secondAttribute="width" id="geM-Ju-X2A"/>
                             <constraint firstItem="lFF-bI-CmW" firstAttribute="height" secondItem="b2E-6b-KOA" secondAttribute="height" multiplier="0.2" id="lfV-ir-aUY"/>
                             <constraint firstAttribute="width" secondItem="Xfh-Gq-rnk" secondAttribute="width" id="poS-rj-Ki9"/>
@@ -576,16 +614,20 @@
                     <connections>
                         <outlet property="backspaceButton" destination="IFK-9u-PrL" id="W3X-kY-JJH"/>
                         <outlet property="fromButton" destination="xnj-9Q-XgR" id="1nn-89-xI9"/>
+                        <outlet property="hideView" destination="zWx-AH-STF" id="HTM-Tp-MAQ"/>
+                        <outlet property="langSelectorView" destination="0Qn-YJ-hQL" id="qhT-Ac-kDJ"/>
                         <outlet property="nextKeyboardButton" destination="BEL-X4-bfA" id="FVq-fw-avj"/>
                         <outlet property="pickerViewFrom" destination="5BA-cI-ZKv" id="97S-J4-fVA"/>
                         <outlet property="pickerViewTo" destination="Rw4-V2-bSB" id="2zT-HJ-ueQ"/>
                         <outlet property="row1" destination="lFF-bI-CmW" id="Ct7-Ar-n4M"/>
                         <outlet property="row2" destination="Xfh-Gq-rnk" id="geD-Uh-dUH"/>
                         <outlet property="row3" destination="fOe-tw-2jj" id="kzO-L9-Tae"/>
+                        <outlet property="sendToInput" destination="nmy-pr-Z9Q" id="UlJ-Es-xmU"/>
                         <outlet property="shiftButton" destination="hXY-jJ-TcQ" id="KTg-GG-y3i"/>
                         <outlet property="spaceButton" destination="GhG-s5-oQg" id="RKv-kL-oqs"/>
                         <outlet property="toButton" destination="Mey-hc-NDv" id="lhe-hP-PPI"/>
                         <outlet property="translateButton" destination="BDh-Q3-3fV" id="4dh-lI-geU"/>
+                        <outlet property="translateShowView" destination="a1G-de-1eL" id="pgO-UT-i9t"/>
                         <outletCollection property="keyCollection" destination="iOk-NJ-t0m" collectionClass="NSMutableArray" id="kYW-wx-GpM"/>
                         <outletCollection property="keyCollection" destination="xTF-cx-jWT" collectionClass="NSMutableArray" id="RR3-Dp-dA5"/>
                         <outletCollection property="keyCollection" destination="v2v-D5-ooA" collectionClass="NSMutableArray" id="BVO-f6-l0r"/>
