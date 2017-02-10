@@ -60,6 +60,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     @IBOutlet var row2: UIView!
     @IBOutlet var numbersRow2: UIView!
     @IBOutlet var row3: UIView!
+    @IBOutlet var symbolsNumbersRow3: UIView!
     
     @IBOutlet var pickerViewFrom: UIPickerView!
     @IBOutlet var pickerViewTo: UIPickerView!
@@ -152,6 +153,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         self.numbersRow1.isHidden = true
         self.numbersRow2.isHidden = true
+        self.symbolsNumbersRow3.isHidden = true
         
         switch (button.tag) {
             
@@ -159,8 +161,10 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             
             self.row1.isHidden = true
             self.row2.isHidden = true
+            self.row3.isHidden = true
             self.numbersRow1.isHidden = false
             self.numbersRow2.isHidden = false
+            self.symbolsNumbersRow3.isHidden = false
             
             self.altBoard.setImage(UIImage(named: "altBoard"), for: .normal)
             self.altBoard.setImage(UIImage(named: "altBoard_selected"), for: .highlighted)
@@ -170,6 +174,10 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             
             self.row1.isHidden = false
             self.row2.isHidden = false
+            self.row3.isHidden = false
+            self.numbersRow1.isHidden = true
+            self.numbersRow2.isHidden = true
+            self.symbolsNumbersRow3.isHidden = true
             self.altBoard.setImage(UIImage(named: "abcBoard"), for: .normal)
             self.altBoard.setImage(UIImage(named: "abcBoard_selected"), for: .highlighted)
             self.altBoard.tag = 1
@@ -190,24 +198,14 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         if (self.view.traitCollection.verticalSizeClass == UIUserInterfaceSizeClass.compact) {
-            if !shouldRemoveConstraint {
-                print("if")
-                self.expandedHeight = 180
-                self.updateViewConstraints()
-                self.shouldRemoveConstraint = true
-            } else {
-                print("else")
-                self.expandedHeight = 180
-                self.updateViewConstraints()
-                self.shouldRemoveConstraint = true
-            }
+            print("compact")
+            self.expandedHeight = 130
+            self.updateViewConstraints()
         } else if (self.view.traitCollection.verticalSizeClass == UIUserInterfaceSizeClass.regular) {
-            if shouldRemoveConstraint {
-                print("ran this")
-                self.expandedHeight = 250
-                self.updateViewConstraints()
-                self.shouldRemoveConstraint = true
-            }
+            print("regular")
+            self.expandedHeight = 250
+            self.updateViewConstraints()
+            self.shouldRemoveConstraint = true
         }
 
     }
@@ -284,6 +282,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         translateShowView.isHidden = true
         numbersRow1.isHidden = true
         numbersRow2.isHidden = true
+        symbolsNumbersRow3.isHidden = true
         self.altBoard.tag = 1
         
         // spaceDoubleTap initializers
@@ -352,7 +351,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.view?.addConstraint(heightConstraint)
         } else if removeOld {
             print("ran removeOld")
-            self.inputView?.removeConstraint(heightConstraint)
+            self.view?.removeConstraint(heightConstraint)
             heightConstraint = NSLayoutConstraint(item: self.view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 0.0, constant: expanded)
             self.heightConstraint.priority = UILayoutPriorityDefaultHigh
             self.view?.addConstraint(heightConstraint)
