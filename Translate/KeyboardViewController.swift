@@ -39,10 +39,12 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     // MARK: - IBActions and IBOutlets
     
     @IBOutlet var keyCollection: [UIButton]!
+    @IBOutlet var allKeys: [UIButton]!
     @IBOutlet var nextKeyboardButton: UIButton!
     @IBOutlet var shiftButton: UIButton!
     @IBOutlet var spaceButton: UIButton!
     @IBOutlet var translateButton: UIButton!
+    @IBOutlet var backspaceButton: UIButton!
     @IBOutlet var fromButton: UIButton!
     @IBOutlet var toButton: UIButton!
     
@@ -51,6 +53,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     @IBOutlet var row3: UIView!
     
     @IBOutlet var pickerViewFrom: UIPickerView!
+    @IBOutlet var pickerViewTo: UIPickerView!
     
     @IBAction func shiftKeyPressed(_ sender: UIButton) {
         
@@ -88,6 +91,28 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         self.textDocumentProxy.deleteBackward()
         
+    }
+    
+    @IBAction func showPickerOne(_ button: UIButton) {
+            
+        if didOpenPicker1 == true {
+                
+            didOpenPicker1 = false
+            pickerViewFrom.isHidden = false
+            pickerViewTo.isHidden = true
+            self.row1.isHidden = !didOpenPicker1
+            self.row2.isHidden = !didOpenPicker1
+            self.row3.isHidden = !didOpenPicker1
+            
+        } else {
+                
+            didOpenPicker1 = true
+            pickerViewFrom.isHidden = true
+            self.row1.isHidden = !didOpenPicker1
+            self.row2.isHidden = !didOpenPicker1
+            self.row3.isHidden = !didOpenPicker1
+        }
+            
     }
     
     // MARK: - Default override functions
@@ -162,7 +187,11 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
         let arr = whichOne(0)
-        fromButton.setTitle(arr[row], for: .normal)
+        if pickerView == pickerViewFrom {
+            fromButton.setTitle(arr[row], for: .normal)
+        } else {
+            toButton.setTitle(arr[row], for: .normal)
+        }
         
     }
     
@@ -172,8 +201,12 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         self.shiftStatus = 1
         
-        self.pickerViewFrom.delegate = self
-        self.pickerViewFrom.dataSource = self
+        pickerViewFrom.delegate = self
+        pickerViewFrom.dataSource = self
+        pickerViewTo.delegate = self
+        pickerViewTo.dataSource = self
+        pickerViewFrom.selectRow(21, inComponent: 0, animated: true)
+        pickerViewTo.selectRow(26, inComponent: 0, animated: true)
         
         // spaceDoubleTap initializers
         let spaceDoubleTap = UITapGestureRecognizer(target: self, action: #selector(self.spaceKeyDoubleTapped(_:)))
@@ -195,7 +228,27 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.shiftButton.addGestureRecognizer(shiftTripleTap)
         
         // button ui
-        // self.translateButton.imageView?.contentMode = .scaleAspectFit
+        for letter in self.allKeys {
+            // letter.layer.cornerRadius = 8
+            letter.layer.masksToBounds = true
+            letter.setBackgroundColor(color: UIColor.darkGray, forState: .highlighted)
+        }
+        
+        self.shiftButton.setImage(UIImage(named: "shift1")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        self.shiftButton.setImage(UIImage(named: "shift1_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
+        self.shiftButton.tintColor = UIColor.white
+
+        self.translateButton.setImage(UIImage(named: "translate")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        self.translateButton.setImage(UIImage(named: "translate_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
+        self.translateButton.tintColor = UIColor.white
+        
+        self.backspaceButton.setImage(UIImage(named: "bk")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        self.backspaceButton.setImage(UIImage(named: "bk_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
+        self.backspaceButton.tintColor = UIColor.white
+        
+        self.nextKeyboardButton.setImage(UIImage(named: "otherBoard")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        self.nextKeyboardButton.setImage(UIImage(named: "otherBoard_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
+        self.nextKeyboardButton.tintColor = UIColor.white
         
         self.nextKeyboardButton.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .allTouchEvents)
         
@@ -326,6 +379,11 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
                 letter.setTitle(letter.titleLabel?.text?.uppercased(), for: .normal)
             }
         }
+        
+        let shiftButtonImage = "shift\(self.shiftStatus))"
+        self.shiftButton.setImage(UIImage(named: shiftButtonImage), for: .normal)
+        let shiftButtonSelected = "shift\(self.shiftStatus)_selected"
+        self.shiftButton.setImage(UIImage(named: shiftButtonSelected), for: .highlighted)
         
     }
     
