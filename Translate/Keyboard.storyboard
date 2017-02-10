@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16E154a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="cjp-66-VOW">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12100" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="cjp-66-VOW">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12072"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -22,18 +22,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5BA-cI-ZKv">
-                                <rect key="frame" x="0.0" y="70" width="375" height="180"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.1247571244" green="0.1247571244" blue="0.1247571244" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="cjp-66-VOW" id="IQt-k2-het"/>
-                                    <outlet property="delegate" destination="cjp-66-VOW" id="gWI-ev-3vl"/>
-                                </connections>
-                            </pickerView>
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rw4-V2-bSB">
-                                <rect key="frame" x="0.0" y="70" width="375" height="180"/>
+                                <rect key="frame" x="0.0" y="50" width="375" height="162"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.1247571244" green="0.1247571244" blue="0.1247571244" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -64,50 +54,6 @@
                                     <constraint firstItem="nmy-pr-Z9Q" firstAttribute="height" secondItem="zWx-AH-STF" secondAttribute="height" id="dkz-1M-iCb"/>
                                     <constraint firstItem="nmy-pr-Z9Q" firstAttribute="leading" secondItem="a1G-de-1eL" secondAttribute="leading" constant="4" id="fqy-hV-Sdg"/>
                                     <constraint firstItem="zWx-AH-STF" firstAttribute="leading" secondItem="nmy-pr-Z9Q" secondAttribute="trailing" constant="4" id="z0K-mw-KnY"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Qn-YJ-hQL">
-                                <rect key="frame" x="4" y="0.0" width="367" height="50"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xnj-9Q-XgR">
-                                        <rect key="frame" x="2" y="4" width="156.5" height="42"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="English">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="showPickerOne:" destination="cjp-66-VOW" eventType="touchUpInside" id="gid-vZ-cOu"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mey-hc-NDv">
-                                        <rect key="frame" x="162.5" y="4" width="157" height="42"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="French">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="showPickerTwo:" destination="cjp-66-VOW" eventType="touchUpInside" id="3hx-MS-mab"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BDh-Q3-3fV">
-                                        <rect key="frame" x="323.5" y="4" width="38.5" height="42"/>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </button>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="Mey-hc-NDv" firstAttribute="leading" secondItem="xnj-9Q-XgR" secondAttribute="trailing" constant="4" id="1VM-VT-9p4"/>
-                                    <constraint firstItem="Mey-hc-NDv" firstAttribute="height" secondItem="BDh-Q3-3fV" secondAttribute="height" id="24c-Em-CyK"/>
-                                    <constraint firstItem="xnj-9Q-XgR" firstAttribute="width" secondItem="0Qn-YJ-hQL" secondAttribute="width" multiplier="0.425" id="2oO-9y-HaU"/>
-                                    <constraint firstItem="Mey-hc-NDv" firstAttribute="centerY" secondItem="BDh-Q3-3fV" secondAttribute="centerY" id="4wD-75-X8Q"/>
-                                    <constraint firstAttribute="trailing" secondItem="BDh-Q3-3fV" secondAttribute="trailing" constant="4" id="90j-ZI-18g"/>
-                                    <constraint firstItem="BDh-Q3-3fV" firstAttribute="leading" secondItem="Mey-hc-NDv" secondAttribute="trailing" constant="4" id="IS2-LQ-0NA"/>
-                                    <constraint firstItem="xnj-9Q-XgR" firstAttribute="width" secondItem="Mey-hc-NDv" secondAttribute="width" id="IbJ-kd-zOF"/>
-                                    <constraint firstItem="xnj-9Q-XgR" firstAttribute="centerY" secondItem="0Qn-YJ-hQL" secondAttribute="centerY" id="K6Q-Gj-Xey"/>
-                                    <constraint firstItem="Mey-hc-NDv" firstAttribute="width" secondItem="BDh-Q3-3fV" secondAttribute="width" multiplier="4.1" id="cB9-gr-6Qt"/>
-                                    <constraint firstItem="xnj-9Q-XgR" firstAttribute="height" secondItem="0Qn-YJ-hQL" secondAttribute="height" constant="-8" id="pFn-Or-djz"/>
-                                    <constraint firstItem="xnj-9Q-XgR" firstAttribute="centerY" secondItem="Mey-hc-NDv" secondAttribute="centerY" id="veI-TL-mtM"/>
-                                    <constraint firstItem="xnj-9Q-XgR" firstAttribute="height" secondItem="Mey-hc-NDv" secondAttribute="height" id="wqM-zQ-FWe"/>
-                                    <constraint firstItem="xnj-9Q-XgR" firstAttribute="leading" secondItem="0Qn-YJ-hQL" secondAttribute="leading" constant="2" id="zFh-gw-6gC"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LeK-io-Tzc">
@@ -953,13 +899,14 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N8B-kN-DzN">
-                                        <rect key="frame" x="257" y="4" width="51" height="42"/>
+                                        <rect key="frame" x="257" y="4.5" width="51" height="42"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="T">
+                                        <state key="normal" image="appLogo">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <state key="highlighted" image="appLogo_selected"/>
                                         <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="V6Y-da-f5V"/>
+                                            <action selector="showPickerTwo:" destination="cjp-66-VOW" eventType="touchUpInside" id="SV3-pY-kxR"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -994,14 +941,13 @@
                             <constraint firstItem="a1G-de-1eL" firstAttribute="width" secondItem="b2E-6b-KOA" secondAttribute="width" id="2ga-gV-XWM"/>
                             <constraint firstAttribute="width" secondItem="fOe-tw-2jj" secondAttribute="width" constant="8" id="4jd-jp-vG2"/>
                             <constraint firstAttribute="width" secondItem="lFF-bI-CmW" secondAttribute="width" constant="8" id="5jO-Pi-nhy"/>
+                            <constraint firstItem="lFF-bI-CmW" firstAttribute="top" secondItem="a1G-de-1eL" secondAttribute="bottom" id="5pl-9a-Z45"/>
                             <constraint firstItem="ty5-IK-qLu" firstAttribute="height" secondItem="b2E-6b-KOA" secondAttribute="height" multiplier="0.2" id="6c6-Au-PSv"/>
                             <constraint firstItem="fOe-tw-2jj" firstAttribute="height" secondItem="b2E-6b-KOA" secondAttribute="height" multiplier="0.2" id="BUD-hT-euE"/>
-                            <constraint firstItem="0Qn-YJ-hQL" firstAttribute="top" secondItem="8zO-aw-7lF" secondAttribute="bottom" id="BUp-5j-6yP"/>
-                            <constraint firstAttribute="width" secondItem="0Qn-YJ-hQL" secondAttribute="width" constant="8" id="Bgl-QF-OpE"/>
                             <constraint firstItem="LeK-io-Tzc" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="CZk-gZ-xff"/>
                             <constraint firstItem="a1G-de-1eL" firstAttribute="height" secondItem="b2E-6b-KOA" secondAttribute="height" multiplier="0.2" id="Fp2-FU-vte"/>
                             <constraint firstItem="2QF-1M-Lw8" firstAttribute="height" secondItem="b2E-6b-KOA" secondAttribute="height" multiplier="0.2" id="G7O-u3-BRy"/>
-                            <constraint firstItem="LeK-io-Tzc" firstAttribute="top" secondItem="0Qn-YJ-hQL" secondAttribute="bottom" id="KcE-VO-Lgh"/>
+                            <constraint firstItem="LeK-io-Tzc" firstAttribute="top" secondItem="a1G-de-1eL" secondAttribute="bottom" id="IFw-qf-YzK"/>
                             <constraint firstItem="fOe-tw-2jj" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="LLd-XH-oI0"/>
                             <constraint firstItem="Xfh-Gq-rnk" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="MdT-ha-4TE"/>
                             <constraint firstItem="wkV-19-SIz" firstAttribute="height" secondItem="b2E-6b-KOA" secondAttribute="height" multiplier="0.2" id="O9T-Ut-9ua"/>
@@ -1013,7 +959,6 @@
                             <constraint firstItem="wkV-19-SIz" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="Yve-cT-olJ"/>
                             <constraint firstItem="lFF-bI-CmW" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="Zao-Kg-XbD"/>
                             <constraint firstItem="ty5-IK-qLu" firstAttribute="top" secondItem="LeK-io-Tzc" secondAttribute="bottom" id="cDL-h6-eM6"/>
-                            <constraint firstItem="0Qn-YJ-hQL" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="chf-k7-FKQ"/>
                             <constraint firstItem="a1G-de-1eL" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="d44-at-CDb"/>
                             <constraint firstItem="a1G-de-1eL" firstAttribute="top" secondItem="8zO-aw-7lF" secondAttribute="bottom" id="deb-2L-1sg"/>
                             <constraint firstAttribute="width" secondItem="wkV-19-SIz" secondAttribute="width" constant="8" id="geM-Ju-X2A"/>
@@ -1024,8 +969,6 @@
                             <constraint firstItem="2QF-1M-Lw8" firstAttribute="width" secondItem="b2E-6b-KOA" secondAttribute="width" constant="-8" id="sQt-0R-Lk8"/>
                             <constraint firstItem="ty5-IK-qLu" firstAttribute="width" secondItem="b2E-6b-KOA" secondAttribute="width" constant="-8" id="ucD-X3-3wd"/>
                             <constraint firstItem="LeK-io-Tzc" firstAttribute="height" secondItem="b2E-6b-KOA" secondAttribute="height" multiplier="0.2" id="unz-3U-16X"/>
-                            <constraint firstItem="0Qn-YJ-hQL" firstAttribute="height" secondItem="b2E-6b-KOA" secondAttribute="height" multiplier="0.2" id="wRk-Hl-6zM"/>
-                            <constraint firstItem="lFF-bI-CmW" firstAttribute="top" secondItem="0Qn-YJ-hQL" secondAttribute="bottom" id="x1R-eo-5wi"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
@@ -1034,13 +977,10 @@
                     <connections>
                         <outlet property="altBoard" destination="mYU-BM-DgM" id="lQJ-uB-5Ic"/>
                         <outlet property="backspaceButton" destination="IFK-9u-PrL" id="WFq-gj-IAw"/>
-                        <outlet property="fromButton" destination="xnj-9Q-XgR" id="1nn-89-xI9"/>
                         <outlet property="hideView" destination="zWx-AH-STF" id="HTM-Tp-MAQ"/>
-                        <outlet property="langSelectorView" destination="0Qn-YJ-hQL" id="qhT-Ac-kDJ"/>
                         <outlet property="nextKeyboardButton" destination="BEL-X4-bfA" id="FVq-fw-avj"/>
                         <outlet property="numbersRow1" destination="LeK-io-Tzc" id="xNW-Rm-fCp"/>
                         <outlet property="numbersRow2" destination="ty5-IK-qLu" id="ZNA-Ff-8Yp"/>
-                        <outlet property="pickerViewFrom" destination="5BA-cI-ZKv" id="97S-J4-fVA"/>
                         <outlet property="pickerViewTo" destination="Rw4-V2-bSB" id="2zT-HJ-ueQ"/>
                         <outlet property="row1" destination="lFF-bI-CmW" id="Ct7-Ar-n4M"/>
                         <outlet property="row2" destination="Xfh-Gq-rnk" id="geD-Uh-dUH"/>
@@ -1049,8 +989,6 @@
                         <outlet property="shiftButton" destination="hXY-jJ-TcQ" id="KTg-GG-y3i"/>
                         <outlet property="spaceButton" destination="GhG-s5-oQg" id="RKv-kL-oqs"/>
                         <outlet property="symbolsNumbersRow3" destination="2QF-1M-Lw8" id="XJa-Gy-CIM"/>
-                        <outlet property="toButton" destination="Mey-hc-NDv" id="lhe-hP-PPI"/>
-                        <outlet property="translateButton" destination="BDh-Q3-3fV" id="4dh-lI-geU"/>
                         <outlet property="translateShowView" destination="a1G-de-1eL" id="pgO-UT-i9t"/>
                         <outletCollection property="keyCollection" destination="iOk-NJ-t0m" collectionClass="NSMutableArray" id="kYW-wx-GpM"/>
                         <outletCollection property="keyCollection" destination="xTF-cx-jWT" collectionClass="NSMutableArray" id="RR3-Dp-dA5"/>
@@ -1078,9 +1016,6 @@
                         <outletCollection property="keyCollection" destination="kb7-fZ-olG" collectionClass="NSMutableArray" id="MS6-QJ-lPS"/>
                         <outletCollection property="keyCollection" destination="VFy-F7-0Mx" collectionClass="NSMutableArray" id="cVW-Rc-I7D"/>
                         <outletCollection property="keyCollection" destination="Umt-h8-rtM" collectionClass="NSMutableArray" id="VaM-d8-AS6"/>
-                        <outletCollection property="allKeys" destination="xnj-9Q-XgR" collectionClass="NSMutableArray" id="cQY-xH-dMv"/>
-                        <outletCollection property="allKeys" destination="Mey-hc-NDv" collectionClass="NSMutableArray" id="zSw-qb-LXu"/>
-                        <outletCollection property="allKeys" destination="BDh-Q3-3fV" collectionClass="NSMutableArray" id="fwY-Jc-AGL"/>
                         <outletCollection property="allKeys" destination="iOk-NJ-t0m" collectionClass="NSMutableArray" id="wHc-pg-ktx"/>
                         <outletCollection property="allKeys" destination="xTF-cx-jWT" collectionClass="NSMutableArray" id="zmn-89-XFU"/>
                         <outletCollection property="allKeys" destination="v2v-D5-ooA" collectionClass="NSMutableArray" id="Eca-Mt-lix"/>
@@ -1152,6 +1087,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="appLogo" width="35" height="35"/>
+        <image name="appLogo_selected" width="35" height="35"/>
         <image name="bk" width="35" height="35"/>
         <image name="bk_selected" width="35" height="35"/>
     </resources>
