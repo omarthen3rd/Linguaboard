@@ -35,6 +35,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     var shouldRemoveConstraint = false
     var didOpenPicker2 = true
     var selectedLanguage: String = "French"
+    var langKey: String = "en"
     
     // MARK: - IBActions and IBOutlets
     
@@ -396,7 +397,9 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             keyTo = key as! String
         }
         
-        googleTranslate(inputText, "en", keyTo)
+        detectLanguage(inputText)
+        print("transcall: " + langKey)
+        googleTranslate(inputText, langKey, keyTo)
         
         if (hideView.actions(forTarget: self, forControlEvent: .touchUpInside)!.contains("addToText")) {
             
@@ -408,6 +411,29 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.hideView.addTarget(self, action: #selector(self.addToText), for: .touchUpInside)
             
             
+        }
+        
+    }
+    
+    func detectLanguage(_ text: String) {
+        
+        let spacelessString = text.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        print("ran this")
+        Alamofire.request("https://translation.googleapis.com/language/translate/v2/detect?key=AIzaSyAVrMMcGIKmC-PrPgQzTOGJGFIEc6MUTGw&q=\(spacelessString!)").responseJSON { (Response) in
+            
+            if let value = Response.result.value {
+                
+                let json = JSON(value)
+                
+                for translation in json["data"]["detections"].arrayValue {
+                    
+                    self.langKey = translation["language"].stringValue
+                    print("ran this2")
+                    print(self.langKey)
+                    print(translation["confidence"])
+                    
+                }
+            }
         }
         
     }
