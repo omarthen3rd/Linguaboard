@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "562539EC1E4C014800EAD653"
-               BuildableName = "Transboard.app"
-               BlueprintName = "Transboard"
-               ReferencedContainer = "container:Transboard.xcodeproj">
+               BuildableName = "Linguaboard.app"
+               BlueprintName = "Linguaboard"
+               ReferencedContainer = "container:Linguaboard.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "56253A001E4C014800EAD653"
-               BuildableName = "TransboardTests.xctest"
-               BlueprintName = "TransboardTests"
-               ReferencedContainer = "container:Transboard.xcodeproj">
+               BuildableName = "LinguaboardTests.xctest"
+               BlueprintName = "LinguaboardTests"
+               ReferencedContainer = "container:Linguaboard.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "56253A0B1E4C014800EAD653"
-               BuildableName = "TransboardUITests.xctest"
-               BlueprintName = "TransboardUITests"
-               ReferencedContainer = "container:Transboard.xcodeproj">
+               BuildableName = "LinguaboardUITests.xctest"
+               BlueprintName = "LinguaboardUITests"
+               ReferencedContainer = "container:Linguaboard.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -53,9 +53,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "562539EC1E4C014800EAD653"
-            BuildableName = "Transboard.app"
-            BlueprintName = "Transboard"
-            ReferencedContainer = "container:Transboard.xcodeproj">
+            BuildableName = "Linguaboard.app"
+            BlueprintName = "Linguaboard"
+            ReferencedContainer = "container:Linguaboard.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -76,9 +76,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "562539EC1E4C014800EAD653"
-            BuildableName = "Transboard.app"
-            BlueprintName = "Transboard"
-            ReferencedContainer = "container:Transboard.xcodeproj">
+            BuildableName = "Linguaboard.app"
+            BlueprintName = "Linguaboard"
+            ReferencedContainer = "container:Linguaboard.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -95,9 +95,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "562539EC1E4C014800EAD653"
-            BuildableName = "Transboard.app"
-            BlueprintName = "Transboard"
-            ReferencedContainer = "container:Transboard.xcodeproj">
+            BuildableName = "Linguaboard.app"
+            BlueprintName = "Linguaboard"
+            ReferencedContainer = "container:Linguaboard.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

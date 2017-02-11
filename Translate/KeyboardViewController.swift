@@ -9,20 +9,6 @@
 import UIKit
 import Alamofire
 
-extension UIButton {
-    
-    func setBackgroundColor(color: UIColor, forState: UIControlState) {
-        
-        UIGraphicsBeginImageContext(CGSize(width: 1, height: 1))
-        UIGraphicsGetCurrentContext()!.setFillColor(color.cgColor)
-        UIGraphicsGetCurrentContext()!.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
-        let colorImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        self.setBackgroundImage(colorImage, for: forState)
-    }
-}
-
 class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
     // MARK: - Variables declaration
@@ -289,15 +275,15 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         for letter in self.allKeys {
             letter.layer.cornerRadius = 5
-            letter.layer.masksToBounds = true
+            // letter.layer.masksToBounds = true
             letter.backgroundColor = UIColor.darkGray
-            letter.setBackgroundColor(color: UIColor(red:0.20, green:0.20, blue:0.20, alpha:1.0), forState: .highlighted)
+            // letter.setBackgroundColor(color: UIColor(red:0.20, green:0.20, blue:0.20, alpha:1.0), forState: .highlighted)
             if letter == sendToInput {
                 letter.backgroundColor = UIColor.clear
-                letter.setTitleColor(UIColor.init(white: 1.0, alpha: 0.85), for: .normal)
-                letter.setBackgroundColor(color: UIColor.clear, forState: .highlighted)
+                // letter.setTitleColor(UIColor.init(white: 1.0, alpha: 0.85), for: .normal)
+                // letter.setBackgroundColor(color: UIColor.clear, forState: .highlighted)
             } else if letter == hideView {
-                letter.layer.cornerRadius = 20
+                // letter.layer.cornerRadius = 5
             }
         }
         
@@ -398,7 +384,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         }
         
         // detectLanguage(inputText)
-        // print("transcall: " + langKey)
+        print("transcall")
         googleTranslate(inputText, "en", keyTo)
         
         if (hideView.actions(forTarget: self, forControlEvent: .touchUpInside)!.contains("addToText")) {
@@ -441,7 +427,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             if let value = Response.result.value {
                 
                 let json = JSON(value)
-                
                 for translation in json["data"]["translations"].arrayValue {
                     
                     let text = translation["translatedText"].stringValue

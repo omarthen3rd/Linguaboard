@@ -72,10 +72,10 @@
 		562539F71E4C014800EAD653 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		562539FA1E4C014800EAD653 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		562539FC1E4C014800EAD653 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		56253A011E4C014800EAD653 /* TransboardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TransboardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		56253A011E4C014800EAD653 /* LinguaboardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LinguaboardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		56253A051E4C014800EAD653 /* TransboardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransboardTests.swift; sourceTree = "<group>"; };
 		56253A071E4C014800EAD653 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		56253A0C1E4C014800EAD653 /* TransboardUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TransboardUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		56253A0C1E4C014800EAD653 /* LinguaboardUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LinguaboardUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		56253A101E4C014800EAD653 /* TransboardUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransboardUITests.swift; sourceTree = "<group>"; };
 		56253A121E4C014800EAD653 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		56253A221E4C017100EAD653 /* Translate.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Translate.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -148,8 +148,8 @@
 			isa = PBXGroup;
 			children = (
 				562539ED1E4C014800EAD653 /* Transboard.app */,
-				56253A011E4C014800EAD653 /* TransboardTests.xctest */,
-				56253A0C1E4C014800EAD653 /* TransboardUITests.xctest */,
+				56253A011E4C014800EAD653 /* LinguaboardTests.xctest */,
+				56253A0C1E4C014800EAD653 /* LinguaboardUITests.xctest */,
 				56253A221E4C017100EAD653 /* Translate.appex */,
 			);
 			name = Products;
@@ -211,9 +211,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		562539EC1E4C014800EAD653 /* Transboard */ = {
+		562539EC1E4C014800EAD653 /* Linguaboard */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 56253A151E4C014800EAD653 /* Build configuration list for PBXNativeTarget "Transboard" */;
+			buildConfigurationList = 56253A151E4C014800EAD653 /* Build configuration list for PBXNativeTarget "Linguaboard" */;
 			buildPhases = (
 				A268B65190E84FF89A1E7F1B /* [CP] Check Pods Manifest.lock */,
 				562539E91E4C014800EAD653 /* Sources */,
@@ -228,14 +228,14 @@
 			dependencies = (
 				56253A281E4C017100EAD653 /* PBXTargetDependency */,
 			);
-			name = Transboard;
+			name = Linguaboard;
 			productName = Transboard;
 			productReference = 562539ED1E4C014800EAD653 /* Transboard.app */;
 			productType = "com.apple.product-type.application";
 		};
-		56253A001E4C014800EAD653 /* TransboardTests */ = {
+		56253A001E4C014800EAD653 /* LinguaboardTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 56253A181E4C014800EAD653 /* Build configuration list for PBXNativeTarget "TransboardTests" */;
+			buildConfigurationList = 56253A181E4C014800EAD653 /* Build configuration list for PBXNativeTarget "LinguaboardTests" */;
 			buildPhases = (
 				562539FD1E4C014800EAD653 /* Sources */,
 				562539FE1E4C014800EAD653 /* Frameworks */,
@@ -246,14 +246,14 @@
 			dependencies = (
 				56253A031E4C014800EAD653 /* PBXTargetDependency */,
 			);
-			name = TransboardTests;
+			name = LinguaboardTests;
 			productName = TransboardTests;
-			productReference = 56253A011E4C014800EAD653 /* TransboardTests.xctest */;
+			productReference = 56253A011E4C014800EAD653 /* LinguaboardTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		56253A0B1E4C014800EAD653 /* TransboardUITests */ = {
+		56253A0B1E4C014800EAD653 /* LinguaboardUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 56253A1B1E4C014800EAD653 /* Build configuration list for PBXNativeTarget "TransboardUITests" */;
+			buildConfigurationList = 56253A1B1E4C014800EAD653 /* Build configuration list for PBXNativeTarget "LinguaboardUITests" */;
 			buildPhases = (
 				56253A081E4C014800EAD653 /* Sources */,
 				56253A091E4C014800EAD653 /* Frameworks */,
@@ -264,9 +264,9 @@
 			dependencies = (
 				56253A0E1E4C014800EAD653 /* PBXTargetDependency */,
 			);
-			name = TransboardUITests;
+			name = LinguaboardUITests;
 			productName = TransboardUITests;
-			productReference = 56253A0C1E4C014800EAD653 /* TransboardUITests.xctest */;
+			productReference = 56253A0C1E4C014800EAD653 /* LinguaboardUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 		56253A211E4C017100EAD653 /* Translate */ = {
@@ -322,7 +322,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 562539E81E4C014800EAD653 /* Build configuration list for PBXProject "Transboard" */;
+			buildConfigurationList = 562539E81E4C014800EAD653 /* Build configuration list for PBXProject "Linguaboard" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -335,9 +335,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				562539EC1E4C014800EAD653 /* Transboard */,
-				56253A001E4C014800EAD653 /* TransboardTests */,
-				56253A0B1E4C014800EAD653 /* TransboardUITests */,
+				562539EC1E4C014800EAD653 /* Linguaboard */,
+				56253A001E4C014800EAD653 /* LinguaboardTests */,
+				56253A0B1E4C014800EAD653 /* LinguaboardUITests */,
 				56253A211E4C017100EAD653 /* Translate */,
 			);
 		};
@@ -497,12 +497,12 @@
 /* Begin PBXTargetDependency section */
 		56253A031E4C014800EAD653 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 562539EC1E4C014800EAD653 /* Transboard */;
+			target = 562539EC1E4C014800EAD653 /* Linguaboard */;
 			targetProxy = 56253A021E4C014800EAD653 /* PBXContainerItemProxy */;
 		};
 		56253A0E1E4C014800EAD653 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 562539EC1E4C014800EAD653 /* Transboard */;
+			target = 562539EC1E4C014800EAD653 /* Linguaboard */;
 			targetProxy = 56253A0D1E4C014800EAD653 /* PBXContainerItemProxy */;
 		};
 		56253A281E4C017100EAD653 /* PBXTargetDependency */ = {
@@ -668,7 +668,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.omar.TransboardTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Transboard.app/Transboard";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Linguaboard.app/Linguaboard";
 			};
 			name = Debug;
 		};
@@ -683,7 +683,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.omar.TransboardTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Transboard.app/Transboard";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Linguaboard.app/Linguaboard";
 			};
 			name = Release;
 		};
@@ -748,7 +748,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		562539E81E4C014800EAD653 /* Build configuration list for PBXProject "Transboard" */ = {
+		562539E81E4C014800EAD653 /* Build configuration list for PBXProject "Linguaboard" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				56253A131E4C014800EAD653 /* Debug */,
@@ -757,7 +757,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		56253A151E4C014800EAD653 /* Build configuration list for PBXNativeTarget "Transboard" */ = {
+		56253A151E4C014800EAD653 /* Build configuration list for PBXNativeTarget "Linguaboard" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				56253A161E4C014800EAD653 /* Debug */,
@@ -766,7 +766,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		56253A181E4C014800EAD653 /* Build configuration list for PBXNativeTarget "TransboardTests" */ = {
+		56253A181E4C014800EAD653 /* Build configuration list for PBXNativeTarget "LinguaboardTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				56253A191E4C014800EAD653 /* Debug */,
@@ -775,7 +775,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		56253A1B1E4C014800EAD653 /* Build configuration list for PBXNativeTarget "TransboardUITests" */ = {
+		56253A1B1E4C014800EAD653 /* Build configuration list for PBXNativeTarget "LinguaboardUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				56253A1C1E4C014800EAD653 /* Debug */,

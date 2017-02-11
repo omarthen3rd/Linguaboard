@@ -18,7 +18,7 @@
                BlueprintIdentifier = "56253A211E4C017100EAD653"
                BuildableName = "Translate.appex"
                BlueprintName = "Translate"
-               ReferencedContainer = "container:Transboard.xcodeproj">
+               ReferencedContainer = "container:Linguaboard.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -30,9 +30,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "562539EC1E4C014800EAD653"
-               BuildableName = "Transboard.app"
-               BlueprintName = "Transboard"
-               ReferencedContainer = "container:Transboard.xcodeproj">
+               BuildableName = "Linguaboard.app"
+               BlueprintName = "Linguaboard"
+               ReferencedContainer = "container:Linguaboard.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -50,7 +50,7 @@
             BlueprintIdentifier = "56253A211E4C017100EAD653"
             BuildableName = "Translate.appex"
             BlueprintName = "Translate"
-            ReferencedContainer = "container:Transboard.xcodeproj">
+            ReferencedContainer = "container:Linguaboard.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -70,15 +70,15 @@
       <RemoteRunnable
          runnableDebuggingMode = "1"
          BundleIdentifier = "com.apple.MobileSMS"
-         RemotePath = "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/Applications/MobileSMS.app">
+         RemotePath = "/Applications/MobileSMS.app">
       </RemoteRunnable>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "562539EC1E4C014800EAD653"
-            BuildableName = "Transboard.app"
-            BlueprintName = "Transboard"
-            ReferencedContainer = "container:Transboard.xcodeproj">
+            BuildableName = "Linguaboard.app"
+            BlueprintName = "Linguaboard"
+            ReferencedContainer = "container:Linguaboard.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <EnvironmentVariables>
@@ -103,9 +103,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "562539EC1E4C014800EAD653"
-            BuildableName = "Transboard.app"
-            BlueprintName = "Transboard"
-            ReferencedContainer = "container:Transboard.xcodeproj">
+            BuildableName = "Linguaboard.app"
+            BlueprintName = "Linguaboard"
+            ReferencedContainer = "container:Linguaboard.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
