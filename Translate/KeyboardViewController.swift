@@ -9,6 +9,22 @@
 import UIKit
 import Alamofire
 
+extension String {
+    init(htmlEncodedString: String) {
+        do {
+            let encodedData = htmlEncodedString.data(using: String.Encoding.utf8)!
+            let attributedOptions : [String: AnyObject] = [
+                NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType as AnyObject,
+                NSCharacterEncodingDocumentAttribute: String.Encoding.utf8 as AnyObject
+            ]
+            let attributedString = try NSAttributedString(data: encodedData, options: attributedOptions, documentAttributes: nil)
+            self.init(attributedString.string)!
+        } catch {
+            fatalError("Unhandled error: \(error)")
+        }
+    }
+}
+
 class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
     // MARK: - Variables declaration
@@ -32,6 +48,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     @IBOutlet var spaceButton: UIButton!
     @IBOutlet var backspaceButton: UIButton!
     @IBOutlet var altBoard: UIButton!
+    @IBOutlet var returnKey: UIButton!
 
     @IBOutlet var translateShowView: UIView!
     @IBOutlet var sendToInput: UIButton!
@@ -308,6 +325,10 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.altBoard.setImage(UIImage(named: "altBoard"), for: .normal)
         self.altBoard.setImage(UIImage(named: "altBoard_selected"), for: .highlighted)
         self.altBoard.tintColor = UIColor.white
+        
+        self.returnKey.setImage(UIImage(named: "return"), for: .normal)
+        self.returnKey.setImage(UIImage(named: "return_selected"), for: .highlighted)
+        self.returnKey.tintColor = UIColor.white
 
         self.nextKeyboardButton.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .allTouchEvents)
         self.hideView.addTarget(self, action: #selector(self.translateCaller), for: .touchUpInside)
@@ -422,6 +443,12 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         let spacelessString = text.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         
+        struct decodedString {
+            
+            var newString: String
+            
+        }
+        
         Alamofire.request("https://translation.googleapis.com/language/translate/v2?key=AIzaSyAVrMMcGIKmC-PrPgQzTOGJGFIEc6MUTGw&source=\(langFrom)&target=\(langTo)&q=\(spacelessString!)").responseJSON { (Response) in
             
             if let value = Response.result.value {
@@ -430,6 +457,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
                 for translation in json["data"]["translations"].arrayValue {
                     
                     let text = translation["translatedText"].stringValue
+                    print(text)
+                    // let newText = String.init(htmlEncodedString: text)
                     self.sendToInput.setTitle(text, for: .normal)
                     
                 }
