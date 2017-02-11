@@ -397,9 +397,9 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             keyTo = key as! String
         }
         
-        detectLanguage(inputText)
-        print("transcall: " + langKey)
-        googleTranslate(inputText, langKey, keyTo)
+        // detectLanguage(inputText)
+        // print("transcall: " + langKey)
+        googleTranslate(inputText, "en", keyTo)
         
         if (hideView.actions(forTarget: self, forControlEvent: .touchUpInside)!.contains("addToText")) {
             
@@ -418,20 +418,14 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     func detectLanguage(_ text: String) {
         
         let spacelessString = text.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-        print("ran this")
         Alamofire.request("https://translation.googleapis.com/language/translate/v2/detect?key=AIzaSyAVrMMcGIKmC-PrPgQzTOGJGFIEc6MUTGw&q=\(spacelessString!)").responseJSON { (Response) in
             
             if let value = Response.result.value {
                 
                 let json = JSON(value)
-                
                 for translation in json["data"]["detections"].arrayValue {
                     
                     self.langKey = translation["language"].stringValue
-                    print("ran this2")
-                    print(self.langKey)
-                    print(translation["confidence"])
-                    
                 }
             }
         }
