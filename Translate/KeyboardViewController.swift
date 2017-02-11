@@ -34,7 +34,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     var heightConstraint: NSLayoutConstraint!
     var shouldRemoveConstraint = false
     var didOpenPicker2 = true
-    var selectedLanguage: String = ""
+    var selectedLanguage: String = "French"
     
     // MARK: - IBActions and IBOutlets
     
@@ -293,7 +293,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             letter.setBackgroundColor(color: UIColor(red:0.20, green:0.20, blue:0.20, alpha:1.0), forState: .highlighted)
             if letter == sendToInput {
                 letter.backgroundColor = UIColor.clear
-                letter.setTitleColor(UIColor.lightGray, for: .normal)
+                letter.setTitleColor(UIColor.init(white: 1.0, alpha: 0.85), for: .normal)
                 letter.setBackgroundColor(color: UIColor.clear, forState: .highlighted)
             } else if letter == hideView {
                 letter.layer.cornerRadius = 20
