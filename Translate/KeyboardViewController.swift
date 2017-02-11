@@ -245,7 +245,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         let arr = whichOne(0)
         self.selectedLanguage = arr[row]
-        self.sendToInput.setTitle("Translating to: \(self.selectedLanguage)", for: .normal)
     }
     
     // MARK: - Functions
@@ -293,11 +292,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             letter.backgroundColor = UIColor.darkGray
             letter.setBackgroundColor(color: UIColor(red:0.20, green:0.20, blue:0.20, alpha:1.0), forState: .highlighted)
             if letter == sendToInput {
-                letter.setTitle("Translating to: \(self.selectedLanguage)", for: .normal)
-                letter.layer.cornerRadius = 20
-                letter.layer.borderWidth = 1.5
-                letter.layer.borderColor = UIColor.darkGray.cgColor
                 letter.backgroundColor = UIColor.clear
+                letter.setTitleColor(UIColor.lightGray, for: .normal)
                 letter.setBackgroundColor(color: UIColor.clear, forState: .highlighted)
             } else if letter == hideView {
                 letter.layer.cornerRadius = 20
@@ -377,15 +373,20 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     func addToText() {
         
+        self.hideView.setImage(UIImage(named: "translate"), for: .normal)
+        self.hideView.setImage(UIImage(named: "translate_selected"), for: .highlighted)
+        
         deleteAllText()
         self.textDocumentProxy.insertText(self.sendToInput.currentTitle!)
-        self.sendToInput.setTitle("Translating to: \(self.selectedLanguage)", for: .normal)
         self.hideView.removeTarget(self, action: #selector(self.addToText), for: .touchUpInside)
         self.hideView.addTarget(self, action: #selector(self.translateCaller), for: .touchUpInside)
         
     }
     
     func translateCaller() {
+        
+        self.hideView.setImage(UIImage(named: "translateUp"), for: .normal)
+        self.hideView.setImage(UIImage(named: "translateUp_selected"), for: .highlighted)
         
         let inputText = (textDocumentProxy.documentContextBeforeInput ?? "") + (textDocumentProxy.documentContextAfterInput ?? "")
         
