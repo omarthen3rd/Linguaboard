@@ -316,7 +316,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.backspaceButton.tintColor = UIColor.white
         
         self.nextKeyboardButton.setImage(UIImage(named: "otherBoard"), for: .normal)
-        self.nextKeyboardButton.setImage(UIImage(named: "otherBoard_selected") , for: .highlighted)
+        self.nextKeyboardButton.setImage(UIImage(named: "otherBoard") , for: .highlighted)
         self.nextKeyboardButton.tintColor = UIColor.white
         
         self.altBoard.setImage(UIImage(named: "altBoard"), for: .normal)
@@ -458,16 +458,18 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     func shiftKeys(_ containerView: UIView) {
         
         if shiftStatus == 0 {
-            let shiftButtonImage: String = "shift\(self.shiftStatus!)"
-            self.shiftButton.setImage(UIImage(named: shiftButtonImage), for: .normal)
-            let shiftButtonSelected = "shift\(self.shiftStatus!)_selected"
-            self.shiftButton.setImage(UIImage(named: shiftButtonSelected), for: .highlighted)
-
+            
+            self.shiftButton.setImage(UIImage(named: "shift0"), for: .normal)
+            self.shiftButton.setImage(UIImage(named: "shift0_selected"), for: .highlighted)
+            self.shiftButton.setImage(UIImage(named: "shift0_selected"), for: .selected)
+            
             for letter in self.keyCollection {
                 letter.setTitle(letter.titleLabel?.text?.lowercased(), for: .normal)
             }
             
         } else {
+            
+            self.shiftButton.setImage(UIImage(named: "shift1_selected"), for: .normal)
             
             for letter in self.keyCollection {
                 letter.setTitle(letter.titleLabel?.text?.uppercased(), for: .normal)
