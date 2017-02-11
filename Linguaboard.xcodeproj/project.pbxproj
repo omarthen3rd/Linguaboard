@@ -19,6 +19,7 @@
 		56253A251E4C017100EAD653 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56253A241E4C017100EAD653 /* KeyboardViewController.swift */; };
 		56253A291E4C017100EAD653 /* Translate.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 56253A221E4C017100EAD653 /* Translate.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		56253A2F1E4C026600EAD653 /* Keyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56253A2E1E4C026600EAD653 /* Keyboard.storyboard */; };
+		5668EDC71E4FBDC800A61693 /* StringExtensionHTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5668EDC61E4FBDC800A61693 /* StringExtensionHTML.swift */; };
 		5673BC361E4D214E00A538C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 562539F71E4C014800EAD653 /* Assets.xcassets */; };
 		EAD599253EEF4E79450DCEDA /* Pods_Transboard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077A9007618E6539E70D7975 /* Pods_Transboard.framework */; };
 /* End PBXBuildFile section */
@@ -82,6 +83,7 @@
 		56253A241E4C017100EAD653 /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
 		56253A261E4C017100EAD653 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		56253A2E1E4C026600EAD653 /* Keyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Keyboard.storyboard; sourceTree = "<group>"; };
+		5668EDC61E4FBDC800A61693 /* StringExtensionHTML.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensionHTML.swift; sourceTree = "<group>"; };
 		6400A7A526EB9EF92DC5FEDD /* Pods-Translate.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Translate.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Translate/Pods-Translate.debug.xcconfig"; sourceTree = "<group>"; };
 		6C1B5C54F468754D73275DD2 /* Pods_Translate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Translate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9137AC04E9BEDACBA1A3318F /* Pods-Translate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Translate.release.xcconfig"; path = "Pods/Target Support Files/Pods-Translate/Pods-Translate.release.xcconfig"; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 		56253A231E4C017100EAD653 /* Translate */ = {
 			isa = PBXGroup;
 			children = (
+				5668EDC61E4FBDC800A61693 /* StringExtensionHTML.swift */,
 				560E9AFB1E4C294100A80C6C /* SwiftyJSON.swift */,
 				56253A241E4C017100EAD653 /* KeyboardViewController.swift */,
 				56253A2E1E4C026600EAD653 /* Keyboard.storyboard */,
@@ -488,6 +491,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				56253A251E4C017100EAD653 /* KeyboardViewController.swift in Sources */,
+				5668EDC71E4FBDC800A61693 /* StringExtensionHTML.swift in Sources */,
 				560E9AFC1E4C294100A80C6C /* SwiftyJSON.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

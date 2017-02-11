@@ -6,24 +6,9 @@
 //  Copyright © 2017 Omar Abbasi. All rights reserved.
 //
 
+import Foundation
 import UIKit
 import Alamofire
-
-extension String {
-    init(htmlEncodedString: String) {
-        do {
-            let encodedData = htmlEncodedString.data(using: String.Encoding.utf8)!
-            let attributedOptions : [String: AnyObject] = [
-                NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType as AnyObject,
-                NSCharacterEncodingDocumentAttribute: String.Encoding.utf8 as AnyObject
-            ]
-            let attributedString = try NSAttributedString(data: encodedData, options: attributedOptions, documentAttributes: nil)
-            self.init(attributedString.string)!
-        } catch {
-            fatalError("Unhandled error: \(error)")
-        }
-    }
-}
 
 class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
@@ -443,12 +428,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         let spacelessString = text.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         
-        struct decodedString {
-            
-            var newString: String
-            
-        }
-        
         Alamofire.request("https://translation.googleapis.com/language/translate/v2?key=AIzaSyAVrMMcGIKmC-PrPgQzTOGJGFIEc6MUTGw&source=\(langFrom)&target=\(langTo)&q=\(spacelessString!)").responseJSON { (Response) in
             
             if let value = Response.result.value {
@@ -457,13 +436,33 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
                 for translation in json["data"]["translations"].arrayValue {
                     
                     let text = translation["translatedText"].stringValue
-                    print(text)
-                    // let newText = String.init(htmlEncodedString: text)
-                    self.sendToInput.setTitle(text, for: .normal)
+                    self.sendToInput.setTitle(text.stringByDecodingHTMLEntities, for: .normal)
                     
                 }
+                
             }
         }
+        
+    }
+    
+    func decodeString(_ text: String) -> String {
+        
+        var decodedString: String
+        
+        do {
+            let encodedData = text.data(using: String.Encoding.utf8)!
+            let attributedOptions : [String: AnyObject] = [
+                NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType as AnyObject,
+                NSCharacterEncodingDocumentAttribute: String.Encoding.utf8 as AnyObject
+            ]
+            let attributedString = try NSAttributedString(data: encodedData, options: attributedOptions, documentAttributes: nil)
+            decodedString = attributedString.string
+            
+        } catch {
+            fatalError("Unhandled error: \(error)")
+        }
+        
+        return decodedString
         
     }
     
