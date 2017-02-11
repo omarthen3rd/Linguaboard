@@ -303,8 +303,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.sendToInput.titleLabel?.font = UIFont.systemFont(ofSize: 18)
         self.sendToInput.titleLabel?.layer.opacity = 0.7
         
-        self.shiftButton.setImage(UIImage(named: "shift1"), for: .normal)
-        self.shiftButton.setImage(UIImage(named: "shift1_selected"), for: .highlighted)
+        self.shiftButton.setImage(UIImage(named: "shift0_selected"), for: .normal)
         self.shiftButton.tintColor = UIColor.white
         
         self.hideView.setImage(UIImage(named: "translate"), for: .normal)
@@ -460,13 +459,18 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         if shiftStatus == 0 {
             
             self.shiftButton.setImage(UIImage(named: "shift0"), for: .normal)
-            self.shiftButton.setImage(UIImage(named: "shift0_selected"), for: .highlighted)
-            self.shiftButton.setImage(UIImage(named: "shift0_selected"), for: .selected)
             
             for letter in self.keyCollection {
                 letter.setTitle(letter.titleLabel?.text?.lowercased(), for: .normal)
             }
             
+        } else if shiftStatus == 1 {
+            
+            self.shiftButton.setImage(UIImage(named: "shift0_selected"), for: .normal)
+            
+            for letter in self.keyCollection {
+                letter.setTitle(letter.titleLabel?.text?.uppercased(), for: .normal)
+            }
         } else {
             
             self.shiftButton.setImage(UIImage(named: "shift1_selected"), for: .normal)
@@ -474,13 +478,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             for letter in self.keyCollection {
                 letter.setTitle(letter.titleLabel?.text?.uppercased(), for: .normal)
             }
+            
         }
-        
-        let shiftButtonImage: String = "shift\(self.shiftStatus!)"
-        let shiftButtonSelected = "shift\(self.shiftStatus!)_selected"
-        self.shiftButton.setImage(UIImage(named: shiftButtonImage), for: .normal)
-        self.shiftButton.setImage(UIImage(named: shiftButtonSelected), for: .highlighted)
-        self.shiftButton.tintColor = UIColor.white
         
     }
     
