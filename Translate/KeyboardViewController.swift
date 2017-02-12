@@ -370,6 +370,51 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
     }
     
+    func fullDocumentContext() -> String {
+        let textDocumentProxy = self.textDocumentProxy
+        
+        var before = textDocumentProxy.documentContextBeforeInput
+        
+        var completePriorString = "";
+        
+        // Grab everything before the cursor
+        while (before != nil && !before!.isEmpty) {
+            completePriorString = before! + completePriorString
+            
+            let length = before!.lengthOfBytes(using: String.Encoding.utf8)
+            
+            textDocumentProxy.adjustTextPosition(byCharacterOffset: -length)
+            Thread.sleep(forTimeInterval: 0.01)
+            before = textDocumentProxy.documentContextBeforeInput
+        }
+        
+        // Move the cursor back to the original position
+        self.textDocumentProxy.adjustTextPosition(byCharacterOffset: completePriorString.characters.count)
+        Thread.sleep(forTimeInterval: 0.01)
+        
+        var after = textDocumentProxy.documentContextAfterInput
+        
+        var completeAfterString = "";
+        
+        // Grab everything after the cursor
+        while (after != nil && !after!.isEmpty) {
+            completeAfterString += after!
+            
+            let length = after!.lengthOfBytes(using: String.Encoding.utf8)
+            
+            textDocumentProxy.adjustTextPosition(byCharacterOffset: length)
+            Thread.sleep(forTimeInterval: 0.01)
+            after = textDocumentProxy.documentContextAfterInput
+        }
+        
+        // Go back to the original cursor position
+        self.textDocumentProxy.adjustTextPosition(byCharacterOffset: -(completeAfterString.characters.count))
+        
+        let completeString = completePriorString + completeAfterString
+        
+        return completeString
+    }
+    
     func deleteAllText() {
         
         if let text = self.textDocumentProxy.documentContextBeforeInput {
