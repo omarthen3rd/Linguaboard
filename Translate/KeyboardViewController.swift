@@ -23,6 +23,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     var didOpenPicker2 = true
     var selectedLanguage: String = "French"
     var langKey: String = "en"
+    var lexicon: UILexicon!
     
     // MARK: - IBActions and IBOutlets
     
@@ -62,6 +63,18 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     @IBAction func keyPressed(_ sender: UIButton) {
         
         self.textDocumentProxy.insertText(sender.currentTitle!)
+        
+        self.requestSupplementaryLexicon { (recivedLexicon) in
+            self.lexicon = recivedLexicon
+            print(self.lexicon.description)
+            for entry in self.lexicon.entries {
+                
+                print("user: " + entry.userInput)
+                print("document:" + entry.documentText)
+                
+            }
+        }
+
         
         if shiftStatus == 1 {
             self.shiftKeyPressed(self.shiftButton)
@@ -189,7 +202,11 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
+        self.requestSupplementaryLexicon { (recivedLexicon) in
+            self.lexicon = recivedLexicon
+        }
+        
         loadInterface()
         
     }
