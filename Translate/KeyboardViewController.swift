@@ -23,7 +23,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     var didOpenPicker2 = true
     var selectedLanguage: String = "French"
     var langKey: String = "en"
-    var lexicon: UILexicon!
+    var fullString: String = ""
     
     // MARK: - IBActions and IBOutlets
     
@@ -64,19 +64,9 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         self.textDocumentProxy.insertText(sender.currentTitle!)
         
-        self.requestSupplementaryLexicon { (recivedLexicon) in
-            self.lexicon = recivedLexicon
-            print(self.lexicon.description)
-            for entry in self.lexicon.entries {
-                
-                print("user: " + entry.userInput)
-                print("document:" + entry.documentText)
-                
-            }
-        }
-
+        self.shouldAutoCap()
         
-        if shiftStatus == 1 {
+         if shiftStatus == 1 {
             self.shiftKeyPressed(self.shiftButton)
         }
         
@@ -85,19 +75,19 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     @IBAction func returnKeyPressed(_ sender: UIButton) {
         
         self.textDocumentProxy.insertText("\n")
-        
+        self.shouldAutoCap()
     }
     
     @IBAction func spaceKeyPressed(_ sender: UIButton) {
         
         self.textDocumentProxy.insertText(" ")
-        
+        self.shouldAutoCap()
     }
     
     @IBAction func backSpaceButton(_ sender: UIButton) {
         
         self.textDocumentProxy.deleteBackward()
-        
+        self.shouldAutoCap()
     }
     
     @IBAction func showPickerTwo(_ button: UIButton) {
@@ -202,10 +192,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.requestSupplementaryLexicon { (recivedLexicon) in
-            self.lexicon = recivedLexicon
-        }
         
         loadInterface()
         
@@ -370,6 +356,16 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
     }
     
+    func shouldAutoCap() {
+        
+        let concurrentQueue = DispatchQueue(label: "com.omar.Linguaboard.Translate", attributes: .concurrent)
+        concurrentQueue.sync {
+            // self.fullString = self.fullDocumentContext()
+            // print(self.fullString)
+        }
+        
+    }
+    
     func fullDocumentContext() -> String {
         let textDocumentProxy = self.textDocumentProxy
         
@@ -413,6 +409,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         let completeString = completePriorString + completeAfterString
         
         return completeString
+        
     }
     
     func deleteAllText() {
@@ -432,6 +429,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         deleteAllText()
         self.textDocumentProxy.insertText(self.sendToInput.currentTitle!)
+        self.shouldAutoCap()
+        self.sendToInput.titleLabel?.text = ""
         self.hideView.removeTarget(self, action: #selector(self.addToText), for: .touchUpInside)
         self.hideView.addTarget(self, action: #selector(self.translateCaller), for: .touchUpInside)
         
@@ -506,32 +505,12 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         }
         
     }
-    
-    func decodeString(_ text: String) -> String {
-        
-        var decodedString: String
-        
-        do {
-            let encodedData = text.data(using: String.Encoding.utf8)!
-            let attributedOptions : [String: AnyObject] = [
-                NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType as AnyObject,
-                NSCharacterEncodingDocumentAttribute: String.Encoding.utf8 as AnyObject
-            ]
-            let attributedString = try NSAttributedString(data: encodedData, options: attributedOptions, documentAttributes: nil)
-            decodedString = attributedString.string
-            
-        } catch {
-            fatalError("Unhandled error: \(error)")
-        }
-        
-        return decodedString
-        
-    }
-    
+
     func spaceKeyDoubleTapped(_ sender: UIButton) {
         
         self.textDocumentProxy.deleteBackward()
         self.textDocumentProxy.insertText(". ")
+        self.shouldAutoCap()
         
         if shiftStatus == 0 {
             self.shiftKeyPressed(self.shiftButton)
