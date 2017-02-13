@@ -9,7 +9,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-Transboard.xcscheme</key>
+		<key>Pods-Linguaboard.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -22,17 +22,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>7C444CC56D95A8E1B245081A092DABE1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>88E9EC28B8B46C3631E6B242B50F4442</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>E436A0C526CD727CEEC271CF90A31DED</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F530FA5A386CCA7222A60DAD283CF1B0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
