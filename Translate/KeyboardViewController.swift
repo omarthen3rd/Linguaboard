@@ -280,43 +280,44 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         for letter in self.allKeys {
             letter.layer.cornerRadius = 5
+            letter.setTitleColor(UIColor.black, for: .normal)
             // letter.layer.masksToBounds = true
-            letter.backgroundColor = UIColor.darkGray
+            // letter.backgroundColor = UIColor.darkGray
             // letter.setBackgroundColor(color: UIColor(red:0.20, green:0.20, blue:0.20, alpha:1.0), forState: .highlighted)
             if letter == sendToInput {
                 letter.backgroundColor = UIColor.clear
                 // letter.setTitleColor(UIColor.init(white: 1.0, alpha: 0.85), for: .normal)
                 // letter.setBackgroundColor(color: UIColor.clear, forState: .highlighted)
             } else if letter == hideView {
-                // letter.layer.cornerRadius = 5
+                letter.layer.cornerRadius = 5
             }
         }
         
         self.sendToInput.titleLabel?.font = UIFont.systemFont(ofSize: 18)
         self.sendToInput.titleLabel?.layer.opacity = 0.7
         
-        self.shiftButton.setImage(UIImage(named: "shift0_selected"), for: .normal)
-        self.shiftButton.tintColor = UIColor.white
+        self.shiftButton.setImage(UIImage(named: "shift0_selected")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        self.shiftButton.tintColor = UIColor.black
         
-        self.hideView.setImage(UIImage(named: "translate"), for: .normal)
-        self.hideView.setImage(UIImage(named: "translate_selected"), for: .highlighted)
-        self.hideView.tintColor = UIColor.white
+        self.hideView.setImage(UIImage(named: "translate")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        self.hideView.setImage(UIImage(named: "translate_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
+        self.hideView.tintColor = UIColor.black
         
-        self.backspaceButton.setImage(UIImage(named: "bk"), for: .normal)
-        self.backspaceButton.setImage(UIImage(named: "bk_selected"), for: .highlighted)
-        self.backspaceButton.tintColor = UIColor.white
+        self.backspaceButton.setImage(UIImage(named: "bk")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        self.backspaceButton.setImage(UIImage(named: "bk_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
+        self.backspaceButton.tintColor = UIColor.black
         
-        self.nextKeyboardButton.setImage(UIImage(named: "otherBoard"), for: .normal)
-        self.nextKeyboardButton.setImage(UIImage(named: "otherBoard") , for: .highlighted)
-        self.nextKeyboardButton.tintColor = UIColor.white
+        self.nextKeyboardButton.setImage(UIImage(named: "otherBoard")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        self.nextKeyboardButton.setImage(UIImage(named: "otherBoard")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
+        self.nextKeyboardButton.tintColor = UIColor.black
         
-        self.altBoard.setImage(UIImage(named: "altBoard"), for: .normal)
-        self.altBoard.setImage(UIImage(named: "altBoard_selected"), for: .highlighted)
-        self.altBoard.tintColor = UIColor.white
+        self.altBoard.setImage(UIImage(named: "altBoard")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        self.altBoard.setImage(UIImage(named: "altBoard_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
+        self.altBoard.tintColor = UIColor.black
         
-        self.returnKey.setImage(UIImage(named: "return"), for: .normal)
-        self.returnKey.setImage(UIImage(named: "return_selected"), for: .highlighted)
-        self.returnKey.tintColor = UIColor.white
+        self.returnKey.setImage(UIImage(named: "return")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        self.returnKey.setImage(UIImage(named: "return_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
+        self.returnKey.tintColor = UIColor.black
 
         self.nextKeyboardButton.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .allTouchEvents)
         self.hideView.addTarget(self, action: #selector(self.translateCaller), for: .touchUpInside)
@@ -424,8 +425,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     func addToText() {
         
-        self.hideView.setImage(UIImage(named: "translate"), for: .normal)
-        self.hideView.setImage(UIImage(named: "translate_selected"), for: .highlighted)
+        self.hideView.setImage(UIImage(named: "translate")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        self.hideView.setImage(UIImage(named: "translate_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
         
         deleteAllText()
         self.textDocumentProxy.insertText(self.sendToInput.currentTitle!)
@@ -438,8 +439,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     func translateCaller() {
         
-        self.hideView.setImage(UIImage(named: "translateUp"), for: .normal)
-        self.hideView.setImage(UIImage(named: "translateUp_selected"), for: .highlighted)
+        self.hideView.setImage(UIImage(named: "translateUp")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        self.hideView.setImage(UIImage(named: "translateUp_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
         
         let inputText = (textDocumentProxy.documentContextBeforeInput ?? "") + (textDocumentProxy.documentContextAfterInput ?? "")
         
@@ -532,7 +533,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         if shiftStatus == 0 {
             
-            self.shiftButton.setImage(UIImage(named: "shift0"), for: .normal)
+            self.shiftButton.setImage(UIImage(named: "shift0")?.withRenderingMode(.alwaysTemplate), for: .normal)
             
             for letter in self.keyCollection {
                 letter.setTitle(letter.titleLabel?.text?.lowercased(), for: .normal)
@@ -540,14 +541,14 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             
         } else if shiftStatus == 1 {
             
-            self.shiftButton.setImage(UIImage(named: "shift0_selected"), for: .normal)
+            self.shiftButton.setImage(UIImage(named: "shift0_selected")?.withRenderingMode(.alwaysTemplate), for: .normal)
             
             for letter in self.keyCollection {
                 letter.setTitle(letter.titleLabel?.text?.uppercased(), for: .normal)
             }
         } else {
             
-            self.shiftButton.setImage(UIImage(named: "shift1_selected"), for: .normal)
+            self.shiftButton.setImage(UIImage(named: "shift1_selected")?.withRenderingMode(.alwaysTemplate), for: .normal)
             
             for letter in self.keyCollection {
                 letter.setTitle(letter.titleLabel?.text?.uppercased(), for: .normal)
