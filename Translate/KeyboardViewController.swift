@@ -33,6 +33,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     @IBOutlet var nextKeyboardButton: UIButton!
     @IBOutlet var shiftButton: UIButton!
     @IBOutlet var spaceButton: UIButton!
+    @IBOutlet var showPickerBtn: UIButton!
     @IBOutlet var backspaceButton: UIButton!
     @IBOutlet var altBoard: UIButton!
     @IBOutlet var returnKey: UIButton!
@@ -216,13 +217,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     // MARK: - Picker view data source
     
-    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-        let arr = whichOne(0)
-        let titleData = arr[row]
-        let myTitle = NSAttributedString(string: titleData, attributes: [NSForegroundColorAttributeName:UIColor.white])
-        return myTitle
-    }
-    
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         let arr = whichOne(0)
         return arr[row]
@@ -328,6 +322,10 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.returnKey.setImage(UIImage(named: "return")?.withRenderingMode(.alwaysTemplate), for: .normal)
         self.returnKey.setImage(UIImage(named: "return_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
         self.returnKey.tintColor = UIColor.black
+        
+        self.showPickerBtn.setImage(UIImage(named: "appLogo")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        self.showPickerBtn.setImage(UIImage(named: "appLogo_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
+        self.showPickerBtn.tintColor = UIColor.black
 
         self.nextKeyboardButton.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .allTouchEvents)
         self.hideView.addTarget(self, action: #selector(self.translateCaller), for: .touchUpInside)
