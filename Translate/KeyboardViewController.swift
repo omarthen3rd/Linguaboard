@@ -23,6 +23,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     var didOpenPicker2 = true
     var selectedLanguage: String = "French"
     var langKey: String = "en"
+    var toKey: String = ""
     var fullString: String = ""
     
     // MARK: - IBActions and IBOutlets
@@ -146,9 +147,10 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.numbersRow2.isHidden = false
             self.symbolsNumbersRow3.isHidden = false
             
-            self.altBoard.setImage(UIImage(named: "altBoard"), for: .normal)
-            self.altBoard.setImage(UIImage(named: "altBoard_selected"), for: .highlighted)
+            self.altBoard.setImage(UIImage(named: "abcBoard")?.withRenderingMode(.alwaysTemplate), for: .normal)
+            self.altBoard.setImage(UIImage(named: "abcBoard_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
             self.altBoard.tag = 0
+            self.altBoard.tintColor = UIColor.black
             
         default:
             
@@ -158,9 +160,10 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.numbersRow1.isHidden = true
             self.numbersRow2.isHidden = true
             self.symbolsNumbersRow3.isHidden = true
-            self.altBoard.setImage(UIImage(named: "abcBoard"), for: .normal)
-            self.altBoard.setImage(UIImage(named: "abcBoard_selected"), for: .highlighted)
+            self.altBoard.setImage(UIImage(named: "altBoard")?.withRenderingMode(.alwaysTemplate), for: .normal)
+            self.altBoard.setImage(UIImage(named: "altBoard_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
             self.altBoard.tag = 1
+            self.altBoard.tintColor = UIColor.black
             
         }
         
@@ -237,6 +240,14 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         let arr = whichOne(0)
         self.selectedLanguage = arr[row]
+        
+        let keyToArr = (langArr as NSDictionary).allKeys(for: selectedLanguage)
+        for key in keyToArr {
+            self.toKey = key as! String
+            self.hideView.setTitle(self.toKey.uppercased(), for: .normal)
+        }
+        
+    
     }
     
     // MARK: - Functions
@@ -299,9 +310,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.shiftButton.setImage(UIImage(named: "shift0_selected")?.withRenderingMode(.alwaysTemplate), for: .normal)
         self.shiftButton.tintColor = UIColor.black
         
-        self.hideView.setImage(UIImage(named: "translate")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        self.hideView.setImage(UIImage(named: "translate_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
-        self.hideView.tintColor = UIColor.black
+        self.hideView.setTitle(self.toKey, for: .normal)
+        self.hideView.setTitleColor(UIColor.black, for: .normal)
         
         self.backspaceButton.setImage(UIImage(named: "bk")?.withRenderingMode(.alwaysTemplate), for: .normal)
         self.backspaceButton.setImage(UIImage(named: "bk_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
@@ -425,9 +435,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     func addToText() {
         
-        self.hideView.setImage(UIImage(named: "translate")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        self.hideView.setImage(UIImage(named: "translate_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
-        
         deleteAllText()
         self.textDocumentProxy.insertText(self.sendToInput.currentTitle!)
         self.shouldAutoCap()
@@ -439,21 +446,11 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     func translateCaller() {
         
-        self.hideView.setImage(UIImage(named: "translateUp")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        self.hideView.setImage(UIImage(named: "translateUp_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
-        
         let inputText = (textDocumentProxy.documentContextBeforeInput ?? "") + (textDocumentProxy.documentContextAfterInput ?? "")
-        
-        var keyTo = ""
-        
-        let keyToArr = (langArr as NSDictionary).allKeys(for: selectedLanguage)
-        for key in keyToArr {
-            keyTo = key as! String
-        }
         
         // detectLanguage(inputText)
         print("transcall")
-        googleTranslate(inputText, "en", keyTo)
+        googleTranslate(inputText, "en", self.toKey)
         
         if (hideView.actions(forTarget: self, forControlEvent: .touchUpInside)!.contains("addToText")) {
             

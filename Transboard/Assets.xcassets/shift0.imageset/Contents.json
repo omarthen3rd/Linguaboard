@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "shift.png",
+      "filename" : "shift0.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "shift@2x.png",
+      "filename" : "shift0@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "shift@3x.png",
+      "filename" : "shift0@3x.png",
       "scale" : "3x"
     }
   ],
