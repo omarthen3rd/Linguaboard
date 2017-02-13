@@ -923,7 +923,7 @@
                                             <action selector="spaceKeyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="D4c-0u-2uC"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N8B-kN-DzN">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="N8B-kN-DzN">
                                         <rect key="frame" x="277" y="4.5" width="42" height="42"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                         <state key="normal">
@@ -1001,7 +1001,7 @@
                     <connections>
                         <outlet property="altBoard" destination="mYU-BM-DgM" id="lQJ-uB-5Ic"/>
                         <outlet property="backspaceButton" destination="IFK-9u-PrL" id="WFq-gj-IAw"/>
-                        <outlet property="hideView" destination="zWx-AH-STF" id="HTM-Tp-MAQ"/>
+                        <outlet property="hideView" destination="zWx-AH-STF" id="GlY-GM-H3Y"/>
                         <outlet property="nextKeyboardButton" destination="BEL-X4-bfA" id="FVq-fw-avj"/>
                         <outlet property="numbersRow1" destination="LeK-io-Tzc" id="xNW-Rm-fCp"/>
                         <outlet property="numbersRow2" destination="ty5-IK-qLu" id="ZNA-Ff-8Yp"/>

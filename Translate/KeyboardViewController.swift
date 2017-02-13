@@ -25,8 +25,10 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     var langKey: String = "en"
     var toKey: String = "FR"
     var fullString: String = ""
+    var mainVC: LinguaboardTableViewController? = nil
     
-    var globalTintColor: UIColor = UIColor.black
+    var globalTintColor: UIColor = UIColor(red:0.14, green:0.14, blue:0.14, alpha:1.0)
+    var backgroundColor: UIColor = UIColor(red:0.96, green:0.96, blue:0.96, alpha:1.0)
     
     // MARK: - IBActions and IBOutlets
     
@@ -153,7 +155,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.altBoard.setImage(UIImage(named: "abcBoard")?.withRenderingMode(.alwaysTemplate), for: .normal)
             self.altBoard.setImage(UIImage(named: "abcBoard_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
             self.altBoard.tag = 0
-            self.altBoard.tintColor = UIColor.black
+            self.altBoard.tintColor = globalTintColor
             
         default:
             
@@ -166,7 +168,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.altBoard.setImage(UIImage(named: "altBoard")?.withRenderingMode(.alwaysTemplate), for: .normal)
             self.altBoard.setImage(UIImage(named: "altBoard_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
             self.altBoard.tag = 1
-            self.altBoard.tintColor = UIColor.black
+            self.altBoard.tintColor = globalTintColor
             
         }
         
@@ -199,6 +201,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        mainVC = LinguaboardTableViewController()
         loadInterface()
         
     }
@@ -242,13 +245,14 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.toKey = key as! String
             self.showPickerBtn.setTitle(self.toKey.uppercased(), for: .normal)
         }
-        
     
     }
     
     // MARK: - Functions
     
     func loadInterface() {
+        
+        let darkModeSwitch = mainVC?.darkModeSwitch
         
         self.shiftStatus = 1
         
@@ -286,16 +290,15 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         // button ui
         
         for letter in self.allKeys {
-            letter.layer.cornerRadius = 5
-            letter.setTitleColor(UIColor.black, for: .normal)
+            // letter.layer.cornerRadius = 5
+            letter.setTitleColor(globalTintColor, for: .normal)
             // letter.layer.masksToBounds = true
             // letter.backgroundColor = UIColor.darkGray
             if letter == sendToInput {
                 letter.backgroundColor = UIColor.clear
                 letter.setTitleColor(UIColor.darkGray, for: .normal)
-                // letter.setTitleColor(UIColor.init(white: 1.0, alpha: 0.85), for: .normal)
             } else if letter == hideView {
-                letter.setTitleColor(UIColor.darkGray, for: .normal)
+                
             }
         }
         
@@ -304,31 +307,32 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         self.hideView.setImage(UIImage(named: "appLogo")?.withRenderingMode(.alwaysTemplate), for: .normal)
         self.hideView.setImage(UIImage(named: "appLogo_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
-        self.hideView.tintColor = UIColor.black
+        self.hideView.tintColor = globalTintColor
         
         self.shiftButton.setImage(UIImage(named: "shift0_selected")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        self.shiftButton.tintColor = UIColor.black
+        self.shiftButton.tintColor = globalTintColor
         
         self.backspaceButton.setImage(UIImage(named: "bk")?.withRenderingMode(.alwaysTemplate), for: .normal)
         self.backspaceButton.setImage(UIImage(named: "bk_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
-        self.backspaceButton.tintColor = UIColor.black
+        self.backspaceButton.tintColor = globalTintColor
         
         self.nextKeyboardButton.setImage(UIImage(named: "otherBoard")?.withRenderingMode(.alwaysTemplate), for: .normal)
         self.nextKeyboardButton.setImage(UIImage(named: "otherBoard")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
-        self.nextKeyboardButton.tintColor = UIColor.black
+        self.nextKeyboardButton.tintColor = globalTintColor
         
         self.altBoard.setImage(UIImage(named: "altBoard")?.withRenderingMode(.alwaysTemplate), for: .normal)
         self.altBoard.setImage(UIImage(named: "altBoard_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
-        self.altBoard.tintColor = UIColor.black
+        self.altBoard.tintColor = globalTintColor
         
         self.returnKey.setImage(UIImage(named: "return")?.withRenderingMode(.alwaysTemplate), for: .normal)
         self.returnKey.setImage(UIImage(named: "return_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
-        self.returnKey.tintColor = UIColor.black
+        self.returnKey.tintColor = globalTintColor
         
         self.showPickerBtn.setTitle(self.toKey, for: .normal)
 
         self.nextKeyboardButton.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .allTouchEvents)
         self.hideView.addTarget(self, action: #selector(self.translateCaller), for: .touchUpInside)
+        self.sendToInput.addTarget(self, action: #selector(self.clearButton(_:)), for: .touchUpInside)
         
     }
     
@@ -421,6 +425,12 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
     }
     
+    func clearButton(_ sender: UIButton) {
+        
+        sender.setTitle("", for: .normal)
+        
+    }
+    
     func deleteAllText() {
         
         if let text = self.textDocumentProxy.documentContextBeforeInput {
@@ -433,10 +443,14 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     func addToText() {
         
+        self.hideView.setImage(UIImage(named: "appLogo")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        self.hideView.setImage(UIImage(named: "appLogo_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
+        self.hideView.tintColor = globalTintColor
+        
         deleteAllText()
         self.textDocumentProxy.insertText(self.sendToInput.currentTitle!)
         self.shouldAutoCap()
-        self.sendToInput.titleLabel?.text = ""
+        self.sendToInput.setTitle("", for: .normal)
         self.hideView.removeTarget(self, action: #selector(self.addToText), for: .touchUpInside)
         self.hideView.addTarget(self, action: #selector(self.translateCaller), for: .touchUpInside)
         
@@ -444,10 +458,12 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     func translateCaller() {
         
+        self.hideView.setImage(UIImage(named: "translateUp")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        self.hideView.setImage(UIImage(named: "translateUp_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
+        
         let inputText = (textDocumentProxy.documentContextBeforeInput ?? "") + (textDocumentProxy.documentContextAfterInput ?? "")
         
         // detectLanguage(inputText)
-        print("transcall")
         googleTranslate(inputText, "en", self.toKey)
         
         if (hideView.actions(forTarget: self, forControlEvent: .touchUpInside)!.contains("addToText")) {
