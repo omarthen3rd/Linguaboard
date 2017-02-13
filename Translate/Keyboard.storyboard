@@ -33,7 +33,7 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nmy-pr-Z9Q">
                                         <rect key="frame" x="4" y="4" width="316.5" height="42"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="21"/>
                                         <state key="normal">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -47,15 +47,37 @@
                                         <rect key="frame" x="324.5" y="4" width="43" height="42"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="acx-Er-sOC">
+                                        <rect key="frame" x="18" y="48" width="335" height="1"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="Kxu-d3-Jxk"/>
+                                        </constraints>
+                                    </view>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GKF-dd-keT">
+                                        <rect key="frame" x="18" y="1" width="335" height="1"/>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="ReU-pf-Fj3"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="GKF-dd-keT" secondAttribute="trailing" constant="18" id="4RJ-Hf-gpZ"/>
+                                    <constraint firstItem="acx-Er-sOC" firstAttribute="leading" secondItem="a1G-de-1eL" secondAttribute="leading" constant="18" id="7y8-AC-fAK"/>
+                                    <constraint firstItem="zWx-AH-STF" firstAttribute="top" secondItem="GKF-dd-keT" secondAttribute="bottom" constant="2" id="Anw-KA-P1c"/>
                                     <constraint firstItem="nmy-pr-Z9Q" firstAttribute="centerY" secondItem="a1G-de-1eL" secondAttribute="centerY" id="Bc9-rQ-tX1"/>
                                     <constraint firstItem="nmy-pr-Z9Q" firstAttribute="width" secondItem="a1G-de-1eL" secondAttribute="width" multiplier="0.852" id="HDh-zG-hKI"/>
+                                    <constraint firstAttribute="bottom" secondItem="acx-Er-sOC" secondAttribute="bottom" constant="1" id="IBa-g7-w6Q"/>
                                     <constraint firstItem="nmy-pr-Z9Q" firstAttribute="width" secondItem="zWx-AH-STF" secondAttribute="width" multiplier="5.8" constant="68" id="UOC-B4-FZF"/>
                                     <constraint firstItem="nmy-pr-Z9Q" firstAttribute="height" secondItem="a1G-de-1eL" secondAttribute="height" constant="-8" id="W1s-ER-dUs"/>
+                                    <constraint firstItem="GKF-dd-keT" firstAttribute="leading" secondItem="a1G-de-1eL" secondAttribute="leading" constant="18" id="XWa-US-GWl"/>
                                     <constraint firstItem="nmy-pr-Z9Q" firstAttribute="centerY" secondItem="zWx-AH-STF" secondAttribute="centerY" id="YBn-7n-q6q"/>
+                                    <constraint firstItem="GKF-dd-keT" firstAttribute="top" secondItem="a1G-de-1eL" secondAttribute="top" constant="1" id="YVq-Rw-fwF"/>
                                     <constraint firstItem="nmy-pr-Z9Q" firstAttribute="height" secondItem="zWx-AH-STF" secondAttribute="height" id="dkz-1M-iCb"/>
                                     <constraint firstItem="nmy-pr-Z9Q" firstAttribute="leading" secondItem="a1G-de-1eL" secondAttribute="leading" constant="4" id="fqy-hV-Sdg"/>
+                                    <constraint firstAttribute="trailing" secondItem="acx-Er-sOC" secondAttribute="trailing" constant="18" id="jhc-WM-jBT"/>
+                                    <constraint firstItem="acx-Er-sOC" firstAttribute="top" secondItem="zWx-AH-STF" secondAttribute="bottom" constant="2" id="sOk-V9-CWU"/>
                                     <constraint firstItem="zWx-AH-STF" firstAttribute="leading" secondItem="nmy-pr-Z9Q" secondAttribute="trailing" constant="4" id="z0K-mw-KnY"/>
                                 </constraints>
                             </view>
@@ -904,10 +926,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N8B-kN-DzN">
                                         <rect key="frame" x="277" y="4.5" width="42" height="42"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" image="appLogo">
+                                        <state key="normal">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <state key="highlighted" image="appLogo_selected"/>
                                         <connections>
                                             <action selector="showPickerTwo:" destination="cjp-66-VOW" eventType="touchUpInside" id="SV3-pY-kxR"/>
                                         </connections>
@@ -1093,8 +1114,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="appLogo" width="35" height="35"/>
-        <image name="appLogo_selected" width="35" height="35"/>
         <image name="bk" width="35" height="35"/>
         <image name="bk_selected" width="35" height="35"/>
     </resources>

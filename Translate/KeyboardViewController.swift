@@ -23,8 +23,10 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     var didOpenPicker2 = true
     var selectedLanguage: String = "French"
     var langKey: String = "en"
-    var toKey: String = ""
+    var toKey: String = "FR"
     var fullString: String = ""
+    
+    var globalTintColor: UIColor = UIColor.black
     
     // MARK: - IBActions and IBOutlets
     
@@ -238,7 +240,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         let keyToArr = (langArr as NSDictionary).allKeys(for: selectedLanguage)
         for key in keyToArr {
             self.toKey = key as! String
-            self.hideView.setTitle(self.toKey.uppercased(), for: .normal)
+            self.showPickerBtn.setTitle(self.toKey.uppercased(), for: .normal)
         }
         
     
@@ -288,24 +290,24 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             letter.setTitleColor(UIColor.black, for: .normal)
             // letter.layer.masksToBounds = true
             // letter.backgroundColor = UIColor.darkGray
-            // letter.setBackgroundColor(color: UIColor(red:0.20, green:0.20, blue:0.20, alpha:1.0), forState: .highlighted)
             if letter == sendToInput {
                 letter.backgroundColor = UIColor.clear
+                letter.setTitleColor(UIColor.darkGray, for: .normal)
                 // letter.setTitleColor(UIColor.init(white: 1.0, alpha: 0.85), for: .normal)
-                // letter.setBackgroundColor(color: UIColor.clear, forState: .highlighted)
             } else if letter == hideView {
-                letter.layer.cornerRadius = 5
+                letter.setTitleColor(UIColor.darkGray, for: .normal)
             }
         }
         
         self.sendToInput.titleLabel?.font = UIFont.systemFont(ofSize: 18)
-        self.sendToInput.titleLabel?.layer.opacity = 0.7
+        self.sendToInput.titleLabel?.layer.opacity = 1.0
+        
+        self.hideView.setImage(UIImage(named: "appLogo")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        self.hideView.setImage(UIImage(named: "appLogo_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
+        self.hideView.tintColor = UIColor.black
         
         self.shiftButton.setImage(UIImage(named: "shift0_selected")?.withRenderingMode(.alwaysTemplate), for: .normal)
         self.shiftButton.tintColor = UIColor.black
-        
-        self.hideView.setTitle(self.toKey, for: .normal)
-        self.hideView.setTitleColor(UIColor.black, for: .normal)
         
         self.backspaceButton.setImage(UIImage(named: "bk")?.withRenderingMode(.alwaysTemplate), for: .normal)
         self.backspaceButton.setImage(UIImage(named: "bk_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
@@ -323,9 +325,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.returnKey.setImage(UIImage(named: "return_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
         self.returnKey.tintColor = UIColor.black
         
-        self.showPickerBtn.setImage(UIImage(named: "appLogo")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        self.showPickerBtn.setImage(UIImage(named: "appLogo_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
-        self.showPickerBtn.tintColor = UIColor.black
+        self.showPickerBtn.setTitle(self.toKey, for: .normal)
 
         self.nextKeyboardButton.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .allTouchEvents)
         self.hideView.addTarget(self, action: #selector(self.translateCaller), for: .touchUpInside)
