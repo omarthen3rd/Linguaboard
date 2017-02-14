@@ -70,6 +70,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         self.textDocumentProxy.insertText(sender.currentTitle!)
         
+        self.hideView.isEnabled = true
+        
         self.shouldAutoCap()
         
          if shiftStatus == 1 {
@@ -80,17 +82,27 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     @IBAction func returnKeyPressed(_ sender: UIButton) {
         
+        self.hideView.isEnabled = true
+        
         self.textDocumentProxy.insertText("\n")
         self.shouldAutoCap()
     }
     
     @IBAction func spaceKeyPressed(_ sender: UIButton) {
         
+        self.hideView.isEnabled = true
+        
         self.textDocumentProxy.insertText(" ")
         self.shouldAutoCap()
     }
     
     @IBAction func backSpaceButton(_ sender: UIButton) {
+        
+        if self.fullString.characters.count <= 1 {
+            self.hideView.isEnabled = false
+        } else {
+            self.hideView.isEnabled = true
+        }
         
         self.textDocumentProxy.deleteBackward()
         self.shouldAutoCap()
@@ -113,6 +125,9 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.row1.isHidden = !didOpenPicker2
             self.row2.isHidden = !didOpenPicker2
             self.row3.isHidden = !didOpenPicker2
+            self.numbersRow1.isHidden = !didOpenPicker2
+            self.numbersRow2.isHidden = !didOpenPicker2
+            self.symbolsNumbersRow3.isHidden = !didOpenPicker2
             
         } else {
             
@@ -129,6 +144,9 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.row1.isHidden = !didOpenPicker2
             self.row2.isHidden = !didOpenPicker2
             self.row3.isHidden = !didOpenPicker2
+            self.numbersRow1.isHidden = didOpenPicker2
+            self.numbersRow2.isHidden = didOpenPicker2
+            self.symbolsNumbersRow3.isHidden = didOpenPicker2
             
         }
 
@@ -186,11 +204,9 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         if (self.view.traitCollection.verticalSizeClass == UIUserInterfaceSizeClass.compact) {
-            print("compact")
             self.expandedHeight = 130
             self.updateViewConstraints()
         } else if (self.view.traitCollection.verticalSizeClass == UIUserInterfaceSizeClass.regular) {
-            print("regular")
             self.expandedHeight = 250
             self.updateViewConstraints()
             self.shouldRemoveConstraint = true
@@ -217,6 +233,10 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     override func textDidChange(_ textInput: UITextInput?) {
         // The app has just changed the document's contents, the document context has been updated.
+        
+        if (!(self.textDocumentProxy.documentContextBeforeInput != nil) && !(self.textDocumentProxy.documentContextAfterInput != nil)) || (self.textDocumentProxy.documentContextBeforeInput == "") && (self.textDocumentProxy.documentContextAfterInput == "") {
+            self.hideView.isEnabled = false
+        }
         
     }
     
@@ -261,6 +281,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         pickerViewTo.selectRow(26, inComponent: 0, animated: true)
         pickerViewTo.isHidden = true
         
+        self.hideView.isEnabled = false
         numbersRow1.isHidden = true
         numbersRow2.isHidden = true
         symbolsNumbersRow3.isHidden = true
@@ -339,12 +360,10 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     func loadBoardHeight(_ expanded: CGFloat, _ removeOld: Bool) {
         
         if !removeOld {
-            print("ran !removeOld")
             heightConstraint = NSLayoutConstraint(item: self.view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 0.0, constant: expanded)
             self.heightConstraint.priority = UILayoutPriorityDefaultHigh
             self.view?.addConstraint(heightConstraint)
         } else if removeOld {
-            print("ran removeOld")
             self.view?.removeConstraint(heightConstraint)
             heightConstraint = NSLayoutConstraint(item: self.view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 0.0, constant: expanded)
             self.heightConstraint.priority = UILayoutPriorityDefaultHigh
@@ -373,8 +392,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         let concurrentQueue = DispatchQueue(label: "com.omar.Linguaboard.Translate", attributes: .concurrent)
         concurrentQueue.sync {
-            // self.fullString = self.fullDocumentContext()
-            // print(self.fullString)
+            self.fullString = self.fullDocumentContext()
         }
         
     }
@@ -453,6 +471,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.sendToInput.setTitle("", for: .normal)
         self.hideView.removeTarget(self, action: #selector(self.addToText), for: .touchUpInside)
         self.hideView.addTarget(self, action: #selector(self.translateCaller), for: .touchUpInside)
+        self.hideView.isEnabled = false
         
     }
     
@@ -474,7 +493,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             
             self.hideView.removeTarget(self, action: #selector(self.translateCaller), for: .touchUpInside)
             self.hideView.addTarget(self, action: #selector(self.addToText), for: .touchUpInside)
-            
             
         }
         
