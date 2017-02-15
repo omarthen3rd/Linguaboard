@@ -22,6 +22,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ypR-OG-pT7">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="7QU-qV-wff">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <blurEffect style="dark"/>
+                            </visualEffectView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a1G-de-1eL">
                                 <rect key="frame" x="2" y="0.0" width="371" height="50"/>
                                 <subviews>
@@ -958,8 +966,9 @@
                                 <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </pickerView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="ypR-OG-pT7" firstAttribute="leading" secondItem="b2E-6b-KOA" secondAttribute="leading" id="0Ei-HM-qSd"/>
                             <constraint firstItem="2QF-1M-Lw8" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="0s9-BT-ezz"/>
                             <constraint firstItem="tXR-K5-bHD" firstAttribute="top" secondItem="wkV-19-SIz" secondAttribute="bottom" id="21i-Ag-N96"/>
                             <constraint firstItem="a1G-de-1eL" firstAttribute="width" secondItem="b2E-6b-KOA" secondAttribute="width" constant="-4" id="2ga-gV-XWM"/>
@@ -975,6 +984,7 @@
                             <constraint firstItem="fOe-tw-2jj" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="LLd-XH-oI0"/>
                             <constraint firstItem="Xfh-Gq-rnk" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="MdT-ha-4TE"/>
                             <constraint firstItem="wkV-19-SIz" firstAttribute="height" secondItem="b2E-6b-KOA" secondAttribute="height" multiplier="0.2" id="O9T-Ut-9ua"/>
+                            <constraint firstAttribute="trailing" secondItem="ypR-OG-pT7" secondAttribute="trailing" id="OzJ-NQ-toS"/>
                             <constraint firstItem="wkV-19-SIz" firstAttribute="top" secondItem="fOe-tw-2jj" secondAttribute="bottom" id="POS-bV-btm"/>
                             <constraint firstItem="fOe-tw-2jj" firstAttribute="top" secondItem="Xfh-Gq-rnk" secondAttribute="bottom" id="S9g-p8-Xcu"/>
                             <constraint firstItem="2QF-1M-Lw8" firstAttribute="top" secondItem="ty5-IK-qLu" secondAttribute="bottom" id="SC3-kw-kWH"/>
@@ -982,12 +992,14 @@
                             <constraint firstItem="Xfh-Gq-rnk" firstAttribute="top" secondItem="lFF-bI-CmW" secondAttribute="bottom" id="V75-Yl-mig"/>
                             <constraint firstItem="wkV-19-SIz" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="Yve-cT-olJ"/>
                             <constraint firstItem="lFF-bI-CmW" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="Zao-Kg-XbD"/>
+                            <constraint firstItem="tXR-K5-bHD" firstAttribute="top" secondItem="ypR-OG-pT7" secondAttribute="bottom" id="b17-GI-1RT"/>
                             <constraint firstItem="ty5-IK-qLu" firstAttribute="top" secondItem="LeK-io-Tzc" secondAttribute="bottom" id="cDL-h6-eM6"/>
                             <constraint firstItem="a1G-de-1eL" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="d44-at-CDb"/>
                             <constraint firstItem="a1G-de-1eL" firstAttribute="top" secondItem="8zO-aw-7lF" secondAttribute="bottom" id="deb-2L-1sg"/>
                             <constraint firstAttribute="width" secondItem="wkV-19-SIz" secondAttribute="width" constant="4" id="geM-Ju-X2A"/>
                             <constraint firstItem="ty5-IK-qLu" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="j7c-rG-6th"/>
                             <constraint firstItem="lFF-bI-CmW" firstAttribute="height" secondItem="b2E-6b-KOA" secondAttribute="height" multiplier="0.2" id="lfV-ir-aUY"/>
+                            <constraint firstItem="ypR-OG-pT7" firstAttribute="top" secondItem="8zO-aw-7lF" secondAttribute="bottom" id="lrW-mZ-JN8"/>
                             <constraint firstAttribute="width" secondItem="Xfh-Gq-rnk" secondAttribute="width" constant="4" id="poS-rj-Ki9"/>
                             <constraint firstItem="LeK-io-Tzc" firstAttribute="width" secondItem="b2E-6b-KOA" secondAttribute="width" constant="-4" id="qLL-OP-Oel"/>
                             <constraint firstItem="2QF-1M-Lw8" firstAttribute="width" secondItem="b2E-6b-KOA" secondAttribute="width" constant="-4" id="sQt-0R-Lk8"/>
@@ -1001,6 +1013,7 @@
                     <connections>
                         <outlet property="altBoard" destination="mYU-BM-DgM" id="lQJ-uB-5Ic"/>
                         <outlet property="backspaceButton" destination="IFK-9u-PrL" id="WFq-gj-IAw"/>
+                        <outlet property="blurBG" destination="ypR-OG-pT7" id="Szg-U4-15b"/>
                         <outlet property="hideView" destination="zWx-AH-STF" id="GlY-GM-H3Y"/>
                         <outlet property="nextKeyboardButton" destination="BEL-X4-bfA" id="FVq-fw-avj"/>
                         <outlet property="numbersRow1" destination="LeK-io-Tzc" id="xNW-Rm-fCp"/>

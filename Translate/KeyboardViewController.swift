@@ -27,8 +27,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     var fullString: String = ""
     var mainVC: LinguaboardTableViewController? = nil
     
-    var globalTintColor: UIColor = UIColor(red:0.14, green:0.14, blue:0.14, alpha:1.0)
-    var backgroundColor: UIColor = UIColor(red:0.96, green:0.96, blue:0.96, alpha:1.0)
+    var globalTintColor: UIColor = UIColor.white // UIColor(red:0.14, green:0.14, blue:0.14, alpha:1.0)
+    var backgroundColor: UIColor = UIColor.clear // UIColor(red:0.96, green:0.96, blue:0.96, alpha:1.0)
     
     // MARK: - IBActions and IBOutlets
     
@@ -42,6 +42,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     @IBOutlet var altBoard: UIButton!
     @IBOutlet var returnKey: UIButton!
 
+    @IBOutlet var blurBG: UIVisualEffectView!
     @IBOutlet var translateShowView: UIView!
     @IBOutlet var sendToInput: UIButton!
     @IBOutlet var hideView: UIButton!
@@ -354,6 +355,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.nextKeyboardButton.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .allTouchEvents)
         self.hideView.addTarget(self, action: #selector(self.translateCaller), for: .touchUpInside)
         self.sendToInput.addTarget(self, action: #selector(self.clearButton(_:)), for: .touchUpInside)
+        self.sendToInput.tag = 1
+        // self.altBoard.addTarget(self, action: #selector(self.switchMode(_:)), for: .touchDown)
         
     }
     
@@ -369,6 +372,30 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.heightConstraint.priority = UILayoutPriorityDefaultHigh
             self.view?.addConstraint(heightConstraint)
         }
+        
+    }
+    
+    func switchMode(_ sender: UIButton) {
+        
+        // 1 = light, 0 = dark
+        
+        switch sender.tag {
+        case 0:
+            let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.dark)
+            self.blurBG.effect = blurEffect
+            self.globalTintColor = UIColor.white
+            print("ran this")
+            self.sendToInput.tag = 1
+        default:
+            let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.light)
+            self.blurBG.effect = blurEffect
+            self.globalTintColor = UIColor.darkGray
+            self.sendToInput.tag = 0
+            print("ran thisss")
+        }
+        
+        let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.dark)
+        self.blurBG.effect = blurEffect
         
     }
     
@@ -444,6 +471,11 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     }
     
     func clearButton(_ sender: UIButton) {
+        
+        self.hideView.removeTarget(self, action: #selector(self.addToText), for: .touchUpInside)
+        self.hideView.addTarget(self, action: #selector(self.translateCaller), for: .touchUpInside)
+        self.hideView.setImage(UIImage(named: "appLogo")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        self.hideView.setImage(UIImage(named: "appLogo_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
         
         sender.setTitle("", for: .normal)
         
