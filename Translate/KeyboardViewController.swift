@@ -25,7 +25,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     var langKey: String = "en"
     var toKey: String = "FR"
     var fullString: String = ""
-    var mainVC: LinguaboardTableViewController? = nil
+    var darkModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     
     var globalTintColor: UIColor = UIColor.white // UIColor(red:0.14, green:0.14, blue:0.14, alpha:1.0)
     var backgroundColor: UIColor = UIColor.clear // UIColor(red:0.96, green:0.96, blue:0.96, alpha:1.0)
@@ -218,7 +218,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mainVC = LinguaboardTableViewController()
+        print(darkModeBool.bool(forKey: "darkBool"))
+        
         loadInterface()
         
     }
@@ -273,8 +274,24 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     func loadInterface() {
         
-        let darkModeSwitch = mainVC?.darkModeSwitch
+        let darkMode = darkModeBool.bool(forKey: "darkBool")
         
+        if darkMode {
+            
+            let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.dark)
+            self.blurBG.effect = blurEffect
+            self.globalTintColor = UIColor.white
+            print("ran True")
+
+        } else {
+            
+            let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.light)
+            self.blurBG.effect = blurEffect
+            self.globalTintColor = UIColor.darkGray
+            self.sendToInput.tag = 0
+            print("ran False")
+        }
+                
         self.shiftStatus = 1
         
         pickerViewTo.delegate = self

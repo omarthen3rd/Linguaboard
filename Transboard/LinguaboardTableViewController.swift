@@ -11,6 +11,24 @@ import UIKit
 class LinguaboardTableViewController: UITableViewController {
 
     @IBOutlet var darkModeSwitch: UISwitch!
+    @IBOutlet var whiteMinimalMode: UISwitch!
+    @IBOutlet var darkMinimalMode: UISwitch!
+    @IBAction func darkModeAction(_ sender: Any) {
+        
+        if darkModeSwitch.isOn {
+            
+            darkModeBool.set(true, forKey: "darkBool")
+            darkModeBool.synchronize()
+            
+        } else {
+            
+            darkModeBool.set(false, forKey: "darkBool")
+            darkModeBool.synchronize()
+            
+        }
+        
+    }
+    var darkModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +40,12 @@ class LinguaboardTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    func minimalMode() {
+        
+        
+        
+    }
+    
     // MARK: - Table view data source
 
     /*
