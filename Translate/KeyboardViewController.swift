@@ -25,7 +25,10 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     var langKey: String = "en"
     var toKey: String = "FR"
     var fullString: String = ""
+    
     var darkModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
+    var whiteMinimalModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
+    var darkMinimalModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     
     var globalTintColor: UIColor = UIColor.white // UIColor(red:0.14, green:0.14, blue:0.14, alpha:1.0)
     var backgroundColor: UIColor = UIColor.clear // UIColor(red:0.96, green:0.96, blue:0.96, alpha:1.0)
@@ -278,12 +281,16 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         if darkMode {
             
+            print("ran loadInterface darkBlur")
+            
             let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.dark)
             self.blurBG.effect = blurEffect
             self.globalTintColor = UIColor.white
             print("ran True")
 
         } else {
+            
+            print("ran loadInterface whiteBlur")
             
             let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.light)
             self.blurBG.effect = blurEffect
@@ -389,30 +396,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.heightConstraint.priority = UILayoutPriorityDefaultHigh
             self.view?.addConstraint(heightConstraint)
         }
-        
-    }
-    
-    func switchMode(_ sender: UIButton) {
-        
-        // 1 = light, 0 = dark
-        
-        switch sender.tag {
-        case 0:
-            let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.dark)
-            self.blurBG.effect = blurEffect
-            self.globalTintColor = UIColor.white
-            print("ran this")
-            self.sendToInput.tag = 1
-        default:
-            let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.light)
-            self.blurBG.effect = blurEffect
-            self.globalTintColor = UIColor.darkGray
-            self.sendToInput.tag = 0
-            print("ran thisss")
-        }
-        
-        let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.dark)
-        self.blurBG.effect = blurEffect
         
     }
     

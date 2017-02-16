@@ -15,12 +15,18 @@ class LinguaboardTableViewController: UITableViewController {
     @IBOutlet var darkMinimalMode: UISwitch!
     @IBAction func darkModeAction(_ sender: Any) {
         
-        if darkModeSwitch.isOn {
+        if darkModeSwitch.isOn && darkModeSwitch.isEnabled {
+            
+            whiteMinimalMode.isEnabled = false
+            darkMinimalMode.isEnabled = false
             
             darkModeBool.set(true, forKey: "darkBool")
             darkModeBool.synchronize()
             
-        } else {
+        } else if !(darkModeSwitch.isOn) && darkModeSwitch.isEnabled {
+            
+            whiteMinimalMode.isEnabled = true
+            darkMinimalMode.isEnabled = true
             
             darkModeBool.set(false, forKey: "darkBool")
             darkModeBool.synchronize()
@@ -28,10 +34,16 @@ class LinguaboardTableViewController: UITableViewController {
         }
         
     }
+    
     var darkModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
+    var whiteMinimalModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
+    var darkMinimalModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.darkMinimalMode.addTarget(self, action: #selector(self.minimalMode(_:)), for: .touchUpInside)
+        self.whiteMinimalMode.addTarget(self, action: #selector(self.minimalMode(_:)), for: .touchUpInside)
         
     }
 
@@ -40,9 +52,57 @@ class LinguaboardTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    func minimalMode() {
+    func minimalMode(_ sender: UISwitch) {
         
-        
+        if sender == whiteMinimalMode {
+            
+            if sender.isOn && sender.isEnabled {
+                
+                print("ran white on")
+                
+                darkMinimalMode.isEnabled = false
+                darkModeSwitch.isEnabled = false
+                
+                whiteMinimalModeBool.set(true, forKey: "whiteMinimalBool")
+                whiteMinimalModeBool.synchronize()
+                
+            } else if !(sender.isOn) && sender.isEnabled {
+                
+                print("ran white off")
+                
+                darkMinimalMode.isEnabled = true
+                darkModeSwitch.isEnabled = true
+                
+                whiteMinimalModeBool.set(false, forKey: "whiteMinimalBool")
+                whiteMinimalModeBool.synchronize()
+                
+            }
+            
+        } else if sender == darkMinimalMode {
+            
+            if sender.isOn && sender.isEnabled {
+                
+                print("ran dark on")
+                
+                whiteMinimalMode.isEnabled = false
+                darkModeSwitch.isEnabled = false
+                
+                darkMinimalModeBool.set(true, forKey: "darkMinimalBool")
+                darkMinimalModeBool.synchronize()
+                
+            } else if !(sender.isOn) && sender.isEnabled {
+                
+                print("ran dark off")
+                
+                whiteMinimalMode.isEnabled = true
+                darkModeSwitch.isEnabled = true
+                
+                darkMinimalModeBool.set(false, forKey: "darkMinimalBool")
+                darkMinimalModeBool.synchronize()
+                
+            }
+            
+        }
         
     }
     
