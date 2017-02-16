@@ -71,7 +71,7 @@
 		14860B506C3763EB64BFBF94 /* Pods_Linguaboard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Linguaboard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		29223CA25AE1082213E49CBD /* Pods-Linguaboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Linguaboard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Linguaboard/Pods-Linguaboard.debug.xcconfig"; sourceTree = "<group>"; };
 		560E9AFB1E4C294100A80C6C /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
-		562539ED1E4C014800EAD653 /* Transboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Transboard.app; path = Linguaboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		562539ED1E4C014800EAD653 /* Linguaboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Linguaboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		562539F01E4C014800EAD653 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		562539F51E4C014800EAD653 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		562539F71E4C014800EAD653 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -88,6 +88,8 @@
 		56253A261E4C017100EAD653 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		56253A2E1E4C026600EAD653 /* Keyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Keyboard.storyboard; sourceTree = "<group>"; };
 		5668EDC61E4FBDC800A61693 /* StringExtensionHTML.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensionHTML.swift; sourceTree = "<group>"; };
+		569E9C261E55101F000ADFC1 /* Translate.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Translate.entitlements; sourceTree = "<group>"; };
+		569E9C271E551038000ADFC1 /* Linguaboard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Linguaboard.entitlements; sourceTree = "<group>"; };
 		56EA2B521E52606900F28952 /* LinguaboardTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinguaboardTableViewController.swift; sourceTree = "<group>"; };
 		61E4B9403078E189B1D78685 /* Pods-Linguaboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Linguaboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-Linguaboard/Pods-Linguaboard.release.xcconfig"; sourceTree = "<group>"; };
 		6400A7A526EB9EF92DC5FEDD /* Pods-Translate.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Translate.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Translate/Pods-Translate.debug.xcconfig"; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 		562539E41E4C014800EAD653 = {
 			isa = PBXGroup;
 			children = (
+				569E9C271E551038000ADFC1 /* Linguaboard.entitlements */,
 				562539EF1E4C014800EAD653 /* Transboard */,
 				56253A041E4C014800EAD653 /* TransboardTests */,
 				56253A0F1E4C014800EAD653 /* TransboardUITests */,
@@ -155,7 +158,7 @@
 		562539EE1E4C014800EAD653 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				562539ED1E4C014800EAD653 /* Transboard.app */,
+				562539ED1E4C014800EAD653 /* Linguaboard.app */,
 				56253A011E4C014800EAD653 /* LinguaboardTests.xctest */,
 				56253A0C1E4C014800EAD653 /* LinguaboardUITests.xctest */,
 				56253A221E4C017100EAD653 /* Translate.appex */,
@@ -197,6 +200,7 @@
 		56253A231E4C017100EAD653 /* Translate */ = {
 			isa = PBXGroup;
 			children = (
+				569E9C261E55101F000ADFC1 /* Translate.entitlements */,
 				5668EDC61E4FBDC800A61693 /* StringExtensionHTML.swift */,
 				560E9AFB1E4C294100A80C6C /* SwiftyJSON.swift */,
 				56253A241E4C017100EAD653 /* KeyboardViewController.swift */,
@@ -239,7 +243,7 @@
 			);
 			name = Linguaboard;
 			productName = Transboard;
-			productReference = 562539ED1E4C014800EAD653 /* Transboard.app */;
+			productReference = 562539ED1E4C014800EAD653 /* Linguaboard.app */;
 			productType = "com.apple.product-type.application";
 		};
 		56253A001E4C014800EAD653 /* LinguaboardTests */ = {
@@ -311,6 +315,11 @@
 						CreatedOnToolsVersion = 8.3;
 						DevelopmentTeam = 7CSTNGA4CB;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					56253A001E4C014800EAD653 = {
 						CreatedOnToolsVersion = 8.3;
@@ -328,6 +337,11 @@
 						CreatedOnToolsVersion = 8.3;
 						DevelopmentTeam = 7CSTNGA4CB;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -645,6 +659,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Linguaboard.entitlements;
 				DEVELOPMENT_TEAM = 7CSTNGA4CB;
 				INFOPLIST_FILE = Transboard/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -661,6 +676,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Linguaboard.entitlements;
 				DEVELOPMENT_TEAM = 7CSTNGA4CB;
 				INFOPLIST_FILE = Transboard/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -733,11 +749,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6400A7A526EB9EF92DC5FEDD /* Pods-Translate.debug.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Translate/Translate.entitlements;
 				DEVELOPMENT_TEAM = 7CSTNGA4CB;
 				INFOPLIST_FILE = Translate/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.omarabbasi.Linguaboard.Translate;
+				PRODUCT_BUNDLE_IDENTIFIER = com.omarabbasi.Linguaboard.Board;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
@@ -748,11 +765,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9137AC04E9BEDACBA1A3318F /* Pods-Translate.release.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Translate/Translate.entitlements;
 				DEVELOPMENT_TEAM = 7CSTNGA4CB;
 				INFOPLIST_FILE = Translate/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.omarabbasi.Linguaboard.Translate;
+				PRODUCT_BUNDLE_IDENTIFIER = com.omarabbasi.Linguaboard.Board;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
