@@ -10,6 +10,38 @@ import Foundation
 import UIKit
 import Alamofire
 
+public extension UIView {
+    
+    /**
+     Fade in a view with a duration
+     
+     - parameter duration: custom animation duration
+     */
+    func fadeIn(withDuration duration: TimeInterval = 1.0) {
+        UIView.animate(withDuration: duration, animations: {
+            self.alpha = 1.0
+        })
+    }
+    
+    /**
+     Fade out a view with a duration
+     
+     - parameter duration: custom animation duration
+     */
+    
+    func fadeOut(withDuration duration: TimeInterval = 1.0) {
+        /* UIView.animate(withDuration: duration, animations: {
+            self.alpha = 0.0
+        }) */
+        UIView.animate(withDuration: duration, animations: { 
+            self.alpha = 0.0
+        }) { (finished) in
+            self.removeFromSuperview()
+        }
+    }
+    
+}
+
 class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     // MARK: - Variables declaration
@@ -103,15 +135,19 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             frame1 = CGRect(x: 0, y: 10, width: 35, height: 43)
         }
         
-        var popUp = UIView(frame: frame)
-        var text = UILabel()
+        print("ran this1")
+        
+        let popUp = UIView(frame: frame)
+        let text = UILabel()
         text.frame = frame1
         text.text = sender.currentTitle!
         text.textAlignment = .center
         text.font = UIFont.boldSystemFont(ofSize: 30)
         text.backgroundColor = UIColor.white
         popUp.addSubview(text)
+        popUp.alpha = 0.0
         sender.addSubview(popUp)
+        popUp.fadeIn()
         
         self.textDocumentProxy.insertText(sender.currentTitle!)
         
@@ -128,7 +164,9 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     @IBAction func removePopUp(_ sender: UIButton) {
         
         if sender.subviews.count > 1 {
-            // sender.subviews[1].removeFromSuperview()
+            print("ran this")
+            sender.subviews[1].fadeOut()
+            sender.subviews[1].removeFromSuperview()
         }
         
     }
@@ -305,6 +343,10 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         // The app has just changed the document's contents, the document context has been updated.
         
         if (!(self.textDocumentProxy.documentContextBeforeInput != nil) && !(self.textDocumentProxy.documentContextAfterInput != nil)) || (self.textDocumentProxy.documentContextBeforeInput == "") && (self.textDocumentProxy.documentContextAfterInput == "") {
+            self.shiftStatus = 1
+            self.shiftKeys(row1)
+            self.shiftKeys(row2)
+            self.shiftKeys(row3)
             self.hideView.isEnabled = false
         }
         
@@ -438,16 +480,10 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         // button ui
         
         for letter in self.allKeys {
-            // letter.layer.cornerRadius = 5
+            letter.layer.cornerRadius = 5
             letter.setTitleColor(globalTintColor, for: .normal)
             // letter.layer.masksToBounds = true
-            // letter.backgroundColor = UIColor.darkGray
-            if letter == sendToInput {
-                letter.backgroundColor = UIColor.clear
-                letter.setTitleColor(UIColor.darkGray, for: .normal)
-            } else if letter == hideView {
-                
-            }
+            letter.backgroundColor = UIColor.lightGray
         }
         
         self.sendToInput.titleLabel?.font = UIFont.systemFont(ofSize: 18)
@@ -498,6 +534,34 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         }
         
     }
+    
+    /* func createKeytopImageOf(_ type: ButtonType) -> UIImage {
+        
+        var path: CGMutablePath = CGMutablePath()
+        var p = CGPoint(x: self.PADDING_X, y: self.PADDING_Y)
+        var p1 = CGPoint.zero
+        var p2 = CGPoint.zero
+        
+        p.x += self.PAN_UPPER_RADIUS
+        path.move(to: CGPoint(x: CGFloat(p.x), y: CGFloat(p.y)), transform: .identity)
+        p.x += self.PAN_UPPDER_WIDTH
+        path.addLine(to: CGPoint(x: CGFloat(p.x), y: CGFloat(p.y)), transform: .identity)
+        p.y += self.PAN_UPPER_RADIUS
+        path.addArc(center: CGPoint(x: CGFloat(p.x), y: CGFloat(p.y)), radius: CGFloat(self.PAN_UPPER_RADIUS), startAngle: CGFloat(3.0 * .pi / 2.0), endAngle: CGFloat(4.0 * .pi / 2.0), clockwise: false, transform: .identity)
+        p.x += self.PAN_UPPER_RADIUS
+        p.y += self.PAN_UPPDER_HEIGHT - self.PAN_UPPER_RADIUS - self.PAN_CURVE_SIZE
+        path.addLine(to: CGPoint(x: CGFloat(p.x), y: CGFloat(p.y)), transform: .identity)
+        
+        p1 = CGPoint(x: CGFloat(p.x), y: CGFloat(p.y + self.PAN_CURVE_SIZE))
+        
+        switch type {
+        case LeftButton:
+            <#code#>
+        default:
+            <#code#>
+        }
+        
+    } */
     
     func whichOne(_ int: Int) -> Array<String> {
         

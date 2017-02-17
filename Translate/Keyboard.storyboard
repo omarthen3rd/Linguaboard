@@ -823,7 +823,6 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="1o6-0x-vsc"/>
-                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="OkE-2s-DR6"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ri2-cP-tWF">
