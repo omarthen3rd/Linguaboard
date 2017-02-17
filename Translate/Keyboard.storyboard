@@ -94,6 +94,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="rUd-DI-hk5"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="6Lh-3d-sWa"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Aj-QC-OuV">
@@ -104,6 +105,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="TWj-gy-OPr"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="gYw-IK-a9d"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ql4-kc-9w4">
@@ -114,6 +116,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="eZp-it-S9J"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="4qP-iM-E58"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qyz-Vc-2aZ">
@@ -124,6 +127,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="r6U-c8-fPB"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="lWm-9f-jo4"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rvY-DZ-HBJ">
@@ -134,6 +138,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="RYT-qY-Hh9"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="Zh7-La-4Ul"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LNQ-3n-fBB">
@@ -144,6 +149,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="nWq-H8-1Xr"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="Z2r-6J-KkQ"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gye-G8-a1X">
@@ -154,6 +160,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="Hqu-UC-bQn"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="AhH-Hh-BPS"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cdY-58-1rW">
@@ -164,6 +171,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="QCx-9V-Rn2"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="avm-1u-HNz"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mH6-Ow-hVD">
@@ -174,6 +182,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="Jjk-yU-u71"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="aMZ-sw-vEb"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="myq-gd-XFg">
@@ -184,6 +193,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="JBD-Lz-zEU"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="Vaw-dd-okx"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -241,6 +251,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="cLp-Sw-B5L"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="DdU-Ia-b7y"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yf8-Pw-HLg">
@@ -251,6 +262,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="uCI-BG-tYi"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="ekl-eb-9VF"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zf5-8U-N6I">
@@ -261,6 +273,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="hCs-Rl-c2f"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="Vf5-8e-CK0"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f3U-i9-kOx">
@@ -271,6 +284,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="mMe-kA-GLH"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="9RD-Wp-y8b"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yoa-q4-tba">
@@ -281,6 +295,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="S3S-zr-vno"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="WR3-YK-LBa"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ApT-yk-za2">
@@ -291,6 +306,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="8nC-ja-YuW"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="vND-mU-6gm"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="44Y-kh-Pgn">
@@ -301,6 +317,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="Hn7-uA-iU4"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="pFn-0S-JOy"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N7w-pl-yEG">
@@ -311,6 +328,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="D2i-hg-CNq"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="L05-XV-Nux"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="shB-3Y-QgM">
@@ -321,6 +339,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="jM7-gr-PZ7"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="Mtd-P1-T7L"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RIX-9a-wfq">
@@ -331,6 +350,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="Gue-EE-8S8"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="m9W-R6-p4l"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -384,6 +404,9 @@
                                         <rect key="frame" x="4" y="4" width="50.5" height="42"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <state key="normal" title="#+="/>
+                                        <connections>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="tdA-jI-gLT"/>
+                                        </connections>
                                     </button>
                                     <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c5c-la-1r2">
                                         <rect key="frame" x="317" y="4.5" width="50" height="42"/>
@@ -392,6 +415,7 @@
                                         <state key="highlighted" image="bk_selected"/>
                                         <connections>
                                             <action selector="backSpaceButton:" destination="cjp-66-VOW" eventType="touchUpInside" id="TP5-7B-D85"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="cK2-lk-ytz"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PWW-t6-aKd">
@@ -402,6 +426,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="ITf-qn-sRa"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="j3d-z0-KbZ"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yqo-3p-iyk">
@@ -412,6 +437,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="qOD-IG-JPl"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="CXU-Bb-qHq"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QFC-g7-3du">
@@ -422,6 +448,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="wSN-be-f55"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="Re6-Vx-gvU"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uRu-Ld-ttn">
@@ -432,6 +459,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="xmj-bQ-diV"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="2q4-Sw-MuU"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YAp-qJ-gJh">
@@ -442,6 +470,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="UFZ-cf-MQY"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="j89-0U-s0W"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -487,6 +516,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="0s0-xf-4eI"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="wDX-oq-zJF"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xTF-cx-jWT">
@@ -497,6 +527,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="Shz-2f-LLb"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="haI-n5-iUa"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v2v-D5-ooA">
@@ -507,6 +538,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="Blw-P9-ACX"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="3RB-GD-Vsa"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yzY-vo-FNG">
@@ -517,6 +549,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="fcz-nR-287"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="WUl-qX-118"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MRh-e0-qID">
@@ -527,6 +560,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="8AR-pu-zM7"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="DyJ-Cc-peW"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6JN-EN-XAI">
@@ -537,6 +571,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="uRk-On-OM3"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="jsn-aZ-oX5"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fWJ-cL-NjA">
@@ -547,6 +582,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="Wse-9a-yvN"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="ezV-qD-PGf"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4DO-0m-3L2">
@@ -557,6 +593,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="aUI-6S-nKw"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="Clu-dd-Kyc"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ldp-6Z-NaE">
@@ -567,6 +604,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="Vx4-S2-cLH"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="Ccy-zr-BRo"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="blM-pR-a2J">
@@ -577,6 +615,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="Al5-Ua-6a2"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="o2n-fV-YSe"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -634,6 +673,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="0JU-gc-7sh"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="Xcr-wz-gGQ"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yws-Rv-i7u">
@@ -644,6 +684,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="ksW-8A-Sqm"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="2ty-Zw-Rke"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kn3-rC-TNa">
@@ -654,6 +695,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="Dwm-yt-OZ0"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="14E-qd-exX"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pci-Wb-omz">
@@ -664,6 +706,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="v7q-6E-Za7"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="vPE-fU-5B8"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="let-PN-mof">
@@ -674,6 +717,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="QwL-CQ-tWe"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="GvM-r6-cmG"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Elb-Ph-3ha">
@@ -684,6 +728,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="00g-3v-FAb"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="XI0-kC-gLR"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hql-dR-tYY">
@@ -694,6 +739,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="Uw3-48-KeG"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="ekb-TW-8v7"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S3B-rt-4qn">
@@ -704,6 +750,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="mxw-Ty-ZYk"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="Suh-cG-eEl"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7me-PZ-2db">
@@ -714,6 +761,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="mUD-1H-kiE"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="ucL-pi-ara"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -763,6 +811,7 @@
                                         <rect key="frame" x="4" y="4" width="42" height="42"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="zvF-bj-SdO"/>
                                             <action selector="shiftKeyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="D6L-40-Nwx"/>
                                         </connections>
                                     </button>
@@ -774,6 +823,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="1o6-0x-vsc"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="OkE-2s-DR6"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ri2-cP-tWF">
@@ -784,6 +834,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="J3H-G7-B9Z"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="Heb-XX-1Bo"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cRU-EY-Nqy">
@@ -794,6 +845,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="ptJ-Je-kYR"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="Pqc-La-Mys"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ga-da-KgQ">
@@ -804,6 +856,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="TOD-Ma-ibP"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="XCd-vU-j0O"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kb7-fZ-olG">
@@ -814,6 +867,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="fgv-Xv-QxX"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="CV2-EO-785"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VFy-F7-0Mx">
@@ -824,6 +878,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="2Uz-BT-EBV"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="62j-t8-nJR"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Umt-h8-rtM">
@@ -834,6 +889,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="8LM-qd-aDk"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="dSI-V1-sSV"/>
                                         </connections>
                                     </button>
                                     <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IFK-9u-PrL">
@@ -843,6 +899,7 @@
                                         <state key="highlighted" image="bk_selected"/>
                                         <connections>
                                             <action selector="backSpaceButton:" destination="cjp-66-VOW" eventType="touchUpInside" id="rIE-MY-hVx"/>
+                                            <action selector="removePopUp:" destination="cjp-66-VOW" eventType="touchUpInside" id="hbj-Ux-8S0"/>
                                         </connections>
                                     </button>
                                 </subviews>

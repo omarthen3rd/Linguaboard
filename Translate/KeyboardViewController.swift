@@ -11,10 +11,30 @@ import UIKit
 import Alamofire
 
 class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPickerViewDataSource {
-
+    
     // MARK: - Variables declaration
     
     var langArr: [String : String] = ["fa": "Persian", "mg": "Malagasy", "ig": "Igbo", "pl": "Polish", "ro": "Romanian", "tl": "Filipino", "bn": "Bengali", "id": "Indonesian", "la": "Latin", "st": "Sesotho", "xh": "Xhosa", "sk": "Slovak", "da": "Danish", "lo": "Lao", "si": "Sinhala", "pt": "Portuguese", "bg": "Bulgarian", "tg": "Tajik", "gd": "Scots Gaelic", "te": "Telugu", "pa": "Punjabi", "ha": "Hausa", "ps": "Pashto", "ne": "Nepali", "sq": "Albanian", "et": "Estonian", "cy": "Welsh", "ms": "Malay", "bs": "Bosnian", "sw": "Swahili", "is": "Icelandic", "fi": "Finnish", "eo": "Esperanto", "sl": "Slovenian", "en": "English", "mi": "Maori", "es": "Spanish", "ny": "Chichewa", "km": "Khmer", "ja": "Japanese", "tr": "Turkish", "sd": "Sindhi", "kn": "Kannada", "az": "Azerbaijani", "kk": "Kazakh", "zh-TW": "Chinese (Traditional)", "no": "Norwegian", "fy": "Frisian", "uz": "Uzbek", "de": "German", "ko": "Korean", "lt": "Lithuanian", "ky": "Kyrgyz", "sm": "Samoan", "be": "Belarusian", "mn": "Mongolian", "ta": "Tamil", "eu": "Basque", "gu": "Gujarati", "gl": "Galician", "uk": "Ukrainian", "el": "Greek", "ml": "Malayalam", "vi": "Vietnamese", "mt": "Maltese", "it": "Italian", "so": "Somali", "ceb": "Cebuano", "hr": "Croatian", "lv": "Latvian", "zh": "Chinese (Simplified)", "ht": "Haitian Creole", "su": "Sundanese", "ur": "Urdu", "ca": "Catalan", "cs": "Czech", "sr": "Serbian", "my": "Myanmar (Burmese)", "am": "Amharic", "af": "Afrikaans", "hu": "Hungarian", "co": "Corsican", "lb": "Luxembourgish", "ru": "Russian", "mr": "Marathi", "ga": "Irish", "ku": "Kurdish (Kurmanji)", "hmn": "Hmong", "hy": "Armenian", "sn": "Shona", "sv": "Swedish", "th": "Thai", "ka": "Georgian", "jw": "Javanese", "mk": "Macedonian", "haw": "Hawaiian", "yo": "Yoruba", "zu": "Zulu", "nl": "Dutch", "yi": "Yiddish", "iw": "Hebrew", "hi": "Hindi", "ar": "Arabic", "fr": "French"]
+    
+    // some constrant variables for key popup
+    
+    var UPPER_WIDTH: CGFloat = 0
+    var LOWER_WIDTH: CGFloat = 0
+    var PAN_UPPER_RADIUS: CGFloat = 0
+    var PAN_LOWER_RADIUS: CGFloat = 0
+    var PAN_UPPDER_WIDTH: CGFloat = 0
+    var PAN_UPPDER_HEIGHT: CGFloat = 0
+    var PAN_LOWER_WIDTH: CGFloat = 0
+    var PAN_LOWER_HEIGHT: CGFloat = 0
+    var PAN_UL_WIDTH: CGFloat = 0
+    var PAN_MIDDLE_HEIGHT: CGFloat = 0
+    var PAN_CURVE_SIZE: CGFloat = 0
+    var PADDING_X: CGFloat = 0
+    var PADDING_Y: CGFloat = 0
+    var WIDTH: CGFloat = 0
+    var HEIGHT: CGFloat = 0
+    var OFFSET_X: CGFloat = 0
+    var OFFSET_Y: CGFloat = 0
     
     var shiftStatus: Int! // 0: off, 1: on, 2: lock
     var expandedHeight: CGFloat = 250
@@ -44,7 +64,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     @IBOutlet var backspaceButton: UIButton!
     @IBOutlet var altBoard: UIButton!
     @IBOutlet var returnKey: UIButton!
-
+    
     @IBOutlet var blurBG: UIVisualEffectView!
     @IBOutlet var translateShowView: UIView!
     @IBOutlet var sendToInput: UIButton!
@@ -99,8 +119,16 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         self.shouldAutoCap()
         
-         if shiftStatus == 1 {
+        if shiftStatus == 1 {
             self.shiftKeyPressed(self.shiftButton)
+        }
+        
+    }
+    
+    @IBAction func removePopUp(_ sender: UIButton) {
+        
+        if sender.subviews.count > 1 {
+            // sender.subviews[1].removeFromSuperview()
         }
         
     }
@@ -174,7 +202,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.symbolsNumbersRow3.isHidden = didOpenPicker2
             
         }
-
+        
         
     }
     
@@ -222,6 +250,24 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     override func updateViewConstraints() {
         super.updateViewConstraints()
         
+        self.UPPER_WIDTH = 52.0 * UIScreen.main.scale
+        self.LOWER_WIDTH = 32.0 * UIScreen.main.scale
+        self.PAN_UPPER_RADIUS = 7.0 * UIScreen.main.scale
+        self.PAN_LOWER_RADIUS = 7.0 * UIScreen.main.scale
+        self.PAN_UPPDER_WIDTH = self.UPPER_WIDTH - self.PAN_UPPER_RADIUS * 2
+        self.PAN_UPPDER_HEIGHT = 61.0 * UIScreen.main.scale
+        self.PAN_LOWER_WIDTH = self.LOWER_WIDTH - self.PAN_LOWER_RADIUS * 2
+        self.PAN_LOWER_HEIGHT = 30.0 * UIScreen.main.scale
+        self.PAN_UL_WIDTH = ((self.UPPER_WIDTH - self.LOWER_WIDTH) / 2)
+        self.PAN_MIDDLE_HEIGHT = 11.0 * UIScreen.main.scale
+        self.PAN_CURVE_SIZE = 7.0 * UIScreen.main.scale
+        self.PADDING_X = 15 * UIScreen.main.scale
+        self.PADDING_Y = 10 * UIScreen.main.scale
+        self.WIDTH = (UPPER_WIDTH + PADDING_X * 2)
+        self.HEIGHT = self.PAN_UPPDER_HEIGHT + self.PAN_MIDDLE_HEIGHT + self.PADDING_Y * 2
+        self.OFFSET_X = -25 * UIScreen.main.scale
+        self.OFFSET_Y = 59 * UIScreen.main.scale
+        
         loadBoardHeight(expandedHeight, shouldRemoveConstraint)
         
     }
@@ -236,11 +282,11 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.updateViewConstraints()
             self.shouldRemoveConstraint = true
         }
-
+        
     }
     
     override func viewDidLoad() {
-    super.viewDidLoad()
+        super.viewDidLoad()
         
         loadInterface()
         
@@ -289,7 +335,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.toKey = key as! String
             self.showPickerBtn.setTitle(self.toKey.uppercased(), for: .normal)
         }
-    
+        
     }
     
     // MARK: - Functions
@@ -299,7 +345,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         let darkMode = darkModeBool.double(forKey: "darkBool")
         let whiteMinimal = whiteMinimalModeBool.double(forKey: "whiteMinimalBool")
         let darkMinimal = darkMinimalModeBool.double(forKey: "darkMinimalBool")
-                
+        
         switch darkMode {
         case 1:
             let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.dark)
@@ -314,8 +360,9 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.blurBG.effect = blurEffect
             self.globalTintColor = UIColor.darkGray
         default:
+            print("")
         }
- 
+        
         switch whiteMinimal {
         case 1:
             self.blurBG.isHidden = true
@@ -327,6 +374,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.blurBG.effect = blurEffect
             self.globalTintColor = UIColor.darkGray
         case 0:
+            print("")
         default:
             self.blurBG.isHidden = false
             let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.light)
@@ -345,6 +393,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.blurBG.effect = blurEffect
             self.globalTintColor = UIColor.darkGray
         case 0:
+            print("")
         default:
             self.blurBG.isHidden = false
             let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.light)
@@ -428,11 +477,11 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.returnKey.tintColor = globalTintColor
         
         self.showPickerBtn.setTitle(self.toKey, for: .normal)
-
+        
         self.nextKeyboardButton.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .allTouchEvents)
         self.hideView.addTarget(self, action: #selector(self.translateCaller), for: .touchUpInside)
         self.sendToInput.addTarget(self, action: #selector(self.clearButton(_:)), for: .touchUpInside)
-
+        
     }
     
     func loadBoardHeight(_ expanded: CGFloat, _ removeOld: Bool) {
@@ -601,7 +650,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     func googleTranslate(_ text: String, _ langFrom: String, _ langTo: String) {
         
         let spacelessString = text.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-                
+        
         Alamofire.request("https://translation.googleapis.com/language/translate/v2?key=AIzaSyAVrMMcGIKmC-PrPgQzTOGJGFIEc6MUTGw&source=\(langFrom)&target=\(langTo)&q=\(spacelessString!)").responseJSON { (Response) in
             
             if let value = Response.result.value {
@@ -618,7 +667,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         }
         
     }
-
+    
     func spaceKeyDoubleTapped(_ sender: UIButton) {
         
         self.textDocumentProxy.deleteBackward()
