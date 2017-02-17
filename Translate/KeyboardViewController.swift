@@ -96,6 +96,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     @IBOutlet var backspaceButton: UIButton!
     @IBOutlet var altBoard: UIButton!
     @IBOutlet var returnKey: UIButton!
+    @IBOutlet var symbolsKey: UIButton!
     
     @IBOutlet var blurBG: UIVisualEffectView!
     @IBOutlet var translateShowView: UIView!
@@ -104,8 +105,10 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     @IBOutlet var row1: UIView!
     @IBOutlet var numbersRow1: UIView!
+    @IBOutlet var symbolsRow1: UIView!
     @IBOutlet var row2: UIView!
     @IBOutlet var numbersRow2: UIView!
+    @IBOutlet var symbolsRow2: UIView!
     @IBOutlet var row3: UIView!
     @IBOutlet var symbolsNumbersRow3: UIView!
     @IBOutlet var row4: UIView!
@@ -145,9 +148,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         text.font = UIFont.boldSystemFont(ofSize: 30)
         text.backgroundColor = UIColor.white
         popUp.addSubview(text)
-        popUp.alpha = 0.0
-        sender.addSubview(popUp)
-        popUp.fadeIn()
+        // sender.addSubview(popUp)
         
         self.textDocumentProxy.insertText(sender.currentTitle!)
         
@@ -165,8 +166,13 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         if sender.subviews.count > 1 {
             print("ran this")
-            sender.subviews[1].fadeOut()
-            sender.subviews[1].removeFromSuperview()
+            
+            // sender.subviews[1].fadeOut(withDuration: 0.3)
+            
+            if sender.subviews.count > 1 {
+                print("ran tjis")
+            }
+            // sender.subviews[1].removeFromSuperview()
         }
         
     }
@@ -218,6 +224,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.row3.isHidden = !didOpenPicker2
             self.numbersRow1.isHidden = !didOpenPicker2
             self.numbersRow2.isHidden = !didOpenPicker2
+            self.symbolsRow1.isHidden = !didOpenPicker2
+            self.symbolsRow2.isHidden = !didOpenPicker2
             self.symbolsNumbersRow3.isHidden = !didOpenPicker2
             
         } else {
@@ -237,6 +245,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.row3.isHidden = !didOpenPicker2
             self.numbersRow1.isHidden = didOpenPicker2
             self.numbersRow2.isHidden = didOpenPicker2
+            self.symbolsRow1.isHidden = didOpenPicker2
+            self.symbolsRow2.isHidden = didOpenPicker2
             self.symbolsNumbersRow3.isHidden = didOpenPicker2
             
         }
@@ -248,6 +258,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         self.numbersRow1.isHidden = true
         self.numbersRow2.isHidden = true
+        self.symbolsRow1.isHidden = true
+        self.symbolsRow2.isHidden = true
         self.symbolsNumbersRow3.isHidden = true
         
         switch (button.tag) {
@@ -257,6 +269,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.row1.isHidden = true
             self.row2.isHidden = true
             self.row3.isHidden = true
+            self.symbolsRow1.isHidden = true
+            self.symbolsRow2.isHidden = true
             self.numbersRow1.isHidden = false
             self.numbersRow2.isHidden = false
             self.symbolsNumbersRow3.isHidden = false
@@ -266,11 +280,30 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.altBoard.tag = 0
             self.altBoard.tintColor = globalTintColor
             
+            self.symbolsKey.titleLabel?.text = "#+="
+            self.symbolsKey.tag = 2
+            
+        case 2:
+            
+            self.symbolsRow1.isHidden = false
+            self.symbolsRow2.isHidden = false
+            self.symbolsNumbersRow3.isHidden = false
+            self.numbersRow1.isHidden = true
+            self.numbersRow2.isHidden = true
+            self.row1.isHidden = true
+            self.row2.isHidden = true
+            self.row3.isHidden = true
+            
+            self.symbolsKey.tag = 1
+            self.symbolsKey.titleLabel?.text = "123"
+            
         default:
             
             self.row1.isHidden = false
             self.row2.isHidden = false
             self.row3.isHidden = false
+            self.symbolsRow1.isHidden = true
+            self.symbolsRow2.isHidden = true
             self.numbersRow1.isHidden = true
             self.numbersRow2.isHidden = true
             self.symbolsNumbersRow3.isHidden = true
@@ -313,7 +346,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         if (self.view.traitCollection.verticalSizeClass == UIUserInterfaceSizeClass.compact) {
-            self.expandedHeight = 130
+            self.expandedHeight = 150
             self.updateViewConstraints()
         } else if (self.view.traitCollection.verticalSizeClass == UIUserInterfaceSizeClass.regular) {
             self.expandedHeight = 250
@@ -451,6 +484,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         pickerViewTo.isHidden = true
         
         self.hideView.isEnabled = false
+        symbolsRow1.isHidden = true
+        symbolsRow2.isHidden = true
         numbersRow1.isHidden = true
         numbersRow2.isHidden = true
         symbolsNumbersRow3.isHidden = true
@@ -480,10 +515,10 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         // button ui
         
         for letter in self.allKeys {
-            letter.layer.cornerRadius = 5
+            // letter.layer.cornerRadius = 5
             letter.setTitleColor(globalTintColor, for: .normal)
             // letter.layer.masksToBounds = true
-            letter.backgroundColor = UIColor.lightGray
+            // letter.backgroundColor = UIColor.lightGray
         }
         
         self.sendToInput.titleLabel?.font = UIFont.systemFont(ofSize: 18)
