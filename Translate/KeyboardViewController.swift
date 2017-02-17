@@ -101,6 +101,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     @IBOutlet var blurBG: UIVisualEffectView!
     @IBOutlet var translateShowView: UIView!
+    @IBOutlet var clearTranslation: UIButton!
     @IBOutlet var sendToInput: UIButton!
     @IBOutlet var hideView: UIButton!
     
@@ -139,8 +140,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             frame1 = CGRect(x: 0, y: 10, width: 35, height: 43)
         }
         
-        print("ran this1")
-        
         let popUp = UIView(frame: frame)
         let text = UILabel()
         text.frame = frame1
@@ -166,14 +165,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     @IBAction func removePopUp(_ sender: UIButton) {
         
         if sender.subviews.count > 1 {
-            print("ran this")
-            
             // sender.subviews[1].fadeOut(withDuration: 0.3)
-            
-            if sender.subviews.count > 1 {
-                print("ran tjis")
-            }
-            // sender.subviews[1].removeFromSuperview()
         }
         
     }
@@ -281,8 +273,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.altBoard.tag = 0
             self.altBoard.tintColor = globalTintColor
             
-            print("ran thats")
-            
             self.symbolsKey.setImage(UIImage(named: "symbols")?.withRenderingMode(.alwaysTemplate), for: .normal)
             self.symbolsKey.setImage(UIImage(named: "symbols_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
             self.symbolsKey.tintColor = globalTintColor
@@ -295,7 +285,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.symbolsNumbersRow3.isHidden = false
             
             self.symbolsKey.tag = 1
-            print("ran that")
             self.symbolsKey.setImage(UIImage(named: "altBoard")?.withRenderingMode(.alwaysTemplate), for: .normal)
             self.symbolsKey.setImage(UIImage(named: "altBoard_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
             self.symbolsKey.tintColor = globalTintColor
@@ -487,6 +476,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         pickerViewTo.isHidden = true
         
         self.hideView.isEnabled = false
+        self.clearTranslation.isEnabled = false
         symbolsRow1.isHidden = true
         symbolsRow2.isHidden = true
         numbersRow1.isHidden = true
@@ -559,11 +549,15 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.returnKey.setImage(UIImage(named: "return_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
         self.returnKey.tintColor = globalTintColor
         
+        self.clearTranslation.setImage(UIImage(named: "close")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        self.clearTranslation.setImage(UIImage(named: "close_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
+        self.clearTranslation.tintColor = globalTintColor
+        
         self.showPickerBtn.setTitle(self.toKey, for: .normal)
         
         self.nextKeyboardButton.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .allTouchEvents)
         self.hideView.addTarget(self, action: #selector(self.translateCaller), for: .touchUpInside)
-        self.sendToInput.addTarget(self, action: #selector(self.clearButton(_:)), for: .touchUpInside)
+        self.clearTranslation.addTarget(self, action: #selector(self.clearButton(_:)), for: .touchUpInside)
         
     }
     
@@ -688,7 +682,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.hideView.setImage(UIImage(named: "appLogo")?.withRenderingMode(.alwaysTemplate), for: .normal)
         self.hideView.setImage(UIImage(named: "appLogo_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
         
-        sender.setTitle("", for: .normal)
+        self.sendToInput.setTitle("", for: .normal)
+        self.clearTranslation.isEnabled = false 
         
     }
     
@@ -712,6 +707,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.textDocumentProxy.insertText(self.sendToInput.currentTitle!)
         self.shouldAutoCap()
         self.sendToInput.setTitle("", for: .normal)
+        self.clearTranslation.isEnabled = false
         self.hideView.removeTarget(self, action: #selector(self.addToText), for: .touchUpInside)
         self.hideView.addTarget(self, action: #selector(self.translateCaller), for: .touchUpInside)
         self.hideView.isEnabled = false
@@ -738,6 +734,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.hideView.addTarget(self, action: #selector(self.addToText), for: .touchUpInside)
             
         }
+        
+        self.clearTranslation.isEnabled = true
         
     }
     
