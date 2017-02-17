@@ -10,6 +10,10 @@ import UIKit
 
 class LinguaboardTableViewController: UITableViewController {
 
+    // 0 == nil
+    // 1 == true
+    // 2 == false
+    
     @IBOutlet var darkModeSwitch: UISwitch!
     @IBOutlet var whiteMinimalMode: UISwitch!
     @IBOutlet var darkMinimalMode: UISwitch!
@@ -18,17 +22,33 @@ class LinguaboardTableViewController: UITableViewController {
         if darkModeSwitch.isOn && darkModeSwitch.isEnabled {
             
             whiteMinimalMode.isEnabled = false
-            darkMinimalMode.isEnabled = false
+            // whiteMinimalBool.set("nil", forKey: "whiteMinimalBool")
+            whiteMinimalBool.set(0, forKey: "whiteMinimalBool")
+            whiteMinimalBool.synchronize()
             
-            darkModeBool.set(true, forKey: "darkBool")
+            darkMinimalMode.isEnabled = false
+            // darkMinimalModeBool.set("nil", forKey: "darkMinimalBool")
+            darkMinimalModeBool.set(0, forKey: "darkMinimalBool")
+            darkMinimalModeBool.synchronize()
+            
+            // darkModeBool.set("true", forKey: "darkBool")
+            darkModeBool.set(1, forKey: "darkBool")
             darkModeBool.synchronize()
             
         } else if !(darkModeSwitch.isOn) && darkModeSwitch.isEnabled {
             
             whiteMinimalMode.isEnabled = true
-            darkMinimalMode.isEnabled = true
+            // whiteMinimalBool.set("nil", forKey: "whiteMinimalBool")
+            whiteMinimalBool.set(0, forKey: "whiteMinimalBool")
+            whiteMinimalBool.synchronize()
             
-            darkModeBool.set(false, forKey: "darkBool")
+            darkMinimalMode.isEnabled = true
+            // darkMinimalModeBool.set("nil", forKey: "darkMinimalBool")
+            darkMinimalModeBool.set(0, forKey: "darkMinimalBool")
+            darkMinimalModeBool.synchronize()
+            
+            // darkModeBool.set("false", forKey: "darkBool")
+            darkModeBool.set(2, forKey: "darkBool")
             darkModeBool.synchronize()
             
         }
@@ -36,7 +56,7 @@ class LinguaboardTableViewController: UITableViewController {
     }
     
     var darkModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
-    var whiteMinimalModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
+    var whiteMinimalBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     var darkMinimalModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     
     override func viewDidLoad() {
@@ -61,22 +81,43 @@ class LinguaboardTableViewController: UITableViewController {
                 print("ran white on")
                 
                 darkMinimalMode.isEnabled = false
-                darkModeSwitch.isEnabled = false
+                // darkMinimalModeBool.set("nil", forKey: "darkMinimalBool")
+                darkMinimalModeBool.set(0, forKey: "darkMinimalBool")
+                darkMinimalModeBool.synchronize()
                 
-                whiteMinimalModeBool.set(true, forKey: "whiteMinimalBool")
-                whiteMinimalModeBool.synchronize()
+                darkModeSwitch.isEnabled = false
+                // darkModeBool.set("nil", forKey: "darkBool")
+                darkModeBool.set(0, forKey: "darkBool")
+                darkModeBool.synchronize()
+                
+                // whiteMinimalBool.set("true", forKey: "whiteMinimalBool")
+                whiteMinimalBool.set(1, forKey: "whiteMinimalBool")
+                whiteMinimalBool.synchronize()
+                
+                print(whiteMinimalBool.object(forKey: "whiteMinimalBool"))
                 
             } else if !(sender.isOn) && sender.isEnabled {
                 
                 print("ran white off")
                 
                 darkMinimalMode.isEnabled = true
-                darkModeSwitch.isEnabled = true
+                // darkMinimalModeBool.set("nil", forKey: "darkMinimalBool")
+                darkMinimalModeBool.set(0, forKey: "darkMinimalBool")
+                darkMinimalModeBool.synchronize()
                 
-                whiteMinimalModeBool.set(false, forKey: "whiteMinimalBool")
-                whiteMinimalModeBool.synchronize()
+                darkModeSwitch.isEnabled = true
+                // darkModeBool.set("nil", forKey: "darkBool")
+                darkModeBool.set(0, forKey: "darkBool")
+                darkModeBool.synchronize()
+                
+                // whiteMinimalBool.set("false", forKey: "whiteMinimalBool")
+                whiteMinimalBool.set(2, forKey: "whiteMinimalBool")
+                whiteMinimalBool.synchronize()
+                
+                print(whiteMinimalBool.object(forKey: "whiteMinimalBool"))
                 
             }
+            
             
         } else if sender == darkMinimalMode {
             
@@ -85,9 +126,17 @@ class LinguaboardTableViewController: UITableViewController {
                 print("ran dark on")
                 
                 whiteMinimalMode.isEnabled = false
-                darkModeSwitch.isEnabled = false
+                // whiteMinimalBool.set("nil", forKey: "whiteMinimalBool")
+                whiteMinimalBool.set(0, forKey: "whiteMinimalBool")
+                whiteMinimalBool.synchronize()
                 
-                darkMinimalModeBool.set(true, forKey: "darkMinimalBool")
+                darkModeSwitch.isEnabled = false
+                // darkModeBool.set("nil", forKey: "darkBool")
+                darkModeBool.set(0, forKey: "darkBool")
+                darkModeBool.synchronize()
+                
+                // darkMinimalModeBool.set("true", forKey: "darkMinimalBool")
+                darkMinimalModeBool.set(1, forKey: "darkMinimalBool")
                 darkMinimalModeBool.synchronize()
                 
             } else if !(sender.isOn) && sender.isEnabled {
@@ -95,9 +144,17 @@ class LinguaboardTableViewController: UITableViewController {
                 print("ran dark off")
                 
                 whiteMinimalMode.isEnabled = true
-                darkModeSwitch.isEnabled = true
+                // whiteMinimalBool.set("nil", forKey: "whiteMinimalBool")
+                whiteMinimalBool.set(0, forKey: "whiteMinimalBool")
+                whiteMinimalBool.synchronize()
                 
-                darkMinimalModeBool.set(false, forKey: "darkMinimalBool")
+                darkModeSwitch.isEnabled = true
+                // darkModeBool.set("nil", forKey: "darkBool")
+                darkModeBool.set(0, forKey: "darkBool")
+                darkModeBool.synchronize()
+                
+                // darkMinimalModeBool.set("false", forKey: "darkMinimalBool")
+                darkMinimalModeBool.set(2, forKey: "darkMinimalBool")
                 darkMinimalModeBool.synchronize()
                 
             }
@@ -105,62 +162,5 @@ class LinguaboardTableViewController: UITableViewController {
         }
         
     }
-    
-    // MARK: - Table view data source
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

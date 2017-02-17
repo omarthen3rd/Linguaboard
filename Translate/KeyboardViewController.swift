@@ -219,9 +219,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        print(darkModeBool.bool(forKey: "darkBool"))
+    super.viewDidLoad()
         
         loadInterface()
         
@@ -277,28 +275,74 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     func loadInterface() {
         
-        let darkMode = darkModeBool.bool(forKey: "darkBool")
-        
-        if darkMode {
-            
-            print("ran loadInterface darkBlur")
-            
+        let darkMode = darkModeBool.double(forKey: "darkBool")
+        let whiteMinimal = whiteMinimalModeBool.double(forKey: "whiteMinimalBool")
+        let darkMinimal = darkMinimalModeBool.double(forKey: "darkMinimalBool")
+                
+        switch darkMode {
+        case 1:
+            print("ran 1")
             let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.dark)
             self.blurBG.effect = blurEffect
             self.globalTintColor = UIColor.white
-            print("ran True")
-
-        } else {
-            
-            print("ran loadInterface whiteBlur")
-            
+        case 2:
+            print("ran 2")
             let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.light)
             self.blurBG.effect = blurEffect
             self.globalTintColor = UIColor.darkGray
-            self.sendToInput.tag = 0
-            print("ran False")
+        case 0:
+            print("ran 3")
+            let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.light)
+            self.blurBG.effect = blurEffect
+            self.globalTintColor = UIColor.darkGray
+        default:
+            print("ran 4")
         }
-                
+ 
+        switch whiteMinimal {
+        case 1:
+            print("ran 11")
+            self.blurBG.isHidden = true
+            self.view.backgroundColor = UIColor.white
+            self.globalTintColor = UIColor.darkGray
+        case 2:
+            print("ran 22")
+            self.blurBG.isHidden = false
+            let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.light)
+            self.blurBG.effect = blurEffect
+            self.globalTintColor = UIColor.darkGray
+        case 0:
+            print("ran 33")
+        default:
+            print("ran 44")
+            self.blurBG.isHidden = false
+            let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.light)
+            self.blurBG.effect = blurEffect
+            self.globalTintColor = UIColor.darkGray
+        }
+        
+        switch darkMinimal {
+        case 1:
+            print("ran 111")
+            self.blurBG.isHidden = true
+            self.view.backgroundColor = UIColor.black
+            self.globalTintColor = UIColor.white
+        case 2:
+            print("ran 222")
+            self.blurBG.isHidden = false
+            let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.light)
+            self.blurBG.effect = blurEffect
+            self.globalTintColor = UIColor.darkGray
+        case 0:
+            print("ran 333")
+        default:
+            print("ran 444")
+            self.blurBG.isHidden = false
+            let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.light)
+            self.blurBG.effect = blurEffect
+            self.globalTintColor = UIColor.darkGray
+        }
+        
         self.shiftStatus = 1
         
         pickerViewTo.delegate = self
@@ -551,6 +595,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         let spacelessString = text.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         
+        print("ran this")
+        
         Alamofire.request("https://translation.googleapis.com/language/translate/v2?key=AIzaSyAVrMMcGIKmC-PrPgQzTOGJGFIEc6MUTGw&source=\(langFrom)&target=\(langTo)&q=\(spacelessString!)").responseJSON { (Response) in
             
             if let value = Response.result.value {
@@ -560,6 +606,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
                     
                     let text = translation["translatedText"].stringValue
                     self.sendToInput.setTitle(text.stringByDecodingHTMLEntities, for: .normal)
+                    print(text)
                     
                 }
                 
