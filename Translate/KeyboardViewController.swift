@@ -281,7 +281,11 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.altBoard.tag = 0
             self.altBoard.tintColor = globalTintColor
             
-            self.symbolsKey.titleLabel?.text = "#+="
+            print("ran thats")
+            
+            self.symbolsKey.setImage(UIImage(named: "symbols")?.withRenderingMode(.alwaysTemplate), for: .normal)
+            self.symbolsKey.setImage(UIImage(named: "symbols_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
+            self.symbolsKey.tintColor = globalTintColor
             self.symbolsKey.tag = 2
             
         case 2:
@@ -289,14 +293,12 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.symbolsRow1.isHidden = false
             self.symbolsRow2.isHidden = false
             self.symbolsNumbersRow3.isHidden = false
-            self.numbersRow1.isHidden = true
-            self.numbersRow2.isHidden = true
-            self.row1.isHidden = true
-            self.row2.isHidden = true
-            self.row3.isHidden = true
             
             self.symbolsKey.tag = 1
-            self.symbolsKey.titleLabel?.text = "123"
+            print("ran that")
+            self.symbolsKey.setImage(UIImage(named: "altBoard")?.withRenderingMode(.alwaysTemplate), for: .normal)
+            self.symbolsKey.setImage(UIImage(named: "altBoard_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
+            self.symbolsKey.tintColor = globalTintColor
             
         default:
             
@@ -544,6 +546,10 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.nextKeyboardButton.setImage(UIImage(named: "otherBoard")?.withRenderingMode(.alwaysTemplate), for: .normal)
         self.nextKeyboardButton.setImage(UIImage(named: "otherBoard")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
         self.nextKeyboardButton.tintColor = globalTintColor
+        
+        self.symbolsKey.setImage(UIImage(named: "symbols")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        self.symbolsKey.setImage(UIImage(named: "symbols_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
+        self.symbolsKey.tintColor = globalTintColor
         
         self.altBoard.setImage(UIImage(named: "altBoard")?.withRenderingMode(.alwaysTemplate), for: .normal)
         self.altBoard.setImage(UIImage(named: "altBoard_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
