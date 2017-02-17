@@ -1393,6 +1393,7 @@
                     <connections>
                         <outlet property="altBoard" destination="mYU-BM-DgM" id="lQJ-uB-5Ic"/>
                         <outlet property="backspaceButton" destination="IFK-9u-PrL" id="WFq-gj-IAw"/>
+                        <outlet property="backspaceButton2" destination="c5c-la-1r2" id="9zX-3t-2Wm"/>
                         <outlet property="blurBG" destination="ypR-OG-pT7" id="Szg-U4-15b"/>
                         <outlet property="hideView" destination="zWx-AH-STF" id="GlY-GM-H3Y"/>
                         <outlet property="nextKeyboardButton" destination="BEL-X4-bfA" id="FVq-fw-avj"/>

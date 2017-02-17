@@ -94,6 +94,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     @IBOutlet var spaceButton: UIButton!
     @IBOutlet var showPickerBtn: UIButton!
     @IBOutlet var backspaceButton: UIButton!
+    @IBOutlet var backspaceButton2: UIButton!
     @IBOutlet var altBoard: UIButton!
     @IBOutlet var returnKey: UIButton!
     @IBOutlet var symbolsKey: UIButton!
@@ -517,6 +518,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         for letter in self.allKeys {
             // letter.layer.cornerRadius = 5
             letter.setTitleColor(globalTintColor, for: .normal)
+            letter.tintColor = globalTintColor
             // letter.layer.masksToBounds = true
             // letter.backgroundColor = UIColor.lightGray
         }
@@ -534,6 +536,10 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.backspaceButton.setImage(UIImage(named: "bk")?.withRenderingMode(.alwaysTemplate), for: .normal)
         self.backspaceButton.setImage(UIImage(named: "bk_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
         self.backspaceButton.tintColor = globalTintColor
+        
+        self.backspaceButton2.setImage(UIImage(named: "bk")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        self.backspaceButton2.setImage(UIImage(named: "bk_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
+        self.backspaceButton2.tintColor = globalTintColor
         
         self.nextKeyboardButton.setImage(UIImage(named: "otherBoard")?.withRenderingMode(.alwaysTemplate), for: .normal)
         self.nextKeyboardButton.setImage(UIImage(named: "otherBoard")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
