@@ -29,11 +29,22 @@ public extension UIView {
      - parameter duration: custom animation duration
      */
     
+    func fadeOutWithoutRemoving(withDuration duration: TimeInterval = 1.0) {
+        /* UIView.animate(withDuration: duration, animations: {
+         self.alpha = 0.0
+         }) */
+        UIView.animate(withDuration: duration, animations: {
+            self.bounds.origin.y += 10
+            self.alpha = 0.0
+        }) { (finished) in }
+    }
+    
     func fadeOut(withDuration duration: TimeInterval = 1.0) {
         /* UIView.animate(withDuration: duration, animations: {
             self.alpha = 0.0
         }) */
         UIView.animate(withDuration: duration, animations: { 
+            self.bounds.origin.y += 10
             self.alpha = 0.0
         }) { (finished) in
             self.removeFromSuperview()
@@ -129,27 +140,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     @IBAction func keyPressed(_ sender: UIButton) {
         
-        var frame: CGRect
-        var frame1: CGRect
-        
-        if self.view.frame.size.width == 375 {
-            frame = CGRect(x: 0, y: -25, width: 28, height: 43)
-            frame1 = CGRect(x: 0, y: 0, width: 28, height: 43)
-        } else {
-            frame = CGRect(x: 3, y: -25, width: 35, height: 43)
-            frame1 = CGRect(x: 0, y: 10, width: 35, height: 43)
-        }
-        
-        let popUp = UIView(frame: frame)
-        let text = UILabel()
-        text.frame = frame1
-        text.text = sender.currentTitle!
-        text.textAlignment = .center
-        text.font = UIFont.boldSystemFont(ofSize: 30)
-        text.backgroundColor = UIColor.white
-        popUp.addSubview(text)
-        // sender.addSubview(popUp)
-        
         self.textDocumentProxy.insertText(sender.currentTitle!)
         
         self.hideView.isEnabled = true
@@ -165,8 +155,14 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     @IBAction func removePopUp(_ sender: UIButton) {
         
         if sender.subviews.count > 1 {
-            // sender.subviews[1].fadeOut(withDuration: 0.3)
+           // sender.subviews[1].fadeOut(withDuration: 0.3)
         }
+        
+        // for view in sender.subviews {
+            
+            // view.fadeOut(withDuration: 0.3)
+            
+        // }
         
     }
     
@@ -515,6 +511,12 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             // letter.backgroundColor = UIColor.lightGray
         }
         
+        for letterKey in self.keyCollection {
+            
+            letterKey.addTarget(self, action: #selector(self.createPopUp(_:)), for: .touchDown)
+            
+        }
+        
         self.sendToInput.titleLabel?.font = UIFont.systemFont(ofSize: 18)
         self.sendToInput.setTitleColor(globalTintColor, for: .normal)
         
@@ -573,6 +575,33 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.heightConstraint.priority = UILayoutPriorityDefaultHigh
             self.view?.addConstraint(heightConstraint)
         }
+        
+    }
+    
+    func createPopUp(_ sender: UIButton) {
+        
+        var frame: CGRect
+        var frame1: CGRect
+        frame = CGRect(x: 0, y: -25, width: sender.frame.size.width, height: sender.frame.size.height)
+        frame1 = CGRect(x: 0, y: -25, width: sender.frame.size.width, height: sender.frame.size.height)
+        
+        let popUp = UIView(frame: frame)
+        let text = UILabel()
+        text.frame = frame1
+        text.text = sender.currentTitle!
+        text.textAlignment = .center
+        text.font = UIFont.boldSystemFont(ofSize: 30)
+        text.backgroundColor = UIColor.white
+        text.layer.masksToBounds = true
+        text.layer.cornerRadius = 10
+        popUp.backgroundColor = UIColor.init(white: 1.0, alpha: 0.5)
+        popUp.layer.cornerRadius = 10
+        popUp.layer.shouldRasterize = true
+        popUp.layer.rasterizationScale = UIScreen.main.scale
+        // popUp.layer.masksToBounds = true
+        popUp.addSubview(text)
+        sender.addSubview(popUp)
+        popUp.fadeOut(withDuration: 0.5)
         
     }
     
@@ -704,6 +733,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.hideView.tintColor = globalTintColor
         
         deleteAllText()
+        self.sendToInput.titleLabel?.fadeOutWithoutRemoving(withDuration: 0.4)
         self.textDocumentProxy.insertText(self.sendToInput.currentTitle!)
         self.shouldAutoCap()
         self.sendToInput.setTitle("", for: .normal)
