@@ -72,6 +72,27 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     @IBAction func keyPressed(_ sender: UIButton) {
         
+        var frame: CGRect
+        var frame1: CGRect
+        
+        if self.view.frame.size.width == 375 {
+            frame = CGRect(x: 0, y: -25, width: 28, height: 43)
+            frame1 = CGRect(x: 0, y: 0, width: 28, height: 43)
+        } else {
+            frame = CGRect(x: 3, y: -25, width: 35, height: 43)
+            frame1 = CGRect(x: 0, y: 10, width: 35, height: 43)
+        }
+        
+        var popUp = UIView(frame: frame)
+        var text = UILabel()
+        text.frame = frame1
+        text.text = sender.currentTitle!
+        text.textAlignment = .center
+        text.font = UIFont.boldSystemFont(ofSize: 30)
+        text.backgroundColor = UIColor.white
+        popUp.addSubview(text)
+        sender.addSubview(popUp)
+        
         self.textDocumentProxy.insertText(sender.currentTitle!)
         
         self.hideView.isEnabled = true
@@ -281,40 +302,32 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
                 
         switch darkMode {
         case 1:
-            print("ran 1")
             let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.dark)
             self.blurBG.effect = blurEffect
             self.globalTintColor = UIColor.white
         case 2:
-            print("ran 2")
             let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.light)
             self.blurBG.effect = blurEffect
             self.globalTintColor = UIColor.darkGray
         case 0:
-            print("ran 3")
             let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.light)
             self.blurBG.effect = blurEffect
             self.globalTintColor = UIColor.darkGray
         default:
-            print("ran 4")
         }
  
         switch whiteMinimal {
         case 1:
-            print("ran 11")
             self.blurBG.isHidden = true
             self.view.backgroundColor = UIColor.white
             self.globalTintColor = UIColor.darkGray
         case 2:
-            print("ran 22")
             self.blurBG.isHidden = false
             let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.light)
             self.blurBG.effect = blurEffect
             self.globalTintColor = UIColor.darkGray
         case 0:
-            print("ran 33")
         default:
-            print("ran 44")
             self.blurBG.isHidden = false
             let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.light)
             self.blurBG.effect = blurEffect
@@ -323,20 +336,16 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         switch darkMinimal {
         case 1:
-            print("ran 111")
             self.blurBG.isHidden = true
             self.view.backgroundColor = UIColor.black
             self.globalTintColor = UIColor.white
         case 2:
-            print("ran 222")
             self.blurBG.isHidden = false
             let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.light)
             self.blurBG.effect = blurEffect
             self.globalTintColor = UIColor.darkGray
         case 0:
-            print("ran 333")
         default:
-            print("ran 444")
             self.blurBG.isHidden = false
             let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.light)
             self.blurBG.effect = blurEffect
@@ -393,7 +402,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         }
         
         self.sendToInput.titleLabel?.font = UIFont.systemFont(ofSize: 18)
-        self.sendToInput.titleLabel?.layer.opacity = 1.0
+        self.sendToInput.setTitleColor(globalTintColor, for: .normal)
         
         self.hideView.setImage(UIImage(named: "appLogo")?.withRenderingMode(.alwaysTemplate), for: .normal)
         self.hideView.setImage(UIImage(named: "appLogo_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
@@ -423,9 +432,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.nextKeyboardButton.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .allTouchEvents)
         self.hideView.addTarget(self, action: #selector(self.translateCaller), for: .touchUpInside)
         self.sendToInput.addTarget(self, action: #selector(self.clearButton(_:)), for: .touchUpInside)
-        self.sendToInput.tag = 1
-        // self.altBoard.addTarget(self, action: #selector(self.switchMode(_:)), for: .touchDown)
-        
+
     }
     
     func loadBoardHeight(_ expanded: CGFloat, _ removeOld: Bool) {
@@ -594,9 +601,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     func googleTranslate(_ text: String, _ langFrom: String, _ langTo: String) {
         
         let spacelessString = text.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-        
-        print("ran this")
-        
+                
         Alamofire.request("https://translation.googleapis.com/language/translate/v2?key=AIzaSyAVrMMcGIKmC-PrPgQzTOGJGFIEc6MUTGw&source=\(langFrom)&target=\(langTo)&q=\(spacelessString!)").responseJSON { (Response) in
             
             if let value = Response.result.value {
@@ -606,7 +611,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
                     
                     let text = translation["translatedText"].stringValue
                     self.sendToInput.setTitle(text.stringByDecodingHTMLEntities, for: .normal)
-                    print(text)
                     
                 }
                 

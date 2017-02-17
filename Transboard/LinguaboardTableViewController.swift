@@ -94,7 +94,6 @@ class LinguaboardTableViewController: UITableViewController {
                 whiteMinimalBool.set(1, forKey: "whiteMinimalBool")
                 whiteMinimalBool.synchronize()
                 
-                print(whiteMinimalBool.object(forKey: "whiteMinimalBool"))
                 
             } else if !(sender.isOn) && sender.isEnabled {
                 
@@ -114,7 +113,6 @@ class LinguaboardTableViewController: UITableViewController {
                 whiteMinimalBool.set(2, forKey: "whiteMinimalBool")
                 whiteMinimalBool.synchronize()
                 
-                print(whiteMinimalBool.object(forKey: "whiteMinimalBool"))
                 
             }
             
