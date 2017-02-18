@@ -34,8 +34,8 @@ public extension UIView {
          self.alpha = 0.0
          }) */
         UIView.animate(withDuration: duration, animations: {
-            self.bounds.origin.y += 10
             self.alpha = 0.0
+            self.bounds.origin.y += 10
         }) { (finished) in }
     }
     
@@ -100,6 +100,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     @IBOutlet var keyCollection: [UIButton]!
     @IBOutlet var allKeys: [UIButton]!
+    @IBOutlet var keyPopKeys: [UIButton]!
     @IBOutlet var nextKeyboardButton: UIButton!
     @IBOutlet var shiftButton: UIButton!
     @IBOutlet var spaceButton: UIButton!
@@ -589,13 +590,14 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         let text = UILabel()
         text.frame = frame1
         text.text = sender.currentTitle!
+        text.textColor = globalTintColor
         text.textAlignment = .center
         text.font = UIFont.boldSystemFont(ofSize: 30)
-        text.backgroundColor = UIColor.white
+        text.backgroundColor = UIColor.clear
         text.layer.masksToBounds = true
-        text.layer.cornerRadius = 10
-        popUp.backgroundColor = UIColor.init(white: 1.0, alpha: 0.5)
-        popUp.layer.cornerRadius = 10
+        text.layer.cornerRadius = 5
+        popUp.backgroundColor = UIColor.clear
+        popUp.layer.cornerRadius = 5
         popUp.layer.shouldRasterize = true
         popUp.layer.rasterizationScale = UIScreen.main.scale
         // popUp.layer.masksToBounds = true
@@ -733,7 +735,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.hideView.tintColor = globalTintColor
         
         deleteAllText()
-        self.sendToInput.titleLabel?.fadeOutWithoutRemoving(withDuration: 0.4)
+        // self.sendToInput.titleLabel?.fadeOutWithoutRemoving(withDuration: 0.4)
         self.textDocumentProxy.insertText(self.sendToInput.currentTitle!)
         self.shouldAutoCap()
         self.sendToInput.setTitle("", for: .normal)
