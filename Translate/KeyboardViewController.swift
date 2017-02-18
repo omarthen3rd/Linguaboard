@@ -12,37 +12,13 @@ import Alamofire
 
 public extension UIView {
     
-    /**
-     Fade in a view with a duration
-     
-     - parameter duration: custom animation duration
-     */
     func fadeIn(withDuration duration: TimeInterval = 1.0) {
         UIView.animate(withDuration: duration, animations: {
             self.alpha = 1.0
         })
     }
     
-    /**
-     Fade out a view with a duration
-     
-     - parameter duration: custom animation duration
-     */
-    
-    func fadeOutWithoutRemoving(withDuration duration: TimeInterval = 1.0) {
-        /* UIView.animate(withDuration: duration, animations: {
-         self.alpha = 0.0
-         }) */
-        UIView.animate(withDuration: duration, animations: {
-            self.alpha = 0.0
-            self.bounds.origin.y += 10
-        }) { (finished) in }
-    }
-    
     func fadeOut(withDuration duration: TimeInterval = 1.0) {
-        /* UIView.animate(withDuration: duration, animations: {
-            self.alpha = 0.0
-        }) */
         UIView.animate(withDuration: duration, animations: { 
             self.bounds.origin.y += 10
             self.alpha = 0.0
@@ -88,6 +64,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     var langKey: String = "en"
     var toKey: String = "FR"
     var fullString: String = ""
+    var timer: Timer?
     
     var darkModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     var whiteMinimalModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
@@ -377,6 +354,13 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     // MARK: - Picker view data source
     
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        let arr = whichOne(0)
+        let titleData = arr[row]
+        let myTitle = NSAttributedString(string: titleData, attributes: [NSForegroundColorAttributeName:globalTintColor])
+        return myTitle
+    }
+    
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         let arr = whichOne(0)
         return arr[row]
@@ -512,6 +496,12 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.shiftButton.addGestureRecognizer(shiftDoubleTap)
         self.shiftButton.addGestureRecognizer(shiftTripleTap)
         
+        // backspace longpress
+        
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.longPressHandler(_:)))
+        backspaceButton.addGestureRecognizer(longPressRecognizer)
+        //  quibackspaceButton2.addGestureRecognizer(longPressRecognizer)
+        
         // button ui
         
         for letter in self.allKeys {
@@ -613,37 +603,9 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         // popUp.layer.masksToBounds = true
         popUp.addSubview(text)
         sender.addSubview(popUp)
-        popUp.fadeOut(withDuration: 0.5)
+        popUp.fadeOut(withDuration: 0.3)
         
     }
-    
-    /* func createKeytopImageOf(_ type: ButtonType) -> UIImage {
-        
-        var path: CGMutablePath = CGMutablePath()
-        var p = CGPoint(x: self.PADDING_X, y: self.PADDING_Y)
-        var p1 = CGPoint.zero
-        var p2 = CGPoint.zero
-        
-        p.x += self.PAN_UPPER_RADIUS
-        path.move(to: CGPoint(x: CGFloat(p.x), y: CGFloat(p.y)), transform: .identity)
-        p.x += self.PAN_UPPDER_WIDTH
-        path.addLine(to: CGPoint(x: CGFloat(p.x), y: CGFloat(p.y)), transform: .identity)
-        p.y += self.PAN_UPPER_RADIUS
-        path.addArc(center: CGPoint(x: CGFloat(p.x), y: CGFloat(p.y)), radius: CGFloat(self.PAN_UPPER_RADIUS), startAngle: CGFloat(3.0 * .pi / 2.0), endAngle: CGFloat(4.0 * .pi / 2.0), clockwise: false, transform: .identity)
-        p.x += self.PAN_UPPER_RADIUS
-        p.y += self.PAN_UPPDER_HEIGHT - self.PAN_UPPER_RADIUS - self.PAN_CURVE_SIZE
-        path.addLine(to: CGPoint(x: CGFloat(p.x), y: CGFloat(p.y)), transform: .identity)
-        
-        p1 = CGPoint(x: CGFloat(p.x), y: CGFloat(p.y + self.PAN_CURVE_SIZE))
-        
-        switch type {
-        case LeftButton:
-            <#code#>
-        default:
-            <#code#>
-        }
-        
-    } */
     
     func whichOne(_ int: Int) -> Array<String> {
         
@@ -738,6 +700,22 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
     }
     
+    func longPressHandler(_ gesture: UILongPressGestureRecognizer) {
+        
+        print("ran thus")
+        
+        if gesture.state == .began {
+            timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.handleTimer(_:)), userInfo: nil, repeats: true)
+        } else if gesture.state == .ended || gesture.state == .cancelled {
+            timer?.invalidate()
+            timer = nil
+        }
+    }
+    
+    func handleTimer(_ timer: Timer) {
+        self.textDocumentProxy.deleteBackward()
+    }
+    
     func addToText() {
         
         self.hideView.setImage(UIImage(named: "appLogo")?.withRenderingMode(.alwaysTemplate), for: .normal)
@@ -745,7 +723,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.hideView.tintColor = globalTintColor
         
         deleteAllText()
-        // self.sendToInput.titleLabel?.fadeOutWithoutRemoving(withDuration: 0.4)
         self.textDocumentProxy.insertText(self.sendToInput.currentTitle!)
         self.shouldAutoCap()
         self.sendToInput.setTitle("", for: .normal)
