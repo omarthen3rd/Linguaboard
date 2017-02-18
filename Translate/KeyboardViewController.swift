@@ -94,6 +94,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     var darkMinimalModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     
     var globalTintColor: UIColor = UIColor.white // UIColor(red:0.14, green:0.14, blue:0.14, alpha:1.0)
+    var altGlobalTintColor: UIColor = UIColor.darkGray
     var backgroundColor: UIColor = UIColor.clear // UIColor(red:0.96, green:0.96, blue:0.96, alpha:1.0)
     
     // MARK: - IBActions and IBOutlets
@@ -415,14 +416,17 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.dark)
             self.blurBG.effect = blurEffect
             self.globalTintColor = UIColor.white
+            self.altGlobalTintColor = UIColor.darkGray
         case 2:
             let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.light)
             self.blurBG.effect = blurEffect
             self.globalTintColor = UIColor.darkGray
+            self.altGlobalTintColor = UIColor.darkGray
         case 0:
             let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.light)
             self.blurBG.effect = blurEffect
             self.globalTintColor = UIColor.darkGray
+            self.altGlobalTintColor = UIColor.darkGray
         default:
             print("")
         }
@@ -432,11 +436,13 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.blurBG.isHidden = true
             self.view.backgroundColor = UIColor.white
             self.globalTintColor = UIColor.darkGray
+            self.altGlobalTintColor = UIColor.white
         case 2:
             self.blurBG.isHidden = false
             let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.light)
             self.blurBG.effect = blurEffect
             self.globalTintColor = UIColor.darkGray
+            self.altGlobalTintColor = UIColor.white
         case 0:
             print("")
         default:
@@ -444,6 +450,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.light)
             self.blurBG.effect = blurEffect
             self.globalTintColor = UIColor.darkGray
+            self.altGlobalTintColor = UIColor.white
         }
         
         switch darkMinimal {
@@ -451,11 +458,13 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.blurBG.isHidden = true
             self.view.backgroundColor = UIColor.black
             self.globalTintColor = UIColor.white
+            self.altGlobalTintColor = UIColor.darkGray
         case 2:
             self.blurBG.isHidden = false
             let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.light)
             self.blurBG.effect = blurEffect
             self.globalTintColor = UIColor.darkGray
+            self.altGlobalTintColor = UIColor.white
         case 0:
             print("")
         default:
@@ -463,6 +472,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.light)
             self.blurBG.effect = blurEffect
             self.globalTintColor = UIColor.darkGray
+            self.altGlobalTintColor = UIColor.white
         }
         
         self.shiftStatus = 1
@@ -512,7 +522,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             // letter.backgroundColor = UIColor.lightGray
         }
         
-        for letterKey in self.keyCollection {
+        for letterKey in self.keyPopKeys {
             
             letterKey.addTarget(self, action: #selector(self.createPopUp(_:)), for: .touchDown)
             
@@ -593,10 +603,10 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         text.textColor = globalTintColor
         text.textAlignment = .center
         text.font = UIFont.boldSystemFont(ofSize: 30)
-        text.backgroundColor = UIColor.clear
+        text.backgroundColor = altGlobalTintColor
         text.layer.masksToBounds = true
         text.layer.cornerRadius = 5
-        popUp.backgroundColor = UIColor.clear
+        popUp.backgroundColor = altGlobalTintColor
         popUp.layer.cornerRadius = 5
         popUp.layer.shouldRasterize = true
         popUp.layer.rasterizationScale = UIScreen.main.scale
