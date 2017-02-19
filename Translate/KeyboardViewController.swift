@@ -40,12 +40,14 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     var heightConstraint: NSLayoutConstraint!
     var shouldRemoveConstraint = false
     var didOpenPicker2 = true
+    var translationViewIsOpen = true
     var selectedLanguage: String = "French"
     var langKey: String = "en"
     var toKey: String = "FR"
     var fullString: String = ""
     var timer: Timer?
     var checker: UITextChecker = UITextChecker()
+    var predictionArr: Array = [""]
     
     var darkModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     var whiteMinimalModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
@@ -450,6 +452,14 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         numbersRow2.isHidden = true
         symbolsNumbersRow3.isHidden = true
         
+        // prediction/translate switching gesture
+        
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(self.switchView))
+        let swipeGestureDirection = UISwipeGestureRecognizerDirection.left
+        swipeGesture.direction = swipeGestureDirection
+        translateShowView.addGestureRecognizer(swipeGesture)
+        // predictionView.addGestureRecognizer(swipeGesture)
+        
         // spaceDoubleTap initializers
         
         let spaceDoubleTap = UITapGestureRecognizer(target: self, action: #selector(self.spaceKeyDoubleTapped(_:)))
@@ -586,6 +596,22 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
     }
     
+    func switchView() {
+        
+        print("ran this")
+        
+        if translationViewIsOpen {
+            self.translateShowView.isHidden = true
+            self.predictionView.isHidden = false
+            self.translationViewIsOpen = false
+        } else if translationViewIsOpen == false {
+            self.translateShowView.isHidden = false
+            self.predictionView.isHidden = true
+            self.translationViewIsOpen = true
+        }
+        
+    }
+    
     func whichOne(_ int: Int) -> Array<String> {
         
         if int == 0 {
@@ -611,14 +637,59 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         if misspelledRange.location != NSNotFound {
             
             let arrGuessed = checker.guesses(forWordRange: misspelledRange, in: text, language: "en_US")! as [String]
-            self.prediction1.setTitle(arrGuessed[0], for: .normal)
-            self.prediction2.setTitle(arrGuessed[1], for: .normal)
-            self.prediction3.setTitle(arrGuessed[2], for: .normal)
+            switch arrGuessed.count {
+            case 1:
+                self.prediction1.setTitle("", for: .normal)
+                self.prediction3.setTitle("", for: .normal)
+                self.prediction2.setTitle(arrGuessed.first, for: .normal)
+                self.predictionArr.append(arrGuessed.first!)
+            case 2:
+                self.prediction1.setTitle(arrGuessed[1], for: .normal)
+                self.prediction3.setTitle("", for: .normal)
+                self.prediction2.setTitle(arrGuessed.first, for: .normal)
+                self.predictionArr.append(arrGuessed.first!)
+                self.predictionArr.append(arrGuessed[1])
+            case 3:
+                self.prediction1.setTitle(arrGuessed[1], for: .normal)
+                self.prediction2.setTitle(arrGuessed.first, for: .normal)
+                self.prediction3.setTitle(arrGuessed[2], for: .normal)
+                self.predictionArr.append(arrGuessed.first!)
+                self.predictionArr.append(arrGuessed[1])
+                self.predictionArr.append(arrGuessed[2])
+            default:
+                self.prediction1.setTitle(arrGuessed[1], for: .normal)
+                self.prediction2.setTitle(arrGuessed.first, for: .normal)
+                self.prediction3.setTitle(arrGuessed[2], for: .normal)
+                self.predictionArr.append(arrGuessed.first!)
+                self.predictionArr.append(arrGuessed[1])
+                self.predictionArr.append(arrGuessed[2])
+            }
+            
+            let nsText = text as NSString?
+            let correctedStr = nsText?.replacingCharacters(in: misspelledRange, with: arrGuessed[0] as String)
             print(arrGuessed)
             
         } else {
+            self.prediction1.setTitle("", for: .normal)
+            self.prediction2.setTitle("NOTHING FOUND", for: .normal)
+            self.prediction3.setTitle("", for: .normal)
             print("not found")
         }
+    }
+    
+    func addCorrectionToText(_ sender: UIButton) {
+        
+        switch sender {
+        case prediction1:
+            print("prediction1")
+        case prediction2:
+            print("prediction2")
+        case prediction3:
+            print("prediction3")
+        default:
+            print("default")
+        }
+        
     }
     
     func shouldAutoCap() {

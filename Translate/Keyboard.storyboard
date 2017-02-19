@@ -30,6 +30,37 @@
                                 </view>
                                 <blurEffect style="light"/>
                             </visualEffectView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c7r-0i-Su6">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NqT-oO-CzC">
+                                        <rect key="frame" x="0.0" y="0.0" width="125" height="50"/>
+                                        <state key="normal" title="Button"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lwg-9j-IVj">
+                                        <rect key="frame" x="125" y="0.0" width="125" height="50"/>
+                                        <state key="normal" title="Button"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HgI-92-MdK">
+                                        <rect key="frame" x="250" y="0.0" width="125" height="50"/>
+                                        <state key="normal" title="Button"/>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Lwg-9j-IVj" firstAttribute="height" secondItem="c7r-0i-Su6" secondAttribute="height" id="ADh-rI-ivh"/>
+                                    <constraint firstItem="HgI-92-MdK" firstAttribute="leading" secondItem="Lwg-9j-IVj" secondAttribute="trailing" id="C39-zj-EvG"/>
+                                    <constraint firstItem="Lwg-9j-IVj" firstAttribute="width" secondItem="NqT-oO-CzC" secondAttribute="width" id="CAg-vZ-yVa"/>
+                                    <constraint firstItem="Lwg-9j-IVj" firstAttribute="leading" secondItem="NqT-oO-CzC" secondAttribute="trailing" id="GaP-Yw-9ZB"/>
+                                    <constraint firstItem="Lwg-9j-IVj" firstAttribute="centerX" secondItem="c7r-0i-Su6" secondAttribute="centerX" id="MrF-1n-7m5"/>
+                                    <constraint firstItem="Lwg-9j-IVj" firstAttribute="centerY" secondItem="HgI-92-MdK" secondAttribute="centerY" id="OeA-7L-Kr2"/>
+                                    <constraint firstItem="Lwg-9j-IVj" firstAttribute="centerY" secondItem="c7r-0i-Su6" secondAttribute="centerY" id="e5v-n5-F8I"/>
+                                    <constraint firstItem="Lwg-9j-IVj" firstAttribute="width" secondItem="c7r-0i-Su6" secondAttribute="width" multiplier="0.335" id="glS-3J-HwT"/>
+                                    <constraint firstItem="Lwg-9j-IVj" firstAttribute="height" secondItem="HgI-92-MdK" secondAttribute="height" id="i9J-8Z-So9"/>
+                                    <constraint firstItem="Lwg-9j-IVj" firstAttribute="width" secondItem="HgI-92-MdK" secondAttribute="width" id="r4E-w3-gzi"/>
+                                    <constraint firstItem="Lwg-9j-IVj" firstAttribute="centerY" secondItem="NqT-oO-CzC" secondAttribute="centerY" id="rff-q1-838"/>
+                                    <constraint firstItem="Lwg-9j-IVj" firstAttribute="height" secondItem="NqT-oO-CzC" secondAttribute="height" id="wgZ-hF-RTm"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a1G-de-1eL">
                                 <rect key="frame" x="2" y="0.0" width="371" height="50"/>
                                 <subviews>
@@ -89,37 +120,6 @@
                                     <constraint firstItem="zWx-AH-STF" firstAttribute="leading" secondItem="nmy-pr-Z9Q" secondAttribute="trailing" constant="4.5" id="peh-b7-Of2"/>
                                     <constraint firstItem="nmy-pr-Z9Q" firstAttribute="width" secondItem="zWx-AH-STF" secondAttribute="width" multiplier="6.6" id="sZw-tH-6wr"/>
                                     <constraint firstItem="nmy-pr-Z9Q" firstAttribute="leading" secondItem="PCp-UE-NeZ" secondAttribute="trailing" constant="4" id="tnt-7N-pLe"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c7r-0i-Su6">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NqT-oO-CzC">
-                                        <rect key="frame" x="0.0" y="0.0" width="125" height="50"/>
-                                        <state key="normal" title="Button"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lwg-9j-IVj">
-                                        <rect key="frame" x="125" y="0.0" width="125" height="50"/>
-                                        <state key="normal" title="Button"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HgI-92-MdK">
-                                        <rect key="frame" x="250" y="0.0" width="125" height="50"/>
-                                        <state key="normal" title="Button"/>
-                                    </button>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="Lwg-9j-IVj" firstAttribute="height" secondItem="c7r-0i-Su6" secondAttribute="height" id="ADh-rI-ivh"/>
-                                    <constraint firstItem="HgI-92-MdK" firstAttribute="leading" secondItem="Lwg-9j-IVj" secondAttribute="trailing" id="C39-zj-EvG"/>
-                                    <constraint firstItem="Lwg-9j-IVj" firstAttribute="width" secondItem="NqT-oO-CzC" secondAttribute="width" id="CAg-vZ-yVa"/>
-                                    <constraint firstItem="Lwg-9j-IVj" firstAttribute="leading" secondItem="NqT-oO-CzC" secondAttribute="trailing" id="GaP-Yw-9ZB"/>
-                                    <constraint firstItem="Lwg-9j-IVj" firstAttribute="centerX" secondItem="c7r-0i-Su6" secondAttribute="centerX" id="MrF-1n-7m5"/>
-                                    <constraint firstItem="Lwg-9j-IVj" firstAttribute="centerY" secondItem="HgI-92-MdK" secondAttribute="centerY" id="OeA-7L-Kr2"/>
-                                    <constraint firstItem="Lwg-9j-IVj" firstAttribute="centerY" secondItem="c7r-0i-Su6" secondAttribute="centerY" id="e5v-n5-F8I"/>
-                                    <constraint firstItem="Lwg-9j-IVj" firstAttribute="width" secondItem="c7r-0i-Su6" secondAttribute="width" multiplier="0.335" id="glS-3J-HwT"/>
-                                    <constraint firstItem="Lwg-9j-IVj" firstAttribute="height" secondItem="HgI-92-MdK" secondAttribute="height" id="i9J-8Z-So9"/>
-                                    <constraint firstItem="Lwg-9j-IVj" firstAttribute="width" secondItem="HgI-92-MdK" secondAttribute="width" id="r4E-w3-gzi"/>
-                                    <constraint firstItem="Lwg-9j-IVj" firstAttribute="centerY" secondItem="NqT-oO-CzC" secondAttribute="centerY" id="rff-q1-838"/>
-                                    <constraint firstItem="Lwg-9j-IVj" firstAttribute="height" secondItem="NqT-oO-CzC" secondAttribute="height" id="wgZ-hF-RTm"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LeK-io-Tzc">
