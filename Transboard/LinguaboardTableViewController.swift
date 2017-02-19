@@ -14,6 +14,7 @@ class LinguaboardTableViewController: UITableViewController {
     // 1 == true
     // 2 == false
     
+    @IBOutlet var allLabels: [UILabel]!
     @IBOutlet var darkModeSwitch: UISwitch!
     @IBOutlet var whiteMinimalMode: UISwitch!
     @IBOutlet var darkMinimalMode: UISwitch!
@@ -84,82 +85,10 @@ class LinguaboardTableViewController: UITableViewController {
         let whiteMinimal = whiteMinimalBool.double(forKey: "whiteMinimalBool")
         let darkMinimal = darkMinimalModeBool.double(forKey: "darkMinimalBool")
         
-        switch darkMode {
-        case 1:
-            darkModeSwitch.isOn = true
-            whiteMinimalMode.isOn = false
-            darkMinimalMode.isOn = false
-            self.blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.dark)
-            self.globalTintColor = UIColor.white
-            self.altGlobalTintColor = UIColor.darkGray
-        case 2:
-            darkModeSwitch.isOn = false
-            whiteMinimalMode.isOn = false
-            darkMinimalMode.isOn = false
-            self.blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.light)
-            self.globalTintColor = UIColor.darkGray
-            self.altGlobalTintColor = UIColor.darkGray
-        case 0:
-            darkModeSwitch.isOn = false
-            whiteMinimalMode.isOn = false
-            darkMinimalMode.isOn = false
-            self.blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.light)
-            self.globalTintColor = UIColor.darkGray
-            self.altGlobalTintColor = UIColor.darkGray
-        default:
-            print("")
-        }
+        self.view.backgroundColor = self.globalTintColor
         
-        switch whiteMinimal {
-        case 1:
-            darkModeSwitch.isOn = false
-            whiteMinimalMode.isOn = true
-            darkMinimalMode.isOn = false
-            self.view.backgroundColor = UIColor.white
-            self.globalTintColor = UIColor.darkGray
-            self.altGlobalTintColor = UIColor.white
-        case 2:
-            darkModeSwitch.isOn = false
-            whiteMinimalMode.isOn = false
-            darkMinimalMode.isOn = false
-            self.blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.light)
-            self.globalTintColor = UIColor.darkGray
-            self.altGlobalTintColor = UIColor.white
-        case 0:
-            print("")
-        default:
-            darkModeSwitch.isOn = false
-            whiteMinimalMode.isOn = false
-            darkMinimalMode.isOn = false
-            self.blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.light)
-            self.globalTintColor = UIColor.darkGray
-            self.altGlobalTintColor = UIColor.white
-        }
-        
-        switch darkMinimal {
-        case 1:
-            darkModeSwitch.isOn = false
-            whiteMinimalMode.isOn = false
-            darkMinimalMode.isOn = true
-            self.view.backgroundColor = UIColor.black
-            self.globalTintColor = UIColor.white
-            self.altGlobalTintColor = UIColor.darkGray
-        case 2:
-            darkModeSwitch.isOn = false
-            whiteMinimalMode.isOn = false
-            darkMinimalMode.isOn = false
-            self.blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.light)
-            self.globalTintColor = UIColor.darkGray
-            self.altGlobalTintColor = UIColor.white
-        case 0:
-            print("")
-        default:
-            darkModeSwitch.isOn = false
-            whiteMinimalMode.isOn = false
-            darkMinimalMode.isOn = false
-            self.blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.light)
-            self.globalTintColor = UIColor.darkGray
-            self.altGlobalTintColor = UIColor.white
+        for label in allLabels {
+            label.textColor = self.altGlobalTintColor
         }
         
         if (!UIAccessibilityIsReduceTransparencyEnabled()) {

@@ -405,12 +405,12 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.light)
             self.blurBG.effect = blurEffect
             self.globalTintColor = UIColor.darkGray
-            self.altGlobalTintColor = UIColor.darkGray
+            self.altGlobalTintColor = UIColor.white
         case 0:
             let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.light)
             self.blurBG.effect = blurEffect
             self.globalTintColor = UIColor.darkGray
-            self.altGlobalTintColor = UIColor.darkGray
+            self.altGlobalTintColor = UIColor.white
         default:
             print("")
         }
