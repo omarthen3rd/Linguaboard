@@ -145,6 +145,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.hideView.isEnabled = true
         
         self.textDocumentProxy.insertText(" ")
+        checkText(fullString)
         self.shouldAutoCap()
     }
     
@@ -157,6 +158,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         }
         
         self.textDocumentProxy.deleteBackward()
+        checkText(fullString)
         self.shouldAutoCap()
     }
     
@@ -316,7 +318,12 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.shiftKeys(row1)
             self.shiftKeys(row2)
             self.shiftKeys(row3)
-            self.hideView.isEnabled = false
+            if (self.fullString != "") && (self.sendToInput.currentTitle! != "") {
+                self.hideView.isEnabled = true
+            } else if self.sendToInput.currentTitle == "" {
+                self.hideView.isEnabled = false
+            }
+            // self.hideView.isEnabled = false
         }
         
     }
@@ -434,14 +441,14 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         pickerViewTo.selectRow(26, inComponent: 0, animated: true)
         pickerViewTo.isHidden = true
         
-        self.hideView.isEnabled = false
-        self.clearTranslation.isEnabled = false
+        hideView.isEnabled = false
+        clearTranslation.isEnabled = false
+        predictionView.isHidden = true
         symbolsRow1.isHidden = true
         symbolsRow2.isHidden = true
         numbersRow1.isHidden = true
         numbersRow2.isHidden = true
         symbolsNumbersRow3.isHidden = true
-        self.altBoard.tag = 1
         
         // spaceDoubleTap initializers
         
@@ -523,6 +530,10 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.clearTranslation.setImage(UIImage(named: "close")?.withRenderingMode(.alwaysTemplate), for: .normal)
         self.clearTranslation.setImage(UIImage(named: "close_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
         self.clearTranslation.tintColor = globalTintColor
+        
+        self.prediction1.tintColor = globalTintColor
+        self.prediction2.tintColor = globalTintColor
+        self.prediction3.tintColor = globalTintColor
         
         self.showPickerBtn.setTitle(self.toKey, for: .normal)
         
