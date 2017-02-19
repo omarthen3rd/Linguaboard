@@ -76,6 +76,11 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     @IBOutlet var sendToInput: UIButton!
     @IBOutlet var hideView: UIButton!
     
+    @IBOutlet var predictionView: UIView!
+    @IBOutlet var prediction1: UIButton!
+    @IBOutlet var prediction2: UIButton!
+    @IBOutlet var prediction3: UIButton!
+    
     @IBOutlet var row1: UIView!
     @IBOutlet var numbersRow1: UIView!
     @IBOutlet var symbolsRow1: UIView!
@@ -592,10 +597,17 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         let misspelledRange: NSRange = checker.rangeOfMisspelledWord(in: text, range: checkRange, startingAt: 0, wrap: false, language: "en_US")
         
-        let arrGuessed = checker.guesses(forWordRange: misspelledRange, in: text, language: "en_US")! as [String]
-        
-        print(arrGuessed)
-        
+        if misspelledRange.location != NSNotFound {
+            
+            let arrGuessed = checker.guesses(forWordRange: misspelledRange, in: text, language: "en_US")! as [String]
+            self.prediction1.setTitle(arrGuessed[0], for: .normal)
+            self.prediction2.setTitle(arrGuessed[1], for: .normal)
+            self.prediction3.setTitle(arrGuessed[2], for: .normal)
+            print(arrGuessed)
+            
+        } else {
+            print("not found")
+        }
     }
     
     func shouldAutoCap() {

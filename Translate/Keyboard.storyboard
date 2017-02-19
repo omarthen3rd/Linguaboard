@@ -91,6 +91,37 @@
                                     <constraint firstItem="nmy-pr-Z9Q" firstAttribute="leading" secondItem="PCp-UE-NeZ" secondAttribute="trailing" constant="4" id="tnt-7N-pLe"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c7r-0i-Su6">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NqT-oO-CzC">
+                                        <rect key="frame" x="0.0" y="0.0" width="125" height="50"/>
+                                        <state key="normal" title="Button"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lwg-9j-IVj">
+                                        <rect key="frame" x="125" y="0.0" width="125" height="50"/>
+                                        <state key="normal" title="Button"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HgI-92-MdK">
+                                        <rect key="frame" x="250" y="0.0" width="125" height="50"/>
+                                        <state key="normal" title="Button"/>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Lwg-9j-IVj" firstAttribute="height" secondItem="c7r-0i-Su6" secondAttribute="height" id="ADh-rI-ivh"/>
+                                    <constraint firstItem="HgI-92-MdK" firstAttribute="leading" secondItem="Lwg-9j-IVj" secondAttribute="trailing" id="C39-zj-EvG"/>
+                                    <constraint firstItem="Lwg-9j-IVj" firstAttribute="width" secondItem="NqT-oO-CzC" secondAttribute="width" id="CAg-vZ-yVa"/>
+                                    <constraint firstItem="Lwg-9j-IVj" firstAttribute="leading" secondItem="NqT-oO-CzC" secondAttribute="trailing" id="GaP-Yw-9ZB"/>
+                                    <constraint firstItem="Lwg-9j-IVj" firstAttribute="centerX" secondItem="c7r-0i-Su6" secondAttribute="centerX" id="MrF-1n-7m5"/>
+                                    <constraint firstItem="Lwg-9j-IVj" firstAttribute="centerY" secondItem="HgI-92-MdK" secondAttribute="centerY" id="OeA-7L-Kr2"/>
+                                    <constraint firstItem="Lwg-9j-IVj" firstAttribute="centerY" secondItem="c7r-0i-Su6" secondAttribute="centerY" id="e5v-n5-F8I"/>
+                                    <constraint firstItem="Lwg-9j-IVj" firstAttribute="width" secondItem="c7r-0i-Su6" secondAttribute="width" multiplier="0.335" id="glS-3J-HwT"/>
+                                    <constraint firstItem="Lwg-9j-IVj" firstAttribute="height" secondItem="HgI-92-MdK" secondAttribute="height" id="i9J-8Z-So9"/>
+                                    <constraint firstItem="Lwg-9j-IVj" firstAttribute="width" secondItem="HgI-92-MdK" secondAttribute="width" id="r4E-w3-gzi"/>
+                                    <constraint firstItem="Lwg-9j-IVj" firstAttribute="centerY" secondItem="NqT-oO-CzC" secondAttribute="centerY" id="rff-q1-838"/>
+                                    <constraint firstItem="Lwg-9j-IVj" firstAttribute="height" secondItem="NqT-oO-CzC" secondAttribute="height" id="wgZ-hF-RTm"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LeK-io-Tzc">
                                 <rect key="frame" x="2" y="50" width="371" height="50"/>
                                 <subviews>
@@ -1350,12 +1381,15 @@
                             <constraint firstItem="tKL-gL-W4c" firstAttribute="width" secondItem="b2E-6b-KOA" secondAttribute="width" constant="-4" id="0eJ-yb-Yyf"/>
                             <constraint firstItem="2QF-1M-Lw8" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="0s9-BT-ezz"/>
                             <constraint firstItem="tXR-K5-bHD" firstAttribute="top" secondItem="wkV-19-SIz" secondAttribute="bottom" id="21i-Ag-N96"/>
+                            <constraint firstItem="LeK-io-Tzc" firstAttribute="top" secondItem="c7r-0i-Su6" secondAttribute="bottom" id="2b2-PW-zMH"/>
                             <constraint firstItem="a1G-de-1eL" firstAttribute="width" secondItem="b2E-6b-KOA" secondAttribute="width" constant="-4" id="2ga-gV-XWM"/>
                             <constraint firstItem="Wh5-0X-2zd" firstAttribute="top" secondItem="a1G-de-1eL" secondAttribute="bottom" id="2lX-QG-siz"/>
                             <constraint firstAttribute="width" secondItem="fOe-tw-2jj" secondAttribute="width" constant="4" id="4jd-jp-vG2"/>
                             <constraint firstAttribute="width" secondItem="lFF-bI-CmW" secondAttribute="width" constant="4" id="5jO-Pi-nhy"/>
                             <constraint firstItem="lFF-bI-CmW" firstAttribute="top" secondItem="a1G-de-1eL" secondAttribute="bottom" id="5pl-9a-Z45"/>
+                            <constraint firstItem="c7r-0i-Su6" firstAttribute="width" secondItem="b2E-6b-KOA" secondAttribute="width" id="6EY-ZX-RvW"/>
                             <constraint firstItem="ty5-IK-qLu" firstAttribute="height" secondItem="b2E-6b-KOA" secondAttribute="height" multiplier="0.2" id="6c6-Au-PSv"/>
+                            <constraint firstItem="Wh5-0X-2zd" firstAttribute="top" secondItem="c7r-0i-Su6" secondAttribute="bottom" id="8vl-Cd-W5H"/>
                             <constraint firstItem="tKL-gL-W4c" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="AIq-FH-gIj"/>
                             <constraint firstItem="fOe-tw-2jj" firstAttribute="height" secondItem="b2E-6b-KOA" secondAttribute="height" multiplier="0.2" id="BUD-hT-euE"/>
                             <constraint firstItem="LeK-io-Tzc" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="CZk-gZ-xff"/>
@@ -1371,6 +1405,7 @@
                             <constraint firstItem="Wh5-0X-2zd" firstAttribute="width" secondItem="b2E-6b-KOA" secondAttribute="width" constant="-4" id="Pch-na-xeh"/>
                             <constraint firstItem="fOe-tw-2jj" firstAttribute="top" secondItem="Xfh-Gq-rnk" secondAttribute="bottom" id="S9g-p8-Xcu"/>
                             <constraint firstItem="2QF-1M-Lw8" firstAttribute="top" secondItem="ty5-IK-qLu" secondAttribute="bottom" id="SC3-kw-kWH"/>
+                            <constraint firstItem="lFF-bI-CmW" firstAttribute="top" secondItem="c7r-0i-Su6" secondAttribute="bottom" id="TNO-dX-iWq"/>
                             <constraint firstItem="Xfh-Gq-rnk" firstAttribute="height" secondItem="b2E-6b-KOA" secondAttribute="height" multiplier="0.2" id="Udf-DB-kxt"/>
                             <constraint firstItem="Xfh-Gq-rnk" firstAttribute="top" secondItem="lFF-bI-CmW" secondAttribute="bottom" id="V75-Yl-mig"/>
                             <constraint firstItem="wkV-19-SIz" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="Yve-cT-olJ"/>
@@ -1379,8 +1414,11 @@
                             <constraint firstItem="ty5-IK-qLu" firstAttribute="top" secondItem="LeK-io-Tzc" secondAttribute="bottom" id="cDL-h6-eM6"/>
                             <constraint firstItem="a1G-de-1eL" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="d44-at-CDb"/>
                             <constraint firstItem="a1G-de-1eL" firstAttribute="top" secondItem="8zO-aw-7lF" secondAttribute="bottom" id="deb-2L-1sg"/>
+                            <constraint firstItem="c7r-0i-Su6" firstAttribute="top" secondItem="8zO-aw-7lF" secondAttribute="bottom" id="ek9-Vn-Kyq"/>
                             <constraint firstItem="2QF-1M-Lw8" firstAttribute="top" secondItem="tKL-gL-W4c" secondAttribute="bottom" id="fhi-5s-3wl"/>
                             <constraint firstAttribute="width" secondItem="wkV-19-SIz" secondAttribute="width" constant="4" id="geM-Ju-X2A"/>
+                            <constraint firstItem="c7r-0i-Su6" firstAttribute="height" secondItem="b2E-6b-KOA" secondAttribute="height" multiplier="0.2" id="h7d-gu-qMc"/>
+                            <constraint firstItem="c7r-0i-Su6" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="iUo-5t-xBu"/>
                             <constraint firstItem="Wh5-0X-2zd" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="if1-mh-LX4"/>
                             <constraint firstItem="ty5-IK-qLu" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="j7c-rG-6th"/>
                             <constraint firstItem="lFF-bI-CmW" firstAttribute="height" secondItem="b2E-6b-KOA" secondAttribute="height" multiplier="0.2" id="lfV-ir-aUY"/>
@@ -1408,6 +1446,10 @@
                         <outlet property="numbersRow1" destination="LeK-io-Tzc" id="xNW-Rm-fCp"/>
                         <outlet property="numbersRow2" destination="ty5-IK-qLu" id="ZNA-Ff-8Yp"/>
                         <outlet property="pickerViewTo" destination="Rw4-V2-bSB" id="2zT-HJ-ueQ"/>
+                        <outlet property="prediction1" destination="NqT-oO-CzC" id="URx-XJ-67A"/>
+                        <outlet property="prediction2" destination="Lwg-9j-IVj" id="gFA-Ow-usS"/>
+                        <outlet property="prediction3" destination="HgI-92-MdK" id="Rhr-Ub-K1Z"/>
+                        <outlet property="predictionView" destination="c7r-0i-Su6" id="m9K-hN-u1K"/>
                         <outlet property="returnKey" destination="rB8-wj-Im3" id="SHf-I8-iBv"/>
                         <outlet property="row1" destination="lFF-bI-CmW" id="Ct7-Ar-n4M"/>
                         <outlet property="row2" destination="Xfh-Gq-rnk" id="geD-Uh-dUH"/>
