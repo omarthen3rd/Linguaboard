@@ -35,26 +35,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     var langArr: [String : String] = ["fa": "Persian", "mg": "Malagasy", "ig": "Igbo", "pl": "Polish", "ro": "Romanian", "tl": "Filipino", "bn": "Bengali", "id": "Indonesian", "la": "Latin", "st": "Sesotho", "xh": "Xhosa", "sk": "Slovak", "da": "Danish", "lo": "Lao", "si": "Sinhala", "pt": "Portuguese", "bg": "Bulgarian", "tg": "Tajik", "gd": "Scots Gaelic", "te": "Telugu", "pa": "Punjabi", "ha": "Hausa", "ps": "Pashto", "ne": "Nepali", "sq": "Albanian", "et": "Estonian", "cy": "Welsh", "ms": "Malay", "bs": "Bosnian", "sw": "Swahili", "is": "Icelandic", "fi": "Finnish", "eo": "Esperanto", "sl": "Slovenian", "en": "English", "mi": "Maori", "es": "Spanish", "ny": "Chichewa", "km": "Khmer", "ja": "Japanese", "tr": "Turkish", "sd": "Sindhi", "kn": "Kannada", "az": "Azerbaijani", "kk": "Kazakh", "zh-TW": "Chinese (Traditional)", "no": "Norwegian", "fy": "Frisian", "uz": "Uzbek", "de": "German", "ko": "Korean", "lt": "Lithuanian", "ky": "Kyrgyz", "sm": "Samoan", "be": "Belarusian", "mn": "Mongolian", "ta": "Tamil", "eu": "Basque", "gu": "Gujarati", "gl": "Galician", "uk": "Ukrainian", "el": "Greek", "ml": "Malayalam", "vi": "Vietnamese", "mt": "Maltese", "it": "Italian", "so": "Somali", "ceb": "Cebuano", "hr": "Croatian", "lv": "Latvian", "zh": "Chinese (Simplified)", "ht": "Haitian Creole", "su": "Sundanese", "ur": "Urdu", "ca": "Catalan", "cs": "Czech", "sr": "Serbian", "my": "Myanmar (Burmese)", "am": "Amharic", "af": "Afrikaans", "hu": "Hungarian", "co": "Corsican", "lb": "Luxembourgish", "ru": "Russian", "mr": "Marathi", "ga": "Irish", "ku": "Kurdish (Kurmanji)", "hmn": "Hmong", "hy": "Armenian", "sn": "Shona", "sv": "Swedish", "th": "Thai", "ka": "Georgian", "jw": "Javanese", "mk": "Macedonian", "haw": "Hawaiian", "yo": "Yoruba", "zu": "Zulu", "nl": "Dutch", "yi": "Yiddish", "iw": "Hebrew", "hi": "Hindi", "ar": "Arabic", "fr": "French"]
     
-    // some constrant variables for key popup
-    
-    var UPPER_WIDTH: CGFloat = 0
-    var LOWER_WIDTH: CGFloat = 0
-    var PAN_UPPER_RADIUS: CGFloat = 0
-    var PAN_LOWER_RADIUS: CGFloat = 0
-    var PAN_UPPDER_WIDTH: CGFloat = 0
-    var PAN_UPPDER_HEIGHT: CGFloat = 0
-    var PAN_LOWER_WIDTH: CGFloat = 0
-    var PAN_LOWER_HEIGHT: CGFloat = 0
-    var PAN_UL_WIDTH: CGFloat = 0
-    var PAN_MIDDLE_HEIGHT: CGFloat = 0
-    var PAN_CURVE_SIZE: CGFloat = 0
-    var PADDING_X: CGFloat = 0
-    var PADDING_Y: CGFloat = 0
-    var WIDTH: CGFloat = 0
-    var HEIGHT: CGFloat = 0
-    var OFFSET_X: CGFloat = 0
-    var OFFSET_Y: CGFloat = 0
-    
     var shiftStatus: Int! // 0: off, 1: on, 2: lock
     var expandedHeight: CGFloat = 250
     var heightConstraint: NSLayoutConstraint!
@@ -65,6 +45,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     var toKey: String = "FR"
     var fullString: String = ""
     var timer: Timer?
+    var checker: UITextChecker = UITextChecker()
     
     var darkModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     var whiteMinimalModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
@@ -124,6 +105,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.hideView.isEnabled = true
         
         self.shouldAutoCap()
+        checkText(fullString)
         
         if shiftStatus == 1 {
             self.shiftKeyPressed(self.shiftButton)
@@ -288,24 +270,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     override func updateViewConstraints() {
         super.updateViewConstraints()
         
-        self.UPPER_WIDTH = 52.0 * UIScreen.main.scale
-        self.LOWER_WIDTH = 32.0 * UIScreen.main.scale
-        self.PAN_UPPER_RADIUS = 7.0 * UIScreen.main.scale
-        self.PAN_LOWER_RADIUS = 7.0 * UIScreen.main.scale
-        self.PAN_UPPDER_WIDTH = self.UPPER_WIDTH - self.PAN_UPPER_RADIUS * 2
-        self.PAN_UPPDER_HEIGHT = 61.0 * UIScreen.main.scale
-        self.PAN_LOWER_WIDTH = self.LOWER_WIDTH - self.PAN_LOWER_RADIUS * 2
-        self.PAN_LOWER_HEIGHT = 30.0 * UIScreen.main.scale
-        self.PAN_UL_WIDTH = ((self.UPPER_WIDTH - self.LOWER_WIDTH) / 2)
-        self.PAN_MIDDLE_HEIGHT = 11.0 * UIScreen.main.scale
-        self.PAN_CURVE_SIZE = 7.0 * UIScreen.main.scale
-        self.PADDING_X = 15 * UIScreen.main.scale
-        self.PADDING_Y = 10 * UIScreen.main.scale
-        self.WIDTH = (UPPER_WIDTH + PADDING_X * 2)
-        self.HEIGHT = self.PAN_UPPDER_HEIGHT + self.PAN_MIDDLE_HEIGHT + self.PADDING_Y * 2
-        self.OFFSET_X = -25 * UIScreen.main.scale
-        self.OFFSET_Y = 59 * UIScreen.main.scale
-        
         loadBoardHeight(expandedHeight, shouldRemoveConstraint)
         
     }
@@ -384,7 +348,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.toKey = key as! String
             self.showPickerBtn.setTitle(self.toKey.uppercased(), for: .normal)
         }
-        
     }
     
     // MARK: - Functions
@@ -623,6 +586,18 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
     }
     
+    func checkText(_ text: String) {
+        
+        let checkRange = NSMakeRange(0, text.utf16.count)
+        
+        let misspelledRange: NSRange = checker.rangeOfMisspelledWord(in: text, range: checkRange, startingAt: 0, wrap: false, language: "en_US")
+        
+        let arrGuessed = checker.guesses(forWordRange: misspelledRange, in: text, language: "en_US")! as [String]
+        
+        print(arrGuessed)
+        
+    }
+    
     func shouldAutoCap() {
         
         let concurrentQueue = DispatchQueue(label: "com.omar.Linguaboard.Translate", attributes: .concurrent)
@@ -701,8 +676,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     }
     
     func longPressHandler(_ gesture: UILongPressGestureRecognizer) {
-        
-        print("ran thus")
         
         if gesture.state == .began {
             timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.handleTimer(_:)), userInfo: nil, repeats: true)
@@ -790,7 +763,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
                     self.sendToInput.setTitle(text.stringByDecodingHTMLEntities, for: .normal)
                     
                 }
-                
             }
         }
         
@@ -846,6 +818,5 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         }
         
     }
-    
     
 }
