@@ -320,12 +320,12 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.shiftKeys(row1)
             self.shiftKeys(row2)
             self.shiftKeys(row3)
-            if (self.fullString != "") && (self.sendToInput.currentTitle! != "") {
+            /* if (self.fullString != "") && (self.sendToInput.currentTitle! != "") {
                 self.hideView.isEnabled = true
             } else if self.sendToInput.currentTitle == "" {
                 self.hideView.isEnabled = false
-            }
-            // self.hideView.isEnabled = false
+            } */
+            self.hideView.isEnabled = false
         }
         
     }
@@ -493,6 +493,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             // letter.layer.cornerRadius = 5
             letter.setTitleColor(globalTintColor, for: .normal)
             letter.tintColor = globalTintColor
+            letter.titleLabel?.font = UIFont.systemFont(ofSize: 22)
             // letter.layer.masksToBounds = true
             // letter.backgroundColor = UIColor.lightGray
         }
