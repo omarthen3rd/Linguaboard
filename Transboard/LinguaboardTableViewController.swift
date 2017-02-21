@@ -59,6 +59,9 @@ class LinguaboardTableViewController: UITableViewController {
     var darkModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     var whiteMinimalBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     var darkMinimalModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
+    var firstRemeberedLanguage: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
+    var secondRemeberedLanguage: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
+    var lastUsedLanguage: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     
     var globalTintColor: UIColor = UIColor.white // UIColor(red:0.14, green:0.14, blue:0.14, alpha:1.0)
     var altGlobalTintColor: UIColor = UIColor.darkGray
@@ -93,7 +96,7 @@ class LinguaboardTableViewController: UITableViewController {
         
         if (!UIAccessibilityIsReduceTransparencyEnabled()) {
             // tableView.backgroundColor = UIColor.clear
-            let blurEffectView = UIVisualEffectView(effect: self.blurEffect)
+            // let blurEffectView = UIVisualEffectView(effect: self.blurEffect)
             // tableView.backgroundView = blurEffectView
             
             // if you want translucent vibrant table view separator lines

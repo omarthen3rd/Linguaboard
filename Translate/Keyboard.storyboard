@@ -68,7 +68,7 @@
                                 <rect key="frame" x="2" y="0.0" width="371" height="50"/>
                                 <subviews>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PCp-UE-NeZ">
-                                        <rect key="frame" x="3.5" y="4" width="41.5" height="42"/>
+                                        <rect key="frame" x="3" y="4" width="42" height="42"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nmy-pr-Z9Q">
@@ -84,45 +84,31 @@
                                         </userDefinedRuntimeAttributes>
                                     </button>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zWx-AH-STF">
-                                        <rect key="frame" x="326" y="4" width="41.5" height="42"/>
+                                        <rect key="frame" x="326" y="4" width="42" height="42"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="acx-Er-sOC">
-                                        <rect key="frame" x="18" y="47" width="335" height="1"/>
+                                        <rect key="frame" x="18" y="48" width="335" height="1"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="Kxu-d3-Jxk"/>
-                                        </constraints>
-                                    </view>
-                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GKF-dd-keT">
-                                        <rect key="frame" x="18" y="1" width="335" height="1"/>
-                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="ReU-pf-Fj3"/>
-                                        </constraints>
                                     </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="nmy-pr-Z9Q" firstAttribute="height" secondItem="PCp-UE-NeZ" secondAttribute="height" id="0MZ-gA-V86"/>
-                                    <constraint firstItem="acx-Er-sOC" firstAttribute="leading" secondItem="a1G-de-1eL" secondAttribute="leading" constant="18" id="1GO-po-rdK"/>
-                                    <constraint firstAttribute="trailing" secondItem="acx-Er-sOC" secondAttribute="trailing" constant="18" id="5Sz-5I-ZH2"/>
-                                    <constraint firstItem="zWx-AH-STF" firstAttribute="top" secondItem="GKF-dd-keT" secondAttribute="bottom" constant="2" id="5mI-5V-X7U"/>
-                                    <constraint firstAttribute="trailing" secondItem="GKF-dd-keT" secondAttribute="trailing" constant="18" id="6rw-x7-q4t"/>
-                                    <constraint firstItem="acx-Er-sOC" firstAttribute="top" secondItem="PCp-UE-NeZ" secondAttribute="bottom" constant="1.5" id="7EZ-iv-Dhb"/>
-                                    <constraint firstItem="GKF-dd-keT" firstAttribute="leading" secondItem="a1G-de-1eL" secondAttribute="leading" constant="18" id="HbA-AH-80L"/>
-                                    <constraint firstItem="nmy-pr-Z9Q" firstAttribute="centerY" secondItem="PCp-UE-NeZ" secondAttribute="centerY" id="Klu-sP-43K"/>
-                                    <constraint firstItem="nmy-pr-Z9Q" firstAttribute="centerY" secondItem="zWx-AH-STF" secondAttribute="centerY" id="VIa-f3-rGA"/>
-                                    <constraint firstItem="nmy-pr-Z9Q" firstAttribute="height" secondItem="zWx-AH-STF" secondAttribute="height" id="YzZ-ie-5x5"/>
-                                    <constraint firstItem="nmy-pr-Z9Q" firstAttribute="centerX" secondItem="a1G-de-1eL" secondAttribute="centerX" id="ZCx-Y6-9E1"/>
-                                    <constraint firstAttribute="bottom" secondItem="acx-Er-sOC" secondAttribute="bottom" constant="1" id="ZP3-ZC-wKW"/>
-                                    <constraint firstItem="GKF-dd-keT" firstAttribute="top" secondItem="a1G-de-1eL" secondAttribute="top" constant="1" id="dAt-ho-Cp1"/>
-                                    <constraint firstItem="nmy-pr-Z9Q" firstAttribute="centerY" secondItem="a1G-de-1eL" secondAttribute="centerY" id="dOg-sn-x3W"/>
-                                    <constraint firstItem="nmy-pr-Z9Q" firstAttribute="height" secondItem="a1G-de-1eL" secondAttribute="height" constant="-8" id="fmw-ci-uby"/>
-                                    <constraint firstItem="nmy-pr-Z9Q" firstAttribute="width" secondItem="PCp-UE-NeZ" secondAttribute="width" multiplier="6.6" id="mmf-ef-ewI"/>
-                                    <constraint firstItem="nmy-pr-Z9Q" firstAttribute="width" secondItem="a1G-de-1eL" secondAttribute="width" multiplier="0.734" id="mwu-hx-r7z"/>
-                                    <constraint firstItem="zWx-AH-STF" firstAttribute="leading" secondItem="nmy-pr-Z9Q" secondAttribute="trailing" constant="4.5" id="peh-b7-Of2"/>
-                                    <constraint firstItem="nmy-pr-Z9Q" firstAttribute="width" secondItem="zWx-AH-STF" secondAttribute="width" multiplier="6.6" id="sZw-tH-6wr"/>
-                                    <constraint firstItem="nmy-pr-Z9Q" firstAttribute="leading" secondItem="PCp-UE-NeZ" secondAttribute="trailing" constant="4" id="tnt-7N-pLe"/>
+                                    <constraint firstAttribute="bottom" secondItem="acx-Er-sOC" secondAttribute="bottom" constant="1" id="4N3-II-1q0"/>
+                                    <constraint firstItem="nmy-pr-Z9Q" firstAttribute="leading" secondItem="PCp-UE-NeZ" secondAttribute="trailing" constant="4" id="8JK-hl-ZTi"/>
+                                    <constraint firstItem="nmy-pr-Z9Q" firstAttribute="width" secondItem="zWx-AH-STF" secondAttribute="width" multiplier="6.5" id="9se-Zh-kUB"/>
+                                    <constraint firstItem="nmy-pr-Z9Q" firstAttribute="height" secondItem="zWx-AH-STF" secondAttribute="height" id="C9n-tf-8BF"/>
+                                    <constraint firstItem="nmy-pr-Z9Q" firstAttribute="height" secondItem="a1G-de-1eL" secondAttribute="height" constant="-8" id="D3s-Al-9wB"/>
+                                    <constraint firstItem="nmy-pr-Z9Q" firstAttribute="centerY" secondItem="a1G-de-1eL" secondAttribute="centerY" id="EGi-h1-0F2"/>
+                                    <constraint firstItem="nmy-pr-Z9Q" firstAttribute="width" secondItem="PCp-UE-NeZ" secondAttribute="width" multiplier="6.5" id="Ja2-dT-czh"/>
+                                    <constraint firstItem="acx-Er-sOC" firstAttribute="top" secondItem="zWx-AH-STF" secondAttribute="bottom" constant="2" id="Ub9-5g-1JO"/>
+                                    <constraint firstItem="nmy-pr-Z9Q" firstAttribute="height" secondItem="PCp-UE-NeZ" secondAttribute="height" id="W8G-mV-KuG"/>
+                                    <constraint firstItem="acx-Er-sOC" firstAttribute="leading" secondItem="a1G-de-1eL" secondAttribute="leading" constant="18" id="Wt4-KO-cZg"/>
+                                    <constraint firstItem="nmy-pr-Z9Q" firstAttribute="centerX" secondItem="a1G-de-1eL" secondAttribute="centerX" id="YDO-Dc-T1q"/>
+                                    <constraint firstAttribute="trailing" secondItem="acx-Er-sOC" secondAttribute="trailing" constant="18" id="bYb-Ok-1IY"/>
+                                    <constraint firstItem="nmy-pr-Z9Q" firstAttribute="centerY" secondItem="zWx-AH-STF" secondAttribute="centerY" id="gWK-f1-LEL"/>
+                                    <constraint firstItem="zWx-AH-STF" firstAttribute="leading" secondItem="nmy-pr-Z9Q" secondAttribute="trailing" constant="4" id="nue-fm-Pky"/>
+                                    <constraint firstItem="nmy-pr-Z9Q" firstAttribute="centerY" secondItem="PCp-UE-NeZ" secondAttribute="centerY" id="o2N-kS-3Ud"/>
+                                    <constraint firstItem="nmy-pr-Z9Q" firstAttribute="width" secondItem="a1G-de-1eL" secondAttribute="width" multiplier="0.737" id="rlq-bl-EKQ"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LeK-io-Tzc">

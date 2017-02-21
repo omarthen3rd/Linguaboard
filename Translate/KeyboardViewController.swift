@@ -51,6 +51,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     var selectedLanguage: String = "French"
     var langKey: String = "en"
     var toKey: String = "FR"
+    var lastLang: String = ""
     var fullString: String = ""
     var timer: Timer?
     var checker: UITextChecker = UITextChecker()
@@ -59,6 +60,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     var darkModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     var whiteMinimalModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     var darkMinimalModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
+    var lastUsedLanguage: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     
     var globalTintColor: UIColor = UIColor.white // UIColor(red:0.14, green:0.14, blue:0.14, alpha:1.0)
     var altGlobalTintColor: UIColor = UIColor.darkGray
@@ -117,7 +119,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.textDocumentProxy.insertText(sender.currentTitle!)
         
         self.hideView.isEnabled = true
-        createPopUp(sender, bool: false)
+        // createPopUp(sender, bool: false)
         self.shouldAutoCap()
         // checkText(fullString)
         
@@ -129,7 +131,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     @IBAction func touchDownKey(_ sender: UIButton) {
         
-        createPopUp(sender, bool: true)
+        // createPopUp(sender, bool: true)
         
     }
     
@@ -359,6 +361,10 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         let keyToArr = (langArr as NSDictionary).allKeys(for: selectedLanguage)
         for key in keyToArr {
             self.toKey = key as! String
+            self.lastLang = self.selectedLanguage
+            self.lastUsedLanguage.set(self.lastLang, forKey: "lastUsedLang")
+            print(self.lastUsedLanguage.object(forKey: "lastUsedLang"))
+            print("above is from didSelectRow")
             self.showPickerBtn.setTitle(self.toKey.uppercased(), for: .normal)
         }
     }
@@ -439,7 +445,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         pickerViewTo.delegate = self
         pickerViewTo.dataSource = self
-        pickerViewTo.selectRow(26, inComponent: 0, animated: true)
         pickerViewTo.isHidden = true
         
         hideView.isEnabled = false
@@ -450,6 +455,21 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         numbersRow1.isHidden = true
         numbersRow2.isHidden = true
         symbolsNumbersRow3.isHidden = true
+        
+        // self.lastUsedLanguage.set(self.lastLang, forKey: "lastUsedLang")
+        self.lastLang = self.lastUsedLanguage.object(forKey: "lastUsedLang") as! String
+        print(self.lastLang)
+        let arr = whichOne(0)
+        let indexTo = arr.index(of: self.lastLang)!
+        // let keyto = arr.index(of: self.lastLang)
+        let keyToArr = (langArr as NSDictionary).allKeys(for: self.lastLang)
+        self.toKey = keyToArr[0] as! String
+        self.toKey.uppercased()
+        print(indexTo)
+        print("above is from loadInterface")
+        
+        pickerViewTo.selectRow(indexTo, inComponent: 0, animated: true)
+
         
         // prediction/translate switching gesture
         
@@ -484,7 +504,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.longPressHandler(_:)))
         backspaceButton.addGestureRecognizer(longPressRecognizer)
-        //  quibackspaceButton2.addGestureRecognizer(longPressRecognizer)
+        // backspaceButton2.addGestureRecognizer(longPressRecognizer)
         
         // button ui
         
@@ -499,7 +519,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         }
         
         for letterKey in self.keyPopKeys {
-            
+            letterKey.addTarget(self, action: #selector(self.createPopUp(_:bool:)), for: .touchDown)
         }
         
         self.sendToInput.titleLabel?.font = UIFont.systemFont(ofSize: 18)
@@ -592,13 +612,15 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         popUp.addSubview(text)
         sender.addSubview(popUp)
         
-        if bool {
+        popUp.fadeOut(withDuration: 0.3)
+        
+        /* if bool {
             print("ran bool")
             popUp.fadeOut(withDuration: 0.3)
         } else if bool == false {
             print("ran no bool")
             popUp.fadeOut(withDuration: 0.3)
-        }
+        } */
         
     }
     
