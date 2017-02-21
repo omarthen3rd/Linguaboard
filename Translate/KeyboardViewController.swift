@@ -27,6 +27,13 @@ public extension UIView {
         }
     }
     
+    func fadeOutNoRemove(withDuration duration: TimeInterval = 1.0) {
+        UIView.animate(withDuration: duration, animations: {
+            self.bounds.origin.y += 10
+            self.alpha = 0.0
+        }) { (finished) in }
+    }
+    
 }
 
 class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPickerViewDataSource {
@@ -110,9 +117,9 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.textDocumentProxy.insertText(sender.currentTitle!)
         
         self.hideView.isEnabled = true
-        
+        createPopUp(sender, bool: false)
         self.shouldAutoCap()
-        checkText(fullString)
+        // checkText(fullString)
         
         if shiftStatus == 1 {
             self.shiftKeyPressed(self.shiftButton)
@@ -120,17 +127,9 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
     }
     
-    @IBAction func removePopUp(_ sender: UIButton) {
+    @IBAction func touchDownKey(_ sender: UIButton) {
         
-        if sender.subviews.count > 1 {
-           // sender.subviews[1].fadeOut(withDuration: 0.3)
-        }
-        
-        // for view in sender.subviews {
-            
-            // view.fadeOut(withDuration: 0.3)
-            
-        // }
+        createPopUp(sender, bool: true)
         
     }
     
@@ -147,7 +146,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.hideView.isEnabled = true
         
         self.textDocumentProxy.insertText(" ")
-        checkText(fullString)
+        // checkText(fullString)
         self.shouldAutoCap()
     }
     
@@ -160,7 +159,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         }
         
         self.textDocumentProxy.deleteBackward()
-        checkText(fullString)
+        // checkText(fullString)
         self.shouldAutoCap()
     }
     
@@ -457,7 +456,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(self.switchView))
         let swipeGestureDirection = UISwipeGestureRecognizerDirection.left
         swipeGesture.direction = swipeGestureDirection
-        translateShowView.addGestureRecognizer(swipeGesture)
+        // translateShowView.addGestureRecognizer(swipeGesture)
         // predictionView.addGestureRecognizer(swipeGesture)
         
         // spaceDoubleTap initializers
@@ -494,13 +493,12 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             letter.setTitleColor(globalTintColor, for: .normal)
             letter.tintColor = globalTintColor
             letter.titleLabel?.font = UIFont.systemFont(ofSize: 22)
+            // letter.addTarget(self, action: #selector(self.keyTouchDown(_:)), for: .touchDown)
             // letter.layer.masksToBounds = true
             // letter.backgroundColor = UIColor.lightGray
         }
         
         for letterKey in self.keyPopKeys {
-            
-            letterKey.addTarget(self, action: #selector(self.createPopUp(_:)), for: .touchDown)
             
         }
         
@@ -569,7 +567,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
     }
     
-    func createPopUp(_ sender: UIButton) {
+    func createPopUp(_ sender: UIButton, bool: Bool) {
         
         var frame: CGRect
         var frame1: CGRect
@@ -593,7 +591,14 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         // popUp.layer.masksToBounds = true
         popUp.addSubview(text)
         sender.addSubview(popUp)
-        popUp.fadeOut(withDuration: 0.3)
+        
+        if bool {
+            print("ran bool")
+            popUp.fadeOut(withDuration: 0.3)
+        } else if bool == false {
+            print("ran no bool")
+            popUp.fadeOut(withDuration: 0.3)
+        }
         
     }
     
@@ -651,23 +656,20 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
                 self.predictionArr.append(arrGuessed.first!)
                 self.predictionArr.append(arrGuessed[1])
             case 3:
-                self.prediction1.setTitle(arrGuessed[1], for: .normal)
-                self.prediction2.setTitle(arrGuessed.first, for: .normal)
-                self.prediction3.setTitle(arrGuessed[2], for: .normal)
-                self.predictionArr.append(arrGuessed.first!)
-                self.predictionArr.append(arrGuessed[1])
-                self.predictionArr.append(arrGuessed[2])
+                if arrGuessed.count > 2 {
+                    self.prediction1.setTitle(arrGuessed[1], for: .normal)
+                    self.prediction2.setTitle(arrGuessed.first, for: .normal)
+                    self.prediction3.setTitle(arrGuessed[2], for: .normal)
+                    self.predictionArr.append(arrGuessed.first!)
+                    self.predictionArr.append(arrGuessed[1])
+                    self.predictionArr.append(arrGuessed[2])
+                }
             default:
-                self.prediction1.setTitle(arrGuessed[1], for: .normal)
-                self.prediction2.setTitle(arrGuessed.first, for: .normal)
-                self.prediction3.setTitle(arrGuessed[2], for: .normal)
-                self.predictionArr.append(arrGuessed.first!)
-                self.predictionArr.append(arrGuessed[1])
-                self.predictionArr.append(arrGuessed[2])
+                print("ran this")
             }
             
             let nsText = text as NSString?
-            let correctedStr = nsText?.replacingCharacters(in: misspelledRange, with: arrGuessed[0] as String)
+            // let correctedStr = nsText?.replacingCharacters(in: misspelledRange, with: arrGuessed[0] as String)
             print(arrGuessed)
             
         } else {
