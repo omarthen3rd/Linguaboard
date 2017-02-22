@@ -384,12 +384,12 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.globalTintColor = UIColor.white
             self.altGlobalTintColor = UIColor.darkGray
         case 2:
-            let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.light)
+            let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.extraLight)
             self.blurBG.effect = blurEffect
             self.globalTintColor = UIColor.darkGray
             self.altGlobalTintColor = UIColor.white
         case 0:
-            let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.light)
+            let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.extraLight)
             self.blurBG.effect = blurEffect
             self.globalTintColor = UIColor.darkGray
             self.altGlobalTintColor = UIColor.white
@@ -405,7 +405,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.altGlobalTintColor = UIColor.white
         case 2:
             self.blurBG.isHidden = false
-            let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.light)
+            let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.extraLight)
             self.blurBG.effect = blurEffect
             self.globalTintColor = UIColor.darkGray
             self.altGlobalTintColor = UIColor.white
@@ -413,7 +413,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             print("")
         default:
             self.blurBG.isHidden = false
-            let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.light)
+            let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.extraLight)
             self.blurBG.effect = blurEffect
             self.globalTintColor = UIColor.darkGray
             self.altGlobalTintColor = UIColor.white
@@ -427,7 +427,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.altGlobalTintColor = UIColor.darkGray
         case 2:
             self.blurBG.isHidden = false
-            let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.light)
+            let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.extraLight)
             self.blurBG.effect = blurEffect
             self.globalTintColor = UIColor.darkGray
             self.altGlobalTintColor = UIColor.white
@@ -435,7 +435,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             print("")
         default:
             self.blurBG.isHidden = false
-            let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.light)
+            let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.extraLight)
             self.blurBG.effect = blurEffect
             self.globalTintColor = UIColor.darkGray
             self.altGlobalTintColor = UIColor.white
