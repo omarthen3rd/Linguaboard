@@ -51,7 +51,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     var selectedLanguage: String = "French"
     var langKey: String = "en"
     var toKey: String = "FR"
-    var lastLang: String = ""
+    var lastLang: String = "FR"
     var fullString: String = ""
     var timer: Timer?
     var checker: UITextChecker = UITextChecker()
@@ -457,18 +457,19 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         symbolsNumbersRow3.isHidden = true
         
         // self.lastUsedLanguage.set(self.lastLang, forKey: "lastUsedLang")
-        self.lastLang = self.lastUsedLanguage.object(forKey: "lastUsedLang") as! String
-        print(self.lastLang)
+        if self.lastUsedLanguage.object(forKey: "lastUsedLang") == nil {
+            self.lastLang = "French"
+        } else {
+            self.lastLang = self.lastUsedLanguage.object(forKey: "lastUsedLang") as! String
+        }
         let arr = whichOne(0)
-        let indexTo = arr.index(of: self.lastLang)!
+        let indexTo = arr.index(of: self.lastLang)
         // let keyto = arr.index(of: self.lastLang)
         let keyToArr = (langArr as NSDictionary).allKeys(for: self.lastLang)
         self.toKey = keyToArr[0] as! String
         self.toKey.uppercased()
-        print(indexTo)
-        print("above is from loadInterface")
         
-        pickerViewTo.selectRow(indexTo, inComponent: 0, animated: true)
+        pickerViewTo.selectRow(indexTo!, inComponent: 0, animated: true)
 
         
         // prediction/translate switching gesture
