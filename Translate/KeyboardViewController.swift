@@ -81,6 +81,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     @IBOutlet var returnKey: UIButton!
     @IBOutlet var symbolsKey: UIButton!
     
+    @IBOutlet var moreDetailView: UIView!
+    @IBOutlet var moreDetailLabel: UILabel!
     @IBOutlet var blurBG: UIVisualEffectView!
     @IBOutlet var translateShowView: UIView!
     @IBOutlet var clearTranslation: UIButton!
@@ -376,7 +378,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         let darkMode = darkModeBool.double(forKey: "darkBool")
         let whiteMinimal = whiteMinimalModeBool.double(forKey: "whiteMinimalBool")
         let darkMinimal = darkMinimalModeBool.double(forKey: "darkMinimalBool")
-        
+                
         switch darkMode {
         case 1:
             let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.dark)
@@ -447,6 +449,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         pickerViewTo.dataSource = self
         pickerViewTo.isHidden = true
         
+        moreDetailLabel.numberOfLines = 0
+        
         hideView.isEnabled = false
         clearTranslation.isEnabled = false
         predictionView.isHidden = true
@@ -455,6 +459,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         numbersRow1.isHidden = true
         numbersRow2.isHidden = true
         symbolsNumbersRow3.isHidden = true
+        moreDetailView.isHidden = true
         
         // self.lastUsedLanguage.set(self.lastLang, forKey: "lastUsedLang")
         if self.lastUsedLanguage.object(forKey: "lastUsedLang") == nil {
@@ -523,6 +528,11 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             letterKey.addTarget(self, action: #selector(self.createPopUp(_:bool:)), for: .touchDown)
         }
         
+        let longSendToInput = UILongPressGestureRecognizer(target: self, action: #selector(self.showDetailView))
+        longSendToInput.minimumPressDuration = 1.0
+        self.sendToInput.addGestureRecognizer(longSendToInput)
+        self.sendToInput.tag = 1
+        self.sendToInput.titleLabel.lineBreakMode = .byTruncatingTail
         self.sendToInput.titleLabel?.font = UIFont.systemFont(ofSize: 18)
         self.sendToInput.setTitleColor(globalTintColor, for: .normal)
         
@@ -718,6 +728,22 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
     }
     
+    func showDetailView() {
+        
+        // TODO:
+        // remove gestureRecognizer when view is open, re-add after view is closed
+        // add way to close view... heh
+        
+        if self.sendToInput.tag == 0 {
+            self.moreDetailView.isHidden = true
+            self.sendToInput.tag = 1
+        } else {
+            self.moreDetailView.isHidden = false
+            self.sendToInput.tag = 0
+        }
+        
+    }
+    
     func shouldAutoCap() {
         
         let concurrentQueue = DispatchQueue(label: "com.omar.Linguaboard.Translate", attributes: .concurrent)
@@ -881,6 +907,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
                     
                     let text = translation["translatedText"].stringValue
                     self.sendToInput.setTitle(text.stringByDecodingHTMLEntities, for: .normal)
+                    self.moreDetailLabel.text = translation["translatedText"].stringValue
                     
                 }
             }
