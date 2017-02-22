@@ -84,10 +84,6 @@ class LinguaboardTableViewController: UITableViewController {
     
     func loadInterface() {
         
-        let darkMode = darkModeBool.double(forKey: "darkBool")
-        let whiteMinimal = whiteMinimalBool.double(forKey: "whiteMinimalBool")
-        let darkMinimal = darkMinimalModeBool.double(forKey: "darkMinimalBool")
-        
         self.view.backgroundColor = self.globalTintColor
         
         for label in allLabels {

@@ -471,8 +471,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         let indexTo = arr.index(of: self.lastLang)
         // let keyto = arr.index(of: self.lastLang)
         let keyToArr = (langArr as NSDictionary).allKeys(for: self.lastLang)
-        self.toKey = keyToArr[0] as! String
-        self.toKey.uppercased()
+        // self.toKey = keyToArr[0] as! String
+        self.toKey = String(describing: keyToArr[0]).uppercased()
         
         pickerViewTo.selectRow(indexTo!, inComponent: 0, animated: true)
 
@@ -528,11 +528,15 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             letterKey.addTarget(self, action: #selector(self.createPopUp(_:bool:)), for: .touchDown)
         }
         
+        // TODO:
+        // fix allowableMovement
+        
         let longSendToInput = UILongPressGestureRecognizer(target: self, action: #selector(self.showDetailView))
-        longSendToInput.minimumPressDuration = 1.0
+        longSendToInput.minimumPressDuration = 0.5
+        longSendToInput.allowableMovement = 0
         self.sendToInput.addGestureRecognizer(longSendToInput)
         self.sendToInput.tag = 1
-        self.sendToInput.titleLabel.lineBreakMode = .byTruncatingTail
+        self.sendToInput.titleLabel?.lineBreakMode = .byTruncatingTail
         self.sendToInput.titleLabel?.font = UIFont.systemFont(ofSize: 18)
         self.sendToInput.setTitleColor(globalTintColor, for: .normal)
         
@@ -731,15 +735,17 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     func showDetailView() {
         
         // TODO:
-        // remove gestureRecognizer when view is open, re-add after view is closed
-        // add way to close view... heh
+        // remove longHoldGestureRecognizer when view is open, re-add after view is closed
+        // find way to close view... heh
         
         if self.sendToInput.tag == 0 {
             self.moreDetailView.isHidden = true
             self.sendToInput.tag = 1
+            self.sendToInput.isEnabled = true
         } else {
             self.moreDetailView.isHidden = false
             self.sendToInput.tag = 0
+            self.sendToInput.isEnabled = false
         }
         
     }
