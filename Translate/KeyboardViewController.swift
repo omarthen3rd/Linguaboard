@@ -20,8 +20,8 @@ public extension UIView {
     
     func fadeOut(withDuration duration: TimeInterval = 1.0) {
         UIView.animate(withDuration: duration, animations: { 
-            self.bounds.origin.y += 10
-            self.alpha = 0.0
+            // self.bounds.origin.y += 10
+            self.alpha = 1.0
         }) { (finished) in
             self.removeFromSuperview()
         }
@@ -50,6 +50,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     var checker: UITextChecker = UITextChecker()
     var predictionArr: Array = [""]
     var tapSendToInput: UITapGestureRecognizer!
+    var correctStr = ""
     
     var darkModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     var whiteMinimalModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
@@ -112,12 +113,17 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     @IBAction func keyPressed(_ sender: UIButton) {
         
+        if sender.subviews.count > 1 {
+            sender.subviews[2].removeFromSuperview()
+            sender.subviews[1].removeFromSuperview()
+        }
         self.textDocumentProxy.insertText(sender.currentTitle!)
         
         self.hideView.isEnabled = true
         // createPopUp(sender, bool: false)
         self.shouldAutoCap()
         // checkText(fullString)
+        autocorrect()
         
         if shiftStatus == 1 {
             self.shiftKeyPressed(self.shiftButton)
@@ -127,7 +133,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     @IBAction func touchDownKey(_ sender: UIButton) {
         
-        // createPopUp(sender, bool: true)
+        createPopUp(sender, bool: true)
         
     }
     
@@ -145,6 +151,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         self.textDocumentProxy.insertText(" ")
         // checkText(fullString)
+        autocorrect()
         self.shouldAutoCap()
     }
     
@@ -158,6 +165,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         self.textDocumentProxy.deleteBackward()
         // checkText(fullString)
+        autocorrect()
         self.shouldAutoCap()
     }
     
@@ -479,14 +487,17 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(self.switchView))
         let swipeGestureDirection = UISwipeGestureRecognizerDirection.left
         swipeGesture.direction = swipeGestureDirection
-        // translateShowView.addGestureRecognizer(swipeGesture)
+        translateShowView.addGestureRecognizer(swipeGesture)
         // predictionView.addGestureRecognizer(swipeGesture)
+        
+        self.prediction2.addTarget(self, action: #selector(self.addCorrectionToText(_:)), for: .touchUpInside)
         
         // spaceDoubleTap initializers
         
         let spaceDoubleTap = UITapGestureRecognizer(target: self, action: #selector(self.spaceKeyDoubleTapped(_:)))
         spaceDoubleTap.numberOfTapsRequired = 2
         spaceDoubleTap.delaysTouchesEnded = false
+        
         self.spaceButton.addGestureRecognizer(spaceDoubleTap)
         
         // shift key double and triple hold
@@ -511,13 +522,22 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         // button ui
         
         for letter in self.allKeys {
+            letter.layer.cornerRadius = 5
+            letter.backgroundColor = altGlobalTintColor
             letter.setTitleColor(globalTintColor, for: .normal)
             letter.tintColor = globalTintColor
             letter.titleLabel?.font = UIFont.systemFont(ofSize: 22)
+            if letter == sendToInput || letter == hideView {
+                letter.backgroundColor = UIColor.clear
+                letter.layer.cornerRadius = 0
+            }
         }
+        
+        let longKeyHoldRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.longKeyHold(_:)))
         
         for letterKey in self.keyPopKeys {
             letterKey.addTarget(self, action: #selector(self.createPopUp(_:bool:)), for: .touchDown)
+            letterKey.addGestureRecognizer(longKeyHoldRecognizer)
         }
         
         self.moreDetailView.backgroundColor = altGlobalTintColor
@@ -599,32 +619,41 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         var frame: CGRect
         var frame1: CGRect
-        frame = CGRect(x: 0, y: -25, width: sender.frame.size.width, height: sender.frame.size.height)
-        frame1 = CGRect(x: 0, y: -25, width: sender.frame.size.width, height: sender.frame.size.height)
+        let xToUse = (sender.frame.size.width - sender.frame.size.width * 1.3919) / 2
+        let xLeft = ((sender.frame.size.width - sender.frame.size.width * 1.3919) * -1) / 2
+        frame = CGRect(x: xToUse, y: -50, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height * 1.1071428571)
+        frame1 = CGRect(x: 0, y: 0, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height * 1.1071428571)
+        
+        if sender == row1.subviews[0] as? UIButton {
+            frame = CGRect(x: xLeft / 2, y: -50, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height * 1.1071428571)
+        }
         
         let popUp = UIView(frame: frame)
         let text = UILabel()
         text.frame = frame1
         text.text = sender.currentTitle!
-        text.textColor = globalTintColor
+        text.textColor = altGlobalTintColor
         text.textAlignment = .center
         text.font = UIFont.boldSystemFont(ofSize: 30)
-        text.backgroundColor = altGlobalTintColor
-        text.layer.masksToBounds = true
         text.layer.cornerRadius = 5
-        popUp.backgroundColor = altGlobalTintColor
+        text.backgroundColor = globalTintColor
+        text.layer.masksToBounds = true
+        popUp.backgroundColor = globalTintColor
         popUp.layer.cornerRadius = 5
+        popUp.layer.shadowColor = UIColor.gray.cgColor
+        popUp.layer.shadowRadius = 2
+        popUp.layer.shadowOpacity = 0.1
+        popUp.layer.shadowOffset = CGSize(width: 0, height: 4)
         popUp.layer.shouldRasterize = true
         popUp.layer.rasterizationScale = UIScreen.main.scale
         popUp.addSubview(text)
         sender.addSubview(popUp)
-        popUp.fadeOut(withDuration: 0.3)
+        // popUp.removeFromSuperview()
+        // popUp.fadeOut(withDuration: 0.3)
         
     }
     
     func switchView() {
-        
-        print("ran this")
         
         if translationViewIsOpen {
             self.translateShowView.isHidden = true
@@ -654,28 +683,67 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
     }
     
-    func checkText(_ text: String) {
+    func autocorrect() {
         
-        let checkRange = NSMakeRange(0, text.utf16.count)
+        let textChecker = UITextChecker()
+        let missSpelledRange = textChecker.rangeOfMisspelledWord(in: fullString, range: NSMakeRange(0, fullString.utf16.count), startingAt: 0, wrap: false, language: "en_US")
+        if missSpelledRange.location != NSNotFound {
+            let guesses = textChecker.guesses(forWordRange: missSpelledRange, in: fullString, language: "en_US")
+            print(guesses?.first)
+            prediction2.setTitle(guesses?.first, for: .normal)
+            let nsText = self.textDocumentProxy.documentContextBeforeInput as NSString?
+            print("old: ", nsText!)
+            self.correctStr = (nsText?.replacingCharacters(in: missSpelledRange, with: (guesses?.first)!))!
+            print("new: ", correctStr)
+            nsText?.replacingCharacters(in: missSpelledRange, with: correctStr)
+            print("new new: ", nsText!)
+            
+        } else {
+            print("ran this")
+        }
         
-        let misspelledRange: NSRange = checker.rangeOfMisspelledWord(in: text, range: checkRange, startingAt: 0, wrap: false, language: "en_US")
+    }
+    
+    func checkText(_ text: String, bool: Bool = false) {
+        
+        let proxy = textDocumentProxy as UITextDocumentProxy
+        var wordsBeingTyped = NSString()
+        var lastWord: String!
+        wordsBeingTyped = proxy.documentContextBeforeInput! as NSString
+        let range = NSMakeRange(0, (wordsBeingTyped).length)
+        wordsBeingTyped.enumerateSubstrings(in: range, options: NSString.EnumerationOptions.byWords) { (substring, substringRange, enclosingRange, stop) -> () in
+            lastWord = substring!
+        }
+        
+        let checkRange = NSMakeRange(0, lastWord!.utf16.count)
+        
+        let misspelledRange: NSRange = checker.rangeOfMisspelledWord(in: lastWord!, range: checkRange, startingAt: 0, wrap: false, language: "en_US")
         
         if misspelledRange.location != NSNotFound {
             
-            let arrGuessed = checker.guesses(forWordRange: misspelledRange, in: text, language: "en_US")! as [String]
+            let arrGuessed = checker.guesses(forWordRange: misspelledRange, in: lastWord!, language: "en_US")! as [String]
             switch arrGuessed.count {
             case 1:
+                let nsText = lastWord! as NSString?
+                nsText?.replacingCharacters(in: misspelledRange, with: arrGuessed[0] as String)
+                print(nsText!)
                 self.prediction1.setTitle("", for: .normal)
                 self.prediction3.setTitle("", for: .normal)
                 self.prediction2.setTitle(arrGuessed.first, for: .normal)
                 self.predictionArr.append(arrGuessed.first!)
             case 2:
+                let nsText = lastWord! as NSString?
+                nsText?.replacingCharacters(in: misspelledRange, with: arrGuessed[0] as String)
+                print(nsText!)
                 self.prediction1.setTitle(arrGuessed[1], for: .normal)
                 self.prediction3.setTitle("", for: .normal)
                 self.prediction2.setTitle(arrGuessed.first, for: .normal)
                 self.predictionArr.append(arrGuessed.first!)
                 self.predictionArr.append(arrGuessed[1])
             case 3:
+                let nsText = lastWord! as NSString?
+                nsText?.replacingCharacters(in: misspelledRange, with: arrGuessed[0] as String)
+                print(nsText!)
                 if arrGuessed.count > 2 {
                     self.prediction1.setTitle(arrGuessed[1], for: .normal)
                     self.prediction2.setTitle(arrGuessed.first, for: .normal)
@@ -685,33 +753,38 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
                     self.predictionArr.append(arrGuessed[2])
                 }
             default:
-                print("ran this")
+                print("")
             }
             
-            // let nsText = text as NSString?
-            // let correctedStr = nsText?.replacingCharacters(in: misspelledRange, with: arrGuessed[0] as String)
-            print(arrGuessed)
+            /// let nsText = lastWord! as NSString?
+            // nsText?.replacingCharacters(in: misspelledRange, with: arrGuessed[0] as String)
+            // print(arrGuessed)
+            // print(correctStr!)
+            /* if bool == true {
+                print("bool")
+                let nsTextt = textDocumentProxy.documentContextBeforeInput as NSString?
+                print(arrGuessed[0])
+                print(nsTextt)
+                nsTextt?.replacingCharacters(in: misspelledRange, with: arrGuessed[0] as String)
+            } else if bool == false {
+                print("!bool")
+                let correctStr = nsText?.replacingCharacters(in: misspelledRange, with: arrGuessed[0] as String)
+                // print(correctStr!)
+            } */
             
         } else {
             self.prediction1.setTitle("", for: .normal)
             self.prediction2.setTitle("NOTHING FOUND", for: .normal)
             self.prediction3.setTitle("", for: .normal)
-            print("not found")
         }
     }
     
     func addCorrectionToText(_ sender: UIButton) {
-        
-        switch sender {
-        case prediction1:
-            print("prediction1")
-        case prediction2:
-            print("prediction2")
-        case prediction3:
-            print("prediction3")
-        default:
-            print("default")
-        }
+    
+        print("addCorrection Ran")
+        self.deleteAllText()
+        self.textDocumentProxy.insertText(correctStr)
+        // checkText(fullString, bool: true)
         
     }
     
@@ -723,8 +796,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.sendToInput.isEnabled = true
             
             if self.moreDetailView.gestureRecognizers == nil || (self.moreDetailView.gestureRecognizers?.isEmpty)! {
-                
-                print("ran this")
                 
             } else {
                 
@@ -842,6 +913,16 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             for _ in text.characters {
                 self.textDocumentProxy.deleteBackward()
             }
+        }
+        
+    }
+    
+    func longKeyHold(_ gesture: UILongPressGestureRecognizer) {
+        print("ran keyHold")
+        if gesture.state == .began {
+            print("began state")
+        } else if gesture.state == .ended || gesture.state == .cancelled {
+            print("ended/cancelled state")
         }
         
     }
