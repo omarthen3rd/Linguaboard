@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16E154a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="cjp-66-VOW">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="cjp-66-VOW">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -1356,11 +1356,11 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D8t-i4-fmC">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="20.5"/>
+                                <rect key="frame" x="5" y="5" width="365" height="36.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jJk-XT-R9b">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <rect key="frame" x="5" y="5" width="355" height="26.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -1368,10 +1368,15 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="jJk-XT-R9b" firstAttribute="centerY" secondItem="D8t-i4-fmC" secondAttribute="centerY" id="OI9-ev-nJU"/>
-                                    <constraint firstItem="jJk-XT-R9b" firstAttribute="height" secondItem="D8t-i4-fmC" secondAttribute="height" id="Usk-jS-3cn"/>
+                                    <constraint firstItem="jJk-XT-R9b" firstAttribute="height" secondItem="D8t-i4-fmC" secondAttribute="height" constant="-10" id="Usk-jS-3cn"/>
                                     <constraint firstItem="jJk-XT-R9b" firstAttribute="centerX" secondItem="D8t-i4-fmC" secondAttribute="centerX" id="n0P-s6-Jj7"/>
-                                    <constraint firstItem="jJk-XT-R9b" firstAttribute="width" secondItem="D8t-i4-fmC" secondAttribute="width" id="vn0-xv-ueX"/>
+                                    <constraint firstItem="jJk-XT-R9b" firstAttribute="width" secondItem="D8t-i4-fmC" secondAttribute="width" constant="-10" id="vn0-xv-ueX"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1397,7 +1402,7 @@
                             <constraint firstItem="a1G-de-1eL" firstAttribute="height" secondItem="b2E-6b-KOA" secondAttribute="height" multiplier="0.2" id="Fp2-FU-vte"/>
                             <constraint firstItem="2QF-1M-Lw8" firstAttribute="height" secondItem="b2E-6b-KOA" secondAttribute="height" multiplier="0.2" id="G7O-u3-BRy"/>
                             <constraint firstItem="LeK-io-Tzc" firstAttribute="top" secondItem="a1G-de-1eL" secondAttribute="bottom" id="IFw-qf-YzK"/>
-                            <constraint firstItem="D8t-i4-fmC" firstAttribute="top" secondItem="8zO-aw-7lF" secondAttribute="bottom" id="JNf-9I-CoU"/>
+                            <constraint firstItem="D8t-i4-fmC" firstAttribute="top" secondItem="8zO-aw-7lF" secondAttribute="bottom" constant="5" id="JNf-9I-CoU"/>
                             <constraint firstItem="fOe-tw-2jj" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="LLd-XH-oI0"/>
                             <constraint firstItem="Xfh-Gq-rnk" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="MdT-ha-4TE"/>
                             <constraint firstItem="wkV-19-SIz" firstAttribute="height" secondItem="b2E-6b-KOA" secondAttribute="height" multiplier="0.2" id="O9T-Ut-9ua"/>
@@ -1422,7 +1427,7 @@
                             <constraint firstItem="c7r-0i-Su6" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="iUo-5t-xBu"/>
                             <constraint firstItem="Wh5-0X-2zd" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="if1-mh-LX4"/>
                             <constraint firstItem="ty5-IK-qLu" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="j7c-rG-6th"/>
-                            <constraint firstItem="D8t-i4-fmC" firstAttribute="width" secondItem="b2E-6b-KOA" secondAttribute="width" id="jgZ-NM-dsj"/>
+                            <constraint firstItem="D8t-i4-fmC" firstAttribute="width" secondItem="b2E-6b-KOA" secondAttribute="width" constant="-10" id="jgZ-NM-dsj"/>
                             <constraint firstItem="lFF-bI-CmW" firstAttribute="height" secondItem="b2E-6b-KOA" secondAttribute="height" multiplier="0.2" id="lfV-ir-aUY"/>
                             <constraint firstItem="ypR-OG-pT7" firstAttribute="top" secondItem="8zO-aw-7lF" secondAttribute="bottom" id="lrW-mZ-JN8"/>
                             <constraint firstItem="tKL-gL-W4c" firstAttribute="top" secondItem="Wh5-0X-2zd" secondAttribute="bottom" id="nXO-WW-RmI"/>

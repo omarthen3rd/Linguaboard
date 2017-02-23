@@ -175,10 +175,12 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             row4.subviews[1].isUserInteractionEnabled = false
             row4.subviews[2].isUserInteractionEnabled = false
             row4.subviews[3].isUserInteractionEnabled = false
+            translateShowView.isUserInteractionEnabled = false
             row4.subviews[0].layer.opacity = 0.3
             row4.subviews[1].layer.opacity = 0.3
             row4.subviews[2].layer.opacity = 0.3
             row4.subviews[3].layer.opacity = 0.3
+            translateShowView.layer.opacity = 0.3
             didOpenPicker2 = false
             pickerViewTo.isHidden = false
             self.row1.isHidden = !didOpenPicker2
@@ -196,10 +198,12 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             row4.subviews[1].isUserInteractionEnabled = true
             row4.subviews[2].isUserInteractionEnabled = true
             row4.subviews[3].isUserInteractionEnabled = true
+            translateShowView.isUserInteractionEnabled = true
             row4.subviews[0].layer.opacity = 1
             row4.subviews[1].layer.opacity = 1
             row4.subviews[2].layer.opacity = 1
             row4.subviews[3].layer.opacity = 1
+            translateShowView.layer.opacity = 1
             didOpenPicker2 = true
             pickerViewTo.isHidden = true
             self.row1.isHidden = !didOpenPicker2
@@ -378,7 +382,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         let darkMode = darkModeBool.double(forKey: "darkBool")
         let whiteMinimal = whiteMinimalModeBool.double(forKey: "whiteMinimalBool")
         let darkMinimal = darkMinimalModeBool.double(forKey: "darkMinimalBool")
-                
+        
         switch darkMode {
         case 1:
             let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.dark)
@@ -460,6 +464,10 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         numbersRow2.isHidden = true
         symbolsNumbersRow3.isHidden = true
         moreDetailView.isHidden = true
+        moreDetailView.layer.shadowColor = UIColor.black.cgColor
+        moreDetailView.layer.shadowRadius = 10
+        moreDetailView.layer.shadowOpacity = 0.3
+        moreDetailView.layer.shadowOffset = CGSize(width: 0, height: 5)
         
         // self.lastUsedLanguage.set(self.lastLang, forKey: "lastUsedLang")
         if self.lastUsedLanguage.object(forKey: "lastUsedLang") == nil {
@@ -531,9 +539,12 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         // TODO:
         // fix allowableMovement
         
+        self.moreDetailView.backgroundColor = altGlobalTintColor
+        self.moreDetailLabel.textColor = globalTintColor
+        
         let longSendToInput = UILongPressGestureRecognizer(target: self, action: #selector(self.showDetailView))
         longSendToInput.minimumPressDuration = 0.5
-        longSendToInput.allowableMovement = 0
+        longSendToInput.allowableMovement = self.view.bounds.size.height
         self.sendToInput.addGestureRecognizer(longSendToInput)
         self.sendToInput.tag = 1
         self.sendToInput.titleLabel?.lineBreakMode = .byTruncatingTail
@@ -732,7 +743,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
     }
     
-    func showDetailView() {
+    func showDetailView(_ sender: UILongPressGestureRecognizer) {
         
         // TODO:
         // remove longHoldGestureRecognizer when view is open, re-add after view is closed
@@ -743,9 +754,35 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.sendToInput.tag = 1
             self.sendToInput.isEnabled = true
         } else {
-            self.moreDetailView.isHidden = false
-            self.sendToInput.tag = 0
-            self.sendToInput.isEnabled = false
+            if sender.state == .ended {
+                print("ended 1")
+                self.row1.isUserInteractionEnabled = true
+                self.row1.layer.opacity = 1
+                self.row2.isUserInteractionEnabled = true
+                self.row2.layer.opacity = 1
+                self.row3.isUserInteractionEnabled = true
+                self.row3.layer.opacity = 1
+                self.row4.isUserInteractionEnabled = true
+                self.row4.layer.opacity = 1
+                self.translateShowView.isUserInteractionEnabled = true
+                self.translateShowView.layer.opacity = 1
+                
+            } else if sender.state == .began {
+                print("began 1")
+                self.moreDetailView.isHidden = false
+                self.sendToInput.tag = 0
+                self.sendToInput.isEnabled = false
+                self.row1.isUserInteractionEnabled = false
+                self.row1.layer.opacity = 0.3
+                self.row2.isUserInteractionEnabled = false
+                self.row2.layer.opacity = 0.3
+                self.row3.isUserInteractionEnabled = false
+                self.row3.layer.opacity = 0.3
+                self.row4.isUserInteractionEnabled = false
+                self.row4.layer.opacity = 0.3
+                self.translateShowView.isUserInteractionEnabled = false
+                self.translateShowView.layer.opacity = 0.3
+            }            
         }
         
     }
