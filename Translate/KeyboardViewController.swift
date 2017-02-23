@@ -27,12 +27,6 @@ public extension UIView {
         }
     }
     
-    func fadeOutNoRemove(withDuration duration: TimeInterval = 1.0) {
-        UIView.animate(withDuration: duration, animations: {
-            self.alpha = 0.0
-        }) { (finished) in }
-    }
-    
 }
 
 class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPickerViewDataSource {
@@ -62,9 +56,9 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     var darkMinimalModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     var lastUsedLanguage: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     
-    var globalTintColor: UIColor = UIColor.white // UIColor(red:0.14, green:0.14, blue:0.14, alpha:1.0)
+    var globalTintColor: UIColor = UIColor.white
     var altGlobalTintColor: UIColor = UIColor.darkGray
-    var backgroundColor: UIColor = UIColor.clear // UIColor(red:0.96, green:0.96, blue:0.96, alpha:1.0)
+    var backgroundColor: UIColor = UIColor.clear
     
     // MARK: - IBActions and IBOutlets
     
@@ -369,8 +363,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.toKey = key as! String
             self.lastLang = self.selectedLanguage
             self.lastUsedLanguage.set(self.lastLang, forKey: "lastUsedLang")
-            print(self.lastUsedLanguage.object(forKey: "lastUsedLang"))
-            print("above is from didSelectRow")
             self.showPickerBtn.setTitle(self.toKey.uppercased(), for: .normal)
         }
     }
@@ -469,7 +461,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         moreDetailView.layer.shadowOpacity = 0.3
         moreDetailView.layer.shadowOffset = CGSize(width: 0, height: 5)
         
-        // self.lastUsedLanguage.set(self.lastLang, forKey: "lastUsedLang")
         if self.lastUsedLanguage.object(forKey: "lastUsedLang") == nil {
             self.lastLang = "French"
         } else {
@@ -477,9 +468,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         }
         let arr = whichOne(0)
         let indexTo = arr.index(of: self.lastLang)
-        // let keyto = arr.index(of: self.lastLang)
         let keyToArr = (langArr as NSDictionary).allKeys(for: self.lastLang)
-        // self.toKey = keyToArr[0] as! String
         self.toKey = String(describing: keyToArr[0]).uppercased()
         
         pickerViewTo.selectRow(indexTo!, inComponent: 0, animated: true)
@@ -518,33 +507,22 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.longPressHandler(_:)))
         backspaceButton.addGestureRecognizer(longPressRecognizer)
-        // backspaceButton2.addGestureRecognizer(longPressRecognizer)
         
         // button ui
         
         for letter in self.allKeys {
-            // letter.layer.cornerRadius = 5
             letter.setTitleColor(globalTintColor, for: .normal)
             letter.tintColor = globalTintColor
             letter.titleLabel?.font = UIFont.systemFont(ofSize: 22)
-            // letter.addTarget(self, action: #selector(self.keyTouchDown(_:)), for: .touchDown)
-            // letter.layer.masksToBounds = true
-            // letter.backgroundColor = UIColor.lightGray
         }
         
         for letterKey in self.keyPopKeys {
             letterKey.addTarget(self, action: #selector(self.createPopUp(_:bool:)), for: .touchDown)
         }
         
-        // TODO:
-        // fix allowableMovement
-        
         self.moreDetailView.backgroundColor = altGlobalTintColor
         self.moreDetailLabel.textColor = globalTintColor
         
-        let longSendToInput = UILongPressGestureRecognizer(target: self, action: #selector(self.showDetailView))
-        longSendToInput.minimumPressDuration = 0.5
-        longSendToInput.allowableMovement = self.view.bounds.size.height
         self.tapSendToInput = UITapGestureRecognizer(target: self, action: #selector(self.showDetailView))
         self.tapSendToInput.numberOfTapsRequired = 1
         self.tapSendToInput.numberOfTouchesRequired = 1
@@ -638,19 +616,9 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         popUp.layer.cornerRadius = 5
         popUp.layer.shouldRasterize = true
         popUp.layer.rasterizationScale = UIScreen.main.scale
-        // popUp.layer.masksToBounds = true
         popUp.addSubview(text)
         sender.addSubview(popUp)
-        
         popUp.fadeOut(withDuration: 0.3)
-        
-        /* if bool {
-            print("ran bool")
-            popUp.fadeOut(withDuration: 0.3)
-        } else if bool == false {
-            print("ran no bool")
-            popUp.fadeOut(withDuration: 0.3)
-        } */
         
     }
     
@@ -720,7 +688,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
                 print("ran this")
             }
             
-            let nsText = text as NSString?
+            // let nsText = text as NSString?
             // let correctedStr = nsText?.replacingCharacters(in: misspelledRange, with: arrGuessed[0] as String)
             print(arrGuessed)
             
