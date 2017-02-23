@@ -29,7 +29,6 @@ public extension UIView {
     
     func fadeOutNoRemove(withDuration duration: TimeInterval = 1.0) {
         UIView.animate(withDuration: duration, animations: {
-            self.bounds.origin.y += 10
             self.alpha = 0.0
         }) { (finished) in }
     }
