@@ -491,6 +491,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         // predictionView.addGestureRecognizer(swipeGesture)
         
         self.prediction2.addTarget(self, action: #selector(self.addCorrectionToText(_:)), for: .touchUpInside)
+        self.prediction1.addTarget(self, action: #selector(self.addCorrectionToText(_:)), for: .touchUpInside)
+        self.prediction3.addTarget(self, action: #selector(self.addCorrectionToText(_:)), for: .touchUpInside)
         
         // spaceDoubleTap initializers
         
@@ -689,7 +691,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         let missSpelledRange = textChecker.rangeOfMisspelledWord(in: fullString, range: NSMakeRange(0, fullString.utf16.count), startingAt: 0, wrap: false, language: "en_US")
         if missSpelledRange.location != NSNotFound {
             let guesses = textChecker.guesses(forWordRange: missSpelledRange, in: fullString, language: "en_US")
-            print(guesses?.first)
             prediction2.setTitle(guesses?.first, for: .normal)
             let nsText = self.textDocumentProxy.documentContextBeforeInput as NSString?
             print("old: ", nsText!)
@@ -698,13 +699,32 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             nsText?.replacingCharacters(in: missSpelledRange, with: correctStr)
             print("new new: ", nsText!)
             
+            if guesses?.count == 1 {
+                addCorrectionToText(prediction2)
+            } else if (guesses?.count)! == 2 {
+                predictionArr.append((guesses?[0])!)
+                predictionArr.append((guesses?[1])!)
+                print(predictionArr)
+                prediction1.setTitle((guesses?[1])! as String, for: .normal)
+                prediction2.setTitle((guesses?.first)!, for: .normal)
+            } else if (guesses?.count)! >= 3 {
+                predictionArr.append((guesses?[0])!)
+                predictionArr.append((guesses?[1])!)
+                predictionArr.append((guesses?[2])!)
+                print(predictionArr)
+                prediction1.setTitle((guesses?[1])! as String, for: .normal)
+                prediction2.setTitle((guesses?.first)!, for: .normal)
+                prediction3.setTitle((guesses?[2])! as String, for: .normal)
+            }
+            
+            
         } else {
-            print("ran this")
+            print("no guesses")
         }
         
     }
     
-    func checkText(_ text: String, bool: Bool = false) {
+    /* func checkText(_ text: String, bool: Bool = false) {
         
         let proxy = textDocumentProxy as UITextDocumentProxy
         var wordsBeingTyped = NSString()
@@ -777,15 +797,35 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.prediction2.setTitle("NOTHING FOUND", for: .normal)
             self.prediction3.setTitle("", for: .normal)
         }
-    }
+    } */
     
     func addCorrectionToText(_ sender: UIButton) {
-    
+        
+        if sender == prediction2 {
+            // center prediction button
+            print("2")
+            self.deleteAllText()
+            self.textDocumentProxy.insertText(correctStr)
+            shouldAutoCap()
+        } else if sender == prediction1 {
+            print("1")
+            // left prediction button
+            self.deleteAllText()
+            self.textDocumentProxy.insertText(predictionArr[1])
+            shouldAutoCap()
+        } else if sender == prediction3 {
+            print("3")
+            self.deleteAllText()
+            self.textDocumentProxy.insertText(predictionArr[2])
+            shouldAutoCap()
+        }
+        
+        /*
         print("addCorrection Ran")
         self.deleteAllText()
         self.textDocumentProxy.insertText(correctStr)
-        // checkText(fullString, bool: true)
-        
+        shouldAutoCap()
+        */
     }
     
     func showDetailView() {
