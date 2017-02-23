@@ -56,6 +56,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     var timer: Timer?
     var checker: UITextChecker = UITextChecker()
     var predictionArr: Array = [""]
+    var tapSendToInput: UITapGestureRecognizer!
     
     var darkModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     var whiteMinimalModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
@@ -545,11 +546,15 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         let longSendToInput = UILongPressGestureRecognizer(target: self, action: #selector(self.showDetailView))
         longSendToInput.minimumPressDuration = 0.5
         longSendToInput.allowableMovement = self.view.bounds.size.height
-        self.sendToInput.addGestureRecognizer(longSendToInput)
+        self.tapSendToInput = UITapGestureRecognizer(target: self, action: #selector(self.showDetailView))
+        self.tapSendToInput.numberOfTapsRequired = 1
+        self.tapSendToInput.numberOfTouchesRequired = 1
+        self.sendToInput.addGestureRecognizer(tapSendToInput)
         self.sendToInput.tag = 1
         self.sendToInput.titleLabel?.lineBreakMode = .byTruncatingTail
         self.sendToInput.titleLabel?.font = UIFont.systemFont(ofSize: 18)
         self.sendToInput.setTitleColor(globalTintColor, for: .normal)
+        self.sendToInput.addGestureRecognizer(self.tapSendToInput)
         
         self.hideView.setImage(UIImage(named: "appLogo")?.withRenderingMode(.alwaysTemplate), for: .normal)
         self.hideView.setImage(UIImage(named: "appLogo_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
@@ -743,46 +748,56 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
     }
     
-    func showDetailView(_ sender: UILongPressGestureRecognizer) {
-        
-        // TODO:
-        // remove longHoldGestureRecognizer when view is open, re-add after view is closed
-        // find way to close view... heh
+    func showDetailView() {
         
         if self.sendToInput.tag == 0 {
             self.moreDetailView.isHidden = true
             self.sendToInput.tag = 1
             self.sendToInput.isEnabled = true
-        } else {
-            if sender.state == .ended {
-                print("ended 1")
-                self.row1.isUserInteractionEnabled = true
-                self.row1.layer.opacity = 1
-                self.row2.isUserInteractionEnabled = true
-                self.row2.layer.opacity = 1
-                self.row3.isUserInteractionEnabled = true
-                self.row3.layer.opacity = 1
-                self.row4.isUserInteractionEnabled = true
-                self.row4.layer.opacity = 1
-                self.translateShowView.isUserInteractionEnabled = true
-                self.translateShowView.layer.opacity = 1
+            
+            if self.moreDetailView.gestureRecognizers == nil || (self.moreDetailView.gestureRecognizers?.isEmpty)! {
                 
-            } else if sender.state == .began {
-                print("began 1")
-                self.moreDetailView.isHidden = false
-                self.sendToInput.tag = 0
-                self.sendToInput.isEnabled = false
-                self.row1.isUserInteractionEnabled = false
-                self.row1.layer.opacity = 0.3
-                self.row2.isUserInteractionEnabled = false
-                self.row2.layer.opacity = 0.3
-                self.row3.isUserInteractionEnabled = false
-                self.row3.layer.opacity = 0.3
-                self.row4.isUserInteractionEnabled = false
-                self.row4.layer.opacity = 0.3
-                self.translateShowView.isUserInteractionEnabled = false
-                self.translateShowView.layer.opacity = 0.3
-            }            
+                print("ran this")
+                
+            } else {
+                
+                self.sendToInput.addGestureRecognizer(self.tapSendToInput)
+                
+            }
+            
+            self.row1.isUserInteractionEnabled = true
+            self.row1.layer.opacity = 1
+            self.row2.isUserInteractionEnabled = true
+            self.row2.layer.opacity = 1
+            self.row3.isUserInteractionEnabled = true
+            self.row3.layer.opacity = 1
+            self.row4.isUserInteractionEnabled = true
+            self.row4.layer.opacity = 1
+            self.translateShowView.isUserInteractionEnabled = true
+            self.translateShowView.layer.opacity = 1
+            
+        } else {
+            self.moreDetailView.isHidden = false
+            self.sendToInput.tag = 0
+            self.sendToInput.isEnabled = false
+            
+            self.sendToInput.removeGestureRecognizer(self.tapSendToInput)
+            self.moreDetailView.addGestureRecognizer(self.tapSendToInput)
+            
+            self.moreDetailView.isHidden = false
+            self.sendToInput.tag = 0
+            self.sendToInput.isEnabled = false
+            self.row1.isUserInteractionEnabled = false
+            self.row1.layer.opacity = 0.3
+            self.row2.isUserInteractionEnabled = false
+            self.row2.layer.opacity = 0.3
+            self.row3.isUserInteractionEnabled = false
+            self.row3.layer.opacity = 0.3
+            self.row4.isUserInteractionEnabled = false
+            self.row4.layer.opacity = 0.3
+            self.translateShowView.isUserInteractionEnabled = false
+            self.translateShowView.layer.opacity = 0.3
+            
         }
         
     }
