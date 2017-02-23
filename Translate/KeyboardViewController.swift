@@ -932,7 +932,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
                     
                     let text = translation["translatedText"].stringValue
                     self.sendToInput.setTitle(text.stringByDecodingHTMLEntities, for: .normal)
-                    self.moreDetailLabel.text = translation["translatedText"].stringValue
+                    self.moreDetailLabel.text = text.stringByDecodingHTMLEntities
                     
                 }
             }
