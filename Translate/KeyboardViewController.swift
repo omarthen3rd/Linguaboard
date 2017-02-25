@@ -113,6 +113,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     @IBAction func keyPressed(_ sender: UIButton) {
         
+        print("ran this")
+        
         if sender.subviews.count > 1 {
             sender.subviews[2].removeFromSuperview()
             sender.subviews[1].removeFromSuperview()
@@ -132,6 +134,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     }
     
     @IBAction func touchDownKey(_ sender: UIButton) {
+        
+        print("ran this2")
         
         createPopUp(sender, bool: true)
         
@@ -315,6 +319,9 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated
+        
+        print("didReceiveMemoryWarning")
+        
     }
     
     override func textWillChange(_ textInput: UITextInput?) {
@@ -324,7 +331,18 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     override func textDidChange(_ textInput: UITextInput?) {
         // The app has just changed the document's contents, the document context has been updated.
         
-        if (!(self.textDocumentProxy.documentContextBeforeInput != nil) && !(self.textDocumentProxy.documentContextAfterInput != nil)) || (self.textDocumentProxy.documentContextBeforeInput == "") && (self.textDocumentProxy.documentContextAfterInput == "") {
+        print("ran that's")
+        self.hideView.isEnabled = true
+        
+        if (!(self.textDocumentProxy.documentContextBeforeInput != nil) && !(self.textDocumentProxy.documentContextAfterInput != nil)) || (self.textDocumentProxy.documentContextBeforeInput == "") && (self.textDocumentProxy.documentContextAfterInput == "") && (sendToInput.currentTitle! != "") {
+            
+            print("ran that")
+            // self.hideView.isEnabled = true
+            
+        } else if (!(self.textDocumentProxy.documentContextBeforeInput != nil) && !(self.textDocumentProxy.documentContextAfterInput != nil)) || (self.textDocumentProxy.documentContextBeforeInput == "") && (self.textDocumentProxy.documentContextAfterInput == "") {
+            
+            print("runned that")
+            
             self.shiftStatus = 1
             self.shiftKeys(row1)
             self.shiftKeys(row2)
@@ -539,6 +557,9 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         for letterKey in self.keyPopKeys {
             letterKey.addTarget(self, action: #selector(self.createPopUp(_:bool:)), for: .touchDown)
+            letterKey.addTarget(self, action: #selector(self.draggedButton(_:)), for: .touchDragOutside)
+            letterKey.addTarget(self, action: #selector(self.draggedButton2(_:)), for: .touchDragInside)
+            letterKey.addTarget(self, action: #selector(self.touchUpOutside(_:)), for: .touchUpOutside)
             letterKey.addGestureRecognizer(longKeyHoldRecognizer)
         }
         
@@ -653,6 +674,26 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         // popUp.removeFromSuperview()
         // popUp.fadeOut(withDuration: 0.3)
         
+    }
+    
+    func touchUpOutside(_ sender: UIButton) {
+        
+        print("touchUpOutside")
+        
+        if sender.subviews.count > 1 {
+            sender.subviews[2].removeFromSuperview()
+            sender.subviews[1].removeFromSuperview()
+        }
+
+        
+    }
+    
+    func draggedButton(_ sender: UIButton) {
+        
+    }
+    
+    func draggedButton2(_ sender: UIButton) {
+                
     }
     
     func switchView() {
