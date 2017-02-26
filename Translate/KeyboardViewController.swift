@@ -51,6 +51,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     var predictionArr: Array = [""]
     var tapSendToInput: UITapGestureRecognizer!
     var correctStr = ""
+    var swipeGesture: UISwipeGestureRecognizer!
     
     var darkModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     var whiteMinimalModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
@@ -113,8 +114,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     @IBAction func keyPressed(_ sender: UIButton) {
         
-        print("ran this")
-        
         if sender.subviews.count > 1 {
             sender.subviews[2].removeFromSuperview()
             sender.subviews[1].removeFromSuperview()
@@ -123,10 +122,11 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         self.hideView.isEnabled = true
         // createPopUp(sender, bool: false)
-        self.shouldAutoCap()
         // checkText(fullString)
+        self.shouldAutoCap()
         autocorrect()
-        
+        self.shouldAutoCap()
+
         if shiftStatus == 1 {
             self.shiftKeyPressed(self.shiftButton)
         }
@@ -134,8 +134,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     }
     
     @IBAction func touchDownKey(_ sender: UIButton) {
-        
-        print("ran this2")
         
         createPopUp(sender, bool: true)
         
@@ -155,6 +153,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         self.textDocumentProxy.insertText(" ")
         // checkText(fullString)
+        self.shouldAutoCap()
         autocorrect()
         self.shouldAutoCap()
     }
@@ -169,6 +168,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         self.textDocumentProxy.deleteBackward()
         // checkText(fullString)
+        self.shouldAutoCap()
         autocorrect()
         self.shouldAutoCap()
     }
@@ -331,17 +331,13 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     override func textDidChange(_ textInput: UITextInput?) {
         // The app has just changed the document's contents, the document context has been updated.
         
-        print("ran that's")
         self.hideView.isEnabled = true
         
         if (!(self.textDocumentProxy.documentContextBeforeInput != nil) && !(self.textDocumentProxy.documentContextAfterInput != nil)) || (self.textDocumentProxy.documentContextBeforeInput == "") && (self.textDocumentProxy.documentContextAfterInput == "") && (sendToInput.currentTitle! != "") {
             
-            print("ran that")
             // self.hideView.isEnabled = true
             
         } else if (!(self.textDocumentProxy.documentContextBeforeInput != nil) && !(self.textDocumentProxy.documentContextAfterInput != nil)) || (self.textDocumentProxy.documentContextBeforeInput == "") && (self.textDocumentProxy.documentContextAfterInput == "") {
-            
-            print("runned that")
             
             self.shiftStatus = 1
             self.shiftKeys(row1)
@@ -502,7 +498,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         // prediction/translate switching gesture
         
-        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(self.switchView))
+        swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(self.switchView))
         let swipeGestureDirection = UISwipeGestureRecognizerDirection.left
         swipeGesture.direction = swipeGestureDirection
         translateShowView.addGestureRecognizer(swipeGesture)
@@ -678,8 +674,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     func touchUpOutside(_ sender: UIButton) {
         
-        print("touchUpOutside")
-        
         if sender.subviews.count > 1 {
             sender.subviews[2].removeFromSuperview()
             sender.subviews[1].removeFromSuperview()
@@ -702,10 +696,14 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.translateShowView.isHidden = true
             self.predictionView.isHidden = false
             self.translationViewIsOpen = false
+            self.translateShowView.removeGestureRecognizer(swipeGesture)
+            self.translateShowView.addGestureRecognizer(swipeGesture)
         } else if translationViewIsOpen == false {
             self.translateShowView.isHidden = false
             self.predictionView.isHidden = true
             self.translationViewIsOpen = true
+            self.predictionView.removeGestureRecognizer(swipeGesture)
+            self.predictionView.addGestureRecognizer(swipeGesture)
         }
         
     }
@@ -729,18 +727,16 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     func autocorrect() {
         
         let textChecker = UITextChecker()
-        let missSpelledRange = textChecker.rangeOfMisspelledWord(in: fullString, range: NSMakeRange(0, fullString.utf16.count), startingAt: 0, wrap: false, language: "en_US")
+        /* let missSpelledRange = textChecker.rangeOfMisspelledWord(in: fullString, range: NSMakeRange(0, fullString.utf16.count), startingAt: 0, wrap: false, language: "en_US")
         if missSpelledRange.location != NSNotFound {
             let guesses = textChecker.guesses(forWordRange: missSpelledRange, in: fullString, language: "en_US")
             prediction2.setTitle(guesses?.first, for: .normal)
             let nsText = self.textDocumentProxy.documentContextBeforeInput as NSString?
-            print("old: ", nsText!)
             self.correctStr = (nsText?.replacingCharacters(in: missSpelledRange, with: (guesses?.first)!))!
-            print("new: ", correctStr)
             nsText?.replacingCharacters(in: missSpelledRange, with: correctStr)
-            print("new new: ", nsText!)
             
             if guesses?.count == 1 {
+                print("ran guessesCount == 1")
                 addCorrectionToText(prediction2)
             } else if (guesses?.count)! == 2 {
                 predictionArr.append((guesses?[0])!)
@@ -761,7 +757,18 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             
         } else {
             print("no guesses")
+        } */
+        
+        let suggestions = textChecker.guesses(forWordRange: NSMakeRange(0, fullString.characters.count ?? 0), in: fullString, language: "en_US")
+        let autoCom = textChecker.completions(forPartialWordRange: NSMakeRange(0, fullString.characters.count ?? 0), in: fullString, language: "en_US")
+        print("suggestions: ", suggestions)
+        if suggestions?.count == 1 {
+            self.switchView()
+            self.correctStr = (suggestions?.first)!
+            prediction2.setTitle(suggestions?.first, for: .normal)
+            // addCorrectionToText(prediction2)
         }
+        print("autoCom: ", autoCom)
         
     }
     
@@ -844,18 +851,15 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         if sender == prediction2 {
             // center prediction button
-            print("2")
             self.deleteAllText()
             self.textDocumentProxy.insertText(correctStr)
             shouldAutoCap()
         } else if sender == prediction1 {
-            print("1")
             // left prediction button
             self.deleteAllText()
             self.textDocumentProxy.insertText(predictionArr[1])
             shouldAutoCap()
         } else if sender == prediction3 {
-            print("3")
             self.deleteAllText()
             self.textDocumentProxy.insertText(predictionArr[2])
             shouldAutoCap()
@@ -999,11 +1003,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     }
     
     func longKeyHold(_ gesture: UILongPressGestureRecognizer) {
-        print("ran keyHold")
         if gesture.state == .began {
-            print("began state")
         } else if gesture.state == .ended || gesture.state == .cancelled {
-            print("ended/cancelled state")
         }
         
     }
