@@ -639,9 +639,35 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         var frame: CGRect
         var frame1: CGRect
         let xToUse = (sender.frame.size.width - sender.frame.size.width * 1.3919) / 2
-        let xLeft = ((sender.frame.size.width - sender.frame.size.width * 1.3919) * -1) / 2
+        let xLeft = ((sender.frame.size.width - sender.frame.size.width * 1.3919) / -5)
+        let xRight = ((sender.frame.size.width - sender.frame.size.width * 1.3919) * 2)
         frame = CGRect(x: xToUse, y: -50, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height * 1.1071428571)
         frame1 = CGRect(x: 0, y: 0, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height * 1.1071428571)
+        
+        switch sender {
+        case row1.subviews[0]:
+            frame = CGRect(x: xLeft / 2, y: -50, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height * 1.1071428571)
+        case numbersRow1.subviews[0]:
+            frame = CGRect(x: xLeft / 2, y: -50, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height * 1.1071428571)
+        case numbersRow2.subviews[0]:
+            frame = CGRect(x: xLeft / 2, y: -50, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height * 1.1071428571)
+        case symbolsRow1.subviews[0]:
+            frame = CGRect(x: xLeft / 2, y: -50, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height * 1.1071428571)
+        case symbolsRow2.subviews[0]:
+            frame = CGRect(x: xLeft / 2, y: -50, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height * 1.1071428571)
+        case row1.subviews[9]:
+            frame = CGRect(x: xRight / 2, y: -50, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height * 1.1071428571)
+        case numbersRow1.subviews[9]:
+            frame = CGRect(x: xRight / 2, y: -50, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height * 1.1071428571)
+        case numbersRow2.subviews[9]:
+            frame = CGRect(x: xRight / 2, y: -50, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height * 1.1071428571)
+        case symbolsRow1.subviews[9]:
+            frame = CGRect(x: xRight / 2, y: -50, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height * 1.1071428571)
+        case symbolsRow2.subviews[9]:
+            frame = CGRect(x: xRight / 2, y: -50, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height * 1.1071428571)
+        default:
+            frame = CGRect(x: xToUse, y: -50, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height * 1.1071428571)
+        }
         
         if sender == row1.subviews[0] as? UIButton {
             frame = CGRect(x: xLeft / 2, y: -50, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height * 1.1071428571)
@@ -669,6 +695,17 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         sender.addSubview(popUp)
         // popUp.removeFromSuperview()
         // popUp.fadeOut(withDuration: 0.3)
+        
+    }
+    
+    func createAutoCorrectButton(_ sender: UIButton) {
+        
+        var frame: CGRect
+        let xToUse = (sender.frame.size.width - sender.frame.size.width * 1.3919) / 2
+        let xLeft = ((sender.frame.size.width - sender.frame.size.width * 1.3919) / -5)
+        let xRight = ((sender.frame.size.width - sender.frame.size.width * 1.3919) * 2)
+        frame = CGRect(x: xToUse, y: -50, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height / 3)
+        
         
     }
     
