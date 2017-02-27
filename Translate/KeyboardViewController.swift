@@ -550,13 +550,16 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         }
         
         let longKeyHoldRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.longKeyHold(_:)))
+        let swipeUpAutoCorrect = UISwipeGestureRecognizer(target: self, action: #selector(self.addAutoCorrectFromPopUp(_:)))
+        swipeUpAutoCorrect.direction = UISwipeGestureRecognizerDirection.up
         
         for letterKey in self.keyPopKeys {
             letterKey.addTarget(self, action: #selector(self.createPopUp(_:bool:)), for: .touchDown)
-            letterKey.addTarget(self, action: #selector(self.draggedButton(_:)), for: .touchDragOutside)
-            letterKey.addTarget(self, action: #selector(self.draggedButton2(_:)), for: .touchDragInside)
+            // letterKey.addTarget(self, action: #selector(self.draggedButton(_:)), for: .touchDragOutside)
+            // letterKey.addTarget(self, action: #selector(self.draggedButton2(_:)), for: .touchDragInside)
             letterKey.addTarget(self, action: #selector(self.touchUpOutside(_:)), for: .touchUpOutside)
-            letterKey.addGestureRecognizer(longKeyHoldRecognizer)
+            // letterKey.addGestureRecognizer(swipeUpAutoCorrect)
+            // letterKey.addGestureRecognizer(longKeyHoldRecognizer)
         }
         
         self.moreDetailView.backgroundColor = altGlobalTintColor
@@ -646,7 +649,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         switch sender {
         case row1.subviews[0]:
-            frame = CGRect(x: xLeft / 2, y: -50, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height * 1.1071428571)
+            frame = CGRect(x: sender.bounds.origin.x / 2, y: -50, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height * 1.1071428571)
         case numbersRow1.subviews[0]:
             frame = CGRect(x: xLeft / 2, y: -50, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height * 1.1071428571)
         case numbersRow2.subviews[0]:
@@ -667,10 +670,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             frame = CGRect(x: xRight / 2, y: -50, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height * 1.1071428571)
         default:
             frame = CGRect(x: xToUse, y: -50, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height * 1.1071428571)
-        }
-        
-        if sender == row1.subviews[0] as? UIButton {
-            frame = CGRect(x: xLeft / 2, y: -50, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height * 1.1071428571)
         }
         
         let popUp = UIView(frame: frame)
@@ -698,14 +697,47 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
     }
     
-    func createAutoCorrectButton(_ sender: UIButton) {
+    func createAutoCorrectButton(_ sender: UIButton, autocorrectText: String) {
         
         var frame: CGRect
+        var frame1: CGRect
         let xToUse = (sender.frame.size.width - sender.frame.size.width * 1.3919) / 2
-        let xLeft = ((sender.frame.size.width - sender.frame.size.width * 1.3919) / -5)
-        let xRight = ((sender.frame.size.width - sender.frame.size.width * 1.3919) * 2)
-        frame = CGRect(x: xToUse, y: -50, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height / 3)
+        frame = CGRect(x: xToUse, y: -20, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height / 3)
+        frame1 = CGRect(x: 0, y: 0, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height / 3)
         
+        let wordFrame = UIView(frame: frame)
+        let text = UILabel()
+        text.frame = frame1
+        text.text = autocorrectText
+        text.textColor = altGlobalTintColor
+        text.textAlignment = .center
+        text.font = UIFont.boldSystemFont(ofSize: 11)
+        text.layer.cornerRadius = 2
+        text.backgroundColor = globalTintColor
+        text.layer.masksToBounds = true
+        wordFrame.backgroundColor = globalTintColor
+        wordFrame.layer.cornerRadius = 2
+        wordFrame.layer.shouldRasterize = true
+        wordFrame.layer.rasterizationScale = UIScreen.main.scale
+        wordFrame.addSubview(text)
+        sender.addSubview(wordFrame)
+        
+    }
+    
+    func removeAutocorrectButton(_ sender: UIButton) {
+        
+        if sender.subviews.count > 1 {
+            sender.subviews[2].removeFromSuperview()
+            sender.subviews[1].removeFromSuperview()
+        }
+        
+    }
+    
+    func addAutoCorrectFromPopUp(_ sender: UIButton) {
+        
+        for view in sender.subviews {
+            print(view)
+        }
         
     }
     
@@ -734,12 +766,12 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.predictionView.isHidden = false
             self.translationViewIsOpen = false
             self.translateShowView.removeGestureRecognizer(swipeGesture)
-            self.translateShowView.addGestureRecognizer(swipeGesture)
+            self.predictionView.addGestureRecognizer(swipeGesture)
         } else if translationViewIsOpen == false {
             self.translateShowView.isHidden = false
             self.predictionView.isHidden = true
             self.translationViewIsOpen = true
-            self.predictionView.removeGestureRecognizer(swipeGesture)
+            self.translateShowView.removeGestureRecognizer(swipeGesture)
             self.predictionView.addGestureRecognizer(swipeGesture)
         }
         
@@ -797,15 +829,18 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         } */
         
         let suggestions = textChecker.guesses(forWordRange: NSMakeRange(0, fullString.characters.count ?? 0), in: fullString, language: "en_US")
-        let autoCom = textChecker.completions(forPartialWordRange: NSMakeRange(0, fullString.characters.count ?? 0), in: fullString, language: "en_US")
+        // let autoCom = textChecker.completions(forPartialWordRange: NSMakeRange(0, fullString.characters.count ?? 0), in: fullString, language: "en_US")
         print("suggestions: ", suggestions)
         if suggestions?.count == 1 {
-            self.switchView()
             self.correctStr = (suggestions?.first)!
             prediction2.setTitle(suggestions?.first, for: .normal)
+            // let btt = row1.subviews[3] as! UIButton
+            // btt.tag = 1
+            // createAutoCorrectButton(row1.subviews[3] as! UIButton, autocorrectText: (suggestions?.first)!)
+            // self.switchView()
             // addCorrectionToText(prediction2)
         }
-        print("autoCom: ", autoCom)
+        // print("autoCom: ", autoCom)
         
     }
     
