@@ -36,7 +36,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     var langArr: [String : String] = ["fa": "Persian", "mg": "Malagasy", "ig": "Igbo", "pl": "Polish", "ro": "Romanian", "tl": "Filipino", "bn": "Bengali", "id": "Indonesian", "la": "Latin", "st": "Sesotho", "xh": "Xhosa", "sk": "Slovak", "da": "Danish", "lo": "Lao", "si": "Sinhala", "pt": "Portuguese", "bg": "Bulgarian", "tg": "Tajik", "gd": "Scots Gaelic", "te": "Telugu", "pa": "Punjabi", "ha": "Hausa", "ps": "Pashto", "ne": "Nepali", "sq": "Albanian", "et": "Estonian", "cy": "Welsh", "ms": "Malay", "bs": "Bosnian", "sw": "Swahili", "is": "Icelandic", "fi": "Finnish", "eo": "Esperanto", "sl": "Slovenian", "en": "English", "mi": "Maori", "es": "Spanish", "ny": "Chichewa", "km": "Khmer", "ja": "Japanese", "tr": "Turkish", "sd": "Sindhi", "kn": "Kannada", "az": "Azerbaijani", "kk": "Kazakh", "zh-TW": "Chinese (Traditional)", "no": "Norwegian", "fy": "Frisian", "uz": "Uzbek", "de": "German", "ko": "Korean", "lt": "Lithuanian", "ky": "Kyrgyz", "sm": "Samoan", "be": "Belarusian", "mn": "Mongolian", "ta": "Tamil", "eu": "Basque", "gu": "Gujarati", "gl": "Galician", "uk": "Ukrainian", "el": "Greek", "ml": "Malayalam", "vi": "Vietnamese", "mt": "Maltese", "it": "Italian", "so": "Somali", "ceb": "Cebuano", "hr": "Croatian", "lv": "Latvian", "zh": "Chinese (Simplified)", "ht": "Haitian Creole", "su": "Sundanese", "ur": "Urdu", "ca": "Catalan", "cs": "Czech", "sr": "Serbian", "my": "Myanmar (Burmese)", "am": "Amharic", "af": "Afrikaans", "hu": "Hungarian", "co": "Corsican", "lb": "Luxembourgish", "ru": "Russian", "mr": "Marathi", "ga": "Irish", "ku": "Kurdish (Kurmanji)", "hmn": "Hmong", "hy": "Armenian", "sn": "Shona", "sv": "Swedish", "th": "Thai", "ka": "Georgian", "jw": "Javanese", "mk": "Macedonian", "haw": "Hawaiian", "yo": "Yoruba", "zu": "Zulu", "nl": "Dutch", "yi": "Yiddish", "iw": "Hebrew", "hi": "Hindi", "ar": "Arabic", "fr": "French"]
     
     var shiftStatus: Int! // 0: off, 1: on, 2: lock
-    var expandedHeight: CGFloat = 250
+    var expandedHeight: CGFloat = 270
     var heightConstraint: NSLayoutConstraint!
     var shouldRemoveConstraint = false
     var didOpenPicker2 = true
@@ -48,7 +48,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     var fullString: String = ""
     var timer: Timer?
     var checker: UITextChecker = UITextChecker()
-    var predictionArr: Array = [""]
+    var predictionArr = [String]()
     var tapSendToInput: UITapGestureRecognizer!
     var correctStr = ""
     var swipeGesture: UISwipeGestureRecognizer!
@@ -124,7 +124,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         // createPopUp(sender, bool: false)
         // checkText(fullString)
         self.shouldAutoCap()
-        autocorrect()
+        // autocorrect()
+        autocorrectCaller()
         self.shouldAutoCap()
 
         if shiftStatus == 1 {
@@ -135,7 +136,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     @IBAction func touchDownKey(_ sender: UIButton) {
         
-        createPopUp(sender, bool: true)
+        // createPopUp(sender, bool: true)
         
     }
     
@@ -154,7 +155,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.textDocumentProxy.insertText(" ")
         // checkText(fullString)
         self.shouldAutoCap()
-        autocorrect()
+        // autocorrect()
+        autocorrectCaller()
         self.shouldAutoCap()
     }
     
@@ -169,7 +171,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.textDocumentProxy.deleteBackward()
         // checkText(fullString)
         self.shouldAutoCap()
-        autocorrect()
+        // autocorrect()
+        autocorrectCaller()
         self.shouldAutoCap()
     }
     
@@ -299,10 +302,10 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         if (self.view.traitCollection.verticalSizeClass == UIUserInterfaceSizeClass.compact) {
-            self.expandedHeight = 150
+            self.expandedHeight = 170
             self.updateViewConstraints()
         } else if (self.view.traitCollection.verticalSizeClass == UIUserInterfaceSizeClass.regular) {
-            self.expandedHeight = 250
+            self.expandedHeight = 270
             self.updateViewConstraints()
             self.shouldRemoveConstraint = true
         }
@@ -471,7 +474,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         hideView.isEnabled = false
         clearTranslation.isEnabled = false
-        predictionView.isHidden = true
+        //predictionView.isHidden = true
         symbolsRow1.isHidden = true
         symbolsRow2.isHidden = true
         numbersRow1.isHidden = true
@@ -554,7 +557,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         swipeUpAutoCorrect.direction = UISwipeGestureRecognizerDirection.up
         
         for letterKey in self.keyPopKeys {
-            letterKey.addTarget(self, action: #selector(self.createPopUp(_:bool:)), for: .touchDown)
+            // letterKey.addTarget(self, action: #selector(self.createPopUp(_:bool:)), for: .touchDown)
             // letterKey.addTarget(self, action: #selector(self.draggedButton(_:)), for: .touchDragOutside)
             // letterKey.addTarget(self, action: #selector(self.draggedButton2(_:)), for: .touchDragInside)
             letterKey.addTarget(self, action: #selector(self.touchUpOutside(_:)), for: .touchUpOutside)
@@ -793,10 +796,44 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
     }
     
+    func autocorrectCaller() {
+        
+        let concurrentQueue = DispatchQueue(label: "com.omar.Linguaboard.Translate", attributes: .concurrent)
+        concurrentQueue.sync {
+            autocorrect()
+        }
+        
+    }
+    
     func autocorrect() {
         
+        predictionArr.removeAll()
+        
         let textChecker = UITextChecker()
-        /* let missSpelledRange = textChecker.rangeOfMisspelledWord(in: fullString, range: NSMakeRange(0, fullString.utf16.count), startingAt: 0, wrap: false, language: "en_US")
+        let missSpelledRange = textChecker.rangeOfMisspelledWord(in: fullString, range: NSMakeRange(0, fullString.utf16.count), startingAt: 0, wrap: false, language: "en_US")
+        let autoCom = textChecker.completions(forPartialWordRange: NSMakeRange(0, fullString.characters.count ?? 0), in: fullString, language: "en_US")
+        
+        if autoCom?.count != 0 {
+            
+            if autoCom?.count == 1 {
+                prediction2.setTitle(autoCom?.first!, for: .normal)
+                addCorrectionToText(prediction2)
+            } else if autoCom?.count == 2 {
+                predictionArr.append((autoCom?[0])!)
+                predictionArr.append((autoCom?[1])!)
+                prediction1.setTitle((autoCom?[1])! as String, for: .normal)
+                prediction2.setTitle((autoCom?.first)!, for: .normal)
+            } else if (autoCom?.count)! >= 3 {
+                predictionArr.append((autoCom?[0])!)
+                predictionArr.append((autoCom?[1])!)
+                predictionArr.append((autoCom?[2])!)
+                prediction1.setTitle((autoCom?[1])! as String, for: .normal)
+                prediction2.setTitle((autoCom?.first)!, for: .normal)
+                prediction3.setTitle((autoCom?[2])!, for: .normal)
+            }
+            
+        }
+        
         if missSpelledRange.location != NSNotFound {
             let guesses = textChecker.guesses(forWordRange: missSpelledRange, in: fullString, language: "en_US")
             prediction2.setTitle(guesses?.first, for: .normal)
@@ -810,38 +847,40 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             } else if (guesses?.count)! == 2 {
                 predictionArr.append((guesses?[0])!)
                 predictionArr.append((guesses?[1])!)
-                print(predictionArr)
                 prediction1.setTitle((guesses?[1])! as String, for: .normal)
                 prediction2.setTitle((guesses?.first)!, for: .normal)
             } else if (guesses?.count)! >= 3 {
                 predictionArr.append((guesses?[0])!)
                 predictionArr.append((guesses?[1])!)
                 predictionArr.append((guesses?[2])!)
-                print(predictionArr)
                 prediction1.setTitle((guesses?[1])! as String, for: .normal)
                 prediction2.setTitle((guesses?.first)!, for: .normal)
                 prediction3.setTitle((guesses?[2])! as String, for: .normal)
             }
             
-            
         } else {
             print("no guesses")
-        } */
+        }
         
+        /*
         let suggestions = textChecker.guesses(forWordRange: NSMakeRange(0, fullString.characters.count ?? 0), in: fullString, language: "en_US")
-        // let autoCom = textChecker.completions(forPartialWordRange: NSMakeRange(0, fullString.characters.count ?? 0), in: fullString, language: "en_US")
         print("suggestions: ", suggestions)
         if suggestions?.count == 1 {
             self.correctStr = (suggestions?.first)!
             prediction2.setTitle(suggestions?.first, for: .normal)
+            prediction1.isHidden = true
+            prediction3.isHidden = true
             // let btt = row1.subviews[3] as! UIButton
             // btt.tag = 1
             // createAutoCorrectButton(row1.subviews[3] as! UIButton, autocorrectText: (suggestions?.first)!)
             // self.switchView()
             // addCorrectionToText(prediction2)
+        } else if suggestions?.count == 2 {
+            prediction2.setTitle(suggestions?.first, for: .normal)
+            prediction1.isHidden = true
         }
         // print("autoCom: ", autoCom)
-        
+        */
     }
     
     /* func checkText(_ text: String, bool: Bool = false) {
@@ -924,6 +963,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         if sender == prediction2 {
             // center prediction button
             self.deleteAllText()
+            // correctStr is
             self.textDocumentProxy.insertText(correctStr)
             shouldAutoCap()
         } else if sender == prediction1 {
