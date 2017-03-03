@@ -10,6 +10,18 @@ import Foundation
 import UIKit
 import Alamofire
 
+extension String {
+    var length: Int {
+        return (self as NSString).length
+    }
+}
+
+extension String {
+    var asNSString: NSString {
+        return (self as NSString)
+    }
+}
+
 public extension UIView {
     
     func fadeIn(withDuration duration: TimeInterval = 1.0) {
@@ -52,6 +64,10 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     var tapSendToInput: UITapGestureRecognizer!
     var correctStr = ""
     var swipeGesture: UISwipeGestureRecognizer!
+    
+    var wordsBeingTyped = NSString()
+    var lastWord = String()
+    var range = NSRange()
     
     var darkModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     var whiteMinimalModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
@@ -115,18 +131,13 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     @IBAction func keyPressed(_ sender: UIButton) {
         
         if sender.subviews.count > 1 {
-            sender.subviews[2].removeFromSuperview()
+            // sender.subviews[2].removeFromSuperview()
             sender.subviews[1].removeFromSuperview()
         }
         self.textDocumentProxy.insertText(sender.currentTitle!)
-        
-        self.hideView.isEnabled = true
-        // createPopUp(sender, bool: false)
-        // checkText(fullString)
         self.shouldAutoCap()
-        // autocorrect()
         autocorrectCaller()
-        self.shouldAutoCap()
+        self.hideView.isEnabled = true
 
         if shiftStatus == 1 {
             self.shiftKeyPressed(self.shiftButton)
@@ -136,16 +147,17 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     @IBAction func touchDownKey(_ sender: UIButton) {
         
-        // createPopUp(sender, bool: true)
+        createPopUp(sender, bool: true)
         
     }
     
     @IBAction func returnKeyPressed(_ sender: UIButton) {
         
         self.hideView.isEnabled = true
-        
-        self.textDocumentProxy.insertText("\n")
         self.shouldAutoCap()
+        autocorrect()
+        self.textDocumentProxy.insertText("\n")
+        
     }
     
     @IBAction func spaceKeyPressed(_ sender: UIButton) {
@@ -153,11 +165,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.hideView.isEnabled = true
         
         self.textDocumentProxy.insertText(" ")
-        // checkText(fullString)
         self.shouldAutoCap()
-        // autocorrect()
-        autocorrectCaller()
-        self.shouldAutoCap()
+        autocorrect()
     }
     
     @IBAction func backSpaceButton(_ sender: UIButton) {
@@ -169,11 +178,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         }
         
         self.textDocumentProxy.deleteBackward()
-        // checkText(fullString)
         self.shouldAutoCap()
-        // autocorrect()
-        autocorrectCaller()
-        self.shouldAutoCap()
+        autocorrect()
     }
     
     @IBAction func showPickerTwo(_ button: UIButton) {
@@ -552,12 +558,10 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             }
         }
         
-        let longKeyHoldRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.longKeyHold(_:)))
         let swipeUpAutoCorrect = UISwipeGestureRecognizer(target: self, action: #selector(self.addAutoCorrectFromPopUp(_:)))
         swipeUpAutoCorrect.direction = UISwipeGestureRecognizerDirection.up
         
         for letterKey in self.keyPopKeys {
-            // letterKey.addTarget(self, action: #selector(self.createPopUp(_:bool:)), for: .touchDown)
             // letterKey.addTarget(self, action: #selector(self.draggedButton(_:)), for: .touchDragOutside)
             // letterKey.addTarget(self, action: #selector(self.draggedButton2(_:)), for: .touchDragInside)
             letterKey.addTarget(self, action: #selector(self.touchUpOutside(_:)), for: .touchUpOutside)
@@ -808,79 +812,92 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     func autocorrect() {
         
         predictionArr.removeAll()
+        doThingsWithButton(prediction1, true)
+        doThingsWithButton(prediction2, true)
+        doThingsWithButton(prediction3, true)
+        
+        self.wordsBeingTyped = fullString.asNSString
+        self.lastWord = String()
+        self.range = NSMakeRange(0, fullString.length)
+        wordsBeingTyped.enumerateSubstrings(in: range, options: NSString.EnumerationOptions.byWords, using: { (substring, substringRange, enclosingRange, stop) in
+            self.lastWord = substring!
+        })
         
         let textChecker = UITextChecker()
-        let missSpelledRange = textChecker.rangeOfMisspelledWord(in: fullString, range: NSMakeRange(0, fullString.utf16.count), startingAt: 0, wrap: false, language: "en_US")
-        let autoCom = textChecker.completions(forPartialWordRange: NSMakeRange(0, fullString.characters.count ?? 0), in: fullString, language: "en_US")
-        
-        if autoCom?.count != 0 {
-            
-            if autoCom?.count == 1 {
-                prediction2.setTitle(autoCom?.first!, for: .normal)
-                addCorrectionToText(prediction2)
-            } else if autoCom?.count == 2 {
-                predictionArr.append((autoCom?[0])!)
-                predictionArr.append((autoCom?[1])!)
-                prediction1.setTitle((autoCom?[1])! as String, for: .normal)
-                prediction2.setTitle((autoCom?.first)!, for: .normal)
-            } else if (autoCom?.count)! >= 3 {
-                predictionArr.append((autoCom?[0])!)
-                predictionArr.append((autoCom?[1])!)
-                predictionArr.append((autoCom?[2])!)
-                prediction1.setTitle((autoCom?[1])! as String, for: .normal)
-                prediction2.setTitle((autoCom?.first)!, for: .normal)
-                prediction3.setTitle((autoCom?[2])!, for: .normal)
-            }
-            
-        }
+        let checkRange = NSMakeRange(0, lastWord.utf16.count)
+        let missSpelledRange = textChecker.rangeOfMisspelledWord(in: lastWord, range: checkRange, startingAt: 0, wrap: false, language: "en_US")
         
         if missSpelledRange.location != NSNotFound {
             let guesses = textChecker.guesses(forWordRange: missSpelledRange, in: fullString, language: "en_US")
-            prediction2.setTitle(guesses?.first, for: .normal)
-            let nsText = self.textDocumentProxy.documentContextBeforeInput as NSString?
-            self.correctStr = (nsText?.replacingCharacters(in: missSpelledRange, with: (guesses?.first)!))!
-            nsText?.replacingCharacters(in: missSpelledRange, with: correctStr)
+            let nsText = lastWord.asNSString
+            print(nsText)
+            self.correctStr = (nsText.replacingCharacters(in: missSpelledRange, with: (guesses?.first)!))
+            nsText.replacingCharacters(in: missSpelledRange, with: correctStr)
             
-            if guesses?.count == 1 {
-                print("ran guessesCount == 1")
-                addCorrectionToText(prediction2)
-            } else if (guesses?.count)! == 2 {
-                predictionArr.append((guesses?[0])!)
-                predictionArr.append((guesses?[1])!)
-                prediction1.setTitle((guesses?[1])! as String, for: .normal)
-                prediction2.setTitle((guesses?.first)!, for: .normal)
-            } else if (guesses?.count)! >= 3 {
-                predictionArr.append((guesses?[0])!)
-                predictionArr.append((guesses?[1])!)
-                predictionArr.append((guesses?[2])!)
-                prediction1.setTitle((guesses?[1])! as String, for: .normal)
-                prediction2.setTitle((guesses?.first)!, for: .normal)
-                prediction3.setTitle((guesses?[2])! as String, for: .normal)
+            // TODO
+            // Multi-words autocorrect using substrings (as NSString; has the replace characters function)
+            // check old function for instructions
+            
+            if let guessesFinal = guesses {
+                
+                if guessesFinal.count == 1 {
+                    predictionArr.append(guessesFinal[0])
+                    prediction2.setTitle(guessesFinal[0], for: .normal)
+                    doThingsWithButton(prediction1, true)
+                    doThingsWithButton(prediction3, true)
+                } else if guessesFinal.count == 2 {
+                    predictionArr.append(guessesFinal[0])
+                    predictionArr.append(guessesFinal[1])
+                    prediction2.setTitle(guessesFinal[0], for: .normal)
+                    prediction1.setTitle(guessesFinal[1], for: .normal)
+                    doThingsWithButton(prediction1, false)
+                    doThingsWithButton(prediction3, true)
+                } else if guessesFinal.count >= 3 {
+                    predictionArr.append(guessesFinal[0])
+                    predictionArr.append(guessesFinal[1])
+                    predictionArr.append(guessesFinal[2])
+                    prediction2.setTitle(guessesFinal[0], for: .normal)
+                    prediction1.setTitle(guessesFinal[1], for: .normal)
+                    prediction3.setTitle(guessesFinal[2], for: .normal)
+                    doThingsWithButton(prediction1, false)
+                    doThingsWithButton(prediction3, false)
+                }
+                
+                print(predictionArr)
+                
+            } else {
+                print("not safely unwrapped")
             }
             
         } else {
-            print("no guesses")
+            doThingsWithButton(prediction1, true)
+            doThingsWithButton(prediction2, true)
+            doThingsWithButton(prediction3, true)
         }
         
-        /*
-        let suggestions = textChecker.guesses(forWordRange: NSMakeRange(0, fullString.characters.count ?? 0), in: fullString, language: "en_US")
-        print("suggestions: ", suggestions)
-        if suggestions?.count == 1 {
-            self.correctStr = (suggestions?.first)!
-            prediction2.setTitle(suggestions?.first, for: .normal)
-            prediction1.isHidden = true
-            prediction3.isHidden = true
-            // let btt = row1.subviews[3] as! UIButton
-            // btt.tag = 1
-            // createAutoCorrectButton(row1.subviews[3] as! UIButton, autocorrectText: (suggestions?.first)!)
-            // self.switchView()
-            // addCorrectionToText(prediction2)
-        } else if suggestions?.count == 2 {
-            prediction2.setTitle(suggestions?.first, for: .normal)
-            prediction1.isHidden = true
-        }
-        // print("autoCom: ", autoCom)
-        */
+        /* let autoCom = textChecker.completions(forPartialWordRange: NSMakeRange(0, fullString.characters.count), in: fullString, language: "en_US")
+        
+        if autoCom?.count != 0 {
+         
+         if autoCom?.count == 1 {
+         prediction2.setTitle(autoCom?.first!, for: .normal)
+         addCorrectionToText(prediction2)
+         } else if autoCom?.count == 2 {
+         predictionArr.append((autoCom?[0])!)
+         predictionArr.append((autoCom?[1])!)
+         prediction1.setTitle((autoCom?[1])! as String, for: .normal)
+         prediction2.setTitle((autoCom?.first)!, for: .normal)
+         } else if (autoCom?.count)! >= 3 {
+         predictionArr.append((autoCom?[0])!)
+         predictionArr.append((autoCom?[1])!)
+         predictionArr.append((autoCom?[2])!)
+         prediction1.setTitle((autoCom?[1])! as String, for: .normal)
+         prediction2.setTitle((autoCom?.first)!, for: .normal)
+         prediction3.setTitle((autoCom?[2])!, for: .normal)
+         }
+         
+         } */
+        
     }
     
     /* func checkText(_ text: String, bool: Bool = false) {
@@ -964,7 +981,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             // center prediction button
             self.deleteAllText()
             // correctStr is
-            self.textDocumentProxy.insertText(correctStr)
+            self.textDocumentProxy.insertText(predictionArr[0])
             shouldAutoCap()
         } else if sender == prediction1 {
             // left prediction button
@@ -983,6 +1000,20 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.textDocumentProxy.insertText(correctStr)
         shouldAutoCap()
         */
+    }
+    
+    func doThingsWithButton(_ button: UIButton, _ bool: Bool) {
+        
+        if bool {
+            button.setTitle("", for: .normal)
+            button.setTitle("", for: .disabled)
+            button.isEnabled = false
+        } else if bool == false {
+            // button.setTitle("", for: .normal)
+            // button.setTitle("", for: .disabled)
+            button.isEnabled = true
+        }
+        
     }
     
     func showDetailView() {
