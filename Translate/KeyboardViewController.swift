@@ -11,15 +11,15 @@ import UIKit
 import Alamofire
 
 extension String {
+    
     var length: Int {
         return (self as NSString).length
     }
-}
-
-extension String {
+    
     var asNSString: NSString {
         return (self as NSString)
     }
+    
 }
 
 public extension UIView {
@@ -32,7 +32,6 @@ public extension UIView {
     
     func fadeOut(withDuration duration: TimeInterval = 1.0) {
         UIView.animate(withDuration: duration, animations: { 
-            // self.bounds.origin.y += 10
             self.alpha = 1.0
         }) { (finished) in
             self.removeFromSuperview()
@@ -52,32 +51,29 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     var heightConstraint: NSLayoutConstraint!
     var shouldRemoveConstraint = false
     var didOpenPicker2 = true
-    var translationViewIsOpen = true
     var selectedLanguage: String = "French"
     var langKey: String = "en"
     var toKey: String = "FR"
     var lastLang: String = "FR"
-    var fullString: String = ""
+    var fullString = String()
     var timer: Timer?
-    var checker: UITextChecker = UITextChecker()
     var predictionArr = [String]()
     var correctArr = [String]()
     var tapSendToInput: UITapGestureRecognizer!
-    var correctStr = ""
-    var swipeGesture: UISwipeGestureRecognizer!
     
-    var wordsBeingTyped = NSString()
-    var lastWord = String()
+    // var wordsBeingTyped = NSString()
+    // var lastWord = String()
     var range = NSRange()
     
     var darkModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     var whiteMinimalModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     var darkMinimalModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     var lastUsedLanguage: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
-    
-    var globalTintColor: UIColor = UIColor.white
-    var altGlobalTintColor: UIColor = UIColor.darkGray
-    var backgroundColor: UIColor = UIColor.clear
+
+    var keyBackgroundColor: UIColor = UIColor.white
+    var keyPopUpColor: UIColor = UIColor(red:0.11, green:0.11, blue:0.11, alpha:1.0)
+    var bgColor: UIColor = UIColor.clear
+    var blurEffect: UIBlurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.extraLight)
     
     // MARK: - IBActions and IBOutlets
     
@@ -132,7 +128,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     @IBAction func keyPressed(_ sender: UIButton) {
         
         if sender.subviews.count > 1 {
-            // sender.subviews[2].removeFromSuperview()
             sender.subviews[1].removeFromSuperview()
         }
         self.textDocumentProxy.insertText(sender.currentTitle!)
@@ -190,12 +185,12 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             row4.subviews[0].isUserInteractionEnabled = false
             row4.subviews[1].isUserInteractionEnabled = false
             row4.subviews[2].isUserInteractionEnabled = false
-            row4.subviews[3].isUserInteractionEnabled = false
+            row4.subviews[4].isUserInteractionEnabled = false
             translateShowView.isUserInteractionEnabled = false
             row4.subviews[0].layer.opacity = 0.3
             row4.subviews[1].layer.opacity = 0.3
             row4.subviews[2].layer.opacity = 0.3
-            row4.subviews[3].layer.opacity = 0.3
+            row4.subviews[4].layer.opacity = 0.3
             translateShowView.layer.opacity = 0.3
             didOpenPicker2 = false
             pickerViewTo.isHidden = false
@@ -213,12 +208,12 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             row4.subviews[0].isUserInteractionEnabled = true
             row4.subviews[1].isUserInteractionEnabled = true
             row4.subviews[2].isUserInteractionEnabled = true
-            row4.subviews[3].isUserInteractionEnabled = true
+            row4.subviews[4].isUserInteractionEnabled = true
             translateShowView.isUserInteractionEnabled = true
             row4.subviews[0].layer.opacity = 1
             row4.subviews[1].layer.opacity = 1
             row4.subviews[2].layer.opacity = 1
-            row4.subviews[3].layer.opacity = 1
+            row4.subviews[4].layer.opacity = 1
             translateShowView.layer.opacity = 1
             didOpenPicker2 = true
             pickerViewTo.isHidden = true
@@ -260,11 +255,9 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.altBoard.setImage(UIImage(named: "abcBoard")?.withRenderingMode(.alwaysTemplate), for: .normal)
             self.altBoard.setImage(UIImage(named: "abcBoard_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
             self.altBoard.tag = 0
-            self.altBoard.tintColor = globalTintColor
             
             self.symbolsKey.setImage(UIImage(named: "symbols")?.withRenderingMode(.alwaysTemplate), for: .normal)
             self.symbolsKey.setImage(UIImage(named: "symbols_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
-            self.symbolsKey.tintColor = globalTintColor
             self.symbolsKey.tag = 2
             
         case 2:
@@ -276,7 +269,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.symbolsKey.tag = 1
             self.symbolsKey.setImage(UIImage(named: "altBoard")?.withRenderingMode(.alwaysTemplate), for: .normal)
             self.symbolsKey.setImage(UIImage(named: "altBoard_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
-            self.symbolsKey.tintColor = globalTintColor
             
         default:
             
@@ -291,7 +283,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.altBoard.setImage(UIImage(named: "altBoard")?.withRenderingMode(.alwaysTemplate), for: .normal)
             self.altBoard.setImage(UIImage(named: "altBoard_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
             self.altBoard.tag = 1
-            self.altBoard.tintColor = globalTintColor
             
         }
         
@@ -341,11 +332,15 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     override func textDidChange(_ textInput: UITextInput?) {
         // The app has just changed the document's contents, the document context has been updated.
         
-        self.hideView.isEnabled = true
+        // self.hideView.isEnabled = true
         
         if (!(self.textDocumentProxy.documentContextBeforeInput != nil) && !(self.textDocumentProxy.documentContextAfterInput != nil)) || (self.textDocumentProxy.documentContextBeforeInput == "") && (self.textDocumentProxy.documentContextAfterInput == "") && (sendToInput.currentTitle! != "") {
             
-            // self.hideView.isEnabled = true
+            if (fullString.characters.count != 0) && (sendToInput.currentTitle! != "") {
+                self.hideView.isEnabled = true
+            } else {
+                self.hideView.isEnabled = false
+            }
             
         } else if (!(self.textDocumentProxy.documentContextBeforeInput != nil) && !(self.textDocumentProxy.documentContextAfterInput != nil)) || (self.textDocumentProxy.documentContextBeforeInput == "") && (self.textDocumentProxy.documentContextAfterInput == "") {
             
@@ -353,11 +348,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.shiftKeys(row1)
             self.shiftKeys(row2)
             self.shiftKeys(row3)
-            /* if (self.fullString != "") && (self.sendToInput.currentTitle! != "") {
-                self.hideView.isEnabled = true
-            } else if self.sendToInput.currentTitle == "" {
-                self.hideView.isEnabled = false
-            } */
+            
             self.hideView.isEnabled = false
         }
         
@@ -368,7 +359,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         let arr = whichOne(0)
         let titleData = arr[row]
-        let myTitle = NSAttributedString(string: titleData, attributes: [NSForegroundColorAttributeName:globalTintColor])
+        let myTitle = NSAttributedString(string: titleData, attributes: [NSForegroundColorAttributeName:keyPopUpColor])
         return myTitle
     }
     
@@ -407,69 +398,17 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         let whiteMinimal = whiteMinimalModeBool.double(forKey: "whiteMinimalBool")
         let darkMinimal = darkMinimalModeBool.double(forKey: "darkMinimalBool")
         
-        switch darkMode {
-        case 1:
-            let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.dark)
-            self.blurBG.effect = blurEffect
-            self.globalTintColor = UIColor.white
-            self.altGlobalTintColor = UIColor.darkGray
-        case 2:
-            let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.extraLight)
-            self.blurBG.effect = blurEffect
-            self.globalTintColor = UIColor.darkGray
-            self.altGlobalTintColor = UIColor.white
-        case 0:
-            let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.extraLight)
-            self.blurBG.effect = blurEffect
-            self.globalTintColor = UIColor.darkGray
-            self.altGlobalTintColor = UIColor.white
-        default:
-            print("")
+        if darkMode == 1 {
+            loadColours("darkMode")
+        } else if whiteMinimal == 1 {
+            loadColours("whiteMinimal")
+        } else if darkMinimal == 1 {
+            loadColours("darkMinimal")
+        } else {
+            loadColours("whiteMode")
         }
         
-        switch whiteMinimal {
-        case 1:
-            self.blurBG.isHidden = true
-            self.view.backgroundColor = UIColor.white
-            self.globalTintColor = UIColor.darkGray
-            self.altGlobalTintColor = UIColor.white
-        case 2:
-            self.blurBG.isHidden = false
-            let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.extraLight)
-            self.blurBG.effect = blurEffect
-            self.globalTintColor = UIColor.darkGray
-            self.altGlobalTintColor = UIColor.white
-        case 0:
-            print("")
-        default:
-            self.blurBG.isHidden = false
-            let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.extraLight)
-            self.blurBG.effect = blurEffect
-            self.globalTintColor = UIColor.darkGray
-            self.altGlobalTintColor = UIColor.white
-        }
-        
-        switch darkMinimal {
-        case 1:
-            self.blurBG.isHidden = true
-            self.view.backgroundColor = UIColor.black
-            self.globalTintColor = UIColor.white
-            self.altGlobalTintColor = UIColor.darkGray
-        case 2:
-            self.blurBG.isHidden = false
-            let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.extraLight)
-            self.blurBG.effect = blurEffect
-            self.globalTintColor = UIColor.darkGray
-            self.altGlobalTintColor = UIColor.white
-        case 0:
-            print("")
-        default:
-            self.blurBG.isHidden = false
-            let blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.extraLight)
-            self.blurBG.effect = blurEffect
-            self.globalTintColor = UIColor.darkGray
-            self.altGlobalTintColor = UIColor.white
-        }
+        setColours()
         
         self.shiftStatus = 1
         
@@ -481,7 +420,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         hideView.isEnabled = false
         clearTranslation.isEnabled = false
-        //predictionView.isHidden = true
         symbolsRow1.isHidden = true
         symbolsRow2.isHidden = true
         numbersRow1.isHidden = true
@@ -504,15 +442,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.toKey = String(describing: keyToArr[0]).uppercased()
         
         pickerViewTo.selectRow(indexTo!, inComponent: 0, animated: true)
-
         
-        // prediction/translate switching gesture
-        
-        swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(self.switchView))
-        let swipeGestureDirection = UISwipeGestureRecognizerDirection.left
-        swipeGesture.direction = swipeGestureDirection
-        translateShowView.addGestureRecognizer(swipeGesture)
-        // predictionView.addGestureRecognizer(swipeGesture)
+        // prediction things
         
         doThingsWithButton(prediction1, true)
         doThingsWithButton(prediction2, true)
@@ -549,82 +480,45 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.longPressHandler(_:)))
         backspaceButton.addGestureRecognizer(longPressRecognizer)
         
-        // button ui
-        
-        for letter in self.allKeys {
-            letter.layer.cornerRadius = 5
-            letter.backgroundColor = altGlobalTintColor
-            letter.setTitleColor(globalTintColor, for: .normal)
-            letter.tintColor = globalTintColor
-            letter.titleLabel?.font = UIFont.systemFont(ofSize: 22)
-            if letter == sendToInput || letter == hideView {
-                letter.backgroundColor = UIColor.clear
-                letter.layer.cornerRadius = 0
-            }
-        }
-        
-        let swipeUpAutoCorrect = UISwipeGestureRecognizer(target: self, action: #selector(self.addAutoCorrectFromPopUp(_:)))
-        swipeUpAutoCorrect.direction = UISwipeGestureRecognizerDirection.up
-        
         for letterKey in self.keyPopKeys {
-            // letterKey.addTarget(self, action: #selector(self.draggedButton(_:)), for: .touchDragOutside)
-            // letterKey.addTarget(self, action: #selector(self.draggedButton2(_:)), for: .touchDragInside)
             letterKey.addTarget(self, action: #selector(self.touchUpOutside(_:)), for: .touchUpOutside)
-            // letterKey.addGestureRecognizer(swipeUpAutoCorrect)
-            // letterKey.addGestureRecognizer(longKeyHoldRecognizer)
         }
-        
-        self.moreDetailView.backgroundColor = altGlobalTintColor
-        self.moreDetailLabel.textColor = globalTintColor
         
         self.tapSendToInput = UITapGestureRecognizer(target: self, action: #selector(self.showDetailView))
         self.tapSendToInput.numberOfTapsRequired = 1
         self.tapSendToInput.numberOfTouchesRequired = 1
         self.sendToInput.addGestureRecognizer(tapSendToInput)
         self.sendToInput.tag = 1
+        self.sendToInput.setTitle("", for: .normal)
         self.sendToInput.titleLabel?.lineBreakMode = .byTruncatingTail
         self.sendToInput.titleLabel?.font = UIFont.systemFont(ofSize: 18)
-        self.sendToInput.setTitleColor(globalTintColor, for: .normal)
         self.sendToInput.addGestureRecognizer(self.tapSendToInput)
         
         self.hideView.setImage(UIImage(named: "appLogo")?.withRenderingMode(.alwaysTemplate), for: .normal)
         self.hideView.setImage(UIImage(named: "appLogo_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
-        self.hideView.tintColor = globalTintColor
         
         self.shiftButton.setImage(UIImage(named: "shift0_selected")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        self.shiftButton.tintColor = globalTintColor
         
         self.backspaceButton.setImage(UIImage(named: "bk")?.withRenderingMode(.alwaysTemplate), for: .normal)
         self.backspaceButton.setImage(UIImage(named: "bk_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
-        self.backspaceButton.tintColor = globalTintColor
         
         self.backspaceButton2.setImage(UIImage(named: "bk")?.withRenderingMode(.alwaysTemplate), for: .normal)
         self.backspaceButton2.setImage(UIImage(named: "bk_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
-        self.backspaceButton2.tintColor = globalTintColor
         
         self.nextKeyboardButton.setImage(UIImage(named: "otherBoard")?.withRenderingMode(.alwaysTemplate), for: .normal)
         self.nextKeyboardButton.setImage(UIImage(named: "otherBoard")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
-        self.nextKeyboardButton.tintColor = globalTintColor
         
         self.symbolsKey.setImage(UIImage(named: "symbols")?.withRenderingMode(.alwaysTemplate), for: .normal)
         self.symbolsKey.setImage(UIImage(named: "symbols_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
-        self.symbolsKey.tintColor = globalTintColor
         
         self.altBoard.setImage(UIImage(named: "altBoard")?.withRenderingMode(.alwaysTemplate), for: .normal)
         self.altBoard.setImage(UIImage(named: "altBoard_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
-        self.altBoard.tintColor = globalTintColor
         
         self.returnKey.setImage(UIImage(named: "return")?.withRenderingMode(.alwaysTemplate), for: .normal)
         self.returnKey.setImage(UIImage(named: "return_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
-        self.returnKey.tintColor = globalTintColor
         
         self.clearTranslation.setImage(UIImage(named: "close")?.withRenderingMode(.alwaysTemplate), for: .normal)
         self.clearTranslation.setImage(UIImage(named: "close_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
-        self.clearTranslation.tintColor = globalTintColor
-        
-        self.prediction1.tintColor = globalTintColor
-        self.prediction2.tintColor = globalTintColor
-        self.prediction3.tintColor = globalTintColor
         
         self.showPickerBtn.setTitle(self.toKey, for: .normal)
         
@@ -645,6 +539,69 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             heightConstraint = NSLayoutConstraint(item: self.view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 0.0, constant: expanded)
             self.heightConstraint.priority = UILayoutPriorityDefaultHigh
             self.view?.addConstraint(heightConstraint)
+        }
+        
+    }
+    
+    func setColours() {
+        
+        for letter in self.allKeys {
+            letter.layer.cornerRadius = 5
+            letter.backgroundColor = keyBackgroundColor
+            letter.setTitleColor(keyPopUpColor, for: .normal)
+            letter.tintColor = keyPopUpColor
+            letter.titleLabel?.font = UIFont.systemFont(ofSize: 21)
+            if letter == sendToInput || letter == hideView {
+                letter.backgroundColor = UIColor.clear
+                letter.layer.cornerRadius = 0
+            }
+        }
+        
+        self.view.backgroundColor = bgColor
+        self.blurBG.effect = blurEffect
+        self.hideView.tintColor = keyPopUpColor
+        self.shiftButton.tintColor = keyPopUpColor
+        self.backspaceButton.tintColor = keyPopUpColor
+        self.backspaceButton2.tintColor = keyPopUpColor
+        self.nextKeyboardButton.tintColor = keyPopUpColor
+        self.symbolsKey.tintColor = keyPopUpColor
+        self.altBoard.tintColor = keyPopUpColor
+        self.clearTranslation.tintColor = keyPopUpColor
+        self.sendToInput.setTitleColor(keyPopUpColor, for: .normal)
+        self.prediction1.tintColor = keyPopUpColor
+        self.prediction2.tintColor = keyPopUpColor
+        self.prediction3.tintColor = keyPopUpColor
+        self.moreDetailView.backgroundColor = keyBackgroundColor
+        self.moreDetailLabel.textColor = keyPopUpColor
+        
+    }
+    
+    func loadColours(_ thingToLoad: String) {
+        
+        if thingToLoad == "darkMode" {
+            // dark blur mode
+            self.keyPopUpColor = UIColor.white
+            self.keyBackgroundColor = UIColor(red:0.11, green:0.11, blue:0.11, alpha:1.0)
+            self.bgColor = UIColor.clear
+            self.blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.dark)
+            self.blurBG.isHidden = false
+        } else if thingToLoad == "darkMinimal" {
+            self.keyPopUpColor = UIColor.white
+            self.keyBackgroundColor = UIColor(red:0.11, green:0.11, blue:0.11, alpha:1.0)
+            self.bgColor = UIColor(red:0.25, green:0.25, blue:0.25, alpha:1.0)
+            self.blurBG.isHidden = true
+        } else if thingToLoad == "whiteMinimal" {
+            self.keyPopUpColor = UIColor(red:0.11, green:0.11, blue:0.11, alpha:1.0)
+            self.keyBackgroundColor = UIColor(red:0.91, green:0.92, blue:0.93, alpha:1.0)
+            self.bgColor = UIColor.white
+            self.blurBG.isHidden = true
+        } else if thingToLoad == "whiteMode" {
+            // white blur mode
+            self.keyPopUpColor = UIColor(red:0.11, green:0.11, blue:0.11, alpha:1.0)
+            self.keyBackgroundColor = UIColor.white
+            self.bgColor = UIColor.clear
+            self.blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.extraLight)
+            self.blurBG.isHidden = false
         }
         
     }
@@ -688,91 +645,37 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         let text = UILabel()
         text.frame = frame1
         text.text = sender.currentTitle!
-        text.textColor = altGlobalTintColor
+        text.textColor = keyBackgroundColor
         text.textAlignment = .center
         text.font = UIFont.boldSystemFont(ofSize: 30)
         text.layer.cornerRadius = 5
-        text.backgroundColor = globalTintColor
+        text.backgroundColor = keyPopUpColor
         text.layer.masksToBounds = true
-        popUp.backgroundColor = globalTintColor
+        popUp.backgroundColor = keyPopUpColor
         popUp.layer.cornerRadius = 5
         popUp.layer.shadowColor = UIColor.gray.cgColor
         popUp.layer.shadowRadius = 2
-        popUp.layer.shadowOpacity = 0.1
+        popUp.layer.shadowOpacity = 0.15
         popUp.layer.shadowOffset = CGSize(width: 0, height: 4)
         popUp.layer.shouldRasterize = true
         popUp.layer.rasterizationScale = UIScreen.main.scale
         popUp.addSubview(text)
         sender.addSubview(popUp)
-        // popUp.removeFromSuperview()
-        // popUp.fadeOut(withDuration: 0.3)
-        
-    }
-    
-    func createAutoCorrectButton(_ sender: UIButton, autocorrectText: String) {
-        
-        var frame: CGRect
-        var frame1: CGRect
-        let xToUse = (sender.frame.size.width - sender.frame.size.width * 1.3919) / 2
-        frame = CGRect(x: xToUse, y: -20, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height / 3)
-        frame1 = CGRect(x: 0, y: 0, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height / 3)
-        
-        let wordFrame = UIView(frame: frame)
-        let text = UILabel()
-        text.frame = frame1
-        text.text = autocorrectText
-        text.textColor = altGlobalTintColor
-        text.textAlignment = .center
-        text.font = UIFont.boldSystemFont(ofSize: 11)
-        text.layer.cornerRadius = 2
-        text.backgroundColor = globalTintColor
-        text.layer.masksToBounds = true
-        wordFrame.backgroundColor = globalTintColor
-        wordFrame.layer.cornerRadius = 2
-        wordFrame.layer.shouldRasterize = true
-        wordFrame.layer.rasterizationScale = UIScreen.main.scale
-        wordFrame.addSubview(text)
-        sender.addSubview(wordFrame)
-        
-    }
-    
-    func removeAutocorrectButton(_ sender: UIButton) {
-        
-        if sender.subviews.count > 1 {
-            sender.subviews[2].removeFromSuperview()
-            sender.subviews[1].removeFromSuperview()
-        }
-        
-    }
-    
-    func addAutoCorrectFromPopUp(_ sender: UIButton) {
-        
-        for view in sender.subviews {
-            print(view)
-        }
         
     }
     
     func touchUpOutside(_ sender: UIButton) {
         
         if sender.subviews.count > 1 {
-            sender.subviews[2].removeFromSuperview()
             sender.subviews[1].removeFromSuperview()
         }
 
-        
     }
-    
-    func draggedButton(_ sender: UIButton) {
-        
-    }
-    
-    func draggedButton2(_ sender: UIButton) {
-                
-    }
-    
+    /*
     func switchView() {
         
+     // default was true
+     
         if translationViewIsOpen {
             self.translateShowView.isHidden = true
             self.predictionView.isHidden = false
@@ -788,6 +691,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         }
         
     }
+    */
     
     func whichOne(_ int: Int) -> Array<String> {
         
@@ -837,14 +741,9 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         if missSpelledRange.location != NSNotFound {
             let guesses = textChecker.guesses(forWordRange: missSpelledRange, in: fullString, language: "en_US")
             // let nsText = lastWord.asNSString
-            // print(nsText)
             // self.correctStr = (nsText.replacingCharacters(in: missSpelledRange, with: (guesses?.first)!))
             // nsText.replacingCharacters(in: missSpelledRange, with: correctStr)
-            
-            // TODO
-            // Multi-words autocorrect using substrings (as NSString; has the replace characters function)
-            // check old function for instructions
-            
+
             if let guessesFinal = guesses {
                 
                 if guessesFinal.count == 1 {
@@ -882,8 +781,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
                     doThingsWithButton(prediction3, false)
                 }
                 
-                print(correctArr)
-                
             } else {
                 print("not safely unwrapped")
             }
@@ -918,81 +815,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
          } */
         
     }
-    
-    /* func checkText(_ text: String, bool: Bool = false) {
-        
-        let proxy = textDocumentProxy as UITextDocumentProxy
-        var wordsBeingTyped = NSString()
-        var lastWord: String!
-        wordsBeingTyped = proxy.documentContextBeforeInput! as NSString
-        let range = NSMakeRange(0, (wordsBeingTyped).length)
-        wordsBeingTyped.enumerateSubstrings(in: range, options: NSString.EnumerationOptions.byWords) { (substring, substringRange, enclosingRange, stop) -> () in
-            lastWord = substring!
-        }
-        
-        let checkRange = NSMakeRange(0, lastWord!.utf16.count)
-        
-        let misspelledRange: NSRange = checker.rangeOfMisspelledWord(in: lastWord!, range: checkRange, startingAt: 0, wrap: false, language: "en_US")
-        
-        if misspelledRange.location != NSNotFound {
-            
-            let arrGuessed = checker.guesses(forWordRange: misspelledRange, in: lastWord!, language: "en_US")! as [String]
-            switch arrGuessed.count {
-            case 1:
-                let nsText = lastWord! as NSString?
-                nsText?.replacingCharacters(in: misspelledRange, with: arrGuessed[0] as String)
-                print(nsText!)
-                self.prediction1.setTitle("", for: .normal)
-                self.prediction3.setTitle("", for: .normal)
-                self.prediction2.setTitle(arrGuessed.first, for: .normal)
-                self.predictionArr.append(arrGuessed.first!)
-            case 2:
-                let nsText = lastWord! as NSString?
-                nsText?.replacingCharacters(in: misspelledRange, with: arrGuessed[0] as String)
-                print(nsText!)
-                self.prediction1.setTitle(arrGuessed[1], for: .normal)
-                self.prediction3.setTitle("", for: .normal)
-                self.prediction2.setTitle(arrGuessed.first, for: .normal)
-                self.predictionArr.append(arrGuessed.first!)
-                self.predictionArr.append(arrGuessed[1])
-            case 3:
-                let nsText = lastWord! as NSString?
-                nsText?.replacingCharacters(in: misspelledRange, with: arrGuessed[0] as String)
-                print(nsText!)
-                if arrGuessed.count > 2 {
-                    self.prediction1.setTitle(arrGuessed[1], for: .normal)
-                    self.prediction2.setTitle(arrGuessed.first, for: .normal)
-                    self.prediction3.setTitle(arrGuessed[2], for: .normal)
-                    self.predictionArr.append(arrGuessed.first!)
-                    self.predictionArr.append(arrGuessed[1])
-                    self.predictionArr.append(arrGuessed[2])
-                }
-            default:
-                print("")
-            }
-            
-            /// let nsText = lastWord! as NSString?
-            // nsText?.replacingCharacters(in: misspelledRange, with: arrGuessed[0] as String)
-            // print(arrGuessed)
-            // print(correctStr!)
-            /* if bool == true {
-                print("bool")
-                let nsTextt = textDocumentProxy.documentContextBeforeInput as NSString?
-                print(arrGuessed[0])
-                print(nsTextt)
-                nsTextt?.replacingCharacters(in: misspelledRange, with: arrGuessed[0] as String)
-            } else if bool == false {
-                print("!bool")
-                let correctStr = nsText?.replacingCharacters(in: misspelledRange, with: arrGuessed[0] as String)
-                // print(correctStr!)
-            } */
-            
-        } else {
-            self.prediction1.setTitle("", for: .normal)
-            self.prediction2.setTitle("NOTHING FOUND", for: .normal)
-            self.prediction3.setTitle("", for: .normal)
-        }
-    } */
     
     func addCorrectionToText(_ sender: UIButton) {
         
@@ -1031,8 +853,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             button.setTitle("", for: .disabled)
             button.isEnabled = false
         } else if bool == false {
-            // button.setTitle("", for: .normal)
-            // button.setTitle("", for: .disabled)
             button.isEnabled = true
         }
         
@@ -1167,13 +987,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
     }
     
-    func longKeyHold(_ gesture: UILongPressGestureRecognizer) {
-        if gesture.state == .began {
-        } else if gesture.state == .ended || gesture.state == .cancelled {
-        }
-        
-    }
-    
     func longPressHandler(_ gesture: UILongPressGestureRecognizer) {
         
         if gesture.state == .began {
@@ -1192,7 +1005,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         self.hideView.setImage(UIImage(named: "appLogo")?.withRenderingMode(.alwaysTemplate), for: .normal)
         self.hideView.setImage(UIImage(named: "appLogo_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
-        self.hideView.tintColor = globalTintColor
         
         deleteAllText()
         self.textDocumentProxy.insertText(self.sendToInput.currentTitle!)
@@ -1212,7 +1024,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         let inputText = (textDocumentProxy.documentContextBeforeInput ?? "") + (textDocumentProxy.documentContextAfterInput ?? "")
         
-        // detectLanguage(inputText)
         googleTranslate(inputText, "en", self.toKey)
         
         if (hideView.actions(forTarget: self, forControlEvent: .touchUpInside)!.contains("addToText")) {
@@ -1227,23 +1038,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         }
         
         self.clearTranslation.isEnabled = true
-        
-    }
-    
-    func detectLanguage(_ text: String) {
-        
-        let spacelessString = text.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-        Alamofire.request("https://translation.googleapis.com/language/translate/v2/detect?key=AIzaSyAVrMMcGIKmC-PrPgQzTOGJGFIEc6MUTGw&q=\(spacelessString!)").responseJSON { (Response) in
-            
-            if let value = Response.result.value {
-                
-                let json = JSON(value)
-                for translation in json["data"]["detections"].arrayValue {
-                    
-                    self.langKey = translation["language"].stringValue
-                }
-            }
-        }
         
     }
     
