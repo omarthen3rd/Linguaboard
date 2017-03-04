@@ -61,6 +61,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     var timer: Timer?
     var checker: UITextChecker = UITextChecker()
     var predictionArr = [String]()
+    var correctArr = [String]()
     var tapSendToInput: UITapGestureRecognizer!
     var correctStr = ""
     var swipeGesture: UISwipeGestureRecognizer!
@@ -513,6 +514,10 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         translateShowView.addGestureRecognizer(swipeGesture)
         // predictionView.addGestureRecognizer(swipeGesture)
         
+        doThingsWithButton(prediction1, true)
+        doThingsWithButton(prediction2, true)
+        doThingsWithButton(prediction3, true)
+        
         self.prediction2.addTarget(self, action: #selector(self.addCorrectionToText(_:)), for: .touchUpInside)
         self.prediction1.addTarget(self, action: #selector(self.addCorrectionToText(_:)), for: .touchUpInside)
         self.prediction3.addTarget(self, action: #selector(self.addCorrectionToText(_:)), for: .touchUpInside)
@@ -812,27 +817,29 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     func autocorrect() {
         
         predictionArr.removeAll()
+        correctArr.removeAll()
+        
         doThingsWithButton(prediction1, true)
         doThingsWithButton(prediction2, true)
         doThingsWithButton(prediction3, true)
         
-        self.wordsBeingTyped = fullString.asNSString
-        self.lastWord = String()
+        // self.wordsBeingTyped = fullString.asNSString
+        // self.lastWord = String()
         self.range = NSMakeRange(0, fullString.length)
-        wordsBeingTyped.enumerateSubstrings(in: range, options: NSString.EnumerationOptions.byWords, using: { (substring, substringRange, enclosingRange, stop) in
+        /* wordsBeingTyped.enumerateSubstrings(in: range, options: NSString.EnumerationOptions.byWords, using: { (substring, substringRange, enclosingRange, stop) in
             self.lastWord = substring!
-        })
+        }) */
         
         let textChecker = UITextChecker()
-        let checkRange = NSMakeRange(0, lastWord.utf16.count)
-        let missSpelledRange = textChecker.rangeOfMisspelledWord(in: lastWord, range: checkRange, startingAt: 0, wrap: false, language: "en_US")
+        let checkRange = NSMakeRange(0, fullString.characters.count)
+        let missSpelledRange = textChecker.rangeOfMisspelledWord(in: fullString, range: checkRange, startingAt: 0, wrap: false, language: "en_US")
         
         if missSpelledRange.location != NSNotFound {
             let guesses = textChecker.guesses(forWordRange: missSpelledRange, in: fullString, language: "en_US")
-            let nsText = lastWord.asNSString
-            print(nsText)
-            self.correctStr = (nsText.replacingCharacters(in: missSpelledRange, with: (guesses?.first)!))
-            nsText.replacingCharacters(in: missSpelledRange, with: correctStr)
+            // let nsText = lastWord.asNSString
+            // print(nsText)
+            // self.correctStr = (nsText.replacingCharacters(in: missSpelledRange, with: (guesses?.first)!))
+            // nsText.replacingCharacters(in: missSpelledRange, with: correctStr)
             
             // TODO
             // Multi-words autocorrect using substrings (as NSString; has the replace characters function)
@@ -841,29 +848,41 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             if let guessesFinal = guesses {
                 
                 if guessesFinal.count == 1 {
-                    predictionArr.append(guessesFinal[0])
+                    let nsText = fullString.asNSString
+                    correctArr.append(nsText.replacingCharacters(in: missSpelledRange, with: guessesFinal[0]))
+                    // predictionArr.append(guessesFinal[0])
                     prediction2.setTitle(guessesFinal[0], for: .normal)
                     doThingsWithButton(prediction1, true)
+                    doThingsWithButton(prediction2, false)
                     doThingsWithButton(prediction3, true)
                 } else if guessesFinal.count == 2 {
-                    predictionArr.append(guessesFinal[0])
-                    predictionArr.append(guessesFinal[1])
+                    let nsText = fullString.asNSString
+                    correctArr.append(nsText.replacingCharacters(in: missSpelledRange, with: guessesFinal[0]))
+                    correctArr.append(nsText.replacingCharacters(in: missSpelledRange, with: guessesFinal[1]))
+                    // predictionArr.append(guessesFinal[0])
+                    // predictionArr.append(guessesFinal[1])
                     prediction2.setTitle(guessesFinal[0], for: .normal)
                     prediction1.setTitle(guessesFinal[1], for: .normal)
                     doThingsWithButton(prediction1, false)
+                    doThingsWithButton(prediction2, false)
                     doThingsWithButton(prediction3, true)
                 } else if guessesFinal.count >= 3 {
-                    predictionArr.append(guessesFinal[0])
-                    predictionArr.append(guessesFinal[1])
-                    predictionArr.append(guessesFinal[2])
+                    let nsText = fullString.asNSString
+                    correctArr.append(nsText.replacingCharacters(in: missSpelledRange, with: guessesFinal[0]))
+                    correctArr.append(nsText.replacingCharacters(in: missSpelledRange, with: guessesFinal[1]))
+                    correctArr.append(nsText.replacingCharacters(in: missSpelledRange, with: guessesFinal[2]))
+                    // predictionArr.append(guessesFinal[0])
+                    // predictionArr.append(guessesFinal[1])
+                    // predictionArr.append(guessesFinal[2])
                     prediction2.setTitle(guessesFinal[0], for: .normal)
                     prediction1.setTitle(guessesFinal[1], for: .normal)
                     prediction3.setTitle(guessesFinal[2], for: .normal)
                     doThingsWithButton(prediction1, false)
+                    doThingsWithButton(prediction2, false)
                     doThingsWithButton(prediction3, false)
                 }
                 
-                print(predictionArr)
+                print(correctArr)
                 
             } else {
                 print("not safely unwrapped")
@@ -980,26 +999,29 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         if sender == prediction2 {
             // center prediction button
             self.deleteAllText()
-            // correctStr is
-            self.textDocumentProxy.insertText(predictionArr[0])
+            self.textDocumentProxy.insertText(correctArr[0])
+            doThingsWithButton(prediction1, true)
+            doThingsWithButton(prediction2, true)
+            doThingsWithButton(prediction3, true)
             shouldAutoCap()
         } else if sender == prediction1 {
             // left prediction button
             self.deleteAllText()
-            self.textDocumentProxy.insertText(predictionArr[1])
+            self.textDocumentProxy.insertText(correctArr[1])
+            doThingsWithButton(prediction1, true)
+            doThingsWithButton(prediction2, true)
+            doThingsWithButton(prediction3, true)
             shouldAutoCap()
         } else if sender == prediction3 {
+            // right prediction button
             self.deleteAllText()
-            self.textDocumentProxy.insertText(predictionArr[2])
+            self.textDocumentProxy.insertText(correctArr[2])
+            doThingsWithButton(prediction1, true)
+            doThingsWithButton(prediction2, true)
+            doThingsWithButton(prediction3, true)
             shouldAutoCap()
         }
         
-        /*
-        print("addCorrection Ran")
-        self.deleteAllText()
-        self.textDocumentProxy.insertText(correctStr)
-        shouldAutoCap()
-        */
     }
     
     func doThingsWithButton(_ button: UIButton, _ bool: Bool) {
