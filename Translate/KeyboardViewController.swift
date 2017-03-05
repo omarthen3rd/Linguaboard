@@ -243,6 +243,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             
         case 1:
             
+            print("ran this")
+            
             self.row1.isHidden = true
             self.row2.isHidden = true
             self.row3.isHidden = true
@@ -262,6 +264,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             
         case 2:
             
+            print("ran this 2")
+            
             self.symbolsRow1.isHidden = false
             self.symbolsRow2.isHidden = false
             self.symbolsNumbersRow3.isHidden = false
@@ -271,6 +275,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.symbolsKey.setImage(UIImage(named: "altBoard_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
             
         default:
+            
+            print("ran this 3")
             
             self.row1.isHidden = false
             self.row2.isHidden = false
@@ -513,6 +519,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         self.altBoard.setImage(UIImage(named: "altBoard")?.withRenderingMode(.alwaysTemplate), for: .normal)
         self.altBoard.setImage(UIImage(named: "altBoard_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
+        self.altBoard.tag = 1
         
         self.returnKey.setImage(UIImage(named: "return")?.withRenderingMode(.alwaysTemplate), for: .normal)
         self.returnKey.setImage(UIImage(named: "return_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
@@ -568,9 +575,9 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.altBoard.tintColor = keyPopUpColor
         self.clearTranslation.tintColor = keyPopUpColor
         self.sendToInput.setTitleColor(keyPopUpColor, for: .normal)
-        self.prediction1.tintColor = keyPopUpColor
-        self.prediction2.tintColor = keyPopUpColor
-        self.prediction3.tintColor = keyPopUpColor
+        self.prediction1.setTitleColor(keyPopUpColor, for: .normal)
+        self.prediction2.setTitleColor(keyPopUpColor, for: .normal)
+        self.prediction3.setTitleColor(keyPopUpColor, for: .normal)
         self.moreDetailView.backgroundColor = keyBackgroundColor
         self.moreDetailLabel.textColor = keyPopUpColor
         
@@ -588,7 +595,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         } else if thingToLoad == "darkMinimal" {
             self.keyPopUpColor = UIColor.white
             self.keyBackgroundColor = UIColor(red:0.11, green:0.11, blue:0.11, alpha:1.0)
-            self.bgColor = UIColor(red:0.25, green:0.25, blue:0.25, alpha:1.0)
+            self.bgColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0)
             self.blurBG.isHidden = true
         } else if thingToLoad == "whiteMinimal" {
             self.keyPopUpColor = UIColor(red:0.11, green:0.11, blue:0.11, alpha:1.0)
@@ -917,6 +924,13 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.fullString = self.fullDocumentContext()
         }
         
+        if fullString.characters.count == 0 {
+            self.shiftStatus = 1
+            self.shiftKeys(row1)
+            self.shiftKeys(row2)
+            self.shiftKeys(row3)
+        }
+        
     }
     
     func fullDocumentContext() -> String {
@@ -991,7 +1005,19 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         if gesture.state == .began {
             timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.handleTimer(_:)), userInfo: nil, repeats: true)
+            if fullString.characters.count == 0 {
+                self.shiftStatus = 1
+                self.shiftKeys(row1)
+                self.shiftKeys(row2)
+                self.shiftKeys(row3)
+            }
         } else if gesture.state == .ended || gesture.state == .cancelled {
+            if fullString.characters.count == 0 {
+                self.shiftStatus = 1
+                self.shiftKeys(row1)
+                self.shiftKeys(row2)
+                self.shiftKeys(row3)
+            }
             timer?.invalidate()
             timer = nil
         }
@@ -999,6 +1025,12 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     func handleTimer(_ timer: Timer) {
         self.textDocumentProxy.deleteBackward()
+        if fullString.characters.count == 0 {
+            self.shiftStatus = 1
+            self.shiftKeys(row1)
+            self.shiftKeys(row2)
+            self.shiftKeys(row3)
+        }
     }
     
     func addToText() {

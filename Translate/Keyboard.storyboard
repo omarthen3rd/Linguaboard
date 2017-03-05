@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="cjp-66-VOW">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16E175b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="cjp-66-VOW">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -37,25 +37,6 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </pickerView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D8t-i4-fmC">
-                                <rect key="frame" x="5" y="5" width="365" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Translation will appear here" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jJk-XT-R9b">
-                                        <rect key="frame" x="5" y="5" width="355" height="24"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a1G-de-1eL">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                 <subviews>
@@ -128,589 +109,6 @@
                                     <constraint firstItem="Lwg-9j-IVj" firstAttribute="centerY" secondItem="HgI-92-MdK" secondAttribute="centerY" id="s7a-Ld-F5j"/>
                                     <constraint firstItem="HgI-92-MdK" firstAttribute="leading" secondItem="Lwg-9j-IVj" secondAttribute="trailing" id="wru-Dk-3bO"/>
                                 </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LeK-io-Tzc">
-                                <rect key="frame" x="2" y="75" width="371" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xur-nJ-eHs">
-                                        <rect key="frame" x="0.0" y="4" width="31" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="1">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="rUd-DI-hk5"/>
-                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="33o-iF-pOZ"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Aj-QC-OuV">
-                                        <rect key="frame" x="37" y="4" width="31" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="2">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="TWj-gy-OPr"/>
-                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="1Ew-mf-YLf"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ql4-kc-9w4">
-                                        <rect key="frame" x="74" y="4" width="31" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="3">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="eZp-it-S9J"/>
-                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="g0L-AV-iBp"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qyz-Vc-2aZ">
-                                        <rect key="frame" x="111" y="4" width="31" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="4">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="r6U-c8-fPB"/>
-                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="DtO-MJ-9pg"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rvY-DZ-HBJ">
-                                        <rect key="frame" x="148" y="4" width="31" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="5">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="RYT-qY-Hh9"/>
-                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="KkJ-gv-46T"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LNQ-3n-fBB">
-                                        <rect key="frame" x="185" y="4" width="31" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="6">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="nWq-H8-1Xr"/>
-                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="hE8-iF-ldI"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gye-G8-a1X">
-                                        <rect key="frame" x="222" y="4" width="31" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="7">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="Hqu-UC-bQn"/>
-                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="gTt-UH-hxM"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cdY-58-1rW">
-                                        <rect key="frame" x="259" y="4" width="31" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="8">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="QCx-9V-Rn2"/>
-                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="lQn-GV-fRr"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mH6-Ow-hVD">
-                                        <rect key="frame" x="296" y="4" width="31" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="9">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="Jjk-yU-u71"/>
-                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="zB4-jH-1eg"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="myq-gd-XFg">
-                                        <rect key="frame" x="333" y="4" width="31" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="0">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="JBD-Lz-zEU"/>
-                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="5D3-a5-r2o"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                            </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ty5-IK-qLu">
-                                <rect key="frame" x="2" y="125" width="371" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Buq-Oe-T4G">
-                                        <rect key="frame" x="0.0" y="4" width="31" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="-">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="cLp-Sw-B5L"/>
-                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="K3k-ts-uGP"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yf8-Pw-HLg">
-                                        <rect key="frame" x="37" y="4" width="31" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="/">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="uCI-BG-tYi"/>
-                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="gFF-9s-pvM"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zf5-8U-N6I">
-                                        <rect key="frame" x="74" y="4" width="31" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title=":">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="hCs-Rl-c2f"/>
-                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="Nu7-BG-q5s"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f3U-i9-kOx">
-                                        <rect key="frame" x="111" y="4" width="31" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title=";">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="mMe-kA-GLH"/>
-                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="hYF-6u-8FD"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yoa-q4-tba">
-                                        <rect key="frame" x="148" y="4" width="31" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="(">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="S3S-zr-vno"/>
-                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="hCQ-By-9DK"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ApT-yk-za2">
-                                        <rect key="frame" x="185" y="4" width="31" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title=")">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="8nC-ja-YuW"/>
-                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="cZz-DP-wBv"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="44Y-kh-Pgn">
-                                        <rect key="frame" x="222" y="4" width="31" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="$">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="Hn7-uA-iU4"/>
-                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="3uD-DO-adb"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N7w-pl-yEG">
-                                        <rect key="frame" x="259" y="4" width="31" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="&amp;">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="D2i-hg-CNq"/>
-                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="18O-A5-d6q"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="shB-3Y-QgM">
-                                        <rect key="frame" x="296" y="4" width="31" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="@">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="jM7-gr-PZ7"/>
-                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="38T-eN-cxc"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RIX-9a-wfq">
-                                        <rect key="frame" x="333" y="4" width="31" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="&quot;">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="Gue-EE-8S8"/>
-                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="MSi-85-rHD"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                            </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wh5-0X-2zd">
-                                <rect key="frame" x="2" y="75" width="371" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EgM-8h-lck">
-                                        <rect key="frame" x="3" y="4" width="33" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="[">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="s0i-z0-bQU"/>
-                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="lOZ-Ic-Gii"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xic-ya-W68">
-                                        <rect key="frame" x="40" y="4" width="33" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="]">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="tk3-En-NA2"/>
-                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="CjR-kr-DZ4"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HCB-VV-96x">
-                                        <rect key="frame" x="77" y="4" width="33" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="{">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="jCH-Ta-Pqj"/>
-                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="0jk-A5-x8O"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c7S-WK-rbg">
-                                        <rect key="frame" x="114" y="4" width="33" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="}">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="90R-R7-NGa"/>
-                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="1bM-z8-k6q"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VHN-N5-Nep">
-                                        <rect key="frame" x="152.5" y="4" width="33.5" height="42"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="#">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="cdh-Pm-rRu"/>
-                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="Kkj-pD-0IN"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9iP-kN-Msr">
-                                        <rect key="frame" x="190" y="4" width="33.5" height="42"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="%">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="waA-za-yw3"/>
-                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="FPK-YD-kZ7"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OyY-KL-ker">
-                                        <rect key="frame" x="227.5" y="4" width="33.5" height="42"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="^">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="cms-Bm-Nd0"/>
-                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="y4c-K0-or7"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NWR-M7-6Ap">
-                                        <rect key="frame" x="265" y="4" width="33" height="42"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="*">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="gmN-Of-B7H"/>
-                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="N9x-bD-Qt2"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZzP-SO-3i9">
-                                        <rect key="frame" x="302" y="4" width="33.5" height="42"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="+">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="Pzx-Rh-ZqQ"/>
-                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="ff4-H1-sPB"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zp8-Df-Kvl">
-                                        <rect key="frame" x="339.5" y="4" width="33.5" height="42"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="=">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="Rvo-Hc-TQ0"/>
-                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="EY6-fO-G7V"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                            </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tKL-gL-W4c">
-                                <rect key="frame" x="2" y="125" width="371" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ywA-qq-NpC">
-                                        <rect key="frame" x="3" y="4" width="33" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="_">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="hwp-NT-DP4"/>
-                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="gw1-kS-0dg"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9V3-9v-lZg">
-                                        <rect key="frame" x="40" y="4" width="33" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="\">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="eyL-Jl-LxM"/>
-                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="EE4-fA-8WO"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Aq-6W-Jzd">
-                                        <rect key="frame" x="77" y="4" width="33" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="|">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="ya9-Jj-Iqj"/>
-                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="jyB-MV-4Kw"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X74-Nx-NDj">
-                                        <rect key="frame" x="114" y="4" width="33" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="~">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="Aq6-Fh-u91"/>
-                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="0gm-bx-k7m"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jnv-ss-guC">
-                                        <rect key="frame" x="151" y="4" width="33" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="&lt;">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="I2q-gL-Osk"/>
-                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="HoX-IU-kbk"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M7R-xv-b37">
-                                        <rect key="frame" x="188" y="4" width="33" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="&gt;">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="x0J-Yn-G51"/>
-                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="Sgo-2O-925"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RCZ-Ua-2qw">
-                                        <rect key="frame" x="225" y="4" width="33" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="€">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="NFP-cl-I9Z"/>
-                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="6JX-kD-rRG"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jd1-pg-Cad">
-                                        <rect key="frame" x="262" y="4" width="33" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="£">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="DRb-Gk-tWt"/>
-                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="hDd-3I-dXa"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FZb-Tx-mNJ">
-                                        <rect key="frame" x="299" y="4" width="33" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="¥">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="G79-jz-1Dd"/>
-                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="rj5-bX-7bB"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bR6-Oq-w7c">
-                                        <rect key="frame" x="336" y="4" width="33" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="・">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="aXy-IQ-Pzj"/>
-                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="65Y-Sa-xEy"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                            </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2QF-1M-Lw8">
-                                <rect key="frame" x="2" y="175" width="371" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fdK-tA-V7D">
-                                        <rect key="frame" x="4" y="4" width="42" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <connections>
-                                            <action selector="switchKeyBoardMode:" destination="cjp-66-VOW" eventType="touchUpInside" id="cmM-a0-9FF"/>
-                                        </connections>
-                                    </button>
-                                    <button contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c5c-la-1r2">
-                                        <rect key="frame" x="325" y="4" width="42" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        <state key="normal" image="bk"/>
-                                        <state key="highlighted" image="bk_selected"/>
-                                        <connections>
-                                            <action selector="backSpaceButton:" destination="cjp-66-VOW" eventType="touchUpInside" id="TP5-7B-D85"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PWW-t6-aKd">
-                                        <rect key="frame" x="83" y="4" width="38" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title=".">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="ITf-qn-sRa"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yqo-3p-iyk">
-                                        <rect key="frame" x="125" y="4" width="38" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title=",">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="qOD-IG-JPl"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QFC-g7-3du">
-                                        <rect key="frame" x="167" y="4" width="38" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="?">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="wSN-be-f55"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uRu-Ld-ttn">
-                                        <rect key="frame" x="209" y="4" width="38" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="!">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="xmj-bQ-diV"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YAp-qJ-gJh">
-                                        <rect key="frame" x="251" y="4" width="38" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="'">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="UFZ-cf-MQY"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lFF-bI-CmW">
                                 <rect key="frame" x="0.0" y="75" width="375" height="50"/>
@@ -1161,7 +559,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BEL-X4-bfA">
-                                        <rect key="frame" x="51.5" y="4" width="42" height="42"/>
+                                        <rect key="frame" x="52" y="4" width="42" height="42"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                         <state key="normal">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1178,7 +576,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="N8B-kN-DzN">
-                                        <rect key="frame" x="281.5" y="4" width="42" height="42"/>
+                                        <rect key="frame" x="282" y="4" width="42" height="42"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <state key="normal">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1221,30 +619,736 @@
                                     <constraint firstItem="rB8-wj-Im3" firstAttribute="leading" secondItem="N8B-kN-DzN" secondAttribute="trailing" constant="5.5" id="zzG-py-Yuj"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wh5-0X-2zd">
+                                <rect key="frame" x="2" y="75" width="371" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EgM-8h-lck">
+                                        <rect key="frame" x="3" y="4" width="33" height="47"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="[">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="s0i-z0-bQU"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="lOZ-Ic-Gii"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xic-ya-W68">
+                                        <rect key="frame" x="40" y="4" width="33" height="47"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="]">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="tk3-En-NA2"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="CjR-kr-DZ4"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HCB-VV-96x">
+                                        <rect key="frame" x="77" y="4" width="33" height="47"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="{">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="jCH-Ta-Pqj"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="0jk-A5-x8O"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c7S-WK-rbg">
+                                        <rect key="frame" x="114" y="4" width="33" height="47"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="}">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="90R-R7-NGa"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="1bM-z8-k6q"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VHN-N5-Nep">
+                                        <rect key="frame" x="152.5" y="4" width="33.5" height="42"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="#">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="cdh-Pm-rRu"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="Kkj-pD-0IN"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9iP-kN-Msr">
+                                        <rect key="frame" x="190" y="4" width="33.5" height="42"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="%">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="waA-za-yw3"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="FPK-YD-kZ7"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OyY-KL-ker">
+                                        <rect key="frame" x="227.5" y="4" width="33.5" height="42"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="^">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="cms-Bm-Nd0"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="y4c-K0-or7"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NWR-M7-6Ap">
+                                        <rect key="frame" x="265" y="4" width="33" height="42"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="*">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="gmN-Of-B7H"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="N9x-bD-Qt2"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZzP-SO-3i9">
+                                        <rect key="frame" x="302" y="4" width="33.5" height="42"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="+">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="Pzx-Rh-ZqQ"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="ff4-H1-sPB"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zp8-Df-Kvl">
+                                        <rect key="frame" x="339.5" y="4" width="33.5" height="42"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="=">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="Rvo-Hc-TQ0"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="EY6-fO-G7V"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tKL-gL-W4c">
+                                <rect key="frame" x="2" y="125" width="371" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ywA-qq-NpC">
+                                        <rect key="frame" x="3" y="4" width="33" height="47"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="_">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="hwp-NT-DP4"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="gw1-kS-0dg"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9V3-9v-lZg">
+                                        <rect key="frame" x="40" y="4" width="33" height="47"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="\">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="eyL-Jl-LxM"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="EE4-fA-8WO"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Aq-6W-Jzd">
+                                        <rect key="frame" x="77" y="4" width="33" height="47"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="|">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="ya9-Jj-Iqj"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="jyB-MV-4Kw"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X74-Nx-NDj">
+                                        <rect key="frame" x="114" y="4" width="33" height="47"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="~">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="Aq6-Fh-u91"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="0gm-bx-k7m"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jnv-ss-guC">
+                                        <rect key="frame" x="151" y="4" width="33" height="47"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="&lt;">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="I2q-gL-Osk"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="HoX-IU-kbk"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M7R-xv-b37">
+                                        <rect key="frame" x="188" y="4" width="33" height="47"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="&gt;">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="x0J-Yn-G51"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="Sgo-2O-925"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RCZ-Ua-2qw">
+                                        <rect key="frame" x="225" y="4" width="33" height="47"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="€">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="NFP-cl-I9Z"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="6JX-kD-rRG"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jd1-pg-Cad">
+                                        <rect key="frame" x="262" y="4" width="33" height="47"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="£">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="DRb-Gk-tWt"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="hDd-3I-dXa"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FZb-Tx-mNJ">
+                                        <rect key="frame" x="299" y="4" width="33" height="47"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="¥">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="G79-jz-1Dd"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="rj5-bX-7bB"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bR6-Oq-w7c">
+                                        <rect key="frame" x="336" y="4" width="33" height="47"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="・">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="aXy-IQ-Pzj"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="65Y-Sa-xEy"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LeK-io-Tzc">
+                                <rect key="frame" x="0.0" y="75" width="375" height="50"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xur-nJ-eHs">
+                                        <rect key="frame" x="3" y="4" width="32" height="42"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="1">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="rUd-DI-hk5"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="33o-iF-pOZ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Aj-QC-OuV">
+                                        <rect key="frame" x="40" y="4" width="32" height="42"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="2">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="TWj-gy-OPr"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="1Ew-mf-YLf"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ql4-kc-9w4">
+                                        <rect key="frame" x="78" y="4" width="32" height="42"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="3">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="eZp-it-S9J"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="g0L-AV-iBp"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qyz-Vc-2aZ">
+                                        <rect key="frame" x="115" y="4" width="32" height="42"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="4">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="r6U-c8-fPB"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="DtO-MJ-9pg"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rvY-DZ-HBJ">
+                                        <rect key="frame" x="153" y="4" width="32" height="42"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="5">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="RYT-qY-Hh9"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="KkJ-gv-46T"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LNQ-3n-fBB">
+                                        <rect key="frame" x="190" y="4" width="32" height="42"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="6">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="nWq-H8-1Xr"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="hE8-iF-ldI"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gye-G8-a1X">
+                                        <rect key="frame" x="228" y="4" width="32" height="42"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="7">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="Hqu-UC-bQn"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="gTt-UH-hxM"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cdY-58-1rW">
+                                        <rect key="frame" x="265" y="4" width="32" height="42"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="8">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="QCx-9V-Rn2"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="lQn-GV-fRr"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mH6-Ow-hVD">
+                                        <rect key="frame" x="303" y="4" width="32" height="42"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="9">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="Jjk-yU-u71"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="zB4-jH-1eg"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="myq-gd-XFg">
+                                        <rect key="frame" x="340" y="4" width="32" height="42"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="0">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="JBD-Lz-zEU"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="5D3-a5-r2o"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Xur-nJ-eHs" firstAttribute="centerY" secondItem="LeK-io-Tzc" secondAttribute="centerY" id="3E3-58-euj"/>
+                                    <constraint firstItem="Gye-G8-a1X" firstAttribute="width" secondItem="cdY-58-1rW" secondAttribute="width" id="3cf-fn-OgW"/>
+                                    <constraint firstItem="Xur-nJ-eHs" firstAttribute="leading" secondItem="LeK-io-Tzc" secondAttribute="leading" constant="3" id="5Mb-cs-QmR"/>
+                                    <constraint firstItem="qyz-Vc-2aZ" firstAttribute="width" secondItem="rvY-DZ-HBJ" secondAttribute="width" id="65G-FO-ztP"/>
+                                    <constraint firstItem="Ql4-kc-9w4" firstAttribute="width" secondItem="qyz-Vc-2aZ" secondAttribute="width" id="6ky-MK-bel"/>
+                                    <constraint firstItem="2Aj-QC-OuV" firstAttribute="height" secondItem="Ql4-kc-9w4" secondAttribute="height" id="7Sh-hR-Bg0"/>
+                                    <constraint firstItem="cdY-58-1rW" firstAttribute="width" secondItem="mH6-Ow-hVD" secondAttribute="width" id="7cP-aO-BcC"/>
+                                    <constraint firstItem="LNQ-3n-fBB" firstAttribute="height" secondItem="Gye-G8-a1X" secondAttribute="height" id="BUd-yt-KVU"/>
+                                    <constraint firstItem="cdY-58-1rW" firstAttribute="leading" secondItem="Gye-G8-a1X" secondAttribute="trailing" constant="5.5" id="D71-Jm-naV"/>
+                                    <constraint firstItem="LNQ-3n-fBB" firstAttribute="leading" secondItem="rvY-DZ-HBJ" secondAttribute="trailing" constant="5.5" id="EQB-lw-xMu"/>
+                                    <constraint firstItem="Ql4-kc-9w4" firstAttribute="height" secondItem="qyz-Vc-2aZ" secondAttribute="height" id="GBd-kK-XhP"/>
+                                    <constraint firstItem="Gye-G8-a1X" firstAttribute="height" secondItem="cdY-58-1rW" secondAttribute="height" id="JqN-Gr-hG4"/>
+                                    <constraint firstItem="Ql4-kc-9w4" firstAttribute="centerY" secondItem="qyz-Vc-2aZ" secondAttribute="centerY" id="LIJ-qU-A1d"/>
+                                    <constraint firstItem="rvY-DZ-HBJ" firstAttribute="height" secondItem="LNQ-3n-fBB" secondAttribute="height" id="N69-Ng-HCm"/>
+                                    <constraint firstItem="Xur-nJ-eHs" firstAttribute="centerY" secondItem="2Aj-QC-OuV" secondAttribute="centerY" id="NFI-BR-IoM"/>
+                                    <constraint firstItem="cdY-58-1rW" firstAttribute="height" secondItem="mH6-Ow-hVD" secondAttribute="height" id="Oyi-c6-NsY"/>
+                                    <constraint firstItem="Ql4-kc-9w4" firstAttribute="leading" secondItem="2Aj-QC-OuV" secondAttribute="trailing" constant="5.5" id="PPe-j0-BfA"/>
+                                    <constraint firstItem="Xur-nJ-eHs" firstAttribute="width" secondItem="2Aj-QC-OuV" secondAttribute="width" id="Pss-4X-r4A"/>
+                                    <constraint firstItem="myq-gd-XFg" firstAttribute="leading" secondItem="mH6-Ow-hVD" secondAttribute="trailing" constant="5.5" id="Pyf-zh-rXY"/>
+                                    <constraint firstItem="cdY-58-1rW" firstAttribute="centerY" secondItem="mH6-Ow-hVD" secondAttribute="centerY" id="Qu4-eO-OZm"/>
+                                    <constraint firstItem="qyz-Vc-2aZ" firstAttribute="height" secondItem="rvY-DZ-HBJ" secondAttribute="height" id="TvH-LZ-KyF"/>
+                                    <constraint firstItem="Xur-nJ-eHs" firstAttribute="height" secondItem="LeK-io-Tzc" secondAttribute="height" constant="-8" id="U8R-Sr-8Ku"/>
+                                    <constraint firstItem="qyz-Vc-2aZ" firstAttribute="leading" secondItem="Ql4-kc-9w4" secondAttribute="trailing" constant="5.5" id="Vby-nX-nCo"/>
+                                    <constraint firstItem="rvY-DZ-HBJ" firstAttribute="centerY" secondItem="LNQ-3n-fBB" secondAttribute="centerY" id="Wtp-ha-oY1"/>
+                                    <constraint firstItem="Gye-G8-a1X" firstAttribute="leading" secondItem="LNQ-3n-fBB" secondAttribute="trailing" constant="5.5" id="Xei-oR-yUa"/>
+                                    <constraint firstItem="qyz-Vc-2aZ" firstAttribute="centerY" secondItem="rvY-DZ-HBJ" secondAttribute="centerY" id="XpC-YD-gb6"/>
+                                    <constraint firstItem="LNQ-3n-fBB" firstAttribute="width" secondItem="Gye-G8-a1X" secondAttribute="width" id="Yag-j6-Nmk"/>
+                                    <constraint firstItem="mH6-Ow-hVD" firstAttribute="width" secondItem="myq-gd-XFg" secondAttribute="width" id="Zxl-Qa-sMg"/>
+                                    <constraint firstItem="rvY-DZ-HBJ" firstAttribute="leading" secondItem="qyz-Vc-2aZ" secondAttribute="trailing" constant="5.5" id="cf7-7D-iZO"/>
+                                    <constraint firstItem="LNQ-3n-fBB" firstAttribute="centerY" secondItem="Gye-G8-a1X" secondAttribute="centerY" id="coL-O1-5lV"/>
+                                    <constraint firstItem="Gye-G8-a1X" firstAttribute="centerY" secondItem="cdY-58-1rW" secondAttribute="centerY" id="eZm-4q-yoH"/>
+                                    <constraint firstItem="2Aj-QC-OuV" firstAttribute="leading" secondItem="Xur-nJ-eHs" secondAttribute="trailing" constant="5.5" id="gIj-CM-TbW"/>
+                                    <constraint firstItem="mH6-Ow-hVD" firstAttribute="centerY" secondItem="myq-gd-XFg" secondAttribute="centerY" id="ghB-zC-09u"/>
+                                    <constraint firstItem="2Aj-QC-OuV" firstAttribute="width" secondItem="Ql4-kc-9w4" secondAttribute="width" id="heV-Ul-r0y"/>
+                                    <constraint firstItem="Xur-nJ-eHs" firstAttribute="height" secondItem="2Aj-QC-OuV" secondAttribute="height" id="jG3-Kw-etv"/>
+                                    <constraint firstItem="mH6-Ow-hVD" firstAttribute="leading" secondItem="cdY-58-1rW" secondAttribute="trailing" constant="5.5" id="l5V-xx-VqI"/>
+                                    <constraint firstItem="rvY-DZ-HBJ" firstAttribute="width" secondItem="LNQ-3n-fBB" secondAttribute="width" id="lLj-MO-RKr"/>
+                                    <constraint firstItem="Xur-nJ-eHs" firstAttribute="width" secondItem="LeK-io-Tzc" secondAttribute="width" multiplier="0.1" constant="-5.5" id="rYX-73-Acl"/>
+                                    <constraint firstItem="2Aj-QC-OuV" firstAttribute="centerY" secondItem="Ql4-kc-9w4" secondAttribute="centerY" id="tPw-KZ-vZG"/>
+                                    <constraint firstItem="mH6-Ow-hVD" firstAttribute="height" secondItem="myq-gd-XFg" secondAttribute="height" id="ySI-X3-2Ou"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ty5-IK-qLu">
+                                <rect key="frame" x="0.0" y="125" width="375" height="50"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Buq-Oe-T4G">
+                                        <rect key="frame" x="3" y="4" width="32" height="42"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="-">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="cLp-Sw-B5L"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="K3k-ts-uGP"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yf8-Pw-HLg">
+                                        <rect key="frame" x="40" y="4" width="32" height="42"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="/">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="uCI-BG-tYi"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="gFF-9s-pvM"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zf5-8U-N6I">
+                                        <rect key="frame" x="78" y="4" width="32" height="42"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title=":">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="hCs-Rl-c2f"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="Nu7-BG-q5s"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f3U-i9-kOx">
+                                        <rect key="frame" x="115" y="4" width="32" height="42"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title=";">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="mMe-kA-GLH"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="hYF-6u-8FD"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yoa-q4-tba">
+                                        <rect key="frame" x="153" y="4" width="32" height="42"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="(">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="S3S-zr-vno"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="hCQ-By-9DK"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ApT-yk-za2">
+                                        <rect key="frame" x="190" y="4" width="32" height="42"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title=")">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="8nC-ja-YuW"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="cZz-DP-wBv"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="44Y-kh-Pgn">
+                                        <rect key="frame" x="228" y="4" width="32" height="42"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="$">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="Hn7-uA-iU4"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="3uD-DO-adb"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N7w-pl-yEG">
+                                        <rect key="frame" x="265" y="4" width="32" height="42"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="&amp;">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="D2i-hg-CNq"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="18O-A5-d6q"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="shB-3Y-QgM">
+                                        <rect key="frame" x="303" y="4" width="32" height="42"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="@">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="jM7-gr-PZ7"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="38T-eN-cxc"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RIX-9a-wfq">
+                                        <rect key="frame" x="340" y="4" width="32" height="42"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="&quot;">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="Gue-EE-8S8"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="MSi-85-rHD"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Buq-Oe-T4G" firstAttribute="centerY" secondItem="ty5-IK-qLu" secondAttribute="centerY" id="083-Tz-j9P"/>
+                                    <constraint firstItem="yf8-Pw-HLg" firstAttribute="height" secondItem="Zf5-8U-N6I" secondAttribute="height" id="5mO-OR-yrS"/>
+                                    <constraint firstItem="yoa-q4-tba" firstAttribute="centerY" secondItem="ApT-yk-za2" secondAttribute="centerY" id="7IV-yU-X08"/>
+                                    <constraint firstItem="yoa-q4-tba" firstAttribute="leading" secondItem="f3U-i9-kOx" secondAttribute="trailing" constant="5.5" id="8ZK-4R-Ol0"/>
+                                    <constraint firstItem="Buq-Oe-T4G" firstAttribute="width" secondItem="ty5-IK-qLu" secondAttribute="width" multiplier="0.1" constant="-5.5" id="9J4-01-9DL"/>
+                                    <constraint firstItem="Buq-Oe-T4G" firstAttribute="centerY" secondItem="yf8-Pw-HLg" secondAttribute="centerY" id="Adt-iO-iLG"/>
+                                    <constraint firstItem="shB-3Y-QgM" firstAttribute="centerY" secondItem="RIX-9a-wfq" secondAttribute="centerY" id="AwR-Lf-6jU"/>
+                                    <constraint firstItem="44Y-kh-Pgn" firstAttribute="height" secondItem="N7w-pl-yEG" secondAttribute="height" id="BIN-2T-5Er"/>
+                                    <constraint firstItem="Zf5-8U-N6I" firstAttribute="leading" secondItem="yf8-Pw-HLg" secondAttribute="trailing" constant="5.5" id="CPW-Uu-apE"/>
+                                    <constraint firstItem="yf8-Pw-HLg" firstAttribute="centerY" secondItem="Zf5-8U-N6I" secondAttribute="centerY" id="DSm-Db-12l"/>
+                                    <constraint firstItem="N7w-pl-yEG" firstAttribute="width" secondItem="shB-3Y-QgM" secondAttribute="width" id="DpQ-wc-giz"/>
+                                    <constraint firstItem="N7w-pl-yEG" firstAttribute="leading" secondItem="44Y-kh-Pgn" secondAttribute="trailing" constant="5.5" id="Eiv-h4-U1I"/>
+                                    <constraint firstItem="N7w-pl-yEG" firstAttribute="centerY" secondItem="shB-3Y-QgM" secondAttribute="centerY" id="FS5-sr-knx"/>
+                                    <constraint firstItem="N7w-pl-yEG" firstAttribute="height" secondItem="shB-3Y-QgM" secondAttribute="height" id="HEp-pu-BMg"/>
+                                    <constraint firstItem="Buq-Oe-T4G" firstAttribute="leading" secondItem="ty5-IK-qLu" secondAttribute="leading" constant="3" id="LcH-Jl-VzI"/>
+                                    <constraint firstItem="RIX-9a-wfq" firstAttribute="leading" secondItem="shB-3Y-QgM" secondAttribute="trailing" constant="5.5" id="M1u-gZ-CfR"/>
+                                    <constraint firstItem="f3U-i9-kOx" firstAttribute="leading" secondItem="Zf5-8U-N6I" secondAttribute="trailing" constant="5.5" id="ORr-yY-HbD"/>
+                                    <constraint firstItem="f3U-i9-kOx" firstAttribute="height" secondItem="yoa-q4-tba" secondAttribute="height" id="OWY-Cj-DNw"/>
+                                    <constraint firstItem="shB-3Y-QgM" firstAttribute="leading" secondItem="N7w-pl-yEG" secondAttribute="trailing" constant="5.5" id="TRd-m3-0pZ"/>
+                                    <constraint firstItem="shB-3Y-QgM" firstAttribute="height" secondItem="RIX-9a-wfq" secondAttribute="height" id="Uc3-in-qBd"/>
+                                    <constraint firstItem="yoa-q4-tba" firstAttribute="height" secondItem="ApT-yk-za2" secondAttribute="height" id="UkF-kx-xei"/>
+                                    <constraint firstItem="f3U-i9-kOx" firstAttribute="centerY" secondItem="yoa-q4-tba" secondAttribute="centerY" id="UyT-WX-zmi"/>
+                                    <constraint firstItem="44Y-kh-Pgn" firstAttribute="centerY" secondItem="N7w-pl-yEG" secondAttribute="centerY" id="ZnY-s8-Cpr"/>
+                                    <constraint firstItem="Buq-Oe-T4G" firstAttribute="width" secondItem="yf8-Pw-HLg" secondAttribute="width" id="Zo1-Da-WIJ"/>
+                                    <constraint firstItem="Buq-Oe-T4G" firstAttribute="height" secondItem="ty5-IK-qLu" secondAttribute="height" constant="-8" id="eZe-Ml-RAA"/>
+                                    <constraint firstItem="Buq-Oe-T4G" firstAttribute="height" secondItem="yf8-Pw-HLg" secondAttribute="height" id="hEf-SI-7Os"/>
+                                    <constraint firstItem="Zf5-8U-N6I" firstAttribute="width" secondItem="f3U-i9-kOx" secondAttribute="width" id="iNh-IK-Hx7"/>
+                                    <constraint firstItem="shB-3Y-QgM" firstAttribute="width" secondItem="RIX-9a-wfq" secondAttribute="width" id="ijo-dr-PQD"/>
+                                    <constraint firstItem="yoa-q4-tba" firstAttribute="width" secondItem="ApT-yk-za2" secondAttribute="width" id="j35-hk-EW3"/>
+                                    <constraint firstItem="ApT-yk-za2" firstAttribute="height" secondItem="44Y-kh-Pgn" secondAttribute="height" id="kqV-jb-YBG"/>
+                                    <constraint firstItem="44Y-kh-Pgn" firstAttribute="width" secondItem="N7w-pl-yEG" secondAttribute="width" id="oQ9-5n-gR3"/>
+                                    <constraint firstItem="ApT-yk-za2" firstAttribute="width" secondItem="44Y-kh-Pgn" secondAttribute="width" id="odN-J2-il0"/>
+                                    <constraint firstItem="44Y-kh-Pgn" firstAttribute="leading" secondItem="ApT-yk-za2" secondAttribute="trailing" constant="5.5" id="qIl-7a-ura"/>
+                                    <constraint firstItem="Zf5-8U-N6I" firstAttribute="height" secondItem="f3U-i9-kOx" secondAttribute="height" id="ry6-9J-6s2"/>
+                                    <constraint firstItem="Zf5-8U-N6I" firstAttribute="centerY" secondItem="f3U-i9-kOx" secondAttribute="centerY" id="skv-54-pUp"/>
+                                    <constraint firstItem="ApT-yk-za2" firstAttribute="centerY" secondItem="44Y-kh-Pgn" secondAttribute="centerY" id="sxa-LO-w44"/>
+                                    <constraint firstItem="yf8-Pw-HLg" firstAttribute="leading" secondItem="Buq-Oe-T4G" secondAttribute="trailing" constant="5.5" id="tHp-uV-ivc"/>
+                                    <constraint firstItem="yf8-Pw-HLg" firstAttribute="width" secondItem="Zf5-8U-N6I" secondAttribute="width" id="tqf-pg-jar"/>
+                                    <constraint firstItem="ApT-yk-za2" firstAttribute="leading" secondItem="yoa-q4-tba" secondAttribute="trailing" constant="5.5" id="uhh-hS-8TB"/>
+                                    <constraint firstItem="f3U-i9-kOx" firstAttribute="width" secondItem="yoa-q4-tba" secondAttribute="width" id="zoY-10-YRq"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2QF-1M-Lw8">
+                                <rect key="frame" x="0.0" y="175" width="375" height="50"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fdK-tA-V7D">
+                                        <rect key="frame" x="4" y="4" width="42" height="42"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <action selector="switchKeyBoardMode:" destination="cjp-66-VOW" eventType="touchUpInside" id="cmM-a0-9FF"/>
+                                        </connections>
+                                    </button>
+                                    <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c5c-la-1r2">
+                                        <rect key="frame" x="329" y="4" width="42" height="42"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" image="bk"/>
+                                        <state key="highlighted" image="bk_selected"/>
+                                        <connections>
+                                            <action selector="backSpaceButton:" destination="cjp-66-VOW" eventType="touchUpInside" id="TP5-7B-D85"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PWW-t6-aKd">
+                                        <rect key="frame" x="96" y="4" width="32" height="42"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title=".">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="ITf-qn-sRa"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yqo-3p-iyk">
+                                        <rect key="frame" x="133.5" y="4" width="32" height="42"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title=",">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="qOD-IG-JPl"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QFC-g7-3du">
+                                        <rect key="frame" x="171" y="4" width="32" height="42"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="?">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="wSN-be-f55"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uRu-Ld-ttn">
+                                        <rect key="frame" x="208.5" y="4" width="32" height="42"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="!">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="xmj-bQ-diV"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YAp-qJ-gJh">
+                                        <rect key="frame" x="246" y="4" width="32" height="42"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="'">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="UFZ-cf-MQY"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Yqo-3p-iyk" firstAttribute="centerY" secondItem="PWW-t6-aKd" secondAttribute="centerY" id="1VS-FB-bIY"/>
+                                    <constraint firstItem="Yqo-3p-iyk" firstAttribute="width" secondItem="PWW-t6-aKd" secondAttribute="width" id="2Sn-5i-3UK"/>
+                                    <constraint firstItem="c5c-la-1r2" firstAttribute="height" secondItem="2QF-1M-Lw8" secondAttribute="height" constant="-8" id="2kz-fV-ArB"/>
+                                    <constraint firstItem="QFC-g7-3du" firstAttribute="leading" secondItem="Yqo-3p-iyk" secondAttribute="trailing" constant="5.5" id="3my-Cv-nhE"/>
+                                    <constraint firstItem="uRu-Ld-ttn" firstAttribute="leading" secondItem="QFC-g7-3du" secondAttribute="trailing" constant="5.5" id="41B-wq-Hq2"/>
+                                    <constraint firstItem="Yqo-3p-iyk" firstAttribute="leading" secondItem="PWW-t6-aKd" secondAttribute="trailing" constant="5.5" id="6IT-dJ-ySw"/>
+                                    <constraint firstItem="QFC-g7-3du" firstAttribute="height" secondItem="Yqo-3p-iyk" secondAttribute="height" id="B2j-yz-iFL"/>
+                                    <constraint firstItem="QFC-g7-3du" firstAttribute="height" secondItem="uRu-Ld-ttn" secondAttribute="height" id="C2Z-aV-fyM"/>
+                                    <constraint firstAttribute="trailing" secondItem="c5c-la-1r2" secondAttribute="trailing" constant="4" id="DJP-CU-9wH"/>
+                                    <constraint firstItem="QFC-g7-3du" firstAttribute="centerY" secondItem="uRu-Ld-ttn" secondAttribute="centerY" id="Jh1-Cr-hXW"/>
+                                    <constraint firstItem="Yqo-3p-iyk" firstAttribute="height" secondItem="PWW-t6-aKd" secondAttribute="height" id="Jtr-0O-DUq"/>
+                                    <constraint firstItem="QFC-g7-3du" firstAttribute="height" secondItem="2QF-1M-Lw8" secondAttribute="height" constant="-8" id="KwL-Fm-GZU"/>
+                                    <constraint firstItem="QFC-g7-3du" firstAttribute="centerY" secondItem="2QF-1M-Lw8" secondAttribute="centerY" id="LaC-4p-abq"/>
+                                    <constraint firstItem="fdK-tA-V7D" firstAttribute="leading" secondItem="2QF-1M-Lw8" secondAttribute="leading" constant="4" id="OKm-tS-hpX"/>
+                                    <constraint firstItem="c5c-la-1r2" firstAttribute="width" secondItem="2QF-1M-Lw8" secondAttribute="width" multiplier="0.1" constant="4.5" id="S5N-oz-NQr"/>
+                                    <constraint firstItem="QFC-g7-3du" firstAttribute="centerY" secondItem="Yqo-3p-iyk" secondAttribute="centerY" id="Ss7-Wy-ni3"/>
+                                    <constraint firstItem="uRu-Ld-ttn" firstAttribute="height" secondItem="YAp-qJ-gJh" secondAttribute="height" id="X8K-Sc-W03"/>
+                                    <constraint firstItem="uRu-Ld-ttn" firstAttribute="width" secondItem="YAp-qJ-gJh" secondAttribute="width" id="bVz-7s-jY8"/>
+                                    <constraint firstItem="fdK-tA-V7D" firstAttribute="centerY" secondItem="2QF-1M-Lw8" secondAttribute="centerY" id="bhF-tD-Ybg"/>
+                                    <constraint firstItem="c5c-la-1r2" firstAttribute="centerY" secondItem="2QF-1M-Lw8" secondAttribute="centerY" id="cGS-Mh-Bmx"/>
+                                    <constraint firstItem="uRu-Ld-ttn" firstAttribute="centerY" secondItem="YAp-qJ-gJh" secondAttribute="centerY" id="dua-MS-z98"/>
+                                    <constraint firstItem="QFC-g7-3du" firstAttribute="width" secondItem="uRu-Ld-ttn" secondAttribute="width" id="o56-6b-pRn"/>
+                                    <constraint firstItem="QFC-g7-3du" firstAttribute="centerX" secondItem="2QF-1M-Lw8" secondAttribute="centerX" id="oO1-4z-sSQ"/>
+                                    <constraint firstItem="fdK-tA-V7D" firstAttribute="height" secondItem="2QF-1M-Lw8" secondAttribute="height" constant="-8" id="q2v-5z-4xd"/>
+                                    <constraint firstItem="QFC-g7-3du" firstAttribute="width" secondItem="Yqo-3p-iyk" secondAttribute="width" id="rip-cq-2pz"/>
+                                    <constraint firstItem="YAp-qJ-gJh" firstAttribute="leading" secondItem="uRu-Ld-ttn" secondAttribute="trailing" constant="5.5" id="ss9-ey-v9g"/>
+                                    <constraint firstItem="QFC-g7-3du" firstAttribute="width" secondItem="2QF-1M-Lw8" secondAttribute="width" multiplier="0.1" constant="-5.5" id="tJU-j4-UiQ"/>
+                                    <constraint firstItem="fdK-tA-V7D" firstAttribute="width" secondItem="2QF-1M-Lw8" secondAttribute="width" multiplier="0.1" constant="5" id="xaV-Xw-4a6"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D8t-i4-fmC">
+                                <rect key="frame" x="10" y="10" width="355" height="50"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Translation will appear here" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jJk-XT-R9b">
+                                        <rect key="frame" x="0.0" y="0.0" width="355" height="50"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="jJk-XT-R9b" firstAttribute="centerX" secondItem="D8t-i4-fmC" secondAttribute="centerX" id="8ta-X8-ftw"/>
+                                    <constraint firstItem="jJk-XT-R9b" firstAttribute="centerY" secondItem="D8t-i4-fmC" secondAttribute="centerY" id="G1O-xJ-rrB"/>
+                                    <constraint firstItem="jJk-XT-R9b" firstAttribute="width" secondItem="D8t-i4-fmC" secondAttribute="width" id="h4H-Pt-Sig"/>
+                                    <constraint firstItem="jJk-XT-R9b" firstAttribute="height" secondItem="D8t-i4-fmC" secondAttribute="height" id="rv8-nI-3K8"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="fOe-tw-2jj" firstAttribute="top" secondItem="Xfh-Gq-rnk" secondAttribute="bottom" id="0Yn-zH-hoE"/>
                             <constraint firstItem="c7r-0i-Su6" firstAttribute="width" secondItem="b2E-6b-KOA" secondAttribute="width" id="1Je-Kf-A2K"/>
                             <constraint firstItem="a1G-de-1eL" firstAttribute="top" secondItem="8zO-aw-7lF" secondAttribute="bottom" id="3Da-9m-soT"/>
+                            <constraint firstItem="2QF-1M-Lw8" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="3RD-Xf-Hdz"/>
+                            <constraint firstItem="ty5-IK-qLu" firstAttribute="height" secondItem="b2E-6b-KOA" secondAttribute="height" multiplier="0.18" id="3hD-Tf-KK4"/>
                             <constraint firstItem="fOe-tw-2jj" firstAttribute="width" secondItem="b2E-6b-KOA" secondAttribute="width" id="4FQ-lo-wbm"/>
                             <constraint firstItem="a1G-de-1eL" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="5Lr-Al-CLk"/>
                             <constraint firstItem="lFF-bI-CmW" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="675-t9-blf"/>
                             <constraint firstItem="lFF-bI-CmW" firstAttribute="height" secondItem="b2E-6b-KOA" secondAttribute="height" multiplier="0.18" id="8pi-QV-Hfr"/>
+                            <constraint firstItem="2QF-1M-Lw8" firstAttribute="width" secondItem="b2E-6b-KOA" secondAttribute="width" id="AOk-cS-oLA"/>
+                            <constraint firstItem="LeK-io-Tzc" firstAttribute="width" secondItem="b2E-6b-KOA" secondAttribute="width" id="DoU-7Y-4b9"/>
                             <constraint firstItem="lFF-bI-CmW" firstAttribute="width" secondItem="b2E-6b-KOA" secondAttribute="width" id="F7A-dR-nWO"/>
+                            <constraint firstItem="2QF-1M-Lw8" firstAttribute="height" secondItem="b2E-6b-KOA" secondAttribute="height" multiplier="0.18" id="J3M-E0-H4O"/>
                             <constraint firstItem="Xfh-Gq-rnk" firstAttribute="height" secondItem="b2E-6b-KOA" secondAttribute="height" multiplier="0.18" id="JlT-ap-EzW"/>
                             <constraint firstItem="Xfh-Gq-rnk" firstAttribute="width" secondItem="b2E-6b-KOA" secondAttribute="width" id="KDb-ME-jED"/>
+                            <constraint firstItem="D8t-i4-fmC" firstAttribute="width" secondItem="b2E-6b-KOA" secondAttribute="width" constant="-20" id="Lk1-jk-MvQ"/>
                             <constraint firstItem="wkV-19-SIz" firstAttribute="top" secondItem="fOe-tw-2jj" secondAttribute="bottom" id="Mlo-iC-HDP"/>
                             <constraint firstItem="Xfh-Gq-rnk" firstAttribute="top" secondItem="lFF-bI-CmW" secondAttribute="bottom" id="Otf-8q-Eon"/>
                             <constraint firstItem="lFF-bI-CmW" firstAttribute="top" secondItem="c7r-0i-Su6" secondAttribute="bottom" id="Q5V-k3-cyJ"/>
+                            <constraint firstItem="LeK-io-Tzc" firstAttribute="height" secondItem="b2E-6b-KOA" secondAttribute="height" multiplier="0.18" id="RIr-Ip-IxI"/>
+                            <constraint firstItem="ty5-IK-qLu" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="Rnf-h1-tbK"/>
                             <constraint firstItem="fOe-tw-2jj" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="TMG-e7-RwH"/>
                             <constraint firstItem="wkV-19-SIz" firstAttribute="height" secondItem="b2E-6b-KOA" secondAttribute="height" multiplier="0.18" id="XfD-cG-akF"/>
                             <constraint firstItem="Xfh-Gq-rnk" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="Xya-8H-NOS"/>
                             <constraint firstItem="c7r-0i-Su6" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="as6-I3-FQR"/>
+                            <constraint firstItem="D8t-i4-fmC" firstAttribute="top" secondItem="8zO-aw-7lF" secondAttribute="bottom" constant="10" id="doh-KP-knv"/>
+                            <constraint firstItem="LeK-io-Tzc" firstAttribute="top" secondItem="c7r-0i-Su6" secondAttribute="bottom" id="hMv-Eb-fzB"/>
+                            <constraint firstItem="ty5-IK-qLu" firstAttribute="width" secondItem="b2E-6b-KOA" secondAttribute="width" id="jPF-od-boi"/>
                             <constraint firstItem="a1G-de-1eL" firstAttribute="width" secondItem="b2E-6b-KOA" secondAttribute="width" id="kWd-0z-Fbj"/>
                             <constraint firstItem="c7r-0i-Su6" firstAttribute="top" secondItem="a1G-de-1eL" secondAttribute="bottom" id="lIb-O8-SNL"/>
+                            <constraint firstItem="ty5-IK-qLu" firstAttribute="top" secondItem="LeK-io-Tzc" secondAttribute="bottom" id="lgS-QE-15w"/>
                             <constraint firstItem="wkV-19-SIz" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="lqk-xU-oI8"/>
                             <constraint firstItem="fOe-tw-2jj" firstAttribute="height" secondItem="b2E-6b-KOA" secondAttribute="height" multiplier="0.18" id="nkT-fL-Jqn"/>
+                            <constraint firstItem="2QF-1M-Lw8" firstAttribute="top" secondItem="ty5-IK-qLu" secondAttribute="bottom" id="o3D-w3-uBm"/>
+                            <constraint firstItem="D8t-i4-fmC" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="oGo-6H-Qx6"/>
+                            <constraint firstItem="LeK-io-Tzc" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="ran-2k-qnM"/>
+                            <constraint firstItem="D8t-i4-fmC" firstAttribute="height" secondItem="b2E-6b-KOA" secondAttribute="height" multiplier="0.18" id="tJa-4z-3pt"/>
                             <constraint firstItem="c7r-0i-Su6" firstAttribute="height" secondItem="b2E-6b-KOA" secondAttribute="height" multiplier="0.09" id="uaA-1p-5KW"/>
                             <constraint firstItem="a1G-de-1eL" firstAttribute="height" secondItem="b2E-6b-KOA" secondAttribute="height" multiplier="0.18" id="yfX-Uq-5Ov"/>
                             <constraint firstItem="wkV-19-SIz" firstAttribute="width" secondItem="b2E-6b-KOA" secondAttribute="width" id="yzD-um-EJm"/>
