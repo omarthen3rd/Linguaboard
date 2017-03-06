@@ -60,6 +60,9 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     var predictionArr = [String]()
     var correctArr = [String]()
     var tapSendToInput: UITapGestureRecognizer!
+    var longPressRecognizer = UILongPressGestureRecognizer()
+    var didInsertAutocorrectText = false
+    var missSpelledRange = NSRange()
     
     // var wordsBeingTyped = NSString()
     // var lastWord = String()
@@ -132,7 +135,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         }
         self.textDocumentProxy.insertText(sender.currentTitle!)
         self.shouldAutoCap()
-        autocorrectCaller()
+        // autocorrectCaller()
+        autocorrect()
         self.hideView.isEnabled = true
 
         if shiftStatus == 1 {
@@ -154,6 +158,16 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         autocorrect()
         self.textDocumentProxy.insertText("\n")
         
+        if didInsertAutocorrectText == false && correctArr.count > 0 {
+            
+            addCorrectionToText(prediction2)
+            
+        } else if didInsertAutocorrectText == true && correctArr.count == 0 {
+            
+            didInsertAutocorrectText = false
+            
+        }
+        
     }
     
     @IBAction func spaceKeyPressed(_ sender: UIButton) {
@@ -163,6 +177,36 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.textDocumentProxy.insertText(" ")
         self.shouldAutoCap()
         autocorrect()
+        print(missSpelledRange.length)
+        print("range above")
+        
+        // Fool misspelled range into thinking it autocorrected
+        // subtract misspelled range length from range when actually running autocorrect() so it "ignores" that word/range
+        
+        if (didInsertAutocorrectText == false && correctArr.count > 0) {
+            
+            print("ran this1")
+            
+            addCorrectionToText(prediction2)
+            didInsertAutocorrectText = true
+            
+        } else if missSpelledRange.length > 0 {
+            
+            print("missSpelledRange: ", "\(missSpelledRange.length)")
+            self.missSpelledRange.length -= self.missSpelledRange.length
+            print("missSpelledRange2: ", "\(missSpelledRange.length)")
+            autocorrect()
+            self.correctArr.removeAll()
+            doThingsWithButton(prediction1, true)
+            doThingsWithButton(prediction2, true)
+            doThingsWithButton(prediction3, true)
+            
+        } else if didInsertAutocorrectText == true && correctArr.count == 0 {
+            
+            didInsertAutocorrectText = false
+            
+        }
+        
     }
     
     @IBAction func backSpaceButton(_ sender: UIButton) {
@@ -243,7 +287,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             
         case 1:
             
-            print("ran this")
+            self.backspaceButton.removeGestureRecognizer(longPressRecognizer)
+            self.backspaceButton2.addGestureRecognizer(longPressRecognizer)
             
             self.row1.isHidden = true
             self.row2.isHidden = true
@@ -263,8 +308,9 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.symbolsKey.tag = 2
             
         case 2:
-            
-            print("ran this 2")
+
+            self.backspaceButton.removeGestureRecognizer(longPressRecognizer)
+            self.backspaceButton2.addGestureRecognizer(longPressRecognizer)
             
             self.symbolsRow1.isHidden = false
             self.symbolsRow2.isHidden = false
@@ -276,7 +322,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             
         default:
             
-            print("ran this 3")
+            self.backspaceButton2.removeGestureRecognizer(longPressRecognizer)
+            self.backspaceButton.addGestureRecognizer(longPressRecognizer)
             
             self.row1.isHidden = false
             self.row2.isHidden = false
@@ -398,6 +445,9 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     // MARK: - Functions
     
+    // TODO
+    // didInsertAutocorrectText (stop calling autocorrect if not wanting to autocorrect)
+    
     func loadInterface() {
         
         let darkMode = darkModeBool.double(forKey: "darkBool")
@@ -436,6 +486,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         moreDetailView.layer.shadowRadius = 10
         moreDetailView.layer.shadowOpacity = 0.3
         moreDetailView.layer.shadowOffset = CGSize(width: 0, height: 5)
+        moreDetailView.layer.shadowPath = UIBezierPath(rect: moreDetailView.bounds).cgPath
         
         if self.lastUsedLanguage.object(forKey: "lastUsedLang") == nil {
             self.lastLang = "French"
@@ -483,7 +534,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         // backspace longpress
         
-        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.longPressHandler(_:)))
+        self.longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.longPressHandler(_:)))
         backspaceButton.addGestureRecognizer(longPressRecognizer)
         
         for letterKey in self.keyPopKeys {
@@ -493,12 +544,10 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.tapSendToInput = UITapGestureRecognizer(target: self, action: #selector(self.showDetailView))
         self.tapSendToInput.numberOfTapsRequired = 1
         self.tapSendToInput.numberOfTouchesRequired = 1
-        self.sendToInput.addGestureRecognizer(tapSendToInput)
         self.sendToInput.tag = 1
         self.sendToInput.setTitle("", for: .normal)
         self.sendToInput.titleLabel?.lineBreakMode = .byTruncatingTail
         self.sendToInput.titleLabel?.font = UIFont.systemFont(ofSize: 18)
-        self.sendToInput.addGestureRecognizer(self.tapSendToInput)
         
         self.hideView.setImage(UIImage(named: "appLogo")?.withRenderingMode(.alwaysTemplate), for: .normal)
         self.hideView.setImage(UIImage(named: "appLogo_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
@@ -664,6 +713,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         popUp.layer.shadowRadius = 2
         popUp.layer.shadowOpacity = 0.15
         popUp.layer.shadowOffset = CGSize(width: 0, height: 4)
+        popUp.layer.shadowPath = UIBezierPath(rect: popUp.bounds).cgPath
         popUp.layer.shouldRasterize = true
         popUp.layer.rasterizationScale = UIScreen.main.scale
         popUp.addSubview(text)
@@ -716,15 +766,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
     }
     
-    func autocorrectCaller() {
-        
-        let concurrentQueue = DispatchQueue(label: "com.omar.Linguaboard.Translate", attributes: .concurrent)
-        concurrentQueue.sync {
-            autocorrect()
-        }
-        
-    }
-    
     func autocorrect() {
         
         predictionArr.removeAll()
@@ -743,7 +784,9 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         let textChecker = UITextChecker()
         let checkRange = NSMakeRange(0, fullString.characters.count)
-        let missSpelledRange = textChecker.rangeOfMisspelledWord(in: fullString, range: checkRange, startingAt: 0, wrap: false, language: "en_US")
+        print("missSpelledRangeFunctionBeforeCheck: ", "\(missSpelledRange.length)")
+        missSpelledRange = textChecker.rangeOfMisspelledWord(in: fullString, range: checkRange, startingAt: 0, wrap: false, language: "en_US")
+        print("missSpelledRangeFunction: ", "\(missSpelledRange.length)")
         
         if missSpelledRange.location != NSNotFound {
             let guesses = textChecker.guesses(forWordRange: missSpelledRange, in: fullString, language: "en_US")
@@ -829,6 +872,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             // center prediction button
             self.deleteAllText()
             self.textDocumentProxy.insertText(correctArr[0])
+            self.didInsertAutocorrectText = true
             doThingsWithButton(prediction1, true)
             doThingsWithButton(prediction2, true)
             doThingsWithButton(prediction3, true)
@@ -837,6 +881,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             // left prediction button
             self.deleteAllText()
             self.textDocumentProxy.insertText(correctArr[1])
+            self.didInsertAutocorrectText = true
             doThingsWithButton(prediction1, true)
             doThingsWithButton(prediction2, true)
             doThingsWithButton(prediction3, true)
@@ -845,6 +890,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             // right prediction button
             self.deleteAllText()
             self.textDocumentProxy.insertText(correctArr[2])
+            self.didInsertAutocorrectText = true
             doThingsWithButton(prediction1, true)
             doThingsWithButton(prediction2, true)
             doThingsWithButton(prediction3, true)
@@ -868,6 +914,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     func showDetailView() {
         
         if self.sendToInput.tag == 0 {
+            
             self.moreDetailView.isHidden = true
             self.sendToInput.tag = 1
             self.sendToInput.isEnabled = true
@@ -892,6 +939,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.translateShowView.layer.opacity = 1
             
         } else {
+            
             self.moreDetailView.isHidden = false
             self.sendToInput.tag = 0
             self.sendToInput.isEnabled = false
@@ -1042,6 +1090,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.textDocumentProxy.insertText(self.sendToInput.currentTitle!)
         self.shouldAutoCap()
         self.sendToInput.setTitle("", for: .normal)
+        self.sendToInput.removeGestureRecognizer(tapSendToInput)
         self.clearTranslation.isEnabled = false
         self.hideView.removeTarget(self, action: #selector(self.addToText), for: .touchUpInside)
         self.hideView.addTarget(self, action: #selector(self.translateCaller), for: .touchUpInside)
@@ -1087,6 +1136,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
                     let text = translation["translatedText"].stringValue
                     self.sendToInput.setTitle(text.stringByDecodingHTMLEntities, for: .normal)
                     self.moreDetailLabel.text = text.stringByDecodingHTMLEntities
+                    self.sendToInput.addGestureRecognizer(self.tapSendToInput)
                     
                 }
             }
