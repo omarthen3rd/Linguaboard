@@ -18,6 +18,8 @@ class LinguaboardTableViewController: UITableViewController {
     @IBOutlet var darkModeSwitch: UISwitch!
     @IBOutlet var whiteMinimalMode: UISwitch!
     @IBOutlet var darkMinimalMode: UISwitch!
+    @IBOutlet var keyBackgroundSwitch: UISwitch!
+
     @IBAction func darkModeAction(_ sender: Any) {
         
         if darkModeSwitch.isOn && darkModeSwitch.isEnabled {
@@ -59,6 +61,7 @@ class LinguaboardTableViewController: UITableViewController {
     var darkModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     var whiteMinimalBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     var darkMinimalModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
+    var keyBackgroundBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     var firstRemeberedLanguage: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     var secondRemeberedLanguage: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     var lastUsedLanguage: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
@@ -73,6 +76,7 @@ class LinguaboardTableViewController: UITableViewController {
         
         self.darkMinimalMode.addTarget(self, action: #selector(self.minimalMode(_:)), for: .touchUpInside)
         self.whiteMinimalMode.addTarget(self, action: #selector(self.minimalMode(_:)), for: .touchUpInside)
+        self.keyBackgroundSwitch.addTarget(self, action: #selector(self.keyBackground(_:)), for: .touchUpInside)
         loadInterface()
         
     }
@@ -101,6 +105,26 @@ class LinguaboardTableViewController: UITableViewController {
         
     }
 
+    func keyBackground(_ sender: UISwitch) {
+        
+        if sender == keyBackgroundSwitch {
+            
+            if sender.isOn && sender.isEnabled {
+                
+                keyBackgroundBool.set(1, forKey: "keyBackgroundBool")
+                keyBackgroundBool.synchronize()
+                
+            } else if !(sender.isOn) && sender.isEnabled {
+                
+                keyBackgroundBool.set(2, forKey: "keyBackgroundBool")
+                keyBackgroundBool.synchronize()
+                
+            }
+            
+        }
+        
+    }
+    
     func minimalMode(_ sender: UISwitch) {
         
         if sender == whiteMinimalMode {

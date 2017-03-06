@@ -47,6 +47,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     var langArr: [String : String] = ["fa": "Persian", "mg": "Malagasy", "ig": "Igbo", "pl": "Polish", "ro": "Romanian", "tl": "Filipino", "bn": "Bengali", "id": "Indonesian", "la": "Latin", "st": "Sesotho", "xh": "Xhosa", "sk": "Slovak", "da": "Danish", "lo": "Lao", "si": "Sinhala", "pt": "Portuguese", "bg": "Bulgarian", "tg": "Tajik", "gd": "Scots Gaelic", "te": "Telugu", "pa": "Punjabi", "ha": "Hausa", "ps": "Pashto", "ne": "Nepali", "sq": "Albanian", "et": "Estonian", "cy": "Welsh", "ms": "Malay", "bs": "Bosnian", "sw": "Swahili", "is": "Icelandic", "fi": "Finnish", "eo": "Esperanto", "sl": "Slovenian", "en": "English", "mi": "Maori", "es": "Spanish", "ny": "Chichewa", "km": "Khmer", "ja": "Japanese", "tr": "Turkish", "sd": "Sindhi", "kn": "Kannada", "az": "Azerbaijani", "kk": "Kazakh", "zh-TW": "Chinese (Traditional)", "no": "Norwegian", "fy": "Frisian", "uz": "Uzbek", "de": "German", "ko": "Korean", "lt": "Lithuanian", "ky": "Kyrgyz", "sm": "Samoan", "be": "Belarusian", "mn": "Mongolian", "ta": "Tamil", "eu": "Basque", "gu": "Gujarati", "gl": "Galician", "uk": "Ukrainian", "el": "Greek", "ml": "Malayalam", "vi": "Vietnamese", "mt": "Maltese", "it": "Italian", "so": "Somali", "ceb": "Cebuano", "hr": "Croatian", "lv": "Latvian", "zh": "Chinese (Simplified)", "ht": "Haitian Creole", "su": "Sundanese", "ur": "Urdu", "ca": "Catalan", "cs": "Czech", "sr": "Serbian", "my": "Myanmar (Burmese)", "am": "Amharic", "af": "Afrikaans", "hu": "Hungarian", "co": "Corsican", "lb": "Luxembourgish", "ru": "Russian", "mr": "Marathi", "ga": "Irish", "ku": "Kurdish (Kurmanji)", "hmn": "Hmong", "hy": "Armenian", "sn": "Shona", "sv": "Swedish", "th": "Thai", "ka": "Georgian", "jw": "Javanese", "mk": "Macedonian", "haw": "Hawaiian", "yo": "Yoruba", "zu": "Zulu", "nl": "Dutch", "yi": "Yiddish", "iw": "Hebrew", "hi": "Hindi", "ar": "Arabic", "fr": "French"]
     
     var shiftStatus: Int! // 0: off, 1: on, 2: lock
+    var whichAutoCap: Int! // 0: none, 1: all chars, 2: sentences, 3: words
     var expandedHeight: CGFloat = 270
     var heightConstraint: NSLayoutConstraint!
     var shouldRemoveConstraint = false
@@ -71,6 +72,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     var darkModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     var whiteMinimalModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     var darkMinimalModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
+    var keyBackgroundBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     var lastUsedLanguage: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
 
     var keyBackgroundColor: UIColor = UIColor.white
@@ -465,8 +467,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         }
         
         setColours()
-        
-        self.shiftStatus = 1
+        shouldAutoCap()
         
         pickerViewTo.delegate = self
         pickerViewTo.dataSource = self
@@ -601,16 +602,48 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     func setColours() {
         
-        for letter in self.allKeys {
-            letter.layer.cornerRadius = 5
-            letter.backgroundColor = keyBackgroundColor
-            letter.setTitleColor(keyPopUpColor, for: .normal)
-            letter.tintColor = keyPopUpColor
-            letter.titleLabel?.font = UIFont.systemFont(ofSize: 21)
-            if letter == sendToInput || letter == hideView {
-                letter.backgroundColor = UIColor.clear
-                letter.layer.cornerRadius = 0
+        let keyBackground = keyBackgroundBool.double(forKey: "keyBackgroundBool")
+        
+        if keyBackground == 1 {
+            
+            for letter in self.allKeys {
+                letter.layer.cornerRadius = 5
+                letter.backgroundColor = keyBackgroundColor
+                letter.setTitleColor(keyPopUpColor, for: .normal)
+                letter.tintColor = keyPopUpColor
+                letter.titleLabel?.font = UIFont.systemFont(ofSize: 21)
+                if letter == sendToInput || letter == hideView {
+                    letter.backgroundColor = UIColor.clear
+                    letter.layer.cornerRadius = 0
+                }
             }
+            
+        } else if keyBackground == 2 {
+            
+            for letter in self.allKeys {
+                letter.backgroundColor = UIColor.clear
+                letter.setTitleColor(keyPopUpColor, for: .normal)
+                letter.tintColor = keyPopUpColor
+                letter.titleLabel?.font = UIFont.systemFont(ofSize: 21)
+                if letter == sendToInput || letter == hideView {
+                    letter.backgroundColor = UIColor.clear
+                    letter.layer.cornerRadius = 0
+                }
+            }
+            
+        } else {
+            
+            for letter in self.allKeys {
+                letter.backgroundColor = UIColor.clear
+                letter.setTitleColor(keyPopUpColor, for: .normal)
+                letter.tintColor = keyPopUpColor
+                letter.titleLabel?.font = UIFont.systemFont(ofSize: 21)
+                if letter == sendToInput || letter == hideView {
+                    letter.backgroundColor = UIColor.clear
+                    letter.layer.cornerRadius = 0
+                }
+            }
+            
         }
         
         self.view.backgroundColor = bgColor
@@ -965,7 +998,39 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
     }
     
-    func shouldAutoCap() {
+    func shouldAutoCap(_ sender: UIButton? = nil) {
+        
+        /* let newSender = sender ?? clearTranslation
+        
+        if textDocumentProxy.autocapitalizationType == UITextAutocapitalizationType.none {
+            self.shiftStatus = 0
+            self.whichAutoCap = 0
+            self.shiftKeys(row1)
+            self.shiftKeys(row2)
+            self.shiftKeys(row3)
+            print("none")
+        } else if textDocumentProxy.autocapitalizationType == UITextAutocapitalizationType.allCharacters {
+            self.shiftStatus = 2
+            self.whichAutoCap = 1
+            self.shiftKeys(row1)
+            self.shiftKeys(row2)
+            self.shiftKeys(row3)
+            print("allCharacters")
+        } else if textDocumentProxy.autocapitalizationType == UITextAutocapitalizationType.sentences {
+            self.shiftStatus = 1
+            self.whichAutoCap = 2
+            self.shiftKeys(row1)
+            self.shiftKeys(row2)
+            self.shiftKeys(row3)
+            print("sentences")
+        } else if textDocumentProxy.autocapitalizationType == UITextAutocapitalizationType.words {
+            self.shiftStatus = 1
+            self.whichAutoCap = 3
+            self.shiftKeys(row1)
+            self.shiftKeys(row2)
+            self.shiftKeys(row3)
+            print("words")
+        } */
         
         let concurrentQueue = DispatchQueue(label: "com.omar.Linguaboard.Translate", attributes: .concurrent)
         concurrentQueue.sync {
