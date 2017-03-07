@@ -130,10 +130,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     @IBAction func shiftKeyPressed(_ sender: UIButton) {
         
         self.shiftStatus = self.shiftStatus > 0 ? 0 : 1
-        
-        self.shiftKeys(row1)
-        self.shiftKeys(row2)
-        self.shiftKeys(row3)
+        self.shiftKeys()
         
     }
     
@@ -187,24 +184,18 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.textDocumentProxy.insertText(" ")
         self.shouldAutoCap()
         autocorrect()
-        print(missSpelledRange.length)
-        print("range above")
         
         // Fool misspelled range into thinking it autocorrected
         // subtract misspelled range length from range when actually running autocorrect() so it "ignores" that word/range
         
         if (didInsertAutocorrectText == false && correctArr.count > 0) {
             
-            print("ran this1")
-            
             addCorrectionToText(prediction2)
             didInsertAutocorrectText = true
             
         } else if missSpelledRange.length > 0 {
             
-            print("missSpelledRange: ", "\(missSpelledRange.length)")
             self.missSpelledRange.length -= self.missSpelledRange.length
-            print("missSpelledRange2: ", "\(missSpelledRange.length)")
             autocorrect()
             self.correctArr.removeAll()
             doThingsWithButton(prediction1, true)
@@ -410,10 +401,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         } else if (!(self.textDocumentProxy.documentContextBeforeInput != nil) && !(self.textDocumentProxy.documentContextAfterInput != nil)) || (self.textDocumentProxy.documentContextBeforeInput == "") && (self.textDocumentProxy.documentContextAfterInput == "") {
             
             self.shiftStatus = 1
-            self.shiftKeys(row1)
-            self.shiftKeys(row2)
-            self.shiftKeys(row3)
-            
+            self.shiftKeys()
             self.hideView.isEnabled = false
         }
         
@@ -530,11 +518,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         if spaceDoubleTapDouble == 1 {
             self.spaceButton.addGestureRecognizer(spaceDoubleTap)
-        } else if spaceDoubleTapDouble == 2 {
-            
-            print("nein")
-        } else {
-            print("spaceTapDouble: ", "\(spaceDoubleTapDouble)")
         }
         
         // shift key double and triple hold
@@ -817,6 +800,14 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
     }
     
+    func getAutocorrect() {
+        
+        // get results as words which will be replacing using NSRange instead of replacing full sentences, which will then be stored in an array same as correct
+        // basically redo the whole fuckin thing and actaully understand what the shit is going on
+        // also use the shit out of google and stackoverflow
+        
+    }
+    
     func autocorrect() {
         
         predictionArr.removeAll()
@@ -835,9 +826,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         let textChecker = UITextChecker()
         let checkRange = NSMakeRange(0, fullString.characters.count)
-        print("missSpelledRangeFunctionBeforeCheck: ", "\(missSpelledRange.length)")
         missSpelledRange = textChecker.rangeOfMisspelledWord(in: fullString, range: checkRange, startingAt: 0, wrap: false, language: "en_US")
-        print("missSpelledRangeFunction: ", "\(missSpelledRange.length)")
         
         if missSpelledRange.location != NSNotFound {
             let guesses = textChecker.guesses(forWordRange: missSpelledRange, in: fullString, language: "en_US")
@@ -1023,30 +1012,22 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         if textDocumentProxy.autocapitalizationType == UITextAutocapitalizationType.none {
             self.shiftStatus = 0
             self.whichAutoCap = 0
-            self.shiftKeys(row1)
-            self.shiftKeys(row2)
-            self.shiftKeys(row3)
+            self.shiftKeys()
             print("none")
         } else if textDocumentProxy.autocapitalizationType == UITextAutocapitalizationType.allCharacters {
             self.shiftStatus = 2
             self.whichAutoCap = 1
-            self.shiftKeys(row1)
-            self.shiftKeys(row2)
-            self.shiftKeys(row3)
+            self.shiftKeys()
             print("allCharacters")
         } else if textDocumentProxy.autocapitalizationType == UITextAutocapitalizationType.sentences {
             self.shiftStatus = 1
             self.whichAutoCap = 2
-            self.shiftKeys(row1)
-            self.shiftKeys(row2)
-            self.shiftKeys(row3)
+            self.shiftKeys()
             print("sentences")
         } else if textDocumentProxy.autocapitalizationType == UITextAutocapitalizationType.words {
             self.shiftStatus = 1
             self.whichAutoCap = 3
-            self.shiftKeys(row1)
-            self.shiftKeys(row2)
-            self.shiftKeys(row3)
+            self.shiftKeys()
             print("words")
         } */
         
@@ -1057,9 +1038,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         if fullString.characters.count == 0 {
             self.shiftStatus = 1
-            self.shiftKeys(row1)
-            self.shiftKeys(row2)
-            self.shiftKeys(row3)
+            self.shiftKeys()
         }
         
     }
@@ -1136,19 +1115,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         if gesture.state == .began {
             timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.handleTimer(_:)), userInfo: nil, repeats: true)
-            if fullString.characters.count == 0 {
-                self.shiftStatus = 1
-                self.shiftKeys(row1)
-                self.shiftKeys(row2)
-                self.shiftKeys(row3)
-            }
         } else if gesture.state == .ended || gesture.state == .cancelled {
-            if fullString.characters.count == 0 {
-                self.shiftStatus = 1
-                self.shiftKeys(row1)
-                self.shiftKeys(row2)
-                self.shiftKeys(row3)
-            }
             timer?.invalidate()
             timer = nil
         }
@@ -1156,12 +1123,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     func handleTimer(_ timer: Timer) {
         self.textDocumentProxy.deleteBackward()
-        if fullString.characters.count == 0 {
-            self.shiftStatus = 1
-            self.shiftKeys(row1)
-            self.shiftKeys(row2)
-            self.shiftKeys(row3)
-        }
     }
     
     func addToText() {
@@ -1242,14 +1203,11 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     func shiftKeyDoubleTapped(_ sender: UIButton) {
         
         self.shiftStatus = 2
-        
-        self.shiftKeys(row1)
-        self.shiftKeys(row2)
-        self.shiftKeys(row3)
+        self.shiftKeys()
         
     }
     
-    func shiftKeys(_ containerView: UIView) {
+    func shiftKeys() {
         
         if shiftStatus == 0 {
             
