@@ -20,6 +20,10 @@ extension String {
         return (self as NSString)
     }
     
+    var isAlphanumeric: Bool {
+        return !isEmpty && range(of: "[^a-zA-Z0-9]", options: .regularExpression) == nil
+    }
+    
 }
 
 public extension UIView {
@@ -52,6 +56,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     var heightConstraint: NSLayoutConstraint!
     var shouldRemoveConstraint = false
     var didOpenPicker2 = true
+    var isAlphaNumeric = false
     var selectedLanguage: String = "French"
     var langKey: String = "en"
     var toKey: String = "FR"
@@ -61,6 +66,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     var predictionArr = [String]()
     var correctArr = [String]()
     var tapSendToInput: UITapGestureRecognizer!
+    var spaceDoubleTap = UITapGestureRecognizer()
     var longPressRecognizer = UILongPressGestureRecognizer()
     var didInsertAutocorrectText = false
     var missSpelledRange = NSRange()
@@ -73,6 +79,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     var whiteMinimalModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     var darkMinimalModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     var keyBackgroundBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
+    var spaceDoubleTapBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     var lastUsedLanguage: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
 
     var keyBackgroundColor: UIColor = UIColor.white
@@ -136,6 +143,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             sender.subviews[1].removeFromSuperview()
         }
         self.textDocumentProxy.insertText(sender.currentTitle!)
+        self.isAlphaNumeric = true
         self.shouldAutoCap()
         // autocorrectCaller()
         autocorrect()
@@ -215,6 +223,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         if self.fullString.characters.count <= 1 {
             self.hideView.isEnabled = false
+            self.isAlphaNumeric = false
+            // remove spacebar double tap here only if added
         } else {
             self.hideView.isEnabled = true
         }
@@ -455,6 +465,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         let darkMode = darkModeBool.double(forKey: "darkBool")
         let whiteMinimal = whiteMinimalModeBool.double(forKey: "whiteMinimalBool")
         let darkMinimal = darkMinimalModeBool.double(forKey: "darkMinimalBool")
+        let spaceDoubleTapDouble = spaceDoubleTapBool.double(forKey: "spaceDoubleTapBool")
         
         if darkMode == 1 {
             loadColours("darkMode")
@@ -513,11 +524,18 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         // spaceDoubleTap initializers
         
-        let spaceDoubleTap = UITapGestureRecognizer(target: self, action: #selector(self.spaceKeyDoubleTapped(_:)))
+        spaceDoubleTap = UITapGestureRecognizer(target: self, action: #selector(self.spaceKeyDoubleTapped(_:)))
         spaceDoubleTap.numberOfTapsRequired = 2
         spaceDoubleTap.delaysTouchesEnded = false
         
-        self.spaceButton.addGestureRecognizer(spaceDoubleTap)
+        if spaceDoubleTapDouble == 1 {
+            self.spaceButton.addGestureRecognizer(spaceDoubleTap)
+        } else if spaceDoubleTapDouble == 2 {
+            
+            print("nein")
+        } else {
+            print("spaceTapDouble: ", "\(spaceDoubleTapDouble)")
+        }
         
         // shift key double and triple hold
         

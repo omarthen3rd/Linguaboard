@@ -19,6 +19,7 @@ class LinguaboardTableViewController: UITableViewController {
     @IBOutlet var whiteMinimalMode: UISwitch!
     @IBOutlet var darkMinimalMode: UISwitch!
     @IBOutlet var keyBackgroundSwitch: UISwitch!
+    @IBOutlet var spaceDoubleTapSwitch: UISwitch!
 
     @IBAction func darkModeAction(_ sender: Any) {
         
@@ -62,6 +63,7 @@ class LinguaboardTableViewController: UITableViewController {
     var whiteMinimalBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     var darkMinimalModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     var keyBackgroundBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
+    var spaceDoubleTapBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     var firstRemeberedLanguage: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     var secondRemeberedLanguage: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     var lastUsedLanguage: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
@@ -77,6 +79,7 @@ class LinguaboardTableViewController: UITableViewController {
         self.darkMinimalMode.addTarget(self, action: #selector(self.minimalMode(_:)), for: .touchUpInside)
         self.whiteMinimalMode.addTarget(self, action: #selector(self.minimalMode(_:)), for: .touchUpInside)
         self.keyBackgroundSwitch.addTarget(self, action: #selector(self.keyBackground(_:)), for: .touchUpInside)
+        self.spaceDoubleTapSwitch.addTarget(self, action: #selector(self.spaceDoubleTap(_:)), for: .touchUpInside)
         loadInterface()
         
     }
@@ -101,6 +104,26 @@ class LinguaboardTableViewController: UITableViewController {
             
             // if you want translucent vibrant table view separator lines
             // tableView.separatorEffect = UIVibrancyEffect(blurEffect: blurEffect)
+        }
+        
+    }
+    
+    func spaceDoubleTap(_ sender: UISwitch) {
+        
+        if sender == spaceDoubleTapSwitch {
+            
+            if sender.isOn && sender.isEnabled {
+                
+                spaceDoubleTapBool.set(1, forKey: "spaceDoubleTapBool")
+                spaceDoubleTapBool.synchronize()
+                
+            } else if !(sender.isOn) && sender.isEnabled {
+                
+                spaceDoubleTapBool.set(2, forKey: "spaceDoubleTapBool")
+                spaceDoubleTapBool.synchronize()
+                
+            }
+            
         }
         
     }
