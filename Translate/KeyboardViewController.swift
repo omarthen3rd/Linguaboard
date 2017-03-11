@@ -26,6 +26,14 @@ extension String {
     
 }
 
+extension NSString {
+    
+    var asString: String {
+        return (self as String)
+    }
+    
+}
+
 public extension UIView {
     
     func fadeIn(withDuration duration: TimeInterval = 1.0) {
@@ -62,18 +70,17 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     var toKey: String = "FR"
     var lastLang: String = "FR"
     var fullString = String()
+    var fullNSString = NSString()
     var timer: Timer?
-    var predictionArr = [String]()
-    var correctArr = [String]()
     var tapSendToInput: UITapGestureRecognizer!
     var spaceDoubleTap = UITapGestureRecognizer()
     var longPressRecognizer = UILongPressGestureRecognizer()
     var didInsertAutocorrectText = false
-    var missSpelledRange = NSRange()
     
-    // var wordsBeingTyped = NSString()
-    // var lastWord = String()
-    var range = NSRange()
+    var correctArr = [String]()
+    var misSpelledRange = NSRange()
+    var lastWord = String()
+    var subsRange = NSRange()
     
     var darkModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     var whiteMinimalModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
@@ -143,7 +150,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.isAlphaNumeric = true
         self.shouldAutoCap()
         // autocorrectCaller()
-        autocorrect()
+        // autocorrect()
+        getAutocorrect()
         self.hideView.isEnabled = true
 
         if shiftStatus == 1 {
@@ -162,7 +170,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         self.hideView.isEnabled = true
         self.shouldAutoCap()
-        autocorrect()
+        // autocorrect()
+        getAutocorrect()
         self.textDocumentProxy.insertText("\n")
         
         if didInsertAutocorrectText == false && correctArr.count > 0 {
@@ -183,7 +192,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         self.textDocumentProxy.insertText(" ")
         self.shouldAutoCap()
-        autocorrect()
+        // autocorrect()
+        getAutocorrect()
         
         // Fool misspelled range into thinking it autocorrected
         // subtract misspelled range length from range when actually running autocorrect() so it "ignores" that word/range
@@ -193,9 +203,9 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             addCorrectionToText(prediction2)
             didInsertAutocorrectText = true
             
-        } else if missSpelledRange.length > 0 {
+        } else if misSpelledRange.length > 0 {
             
-            self.missSpelledRange.length -= self.missSpelledRange.length
+            self.misSpelledRange.length -= self.misSpelledRange.length
             autocorrect()
             self.correctArr.removeAll()
             doThingsWithButton(prediction1, true)
@@ -222,7 +232,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         self.textDocumentProxy.deleteBackward()
         self.shouldAutoCap()
-        autocorrect()
+        // autocorrect()
+        getAutocorrect()
     }
     
     @IBAction func showPickerTwo(_ button: UIButton) {
@@ -506,9 +517,9 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         doThingsWithButton(prediction2, true)
         doThingsWithButton(prediction3, true)
         
-        self.prediction2.addTarget(self, action: #selector(self.addCorrectionToText(_:)), for: .touchUpInside)
-        self.prediction1.addTarget(self, action: #selector(self.addCorrectionToText(_:)), for: .touchUpInside)
-        self.prediction3.addTarget(self, action: #selector(self.addCorrectionToText(_:)), for: .touchUpInside)
+        self.prediction2.addTarget(self, action: #selector(self.insertAutocorrect(_:)), for: .touchUpInside)
+        self.prediction1.addTarget(self, action: #selector(self.insertAutocorrect(_:)), for: .touchUpInside)
+        self.prediction3.addTarget(self, action: #selector(self.insertAutocorrect(_:)), for: .touchUpInside)
         
         // spaceDoubleTap initializers
         
@@ -762,27 +773,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         }
 
     }
-    /*
-    func switchView() {
-        
-     // default was true
-     
-        if translationViewIsOpen {
-            self.translateShowView.isHidden = true
-            self.predictionView.isHidden = false
-            self.translationViewIsOpen = false
-            self.translateShowView.removeGestureRecognizer(swipeGesture)
-            self.predictionView.addGestureRecognizer(swipeGesture)
-        } else if translationViewIsOpen == false {
-            self.translateShowView.isHidden = false
-            self.predictionView.isHidden = true
-            self.translationViewIsOpen = true
-            self.translateShowView.removeGestureRecognizer(swipeGesture)
-            self.predictionView.addGestureRecognizer(swipeGesture)
-        }
-        
-    }
-    */
     
     func whichOne(_ int: Int) -> Array<String> {
         
@@ -806,73 +796,62 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         // basically redo the whole fuckin thing and actaully understand what the shit is going on
         // also use the shit out of google and stackoverflow
         
-    }
-    
-    func autocorrect() {
+        // TODO
+        // Cursor position (look into fullDocumentContext func)
         
-        predictionArr.removeAll()
         correctArr.removeAll()
-        
         doThingsWithButton(prediction1, true)
         doThingsWithButton(prediction2, true)
         doThingsWithButton(prediction3, true)
         
-        // self.wordsBeingTyped = fullString.asNSString
-        // self.lastWord = String()
-        self.range = NSMakeRange(0, fullString.length)
-        /* wordsBeingTyped.enumerateSubstrings(in: range, options: NSString.EnumerationOptions.byWords, using: { (substring, substringRange, enclosingRange, stop) in
+        let checker = UITextChecker()
+        let range = NSMakeRange(0, fullNSString.length)
+        
+        fullNSString.enumerateSubstrings(in: range, options: .byWords) { (substring, substringRange, enclosingRange, stop) in
+            
+            self.subsRange = substringRange
             self.lastWord = substring!
-        }) */
+            
+        }
         
-        let textChecker = UITextChecker()
-        let checkRange = NSMakeRange(0, fullString.characters.count)
-        missSpelledRange = textChecker.rangeOfMisspelledWord(in: fullString, range: checkRange, startingAt: 0, wrap: false, language: "en_US")
+        misSpelledRange = checker.rangeOfMisspelledWord(in: lastWord, range: NSRange(0..<lastWord.utf16.count), startingAt: 0, wrap: false, language: "en_US")
         
-        if missSpelledRange.location != NSNotFound {
-            let guesses = textChecker.guesses(forWordRange: missSpelledRange, in: fullString, language: "en_US")
-            // let nsText = lastWord.asNSString
-            // self.correctStr = (nsText.replacingCharacters(in: missSpelledRange, with: (guesses?.first)!))
-            // nsText.replacingCharacters(in: missSpelledRange, with: correctStr)
-
+        if misSpelledRange.location != NSNotFound {
+            
+            let guesses = checker.guesses(forWordRange: misSpelledRange, in: self.lastWord, language: "en_US")
+            
             if let guessesFinal = guesses {
                 
-                if guessesFinal.count == 1 {
-                    let nsText = fullString.asNSString
-                    correctArr.append(nsText.replacingCharacters(in: missSpelledRange, with: guessesFinal[0]))
-                    // predictionArr.append(guessesFinal[0])
+                switch guessesFinal.count {
+                case 1:
+                    correctArr.append(guessesFinal[0])
+                    print(subsRange.length)
                     prediction2.setTitle(guessesFinal[0], for: .normal)
                     doThingsWithButton(prediction1, true)
                     doThingsWithButton(prediction2, false)
                     doThingsWithButton(prediction3, true)
-                } else if guessesFinal.count == 2 {
-                    let nsText = fullString.asNSString
-                    correctArr.append(nsText.replacingCharacters(in: missSpelledRange, with: guessesFinal[0]))
-                    correctArr.append(nsText.replacingCharacters(in: missSpelledRange, with: guessesFinal[1]))
-                    // predictionArr.append(guessesFinal[0])
-                    // predictionArr.append(guessesFinal[1])
+                case 2:
+                    correctArr.append(guessesFinal[0])
+                    correctArr.append(guessesFinal[1])
                     prediction2.setTitle(guessesFinal[0], for: .normal)
                     prediction1.setTitle(guessesFinal[1], for: .normal)
                     doThingsWithButton(prediction1, false)
                     doThingsWithButton(prediction2, false)
                     doThingsWithButton(prediction3, true)
-                } else if guessesFinal.count >= 3 {
-                    let nsText = fullString.asNSString
-                    correctArr.append(nsText.replacingCharacters(in: missSpelledRange, with: guessesFinal[0]))
-                    correctArr.append(nsText.replacingCharacters(in: missSpelledRange, with: guessesFinal[1]))
-                    correctArr.append(nsText.replacingCharacters(in: missSpelledRange, with: guessesFinal[2]))
-                    // predictionArr.append(guessesFinal[0])
-                    // predictionArr.append(guessesFinal[1])
-                    // predictionArr.append(guessesFinal[2])
+                case _ where guessesFinal.count >= 3:
+                    correctArr.append(guessesFinal[0])
+                    correctArr.append(guessesFinal[1])
+                    correctArr.append(guessesFinal[2])
                     prediction2.setTitle(guessesFinal[0], for: .normal)
                     prediction1.setTitle(guessesFinal[1], for: .normal)
                     prediction3.setTitle(guessesFinal[2], for: .normal)
                     doThingsWithButton(prediction1, false)
                     doThingsWithButton(prediction2, false)
                     doThingsWithButton(prediction3, false)
+                default:
+                    break
                 }
                 
-            } else {
-                print("not safely unwrapped")
             }
             
         } else {
@@ -882,8 +861,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         }
         
         /* let autoCom = textChecker.completions(forPartialWordRange: NSMakeRange(0, fullString.characters.count), in: fullString, language: "en_US")
-        
-        if autoCom?.count != 0 {
+         
+         if autoCom?.count != 0 {
          
          if autoCom?.count == 1 {
          prediction2.setTitle(autoCom?.first!, for: .normal)
@@ -906,35 +885,41 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
     }
     
-    func addCorrectionToText(_ sender: UIButton) {
+    func insertAutocorrect(_ sender: UIButton) {
         
-        if sender == prediction2 {
-            // center prediction button
-            self.deleteAllText()
-            self.textDocumentProxy.insertText(correctArr[0])
-            self.didInsertAutocorrectText = true
-            doThingsWithButton(prediction1, true)
-            doThingsWithButton(prediction2, true)
-            doThingsWithButton(prediction3, true)
-            shouldAutoCap()
-        } else if sender == prediction1 {
+        switch sender {
+        case prediction1:
             // left prediction button
-            self.deleteAllText()
-            self.textDocumentProxy.insertText(correctArr[1])
+            let correctStr = fullNSString.replacingCharacters(in: self.subsRange, with: correctArr[1])
+            deleteAllText()
+            textDocumentProxy.insertText(correctStr)
             self.didInsertAutocorrectText = true
             doThingsWithButton(prediction1, true)
             doThingsWithButton(prediction2, true)
             doThingsWithButton(prediction3, true)
             shouldAutoCap()
-        } else if sender == prediction3 {
+        case prediction2:
+            // center prediction button
+            let correctStr = fullNSString.replacingCharacters(in: self.subsRange, with: correctArr[0])
+            deleteAllText()
+            textDocumentProxy.insertText(correctStr)
+            self.didInsertAutocorrectText = true
+            doThingsWithButton(prediction1, true)
+            doThingsWithButton(prediction2, true)
+            doThingsWithButton(prediction3, true)
+            shouldAutoCap()
+        case prediction2:
             // right prediction button
-            self.deleteAllText()
-            self.textDocumentProxy.insertText(correctArr[2])
+            let correctStr = fullNSString.replacingCharacters(in: self.subsRange, with: correctArr[2])
+            deleteAllText()
+            textDocumentProxy.insertText(correctStr)
             self.didInsertAutocorrectText = true
             doThingsWithButton(prediction1, true)
             doThingsWithButton(prediction2, true)
             doThingsWithButton(prediction3, true)
             shouldAutoCap()
+        default:
+            break
         }
         
     }
@@ -1034,6 +1019,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         let concurrentQueue = DispatchQueue(label: "com.omar.Linguaboard.Translate", attributes: .concurrent)
         concurrentQueue.sync {
             self.fullString = self.fullDocumentContext()
+            self.fullNSString = NSString(string: self.fullDocumentContext())
         }
         
         if fullString.characters.count == 0 {

@@ -14,6 +14,9 @@ class LinguaboardTableViewController: UITableViewController {
     // 1 == true
     // 2 == false
     
+    // TODO
+    // update switches based on UserDefaults when loading app
+    
     @IBOutlet var allLabels: [UILabel]!
     @IBOutlet var darkModeSwitch: UISwitch!
     @IBOutlet var whiteMinimalMode: UISwitch!
