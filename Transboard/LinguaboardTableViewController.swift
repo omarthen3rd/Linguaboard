@@ -94,19 +94,75 @@ class LinguaboardTableViewController: UITableViewController {
     
     func loadInterface() {
         
-        self.view.backgroundColor = self.globalTintColor
+        let darkMode = darkModeBool.double(forKey: "darkBool")
+        let whiteMinimal = whiteMinimalBool.double(forKey: "whiteMinimalBool")
+        let darkMinimal = darkMinimalModeBool.double(forKey: "darkMinimalBool")
+        let keyBackground = keyBackgroundBool.double(forKey: "keyBackgroundBool")
+        let spaceDoubleTapDouble = spaceDoubleTapBool.double(forKey: "spaceDoubleTapBool")
         
-        for label in allLabels {
-            label.textColor = self.altGlobalTintColor
+        if darkMode == 1 {
+            
+            darkModeSwitch.isOn = true
+            darkModeSwitch.isEnabled = true
+            
+            whiteMinimalMode.isOn = false
+            whiteMinimalMode.isEnabled = false
+            darkMinimalMode.isOn = false
+            darkMinimalMode.isEnabled = false
+            
+        } else if whiteMinimal == 1 {
+            
+            whiteMinimalMode.isOn = true
+            whiteMinimalMode.isEnabled = true
+            
+            darkModeSwitch.isOn = false
+            darkModeSwitch.isEnabled = false
+            darkMinimalMode.isOn = false
+            darkMinimalMode.isEnabled = false
+            
+        } else if darkMinimal == 1 {
+            
+            darkMinimalMode.isOn = true
+            darkMinimalMode.isEnabled = true
+            
+            darkModeSwitch.isOn = false
+            darkModeSwitch.isEnabled = false
+            whiteMinimalMode.isOn = false
+            whiteMinimalMode.isEnabled = false
+
+        } else {
+            
+            darkMinimalMode.isOn = false
+            darkMinimalMode.isEnabled = true
+            darkModeSwitch.isOn = false
+            darkModeSwitch.isEnabled = true
+            whiteMinimalMode.isOn = false
+            whiteMinimalMode.isEnabled = true
+            
         }
         
-        if (!UIAccessibilityIsReduceTransparencyEnabled()) {
-            // tableView.backgroundColor = UIColor.clear
-            // let blurEffectView = UIVisualEffectView(effect: self.blurEffect)
-            // tableView.backgroundView = blurEffectView
+        if keyBackground == 1 {
             
-            // if you want translucent vibrant table view separator lines
-            // tableView.separatorEffect = UIVibrancyEffect(blurEffect: blurEffect)
+            keyBackgroundSwitch.isOn = true
+            keyBackgroundSwitch.isEnabled = true
+            
+        } else {
+            
+            keyBackgroundSwitch.isOn = false
+            keyBackgroundSwitch.isEnabled = true
+            
+        }
+        
+        if spaceDoubleTapDouble == 1 {
+            
+            spaceDoubleTapSwitch.isOn = true
+            spaceDoubleTapSwitch.isEnabled = true
+            
+        } else {
+            
+            spaceDoubleTapSwitch.isOn = false
+            spaceDoubleTapSwitch.isEnabled = true
+            
         }
         
     }

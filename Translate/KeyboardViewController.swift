@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import Alamofire
+import AudioToolbox
 
 extension String {
     
@@ -22,6 +23,22 @@ extension String {
     
     var isAlphanumeric: Bool {
         return !isEmpty && range(of: "[^a-zA-Z0-9]", options: .regularExpression) == nil
+    }
+    
+}
+
+extension String.Index{
+    
+    func successor(in string:String)->String.Index{
+        return string.index(after: self)
+    }
+    
+    func predecessor(in string:String)->String.Index{
+        return string.index(before: self)
+    }
+    
+    func advance(_ offset:Int, `for` string:String)->String.Index{
+        return string.index(self, offsetBy: offset)
     }
     
 }
@@ -98,7 +115,9 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     @IBOutlet var blurBG: UIVisualEffectView!
     @IBOutlet var translateShowView: UIView!
     @IBOutlet var clearTranslation: UIButton!
+    // sendToInput is btn for view translationg (too lazy to change name)
     @IBOutlet var sendToInput: UIButton!
+    // hideView is btn for inserting translation (I know, I know...)
     @IBOutlet var hideView: UIButton!
     
     @IBOutlet var predictionView: UIView!
@@ -120,6 +139,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     @IBAction func shiftKeyPressed(_ sender: UIButton) {
         
+        playKeySound()
         self.shiftStatus = self.shiftStatus > 0 ? 0 : 1
         self.shiftKeys()
         
@@ -133,27 +153,32 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.textDocumentProxy.insertText(sender.currentTitle!)
         self.isAlphaNumeric = true
         self.shouldAutoCap()
+        self.setCapsIfNeeded()
         getAutocorrect()
         self.hideView.isEnabled = true
 
-        if shiftStatus == 1 {
+        /* if shiftStatus == 1 {
             self.shiftKeyPressed(self.shiftButton)
-        }
+        } */
         
     }
     
     @IBAction func touchDownKey(_ sender: UIButton) {
         
         createPopUp(sender, bool: true)
+        playKeySound()
+        // createPop(sender)
         
     }
     
     @IBAction func returnKeyPressed(_ sender: UIButton) {
         
         self.hideView.isEnabled = true
-        self.shouldAutoCap()
         getAutocorrect()
+        playKeySound()
         self.textDocumentProxy.insertText("\n")
+        self.shouldAutoCap()
+        self.setCapsIfNeeded()
         
     }
     
@@ -161,8 +186,10 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         self.hideView.isEnabled = true
         
+        playKeySound()
         self.textDocumentProxy.insertText(" ")
         self.shouldAutoCap()
+        self.setCapsIfNeeded()
         getAutocorrect()
         
         if (didInsertAutocorrectText == false && correctArr.count > 0) {
@@ -185,6 +212,12 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             
         }
         
+        if !(altBoard.tag == 1 || altBoard.tag == 2) {
+            print("ran this")
+            altBoard.tag = 0
+            switchKeyBoardMode(self.altBoard)
+        }
+        
     }
     
     @IBAction func backSpaceButton(_ sender: UIButton) {
@@ -197,12 +230,16 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.hideView.isEnabled = true
         }
         
+        playKeySound()
         self.textDocumentProxy.deleteBackward()
         self.shouldAutoCap()
+        self.setCapsIfNeeded()
         getAutocorrect()
     }
     
     @IBAction func showPickerTwo(_ button: UIButton) {
+        
+        playKeySound()
         
         if didOpenPicker2 == true {
             
@@ -250,6 +287,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     }
     
     @IBAction func switchKeyBoardMode(_ button: UIButton) {
+        
+        playKeySound()
         
         self.numbersRow1.isHidden = true
         self.numbersRow2.isHidden = true
@@ -599,6 +638,38 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.hideView.addTarget(self, action: #selector(self.translateCaller), for: .touchUpInside)
         self.clearTranslation.addTarget(self, action: #selector(self.clearButton(_:)), for: .touchUpInside)
         
+        if !fullAccessIsEnabled() {
+            hideView.isEnabled = false
+            clearTranslation.isEnabled = false
+            sendToInput.isEnabled = false
+            sendToInput.setTitle("Please Enable Full Access", for: .disabled)
+        }
+        
+     
+    }
+    
+    func fullAccessIsEnabled() -> Bool {
+        var hasFullAccess = false
+        if #available(iOSApplicationExtension 10.0, *) {
+            let pasty = UIPasteboard.general
+            if pasty.hasURLs || pasty.hasColors || pasty.hasStrings || pasty.hasImages {
+                hasFullAccess = true
+            } else {
+                pasty.string = "TEST"
+                if pasty.hasStrings {
+                    hasFullAccess = true
+                    pasty.string = ""
+                }
+            }
+        } else {
+            // Fallback on earlier versions
+            var clippy : UIPasteboard?
+            clippy = UIPasteboard.general
+            if clippy != nil {
+                hasFullAccess = true
+            }
+        }
+        return hasFullAccess
     }
     
     func loadBoardHeight(_ expanded: CGFloat, _ removeOld: Bool) {
@@ -892,7 +963,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             let correctStr = fullNSString.replacingCharacters(in: self.subsRange, with: correctArr[1])
             deleteAllText()
             textDocumentProxy.insertText(correctStr)
-            print("123")
             self.didInsertAutocorrectText = true
             doThingsWithButton(prediction1, true)
             doThingsWithButton(prediction2, true)
@@ -990,31 +1060,55 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
     }
     
-    func shouldAutoCap(_ sender: UIButton? = nil) {
+    func setCapsIfNeeded() -> Bool {
         
-        /* let newSender = sender ?? clearTranslation
+        if self.shouldAutoCap() {
+            switch self.shiftStatus {
+            case 0:
+                // 0 = off/disabled
+                self.shiftStatus = 1
+                self.shiftKeys()
+            case 1:
+                // 1 = on/enabled
+                self.shiftStatus = 1
+                self.shiftKeys()
+            case 2:
+                // 2 = locked
+                self.shiftStatus = 2
+                self.shiftKeys()
+            default:
+                self.shiftStatus = 1
+                self.shiftKeys()
+            }
+            
+            return true
+            
+        } else {
+            switch self.shiftStatus {
+            case 0:
+                // 0 = off/disabled
+                self.shiftStatus = 0
+                self.shiftKeys()
+            case 1:
+                // 1 = on/enabled
+                self.shiftStatus = 0
+                self.shiftKeys()
+            case 2:
+                // 2 = locked
+                self.shiftStatus = 2
+                self.shiftKeys()
+            default:
+                self.shiftStatus = 0
+                self.shiftKeys()
+            }
+            
+            return false
+            
+        }
         
-        if textDocumentProxy.autocapitalizationType == UITextAutocapitalizationType.none {
-            self.shiftStatus = 0
-            self.whichAutoCap = 0
-            self.shiftKeys()
-            print("none")
-        } else if textDocumentProxy.autocapitalizationType == UITextAutocapitalizationType.allCharacters {
-            self.shiftStatus = 2
-            self.whichAutoCap = 1
-            self.shiftKeys()
-            print("allCharacters")
-        } else if textDocumentProxy.autocapitalizationType == UITextAutocapitalizationType.sentences {
-            self.shiftStatus = 1
-            self.whichAutoCap = 2
-            self.shiftKeys()
-            print("sentences")
-        } else if textDocumentProxy.autocapitalizationType == UITextAutocapitalizationType.words {
-            self.shiftStatus = 1
-            self.whichAutoCap = 3
-            self.shiftKeys()
-            print("words")
-        } */
+    }
+    
+    func shouldAutoCap() -> Bool {
         
         let concurrentQueue = DispatchQueue(label: "com.omar.Linguaboard.Translate", attributes: .concurrent)
         concurrentQueue.sync {
@@ -1027,7 +1121,91 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.shiftKeys()
         }
         
+        let traits = self.textDocumentProxy
+        
+        if let autoCap = traits.autocapitalizationType {
+            let docProxy = self.textDocumentProxy
+            
+            switch autoCap {
+            case .none:
+                return false
+            case .words:
+                if let beforeContext = docProxy.documentContextBeforeInput {
+                    let previousCharacter = beforeContext[beforeContext.index(before: beforeContext.endIndex)]
+                    return self.charIsWhitespace(previousCharacter)
+                } else {
+                    return true
+                }
+            case .sentences:
+                if let beforeContext = docProxy.documentContextBeforeInput {
+                    let offset = min(3, beforeContext.characters.count)
+                    var index = beforeContext.endIndex
+                    
+                    for i in 0 ..< offset {
+                        index = index.predecessor(in: beforeContext)
+                        let char = beforeContext[index]
+                        
+                        if charIsPunctuation(char) {
+                            if i == 0 {
+                                print(0)
+                                return true
+                            } else {
+                                print(2)
+                                return true
+                            }
+                        } else {
+                            if !charIsWhitespace(char) {
+                                return false
+                            } else if charIsNewline(char) {
+                                return true
+                            }
+                            
+                        }
+                        
+                    }
+                    
+                    return true
+                    
+                } else {
+                    return true
+                }
+            
+            case .allCharacters:
+                return true
+                
+            default:
+                return false
+            }
+        } else {
+            return false
+        }
+        
     }
+    
+    func playKeySound() {
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            DispatchQueue.main.async {
+                if self.fullAccessIsEnabled() {
+                    AudioServicesPlaySystemSound(1104)
+                }
+            }
+        }
+        
+    }
+    
+    func charIsNewline(_ char: Character) -> Bool {
+        return (char == "\n") || (char == "\r")
+    }
+    
+    func charIsWhitespace(_ char: Character) -> Bool {
+        return (char == " ") || (char == "\n") || (char == "\r") || (char == "\t")
+    }
+    
+    func charIsPunctuation(_ char: Character) -> Bool {
+        return (char == ".") || (char == "!") || (char == "?")
+    }
+    
     
     func fullDocumentContext() -> String {
         let textDocumentProxy = self.textDocumentProxy
