@@ -112,7 +112,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lFF-bI-CmW">
                                 <rect key="frame" x="0.0" y="75" width="375" height="50"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iOk-NJ-t0m">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iOk-NJ-t0m" customClass="MyButton" customModule="Translate" customModuleProvider="target">
                                         <rect key="frame" x="3" y="4" width="32" height="42"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                         <state key="normal" title="Q">
@@ -959,6 +959,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="ITf-qn-sRa"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="6XO-A5-gFD"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yqo-3p-iyk">
@@ -969,6 +970,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="qOD-IG-JPl"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="IH7-a3-YXv"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QFC-g7-3du">
@@ -979,6 +981,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="wSN-be-f55"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="Gsx-u3-QNy"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uRu-Ld-ttn">
@@ -989,6 +992,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="xmj-bQ-diV"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="6kx-W8-rkd"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YAp-qJ-gJh">
@@ -999,6 +1003,7 @@
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="cjp-66-VOW" eventType="touchUpInside" id="UFZ-cf-MQY"/>
+                                            <action selector="touchDownKey:" destination="cjp-66-VOW" eventType="touchDown" id="RJ9-HF-4cZ"/>
                                         </connections>
                                     </button>
                                 </subviews>

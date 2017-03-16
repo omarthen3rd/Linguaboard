@@ -26,28 +26,12 @@ extension String {
     
 }
 
-extension NSString {
+extension UIButton {
     
-    var asString: String {
-        return (self as String)
-    }
-    
-}
-
-public extension UIView {
-    
-    func fadeIn(withDuration duration: TimeInterval = 1.0) {
-        UIView.animate(withDuration: duration, animations: {
-            self.alpha = 1.0
-        })
-    }
-    
-    func fadeOut(withDuration duration: TimeInterval = 1.0) {
-        UIView.animate(withDuration: duration, animations: { 
-            self.alpha = 1.0
-        }) { (finished) in
-            self.removeFromSuperview()
-        }
+    override open func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        let padding = CGFloat(2.75)
+        let extendedBounds = bounds.insetBy(dx: -padding, dy: -padding)
+        return extendedBounds.contains(point)
     }
     
 }
@@ -149,8 +133,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.textDocumentProxy.insertText(sender.currentTitle!)
         self.isAlphaNumeric = true
         self.shouldAutoCap()
-        // autocorrectCaller()
-        // autocorrect()
         getAutocorrect()
         self.hideView.isEnabled = true
 
@@ -170,19 +152,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         self.hideView.isEnabled = true
         self.shouldAutoCap()
-        // autocorrect()
         getAutocorrect()
         self.textDocumentProxy.insertText("\n")
-        
-        if didInsertAutocorrectText == false && correctArr.count > 0 {
-            
-            addCorrectionToText(prediction2)
-            
-        } else if didInsertAutocorrectText == true && correctArr.count == 0 {
-            
-            didInsertAutocorrectText = false
-            
-        }
         
     }
     
@@ -192,21 +163,17 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         self.textDocumentProxy.insertText(" ")
         self.shouldAutoCap()
-        // autocorrect()
         getAutocorrect()
-        
-        // Fool misspelled range into thinking it autocorrected
-        // subtract misspelled range length from range when actually running autocorrect() so it "ignores" that word/range
         
         if (didInsertAutocorrectText == false && correctArr.count > 0) {
             
-            addCorrectionToText(prediction2)
+            insertAutocorrect(prediction2)
             didInsertAutocorrectText = true
             
         } else if misSpelledRange.length > 0 {
             
             self.misSpelledRange.length -= self.misSpelledRange.length
-            autocorrect()
+            getAutocorrect()
             self.correctArr.removeAll()
             doThingsWithButton(prediction1, true)
             doThingsWithButton(prediction2, true)
@@ -232,7 +199,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         self.textDocumentProxy.deleteBackward()
         self.shouldAutoCap()
-        // autocorrect()
         getAutocorrect()
     }
     
@@ -275,14 +241,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             translateShowView.layer.opacity = 1
             didOpenPicker2 = true
             pickerViewTo.isHidden = true
-            self.row1.isHidden = !didOpenPicker2
-            self.row2.isHidden = !didOpenPicker2
-            self.row3.isHidden = !didOpenPicker2
-            self.numbersRow1.isHidden = didOpenPicker2
-            self.numbersRow2.isHidden = didOpenPicker2
-            self.symbolsRow1.isHidden = didOpenPicker2
-            self.symbolsRow2.isHidden = didOpenPicker2
-            self.symbolsNumbersRow3.isHidden = didOpenPicker2
+            altBoard.tag = 0
+            switchKeyBoardMode(altBoard)
             
         }
         
@@ -300,6 +260,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         switch (button.tag) {
             
         case 1:
+            
+            // numbers view
             
             self.backspaceButton.removeGestureRecognizer(longPressRecognizer)
             self.backspaceButton2.addGestureRecognizer(longPressRecognizer)
@@ -323,6 +285,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             
         case 2:
 
+            // symbols
+            
             self.backspaceButton.removeGestureRecognizer(longPressRecognizer)
             self.backspaceButton2.addGestureRecognizer(longPressRecognizer)
             
@@ -335,6 +299,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.symbolsKey.setImage(UIImage(named: "altBoard_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
             
         default:
+            
+            // default row
             
             self.backspaceButton2.removeGestureRecognizer(longPressRecognizer)
             self.backspaceButton.addGestureRecognizer(longPressRecognizer)
@@ -359,15 +325,48 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     override func updateViewConstraints() {
         super.updateViewConstraints()
+
+        // loadBoardHeight(expandedHeight, shouldRemoveConstraint)
         
-        loadBoardHeight(expandedHeight, shouldRemoveConstraint)
+        if !shouldRemoveConstraint {
+            
+            self.view?.addConstraint(self.heightConstraint)
+            
+        } else {
+            
+            self.view.removeConstraint(self.heightConstraint)
+            heightConstraint = NSLayoutConstraint(item: self.view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 0.0, constant: expandedHeight)
+            self.view.addConstraint(self.heightConstraint)
+            
+        }
+        
+        /* if !shouldRemoveConstraint {
+            self.heightConstraint = NSLayoutConstraint(item: self.view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 0.0, constant: expandedHeight)
+            self.heightConstraint.priority = UILayoutPriorityDefaultHigh
+            self.view?.addConstraint(self.heightConstraint)
+            self.inputView?.setNeedsUpdateConstraints()
+        } else if shouldRemoveConstraint {
+            print("ran this 2")
+            print(self.view.constraints)
+            self.view?.removeConstraint(self.heightConstraint)
+            self.view?.removeConstraint(self.heightConstraint)
+            print(self.view.constraints)
+            self.heightConstraint = NSLayoutConstraint(item: self.view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 0.0, constant: expandedHeight)
+            self.heightConstraint.priority = UILayoutPriorityDefaultHigh
+            self.view?.addConstraint(self.heightConstraint)
+            print(self.view.constraints)
+            self.inputView?.setNeedsUpdateConstraints()
+        } */
+        
+        
         
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         if (self.view.traitCollection.verticalSizeClass == UIUserInterfaceSizeClass.compact) {
-            self.expandedHeight = 170
+            self.expandedHeight = 240
+            self.shouldRemoveConstraint = true
             self.updateViewConstraints()
         } else if (self.view.traitCollection.verticalSizeClass == UIUserInterfaceSizeClass.regular) {
             self.expandedHeight = 270
@@ -380,6 +379,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        heightConstraint = NSLayoutConstraint(item: self.view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 0.0, constant: expandedHeight)
+        heightConstraint.priority = 999.0
         loadInterface()
         
     }
@@ -387,8 +388,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated
-        
-        print("didReceiveMemoryWarning")
         
     }
     
@@ -403,9 +402,14 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         if (!(self.textDocumentProxy.documentContextBeforeInput != nil) && !(self.textDocumentProxy.documentContextAfterInput != nil)) || (self.textDocumentProxy.documentContextBeforeInput == "") && (self.textDocumentProxy.documentContextAfterInput == "") && (sendToInput.currentTitle! != "") {
             
+            
             if (fullString.characters.count != 0) && (sendToInput.currentTitle! != "") {
                 self.hideView.isEnabled = true
             } else {
+                self.correctArr.removeAll()
+                doThingsWithButton(prediction1, true)
+                doThingsWithButton(prediction2, true)
+                doThingsWithButton(prediction3, true)
                 self.hideView.isEnabled = false
             }
             
@@ -682,7 +686,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         if thingToLoad == "darkMode" {
             // dark blur mode
             self.keyPopUpColor = UIColor.white
-            self.keyBackgroundColor = UIColor(red:0.11, green:0.11, blue:0.11, alpha:1.0)
+            self.keyBackgroundColor = UIColor.clear // UIColor(red:0.11, green:0.11, blue:0.11, alpha:1.0)
             self.bgColor = UIColor.clear
             self.blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.dark)
             self.blurBG.isHidden = false
@@ -711,35 +715,35 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         var frame: CGRect
         var frame1: CGRect
-        let xToUse = (sender.frame.size.width - sender.frame.size.width * 1.3919) / 2
-        let xLeft = ((sender.frame.size.width - sender.frame.size.width * 1.3919) / -5)
-        let xRight = ((sender.frame.size.width - sender.frame.size.width * 1.3919) * 2)
-        frame = CGRect(x: xToUse, y: -50, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height * 1.1071428571)
-        frame1 = CGRect(x: 0, y: 0, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height * 1.1071428571)
+        let xToUse = (sender.frame.size.width - sender.frame.size.width * 1.4) / 2
+        let xLeft = ((sender.frame.size.width - sender.frame.size.width * 1.4) / -5)
+        let xRight = ((sender.frame.size.width - sender.frame.size.width * 1.4) * 2)
+        frame = CGRect(x: xToUse, y: -50, width: sender.frame.size.width * 1.4, height: sender.frame.size.height * 1.11)
+        frame1 = CGRect(x: 0, y: 0, width: sender.frame.size.width * 1.4, height: sender.frame.size.height * 1.11)
         
         switch sender {
         case row1.subviews[0]:
-            frame = CGRect(x: sender.bounds.origin.x / 2, y: -50, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height * 1.1071428571)
+            frame = CGRect(x: sender.bounds.origin.x / 2, y: -50, width: sender.frame.size.width * 1.4, height: sender.frame.size.height * 1.11)
         case numbersRow1.subviews[0]:
-            frame = CGRect(x: xLeft / 2, y: -50, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height * 1.1071428571)
+            frame = CGRect(x: xLeft / 2, y: -50, width: sender.frame.size.width * 1.4, height: sender.frame.size.height * 1.11)
         case numbersRow2.subviews[0]:
-            frame = CGRect(x: xLeft / 2, y: -50, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height * 1.1071428571)
+            frame = CGRect(x: xLeft / 2, y: -50, width: sender.frame.size.width * 1.4, height: sender.frame.size.height * 1.11)
         case symbolsRow1.subviews[0]:
-            frame = CGRect(x: xLeft / 2, y: -50, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height * 1.1071428571)
+            frame = CGRect(x: xLeft / 2, y: -50, width: sender.frame.size.width * 1.4, height: sender.frame.size.height * 1.11)
         case symbolsRow2.subviews[0]:
-            frame = CGRect(x: xLeft / 2, y: -50, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height * 1.1071428571)
+            frame = CGRect(x: xLeft / 2, y: -50, width: sender.frame.size.width * 1.4, height: sender.frame.size.height * 1.11)
         case row1.subviews[9]:
-            frame = CGRect(x: xRight / 2, y: -50, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height * 1.1071428571)
+            frame = CGRect(x: xRight / 2, y: -50, width: sender.frame.size.width * 1.4, height: sender.frame.size.height * 1.11)
         case numbersRow1.subviews[9]:
-            frame = CGRect(x: xRight / 2, y: -50, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height * 1.1071428571)
+            frame = CGRect(x: xRight / 2, y: -50, width: sender.frame.size.width * 1.4, height: sender.frame.size.height * 1.11)
         case numbersRow2.subviews[9]:
-            frame = CGRect(x: xRight / 2, y: -50, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height * 1.1071428571)
+            frame = CGRect(x: xRight / 2, y: -50, width: sender.frame.size.width * 1.4, height: sender.frame.size.height * 1.11)
         case symbolsRow1.subviews[9]:
-            frame = CGRect(x: xRight / 2, y: -50, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height * 1.1071428571)
+            frame = CGRect(x: xRight / 2, y: -50, width: sender.frame.size.width * 1.4, height: sender.frame.size.height * 1.11)
         case symbolsRow2.subviews[9]:
-            frame = CGRect(x: xRight / 2, y: -50, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height * 1.1071428571)
+            frame = CGRect(x: xRight / 2, y: -50, width: sender.frame.size.width * 1.4, height: sender.frame.size.height * 1.11)
         default:
-            frame = CGRect(x: xToUse, y: -50, width: sender.frame.size.width * 1.3919, height: sender.frame.size.height * 1.1071428571)
+            frame = CGRect(x: xToUse, y: -50, width: sender.frame.size.width * 1.4, height: sender.frame.size.height * 1.11)
         }
         
         let popUp = UIView(frame: frame)
@@ -792,10 +796,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     func getAutocorrect() {
         
-        // get results as words which will be replacing using NSRange instead of replacing full sentences, which will then be stored in an array same as correct
-        // basically redo the whole fuckin thing and actaully understand what the shit is going on
-        // also use the shit out of google and stackoverflow
-        
         // TODO
         // Cursor position (look into fullDocumentContext func)
         
@@ -825,7 +825,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
                 switch guessesFinal.count {
                 case 1:
                     correctArr.append(guessesFinal[0])
-                    print(subsRange.length)
                     prediction2.setTitle(guessesFinal[0], for: .normal)
                     doThingsWithButton(prediction1, true)
                     doThingsWithButton(prediction2, false)
@@ -893,6 +892,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             let correctStr = fullNSString.replacingCharacters(in: self.subsRange, with: correctArr[1])
             deleteAllText()
             textDocumentProxy.insertText(correctStr)
+            print("123")
             self.didInsertAutocorrectText = true
             doThingsWithButton(prediction1, true)
             doThingsWithButton(prediction2, true)
@@ -908,7 +908,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             doThingsWithButton(prediction2, true)
             doThingsWithButton(prediction3, true)
             shouldAutoCap()
-        case prediction2:
+        case prediction3:
             // right prediction button
             let correctStr = fullNSString.replacingCharacters(in: self.subsRange, with: correctArr[2])
             deleteAllText()
@@ -1172,6 +1172,10 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             }
         }
         
+    }
+    
+    func dragMoving(_ c: UIControl, withEvent event: Any) {
+        // TODO drag from key-to-key
     }
     
     func spaceKeyDoubleTapped(_ sender: UIButton) {
