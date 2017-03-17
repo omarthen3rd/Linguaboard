@@ -209,7 +209,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         }
         
         if !(altBoard.tag == 1 || altBoard.tag == 2) {
-            print("ran this")
             altBoard.tag = 0
             switchKeyBoardMode(self.altBoard)
         }
@@ -314,7 +313,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.symbolsKey.tag = 2
             
         case 2:
-
+            
             // symbols
             
             self.backspaceButton.removeGestureRecognizer(longPressRecognizer)
@@ -355,8 +354,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     override func updateViewConstraints() {
         super.updateViewConstraints()
-
-        // loadBoardHeight(expandedHeight, shouldRemoveConstraint)
         
         if !shouldRemoveConstraint {
             
@@ -1130,10 +1127,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
                         
                         if charIsPunctuation(char) {
                             if i == 0 {
-                                print(0)
                                 return true
                             } else {
-                                print(2)
                                 return true
                             }
                         } else {

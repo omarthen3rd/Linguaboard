@@ -105,9 +105,18 @@ class LinguaboardTableViewController: UITableViewController {
     
     func loadInterface() {
         
-        let view = UIView(frame: CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.size.width, height: 20.0))
-        view.backgroundColor = .white
-        self.view.addSubview(view)
+        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
+        if launchedBefore  {
+            print("Not first launch.")
+        } else {
+            print("First launch, setting UserDefault.")
+            UserDefaults.standard.set(true, forKey: "launchedBefore")
+            
+            let launchAlert = UIAlertController(title: "First Time Launch", message: "Hello, there! Remember to \"Allow Full Access\" under your Settings app in General > Keyboard > Add New Keyboard. Select Linguaboard, and enable \"Allow Full Access\" ", preferredStyle: .alert)
+            let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
+            launchAlert.addAction(action)
+            self.present(launchAlert, animated: true, completion: nil)
+        }
         
         let darkMode = darkModeBool.double(forKey: "darkBool")
         let whiteMinimal = whiteMinimalBool.double(forKey: "whiteMinimalBool")
