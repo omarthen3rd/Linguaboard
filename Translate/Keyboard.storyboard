@@ -1039,10 +1039,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D8t-i4-fmC">
-                                <rect key="frame" x="10" y="10" width="355" height="50"/>
+                                <rect key="frame" x="10" y="10" width="355" height="44"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Translation will appear here" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jJk-XT-R9b">
-                                        <rect key="frame" x="0.0" y="0.0" width="355" height="50"/>
+                                        <rect key="frame" x="8" y="10" width="339" height="24"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1052,8 +1052,8 @@
                                 <constraints>
                                     <constraint firstItem="jJk-XT-R9b" firstAttribute="centerX" secondItem="D8t-i4-fmC" secondAttribute="centerX" id="8ta-X8-ftw"/>
                                     <constraint firstItem="jJk-XT-R9b" firstAttribute="centerY" secondItem="D8t-i4-fmC" secondAttribute="centerY" id="G1O-xJ-rrB"/>
-                                    <constraint firstItem="jJk-XT-R9b" firstAttribute="width" secondItem="D8t-i4-fmC" secondAttribute="width" id="h4H-Pt-Sig"/>
-                                    <constraint firstItem="jJk-XT-R9b" firstAttribute="height" secondItem="D8t-i4-fmC" secondAttribute="height" id="rv8-nI-3K8"/>
+                                    <constraint firstItem="jJk-XT-R9b" firstAttribute="width" secondItem="D8t-i4-fmC" secondAttribute="width" constant="-16" id="h4H-Pt-Sig"/>
+                                    <constraint firstItem="jJk-XT-R9b" firstAttribute="height" secondItem="D8t-i4-fmC" secondAttribute="height" constant="-20" id="rv8-nI-3K8"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -1425,7 +1425,6 @@
                             <constraint firstItem="2QF-1M-Lw8" firstAttribute="top" secondItem="ty5-IK-qLu" secondAttribute="bottom" id="o3D-w3-uBm"/>
                             <constraint firstItem="D8t-i4-fmC" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="oGo-6H-Qx6"/>
                             <constraint firstItem="LeK-io-Tzc" firstAttribute="centerX" secondItem="b2E-6b-KOA" secondAttribute="centerX" id="ran-2k-qnM"/>
-                            <constraint firstItem="D8t-i4-fmC" firstAttribute="height" secondItem="b2E-6b-KOA" secondAttribute="height" multiplier="0.18" id="tJa-4z-3pt"/>
                             <constraint firstItem="c7r-0i-Su6" firstAttribute="height" secondItem="b2E-6b-KOA" secondAttribute="height" multiplier="0.09" id="uaA-1p-5KW"/>
                             <constraint firstItem="a1G-de-1eL" firstAttribute="height" secondItem="b2E-6b-KOA" secondAttribute="height" multiplier="0.18" id="yfX-Uq-5Ov"/>
                             <constraint firstItem="wkV-19-SIz" firstAttribute="width" secondItem="b2E-6b-KOA" secondAttribute="width" id="yzD-um-EJm"/>

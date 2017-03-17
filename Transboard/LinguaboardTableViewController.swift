@@ -23,40 +23,49 @@ class LinguaboardTableViewController: UITableViewController {
     @IBOutlet var darkMinimalMode: UISwitch!
     @IBOutlet var keyBackgroundSwitch: UISwitch!
     @IBOutlet var spaceDoubleTapSwitch: UISwitch!
+    
+    // sample key
+    @IBOutlet var blurBG: UIVisualEffectView!
+    @IBOutlet var background: UIView!
+    @IBOutlet var key: UIButton!
 
     @IBAction func darkModeAction(_ sender: Any) {
         
         if darkModeSwitch.isOn && darkModeSwitch.isEnabled {
             
+            // dark blur on
+            
             whiteMinimalMode.isEnabled = false
-            // whiteMinimalBool.set("nil", forKey: "whiteMinimalBool")
             whiteMinimalBool.set(0, forKey: "whiteMinimalBool")
             whiteMinimalBool.synchronize()
             
             darkMinimalMode.isEnabled = false
-            // darkMinimalModeBool.set("nil", forKey: "darkMinimalBool")
             darkMinimalModeBool.set(0, forKey: "darkMinimalBool")
             darkMinimalModeBool.synchronize()
             
-            // darkModeBool.set("true", forKey: "darkBool")
             darkModeBool.set(1, forKey: "darkBool")
             darkModeBool.synchronize()
             
+            loadColours("darkMode")
+            setColors()
+            
         } else if !(darkModeSwitch.isOn) && darkModeSwitch.isEnabled {
             
+            // dark blur off
+            
             whiteMinimalMode.isEnabled = true
-            // whiteMinimalBool.set("nil", forKey: "whiteMinimalBool")
             whiteMinimalBool.set(0, forKey: "whiteMinimalBool")
             whiteMinimalBool.synchronize()
             
             darkMinimalMode.isEnabled = true
-            // darkMinimalModeBool.set("nil", forKey: "darkMinimalBool")
             darkMinimalModeBool.set(0, forKey: "darkMinimalBool")
             darkMinimalModeBool.synchronize()
             
-            // darkModeBool.set("false", forKey: "darkBool")
             darkModeBool.set(2, forKey: "darkBool")
             darkModeBool.synchronize()
+            
+            loadColours("whiteMode")
+            setColors()
             
         }
         
@@ -71,10 +80,12 @@ class LinguaboardTableViewController: UITableViewController {
     var secondRemeberedLanguage: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     var lastUsedLanguage: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     
-    var globalTintColor: UIColor = UIColor.white // UIColor(red:0.14, green:0.14, blue:0.14, alpha:1.0)
-    var altGlobalTintColor: UIColor = UIColor.darkGray
-    var backgroundColor: UIColor = UIColor.clear // UIColor(red:0.96, green:0.96, blue:0.96, alpha:1.0)
-    var blurEffect: UIBlurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.light)
+    var keyBackgroundColor: UIColor = UIColor.white
+    var keyPopUpColor: UIColor = UIColor(red:0.11, green:0.11, blue:0.11, alpha:1.0)
+    var bgColor: UIColor = UIColor.clear
+    var blurEffect: UIBlurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.extraLight)
+    
+    var currentlyUsedColor = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,6 +105,10 @@ class LinguaboardTableViewController: UITableViewController {
     
     func loadInterface() {
         
+        let view = UIView(frame: CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.size.width, height: 20.0))
+        view.backgroundColor = .white
+        self.view.addSubview(view)
+        
         let darkMode = darkModeBool.double(forKey: "darkBool")
         let whiteMinimal = whiteMinimalBool.double(forKey: "whiteMinimalBool")
         let darkMinimal = darkMinimalModeBool.double(forKey: "darkMinimalBool")
@@ -110,6 +125,9 @@ class LinguaboardTableViewController: UITableViewController {
             darkMinimalMode.isOn = false
             darkMinimalMode.isEnabled = false
             
+            loadColours("darkMode")
+            setColors()
+            
         } else if whiteMinimal == 1 {
             
             whiteMinimalMode.isOn = true
@@ -120,6 +138,9 @@ class LinguaboardTableViewController: UITableViewController {
             darkMinimalMode.isOn = false
             darkMinimalMode.isEnabled = false
             
+            loadColours("whiteMinimal")
+            setColors()
+            
         } else if darkMinimal == 1 {
             
             darkMinimalMode.isOn = true
@@ -129,7 +150,10 @@ class LinguaboardTableViewController: UITableViewController {
             darkModeSwitch.isEnabled = false
             whiteMinimalMode.isOn = false
             whiteMinimalMode.isEnabled = false
-
+            
+            loadColours("darkMinimal")
+            setColors()
+            
         } else {
             
             darkMinimalMode.isOn = false
@@ -138,6 +162,9 @@ class LinguaboardTableViewController: UITableViewController {
             darkModeSwitch.isEnabled = true
             whiteMinimalMode.isOn = false
             whiteMinimalMode.isEnabled = true
+            
+            loadColours("whiteMode")
+            setColors()
             
         }
         
@@ -164,6 +191,70 @@ class LinguaboardTableViewController: UITableViewController {
             spaceDoubleTapSwitch.isEnabled = true
             
         }
+        
+    }
+    
+    func loadColours(_ thingToLoad: String) {
+        
+        if thingToLoad == "darkMode" {
+            // dark blur mode
+            currentlyUsedColor = "darkMode"
+            self.keyPopUpColor = UIColor.white
+            self.keyBackgroundColor = UIColor.clear // UIColor(red:0.11, green:0.11, blue:0.11, alpha:1.0)
+            self.bgColor = UIColor.clear
+            self.blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.dark)
+            self.blurBG.isHidden = false
+        } else if thingToLoad == "darkMinimal" {
+            currentlyUsedColor = "darkMinimal"
+            self.keyPopUpColor = UIColor.white
+            self.keyBackgroundColor = UIColor(red:0.11, green:0.11, blue:0.11, alpha:1.0)
+            self.bgColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0)
+            self.blurBG.isHidden = true
+        } else if thingToLoad == "whiteMinimal" {
+            currentlyUsedColor = "whiteMinimal"
+            self.keyPopUpColor = UIColor(red:0.11, green:0.11, blue:0.11, alpha:1.0)
+            self.keyBackgroundColor = UIColor(red:0.91, green:0.92, blue:0.93, alpha:1.0)
+            self.bgColor = UIColor.white
+            self.blurBG.isHidden = true
+        } else if thingToLoad == "whiteMode" {
+            // white blur mode
+            currentlyUsedColor = "whiteMode"
+            self.keyPopUpColor = UIColor(red:0.11, green:0.11, blue:0.11, alpha:1.0)
+            self.keyBackgroundColor = UIColor.white
+            self.bgColor = UIColor.clear
+            self.blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.extraLight)
+            self.blurBG.isHidden = false
+        }
+        
+    }
+    
+    func setColors() {
+        
+        let keyBackground = keyBackgroundBool.double(forKey: "keyBackgroundBool")
+        
+        if keyBackground == 1 {
+            
+            key.backgroundColor = keyBackgroundColor
+            
+        } else if keyBackground == 2 {
+            
+            key.backgroundColor = UIColor.clear
+            
+        } else {
+            
+            key.backgroundColor = UIColor.clear
+            
+        }
+        
+        background.backgroundColor = bgColor
+        background.layer.borderColor = UIColor.gray.cgColor
+        background.layer.borderWidth = 0.5
+        blurBG.effect = blurEffect
+        blurBG.layer.cornerRadius = 15
+        blurBG.clipsToBounds = true
+        key.setTitleColor(keyPopUpColor, for: .normal)
+        key.layer.cornerRadius = 6
+        key.tintColor = keyPopUpColor
         
     }
     
@@ -196,10 +287,16 @@ class LinguaboardTableViewController: UITableViewController {
                 keyBackgroundBool.set(1, forKey: "keyBackgroundBool")
                 keyBackgroundBool.synchronize()
                 
+                loadColours(currentlyUsedColor)
+                setColors()
+                
             } else if !(sender.isOn) && sender.isEnabled {
                 
                 keyBackgroundBool.set(2, forKey: "keyBackgroundBool")
                 keyBackgroundBool.synchronize()
+                
+                loadColours(currentlyUsedColor)
+                setColors()
                 
             }
             
@@ -213,43 +310,39 @@ class LinguaboardTableViewController: UITableViewController {
             
             if sender.isOn && sender.isEnabled {
                 
-                print("ran white on")
+                // white mode on
                 
                 darkMinimalMode.isEnabled = false
-                // darkMinimalModeBool.set("nil", forKey: "darkMinimalBool")
                 darkMinimalModeBool.set(0, forKey: "darkMinimalBool")
                 darkMinimalModeBool.synchronize()
                 
                 darkModeSwitch.isEnabled = false
-                // darkModeBool.set("nil", forKey: "darkBool")
                 darkModeBool.set(0, forKey: "darkBool")
                 darkModeBool.synchronize()
                 
-                // whiteMinimalBool.set("true", forKey: "whiteMinimalBool")
                 whiteMinimalBool.set(1, forKey: "whiteMinimalBool")
                 whiteMinimalBool.synchronize()
                 
-                loadInterface()
+                loadColours("whiteMinimal")
+                setColors()
                 
             } else if !(sender.isOn) && sender.isEnabled {
                 
-                print("ran white off")
+                // white mode off
                 
                 darkMinimalMode.isEnabled = true
-                // darkMinimalModeBool.set("nil", forKey: "darkMinimalBool")
                 darkMinimalModeBool.set(0, forKey: "darkMinimalBool")
                 darkMinimalModeBool.synchronize()
                 
                 darkModeSwitch.isEnabled = true
-                // darkModeBool.set("nil", forKey: "darkBool")
                 darkModeBool.set(0, forKey: "darkBool")
                 darkModeBool.synchronize()
                 
-                // whiteMinimalBool.set("false", forKey: "whiteMinimalBool")
                 whiteMinimalBool.set(2, forKey: "whiteMinimalBool")
                 whiteMinimalBool.synchronize()
                 
-                loadInterface()
+                loadColours("whiteMode")
+                setColors()
                 
             }
             
@@ -258,43 +351,39 @@ class LinguaboardTableViewController: UITableViewController {
             
             if sender.isOn && sender.isEnabled {
                 
-                print("ran dark on")
+                // dark mode on
                 
                 whiteMinimalMode.isEnabled = false
-                // whiteMinimalBool.set("nil", forKey: "whiteMinimalBool")
                 whiteMinimalBool.set(0, forKey: "whiteMinimalBool")
                 whiteMinimalBool.synchronize()
                 
                 darkModeSwitch.isEnabled = false
-                // darkModeBool.set("nil", forKey: "darkBool")
                 darkModeBool.set(0, forKey: "darkBool")
                 darkModeBool.synchronize()
                 
-                // darkMinimalModeBool.set("true", forKey: "darkMinimalBool")
                 darkMinimalModeBool.set(1, forKey: "darkMinimalBool")
                 darkMinimalModeBool.synchronize()
                 
-                loadInterface()
+                loadColours("darkMinimal")
+                setColors()
                 
             } else if !(sender.isOn) && sender.isEnabled {
                 
-                print("ran dark off")
+                // dark mode off
                 
                 whiteMinimalMode.isEnabled = true
-                // whiteMinimalBool.set("nil", forKey: "whiteMinimalBool")
                 whiteMinimalBool.set(0, forKey: "whiteMinimalBool")
                 whiteMinimalBool.synchronize()
                 
                 darkModeSwitch.isEnabled = true
-                // darkModeBool.set("nil", forKey: "darkBool")
                 darkModeBool.set(0, forKey: "darkBool")
                 darkModeBool.synchronize()
                 
-                // darkMinimalModeBool.set("false", forKey: "darkMinimalBool")
                 darkMinimalModeBool.set(2, forKey: "darkMinimalBool")
                 darkMinimalModeBool.synchronize()
                 
-                loadInterface()
+                loadColours("whiteMode")
+                setColors()
                 
             }
             

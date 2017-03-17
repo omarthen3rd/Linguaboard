@@ -46,6 +46,7 @@ extension String.Index{
 extension UIButton {
     
     override open func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        
         let padding = CGFloat(2.75)
         let extendedBounds = bounds.insetBy(dx: -padding, dy: -padding)
         return extendedBounds.contains(point)
@@ -139,7 +140,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     @IBAction func shiftKeyPressed(_ sender: UIButton) {
         
-        playKeySound()
         self.shiftStatus = self.shiftStatus > 0 ? 0 : 1
         self.shiftKeys()
         
@@ -166,8 +166,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     @IBAction func touchDownKey(_ sender: UIButton) {
         
         createPopUp(sender, bool: true)
-        playKeySound()
-        // createPop(sender)
         
     }
     
@@ -175,7 +173,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         self.hideView.isEnabled = true
         getAutocorrect()
-        playKeySound()
         self.textDocumentProxy.insertText("\n")
         self.shouldAutoCap()
         self.setCapsIfNeeded()
@@ -186,7 +183,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         self.hideView.isEnabled = true
         
-        playKeySound()
         self.textDocumentProxy.insertText(" ")
         self.shouldAutoCap()
         self.setCapsIfNeeded()
@@ -230,7 +226,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.hideView.isEnabled = true
         }
         
-        playKeySound()
         self.textDocumentProxy.deleteBackward()
         self.shouldAutoCap()
         self.setCapsIfNeeded()
@@ -238,8 +233,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     }
     
     @IBAction func showPickerTwo(_ button: UIButton) {
-        
-        playKeySound()
         
         if didOpenPicker2 == true {
             
@@ -287,8 +280,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     }
     
     @IBAction func switchKeyBoardMode(_ button: UIButton) {
-        
-        playKeySound()
         
         self.numbersRow1.isHidden = true
         self.numbersRow2.isHidden = true
@@ -378,26 +369,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.view.addConstraint(self.heightConstraint)
             
         }
-        
-        /* if !shouldRemoveConstraint {
-            self.heightConstraint = NSLayoutConstraint(item: self.view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 0.0, constant: expandedHeight)
-            self.heightConstraint.priority = UILayoutPriorityDefaultHigh
-            self.view?.addConstraint(self.heightConstraint)
-            self.inputView?.setNeedsUpdateConstraints()
-        } else if shouldRemoveConstraint {
-            print("ran this 2")
-            print(self.view.constraints)
-            self.view?.removeConstraint(self.heightConstraint)
-            self.view?.removeConstraint(self.heightConstraint)
-            print(self.view.constraints)
-            self.heightConstraint = NSLayoutConstraint(item: self.view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 0.0, constant: expandedHeight)
-            self.heightConstraint.priority = UILayoutPriorityDefaultHigh
-            self.view?.addConstraint(self.heightConstraint)
-            print(self.view.constraints)
-            self.inputView?.setNeedsUpdateConstraints()
-        } */
-        
-        
         
     }
     
@@ -691,48 +662,6 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         let keyBackground = keyBackgroundBool.double(forKey: "keyBackgroundBool")
         
-        if keyBackground == 1 {
-            
-            for letter in self.allKeys {
-                letter.layer.cornerRadius = 5
-                letter.backgroundColor = keyBackgroundColor
-                letter.setTitleColor(keyPopUpColor, for: .normal)
-                letter.tintColor = keyPopUpColor
-                letter.titleLabel?.font = UIFont.systemFont(ofSize: 21)
-                if letter == sendToInput || letter == hideView {
-                    letter.backgroundColor = UIColor.clear
-                    letter.layer.cornerRadius = 0
-                }
-            }
-            
-        } else if keyBackground == 2 {
-            
-            for letter in self.allKeys {
-                letter.backgroundColor = UIColor.clear
-                letter.setTitleColor(keyPopUpColor, for: .normal)
-                letter.tintColor = keyPopUpColor
-                letter.titleLabel?.font = UIFont.systemFont(ofSize: 21)
-                if letter == sendToInput || letter == hideView {
-                    letter.backgroundColor = UIColor.clear
-                    letter.layer.cornerRadius = 0
-                }
-            }
-            
-        } else {
-            
-            for letter in self.allKeys {
-                letter.backgroundColor = UIColor.clear
-                letter.setTitleColor(keyPopUpColor, for: .normal)
-                letter.tintColor = keyPopUpColor
-                letter.titleLabel?.font = UIFont.systemFont(ofSize: 21)
-                if letter == sendToInput || letter == hideView {
-                    letter.backgroundColor = UIColor.clear
-                    letter.layer.cornerRadius = 0
-                }
-            }
-            
-        }
-        
         self.view.backgroundColor = bgColor
         self.blurBG.effect = blurEffect
         self.hideView.tintColor = keyPopUpColor
@@ -747,8 +676,62 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.prediction1.setTitleColor(keyPopUpColor, for: .normal)
         self.prediction2.setTitleColor(keyPopUpColor, for: .normal)
         self.prediction3.setTitleColor(keyPopUpColor, for: .normal)
-        self.moreDetailView.backgroundColor = keyBackgroundColor
-        self.moreDetailLabel.textColor = keyPopUpColor
+        self.moreDetailView.backgroundColor = keyPopUpColor
+        self.moreDetailLabel.textColor = keyBackgroundColor
+        
+        if keyBackground == 1 {
+            
+            for letter in self.allKeys {
+                letter.addTarget(self, action: #selector(self.playKeySound), for: .touchDown)
+                letter.layer.cornerRadius = 6
+
+                letter.backgroundColor = keyBackgroundColor
+                letter.setTitleColor(keyPopUpColor, for: .normal)
+                letter.tintColor = keyPopUpColor
+                letter.titleLabel?.font = UIFont.systemFont(ofSize: 21)
+                if letter == sendToInput || letter == hideView {
+                    letter.backgroundColor = UIColor.clear
+                    letter.layer.cornerRadius = 0
+                }
+            }
+            
+            if !(blurBG.isHidden) {
+                self.blurBG.alpha = 0.7
+                for letter in self.allKeys {
+                    letter.backgroundColor = UIColor.clear
+                }
+            }
+            
+        } else if keyBackground == 2 {
+            
+            for letter in self.allKeys {
+                letter.addTarget(self, action: #selector(self.playKeySound), for: .touchDown)
+                letter.backgroundColor = UIColor.clear
+                letter.setTitleColor(keyPopUpColor, for: .normal)
+                letter.tintColor = keyPopUpColor
+                letter.titleLabel?.font = UIFont.systemFont(ofSize: 21)
+                if letter == sendToInput || letter == hideView {
+                    letter.backgroundColor = UIColor.clear
+                    letter.layer.cornerRadius = 0
+                }
+            }
+            
+        } else {
+            
+            for letter in self.allKeys {
+                letter.addTarget(self, action: #selector(self.playKeySound), for: .touchDown)
+                letter.backgroundColor = UIColor.clear
+                letter.setTitleColor(keyPopUpColor, for: .normal)
+                letter.tintColor = keyPopUpColor
+                letter.titleLabel?.font = UIFont.systemFont(ofSize: 21)
+                if letter == sendToInput || letter == hideView {
+                    letter.backgroundColor = UIColor.clear
+                    letter.layer.cornerRadius = 0
+                }
+            }
+            
+        }
+
         
     }
     
@@ -757,14 +740,14 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         if thingToLoad == "darkMode" {
             // dark blur mode
             self.keyPopUpColor = UIColor.white
-            self.keyBackgroundColor = UIColor.clear // UIColor(red:0.11, green:0.11, blue:0.11, alpha:1.0)
+            self.keyBackgroundColor = UIColor(red:0.11, green:0.11, blue:0.11, alpha:1.0)
             self.bgColor = UIColor.clear
             self.blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.dark)
             self.blurBG.isHidden = false
         } else if thingToLoad == "darkMinimal" {
             self.keyPopUpColor = UIColor.white
-            self.keyBackgroundColor = UIColor(red:0.11, green:0.11, blue:0.11, alpha:1.0)
-            self.bgColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0)
+            self.keyBackgroundColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0) // UIColor(red:0.11, green:0.11, blue:0.11, alpha:1.0)
+            self.bgColor = UIColor(red:0.11, green:0.11, blue:0.11, alpha:1.0) // UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0)
             self.blurBG.isHidden = true
         } else if thingToLoad == "whiteMinimal" {
             self.keyPopUpColor = UIColor(red:0.11, green:0.11, blue:0.11, alpha:1.0)
@@ -1046,15 +1029,15 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.sendToInput.tag = 0
             self.sendToInput.isEnabled = false
             self.row1.isUserInteractionEnabled = false
-            self.row1.layer.opacity = 0.3
+            self.row1.layer.opacity = 0.1
             self.row2.isUserInteractionEnabled = false
-            self.row2.layer.opacity = 0.3
+            self.row2.layer.opacity = 0.1
             self.row3.isUserInteractionEnabled = false
-            self.row3.layer.opacity = 0.3
+            self.row3.layer.opacity = 0.1
             self.row4.isUserInteractionEnabled = false
-            self.row4.layer.opacity = 0.3
+            self.row4.layer.opacity = 0.1
             self.translateShowView.isUserInteractionEnabled = false
-            self.translateShowView.layer.opacity = 0.3
+            self.translateShowView.layer.opacity = 0.1
             
         }
         
