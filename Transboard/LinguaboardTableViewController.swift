@@ -80,10 +80,15 @@ class LinguaboardTableViewController: UITableViewController {
     var secondRemeberedLanguage: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     var lastUsedLanguage: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
     
-    var keyBackgroundColor: UIColor = UIColor.white
-    var keyPopUpColor: UIColor = UIColor(red:0.11, green:0.11, blue:0.11, alpha:1.0)
-    var bgColor: UIColor = UIColor.clear
-    var blurEffect: UIBlurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.extraLight)
+    var keyBackgroundColor = UIColor()
+    var altKeyBackgroundColor = UIColor()
+    var keyTextColor = UIColor()
+    var keyPopUpColor = UIColor()
+    var keyPopUpTextColor = UIColor()
+    var bgColor = UIColor()
+    var blurEffect = UIBlurEffect()
+    var keyShadowColor = UIColor.clear
+    var altKeyShadowColor = UIColor.clear
     
     var currentlyUsedColor = String()
     
@@ -207,29 +212,43 @@ class LinguaboardTableViewController: UITableViewController {
         
         if thingToLoad == "darkMode" {
             // dark blur mode
-            currentlyUsedColor = "darkMode"
-            self.keyPopUpColor = UIColor.white
-            self.keyBackgroundColor = UIColor.clear // UIColor(red:0.11, green:0.11, blue:0.11, alpha:1.0)
+            self.keyBackgroundColor = UIColor.darkKeyColor()
+            self.altKeyBackgroundColor = UIColor.altDarkKeyColor()
+            self.keyTextColor = UIColor.veryDifferentWhite()
+            self.keyShadowColor = UIColor.clear
+            self.keyPopUpColor = UIColor.veryDifferentWhite()
+            self.keyPopUpTextColor = UIColor.lighterBlack()
             self.bgColor = UIColor.clear
             self.blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.dark)
             self.blurBG.isHidden = false
         } else if thingToLoad == "darkMinimal" {
-            currentlyUsedColor = "darkMinimal"
-            self.keyPopUpColor = UIColor.white
-            self.keyBackgroundColor = UIColor(red:0.11, green:0.11, blue:0.11, alpha:1.0)
-            self.bgColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0)
+            self.keyBackgroundColor = UIColor.darkKeyColor()
+            self.altKeyBackgroundColor = UIColor.altDarkKeyColor()
+            self.keyTextColor = UIColor.veryDifferentWhite()
+            self.keyShadowColor = UIColor.darkerGrayShadow()
+            self.keyPopUpColor = UIColor.veryDifferentWhite()
+            self.keyPopUpTextColor = UIColor.lighterBlack()
+            self.bgColor = UIColor.lighterBlack()
             self.blurBG.isHidden = true
         } else if thingToLoad == "whiteMinimal" {
-            currentlyUsedColor = "whiteMinimal"
-            self.keyPopUpColor = UIColor(red:0.11, green:0.11, blue:0.11, alpha:1.0)
-            self.keyBackgroundColor = UIColor(red:0.91, green:0.92, blue:0.93, alpha:1.0)
-            self.bgColor = UIColor.white
+            self.keyBackgroundColor = UIColor.whiteKeyColor()
+            self.altKeyBackgroundColor = UIColor.altWhiteKeyColor()
+            self.keyTextColor = UIColor.lighterBlack()
+            self.keyShadowColor = UIColor.grayShadow()
+            self.altKeyShadowColor = UIColor.darkerGrayShadow()
+            self.keyPopUpColor = UIColor.lighterBlack()
+            self.keyPopUpTextColor = UIColor.blueishGray()
+            self.bgColor = UIColor.blueishGray()
             self.blurBG.isHidden = true
         } else if thingToLoad == "whiteMode" {
             // white blur mode
-            currentlyUsedColor = "whiteMode"
-            self.keyPopUpColor = UIColor(red:0.11, green:0.11, blue:0.11, alpha:1.0)
-            self.keyBackgroundColor = UIColor.white
+            self.keyBackgroundColor = UIColor.veryDifferentWhite()
+            self.altKeyBackgroundColor = UIColor.altWhiteKeyColor()
+            self.keyTextColor = UIColor.lighterBlack()
+            self.keyShadowColor = UIColor.grayShadow()
+            self.altKeyShadowColor = UIColor.darkerGrayShadow()
+            self.keyPopUpColor = UIColor.lighterBlack()
+            self.keyPopUpTextColor = UIColor.veryDifferentWhite()
             self.bgColor = UIColor.clear
             self.blurEffect = UIBlurEffect.init(style: UIBlurEffectStyle.extraLight)
             self.blurBG.isHidden = false
@@ -244,14 +263,21 @@ class LinguaboardTableViewController: UITableViewController {
         if keyBackground == 1 {
             
             key.backgroundColor = keyBackgroundColor
+            key.layer.shadowColor = keyShadowColor.cgColor
+            key.layer.shadowOffset = CGSize(width: 0, height: 0.4)
+            key.layer.shadowRadius = 0.5
+            key.layer.shadowOpacity = 0.5
+            key.layer.shadowPath = UIBezierPath(roundedRect: key.bounds, cornerRadius: 6).cgPath
             
         } else if keyBackground == 2 {
             
             key.backgroundColor = UIColor.clear
+            key.layer.shadowOpacity = 0.0
             
         } else {
             
             key.backgroundColor = UIColor.clear
+            key.layer.shadowOpacity = 0.0
             
         }
         
@@ -261,9 +287,9 @@ class LinguaboardTableViewController: UITableViewController {
         blurBG.effect = blurEffect
         blurBG.layer.cornerRadius = 15
         blurBG.clipsToBounds = true
-        key.setTitleColor(keyPopUpColor, for: .normal)
+        key.setTitleColor(keyTextColor, for: .normal)
         key.layer.cornerRadius = 6
-        key.tintColor = keyPopUpColor
+        key.tintColor = keyTextColor
         
     }
     

@@ -208,6 +208,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         if sender.subviews.count > 1 {
             sender.subviews[1].removeFromSuperview()
         }
+        
         self.textDocumentProxy.insertText(sender.currentTitle!)
         self.isAlphaNumeric = true
         self.shouldAutoCap()
@@ -433,12 +434,12 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             self.expandedHeight = 240
             self.shouldRemoveConstraint = true
             self.updateViewConstraints()
-            loadInterface()
+            setColours()
         } else if (self.view.traitCollection.verticalSizeClass == UIUserInterfaceSizeClass.regular) {
             self.expandedHeight = 270
             self.updateViewConstraints()
             self.shouldRemoveConstraint = true
-            loadInterface()
+            setColours()
         }
         
     }
@@ -707,10 +708,10 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
             for letter in self.allKeys {
                 letter.addTarget(self, action: #selector(self.playKeySound), for: .touchDown)
                 letter.layer.cornerRadius = 6
-                letter.layer.shadowColor = keyShadowColor.cgColor
-                letter.layer.shadowOffset = CGSize(width: 0, height: 0.4)
-                letter.layer.shadowRadius = 0.5
-                letter.layer.shadowOpacity = 0.5
+                letter.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor // keyShadowColor.cgColor
+                letter.layer.shadowOffset = CGSize(width: 0, height: 0.5)
+                letter.layer.shadowRadius = 0.0
+                letter.layer.shadowOpacity = 1.0
                 letter.layer.shadowPath = UIBezierPath(roundedRect: letter.bounds, cornerRadius: 6).cgPath
                 letter.backgroundColor = keyBackgroundColor
                 letter.setTitleColor(keyTextColor, for: .normal)
@@ -872,32 +873,32 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         let xLeft = ((sender.frame.size.width - sender.frame.size.width * 1.4) / -5)
         let xRight = ((sender.frame.size.width - sender.frame.size.width * 1.4) * 2)
         // old frame height == 1.11
-        frame = CGRect(x: xToUse, y: -60, width: sender.frame.size.width * 1.4, height: sender.frame.size.height * 1.4)
+        frame = CGRect(x: xToUse, y: -65, width: sender.frame.size.width * 1.4, height: sender.frame.size.height * 1.4)
         frame1 = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
         
         switch sender {
         case row1.subviews[0]:
-            frame = CGRect(x: sender.bounds.origin.x / 2, y: -60, width: sender.frame.size.width * 1.4, height: sender.frame.size.height * 1.4)
+            frame = CGRect(x: sender.bounds.origin.x / 2, y: -65, width: sender.frame.size.width * 1.4, height: sender.frame.size.height * 1.4)
         case numbersRow1.subviews[0]:
-            frame = CGRect(x: xLeft / 2, y: -60, width: sender.frame.size.width * 1.4, height: sender.frame.size.height * 1.4)
+            frame = CGRect(x: xLeft / 2, y: -65, width: sender.frame.size.width * 1.4, height: sender.frame.size.height * 1.4)
         case numbersRow2.subviews[0]:
-            frame = CGRect(x: xLeft / 2, y: -60, width: sender.frame.size.width * 1.4, height: sender.frame.size.height * 1.4)
+            frame = CGRect(x: xLeft / 2, y: -65, width: sender.frame.size.width * 1.4, height: sender.frame.size.height * 1.4)
         case symbolsRow1.subviews[0]:
-            frame = CGRect(x: xLeft / 2, y: -60, width: sender.frame.size.width * 1.4, height: sender.frame.size.height * 1.4)
+            frame = CGRect(x: xLeft / 2, y: -65, width: sender.frame.size.width * 1.4, height: sender.frame.size.height * 1.4)
         case symbolsRow2.subviews[0]:
-            frame = CGRect(x: xLeft / 2, y: -60, width: sender.frame.size.width * 1.4, height: sender.frame.size.height * 1.4)
+            frame = CGRect(x: xLeft / 2, y: -65, width: sender.frame.size.width * 1.4, height: sender.frame.size.height * 1.4)
         case row1.subviews[9]:
-            frame = CGRect(x: xRight / 2, y: -60, width: sender.frame.size.width * 1.4, height: sender.frame.size.height * 1.4)
+            frame = CGRect(x: xRight / 2, y: -65, width: sender.frame.size.width * 1.4, height: sender.frame.size.height * 1.4)
         case numbersRow1.subviews[9]:
-            frame = CGRect(x: xRight / 2, y: -60, width: sender.frame.size.width * 1.4, height: sender.frame.size.height * 1.4)
+            frame = CGRect(x: xRight / 2, y: -65, width: sender.frame.size.width * 1.4, height: sender.frame.size.height * 1.4)
         case numbersRow2.subviews[9]:
-            frame = CGRect(x: xRight / 2, y: -60, width: sender.frame.size.width * 1.4, height: sender.frame.size.height * 1.4)
+            frame = CGRect(x: xRight / 2, y: -65, width: sender.frame.size.width * 1.4, height: sender.frame.size.height * 1.4)
         case symbolsRow1.subviews[9]:
-            frame = CGRect(x: xRight / 2, y: -60, width: sender.frame.size.width * 1.4, height: sender.frame.size.height * 1.4)
+            frame = CGRect(x: xRight / 2, y: -65, width: sender.frame.size.width * 1.4, height: sender.frame.size.height * 1.4)
         case symbolsRow2.subviews[9]:
-            frame = CGRect(x: xRight / 2, y: -60, width: sender.frame.size.width * 1.4, height: sender.frame.size.height * 1.4)
+            frame = CGRect(x: xRight / 2, y: -65, width: sender.frame.size.width * 1.4, height: sender.frame.size.height * 1.4)
         default:
-            frame = CGRect(x: xToUse, y: -60, width: sender.frame.size.width * 1.4, height: sender.frame.size.height * 1.4)
+            frame = CGRect(x: xToUse, y: -65, width: sender.frame.size.width * 1.4, height: sender.frame.size.height * 1.4)
         }
         
         let popUp = UIView(frame: frame)
