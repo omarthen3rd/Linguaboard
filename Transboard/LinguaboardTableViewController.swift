@@ -87,8 +87,6 @@ class LinguaboardTableViewController: UITableViewController {
     var keyPopUpTextColor = UIColor()
     var bgColor = UIColor()
     var blurEffect = UIBlurEffect()
-    var keyShadowColor = UIColor.clear
-    var altKeyShadowColor = UIColor.clear
     
     var currentlyUsedColor = String()
     
@@ -215,7 +213,6 @@ class LinguaboardTableViewController: UITableViewController {
             self.keyBackgroundColor = UIColor.darkKeyColor()
             self.altKeyBackgroundColor = UIColor.altDarkKeyColor()
             self.keyTextColor = UIColor.veryDifferentWhite()
-            self.keyShadowColor = UIColor.clear
             self.keyPopUpColor = UIColor.veryDifferentWhite()
             self.keyPopUpTextColor = UIColor.lighterBlack()
             self.bgColor = UIColor.clear
@@ -225,7 +222,6 @@ class LinguaboardTableViewController: UITableViewController {
             self.keyBackgroundColor = UIColor.darkKeyColor()
             self.altKeyBackgroundColor = UIColor.altDarkKeyColor()
             self.keyTextColor = UIColor.veryDifferentWhite()
-            self.keyShadowColor = UIColor.darkerGrayShadow()
             self.keyPopUpColor = UIColor.veryDifferentWhite()
             self.keyPopUpTextColor = UIColor.lighterBlack()
             self.bgColor = UIColor.lighterBlack()
@@ -234,8 +230,6 @@ class LinguaboardTableViewController: UITableViewController {
             self.keyBackgroundColor = UIColor.whiteKeyColor()
             self.altKeyBackgroundColor = UIColor.altWhiteKeyColor()
             self.keyTextColor = UIColor.lighterBlack()
-            self.keyShadowColor = UIColor.grayShadow()
-            self.altKeyShadowColor = UIColor.darkerGrayShadow()
             self.keyPopUpColor = UIColor.lighterBlack()
             self.keyPopUpTextColor = UIColor.blueishGray()
             self.bgColor = UIColor.blueishGray()
@@ -245,8 +239,6 @@ class LinguaboardTableViewController: UITableViewController {
             self.keyBackgroundColor = UIColor.veryDifferentWhite()
             self.altKeyBackgroundColor = UIColor.altWhiteKeyColor()
             self.keyTextColor = UIColor.lighterBlack()
-            self.keyShadowColor = UIColor.grayShadow()
-            self.altKeyShadowColor = UIColor.darkerGrayShadow()
             self.keyPopUpColor = UIColor.lighterBlack()
             self.keyPopUpTextColor = UIColor.veryDifferentWhite()
             self.bgColor = UIColor.clear
@@ -263,21 +255,14 @@ class LinguaboardTableViewController: UITableViewController {
         if keyBackground == 1 {
             
             key.backgroundColor = keyBackgroundColor
-            key.layer.shadowColor = keyShadowColor.cgColor
-            key.layer.shadowOffset = CGSize(width: 0, height: 0.4)
-            key.layer.shadowRadius = 0.5
-            key.layer.shadowOpacity = 0.5
-            key.layer.shadowPath = UIBezierPath(roundedRect: key.bounds, cornerRadius: 6).cgPath
             
         } else if keyBackground == 2 {
             
             key.backgroundColor = UIColor.clear
-            key.layer.shadowOpacity = 0.0
             
         } else {
             
             key.backgroundColor = UIColor.clear
-            key.layer.shadowOpacity = 0.0
             
         }
         

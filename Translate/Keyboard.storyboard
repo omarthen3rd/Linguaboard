@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="cjp-66-VOW">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.19" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="cjp-66-VOW">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.16"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -1440,7 +1440,7 @@
                         <outlet property="backspaceButton2" destination="c5c-la-1r2" id="9zX-3t-2Wm"/>
                         <outlet property="blurBG" destination="ypR-OG-pT7" id="Szg-U4-15b"/>
                         <outlet property="clearTranslation" destination="PCp-UE-NeZ" id="jKN-xc-28b"/>
-                        <outlet property="hideView" destination="zWx-AH-STF" id="GlY-GM-H3Y"/>
+                        <outlet property="insertTranslation" destination="zWx-AH-STF" id="GlY-GM-H3Y"/>
                         <outlet property="moreDetailLabel" destination="jJk-XT-R9b" id="e7J-4T-Svg"/>
                         <outlet property="moreDetailView" destination="D8t-i4-fmC" id="bTm-7n-EBA"/>
                         <outlet property="nextKeyboardButton" destination="BEL-X4-bfA" id="FVq-fw-avj"/>
@@ -1456,7 +1456,6 @@
                         <outlet property="row2" destination="Xfh-Gq-rnk" id="geD-Uh-dUH"/>
                         <outlet property="row3" destination="fOe-tw-2jj" id="kzO-L9-Tae"/>
                         <outlet property="row4" destination="wkV-19-SIz" id="kfL-03-0rv"/>
-                        <outlet property="sendToInput" destination="nmy-pr-Z9Q" id="UlJ-Es-xmU"/>
                         <outlet property="shiftButton" destination="hXY-jJ-TcQ" id="KTg-GG-y3i"/>
                         <outlet property="showPickerBtn" destination="N8B-kN-DzN" id="nVH-Ch-M8q"/>
                         <outlet property="spaceButton" destination="GhG-s5-oQg" id="RKv-kL-oqs"/>
@@ -1465,6 +1464,7 @@
                         <outlet property="symbolsRow1" destination="Wh5-0X-2zd" id="s7z-pK-GIy"/>
                         <outlet property="symbolsRow2" destination="tKL-gL-W4c" id="utt-rz-y3d"/>
                         <outlet property="translateShowView" destination="a1G-de-1eL" id="pgO-UT-i9t"/>
+                        <outlet property="translationText" destination="nmy-pr-Z9Q" id="UlJ-Es-xmU"/>
                         <outletCollection property="keyCollection" destination="iOk-NJ-t0m" collectionClass="NSMutableArray" id="kYW-wx-GpM"/>
                         <outletCollection property="keyCollection" destination="xTF-cx-jWT" collectionClass="NSMutableArray" id="RR3-Dp-dA5"/>
                         <outletCollection property="keyCollection" destination="v2v-D5-ooA" collectionClass="NSMutableArray" id="BVO-f6-l0r"/>

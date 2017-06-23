@@ -137,13 +137,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     var lastWord = String()
     var subsRange = NSRange()
     
-    var darkModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
-    var whiteMinimalModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
-    var darkMinimalModeBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
-    var keyBackgroundBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
-    var spaceDoubleTapBool: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
-    var lastUsedLanguage: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
-
+    let defaults: UserDefaults = UserDefaults(suiteName: "group.Linguaboard")!
+    
     var keyBackgroundColor = UIColor()
     var altKeyBackgroundColor = UIColor()
     var keyTextColor = UIColor()
@@ -174,10 +169,8 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     @IBOutlet var blurBG: UIVisualEffectView!
     @IBOutlet var translateShowView: UIView!
     @IBOutlet var clearTranslation: UIButton!
-    // sendToInput is btn for view translationg (too lazy to change name)
-    @IBOutlet var sendToInput: UIButton!
-    // hideView is btn for inserting translation (I know, I know...)
-    @IBOutlet var hideView: UIButton!
+    @IBOutlet var translationText: UIButton!
+    @IBOutlet var insertTranslation: UIButton!
     
     @IBOutlet var predictionView: UIView!
     @IBOutlet var prediction1: UIButton!
@@ -214,7 +207,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.shouldAutoCap()
         self.setCapsIfNeeded()
         getAutocorrect()
-        self.hideView.isEnabled = true
+        self.insertTranslation.isEnabled = true
 
         /* if shiftStatus == 1 {
             self.shiftKeyPressed(self.shiftButton)
@@ -230,7 +223,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     @IBAction func returnKeyPressed(_ sender: UIButton) {
         
-        self.hideView.isEnabled = true
+        self.insertTranslation.isEnabled = true
         getAutocorrect()
         self.textDocumentProxy.insertText("\n")
         self.shouldAutoCap()
@@ -240,7 +233,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     @IBAction func spaceKeyPressed(_ sender: UIButton) {
         
-        self.hideView.isEnabled = true
+        self.insertTranslation.isEnabled = true
         
         self.textDocumentProxy.insertText(" ")
         self.shouldAutoCap()
@@ -277,11 +270,11 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     @IBAction func backSpaceButton(_ sender: UIButton) {
         
         if self.fullString.characters.count <= 1 {
-            self.hideView.isEnabled = false
+            self.insertTranslation.isEnabled = false
             self.isAlphaNumeric = false
             // remove spacebar double tap here only if added
         } else {
-            self.hideView.isEnabled = true
+            self.insertTranslation.isEnabled = true
         }
         
         self.textDocumentProxy.deleteBackward()
@@ -466,24 +459,24 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     override func textDidChange(_ textInput: UITextInput?) {
         // The app has just changed the document's contents, the document context has been updated.
         
-        if (!(self.textDocumentProxy.documentContextBeforeInput != nil) && !(self.textDocumentProxy.documentContextAfterInput != nil)) || (self.textDocumentProxy.documentContextBeforeInput == "") && (self.textDocumentProxy.documentContextAfterInput == "") && (sendToInput.currentTitle! != "") {
+        if (!(self.textDocumentProxy.documentContextBeforeInput != nil) && !(self.textDocumentProxy.documentContextAfterInput != nil)) || (self.textDocumentProxy.documentContextBeforeInput == "") && (self.textDocumentProxy.documentContextAfterInput == "") && (translationText.currentTitle! != "") {
             
             
-            if (fullString.characters.count != 0) && (sendToInput.currentTitle! != "") {
-                self.hideView.isEnabled = true
+            if (fullString.characters.count != 0) && (translationText.currentTitle! != "") {
+                self.insertTranslation.isEnabled = true
             } else {
                 self.correctArr.removeAll()
                 doThingsWithButton(prediction1, true)
                 doThingsWithButton(prediction2, true)
                 doThingsWithButton(prediction3, true)
-                self.hideView.isEnabled = false
+                self.insertTranslation.isEnabled = false
             }
             
         } else if (!(self.textDocumentProxy.documentContextBeforeInput != nil) && !(self.textDocumentProxy.documentContextAfterInput != nil)) || (self.textDocumentProxy.documentContextBeforeInput == "") && (self.textDocumentProxy.documentContextAfterInput == "") {
             
             self.shiftStatus = 1
             self.shiftKeys()
-            self.hideView.isEnabled = false
+            self.insertTranslation.isEnabled = false
         }
         
     }
@@ -519,7 +512,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         for key in keyToArr {
             self.toKey = key as! String
             self.lastLang = self.selectedLanguage
-            self.lastUsedLanguage.set(self.lastLang, forKey: "lastUsedLang")
+            self.defaults.set(self.lastLang, forKey: "lastUsedLang")
             self.showPickerBtn.setTitle(self.toKey.uppercased(), for: .normal)
         }
     }
@@ -531,10 +524,10 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     func loadInterface() {
         
-        let darkMode = darkModeBool.double(forKey: "darkBool")
-        let whiteMinimal = whiteMinimalModeBool.double(forKey: "whiteMinimalBool")
-        let darkMinimal = darkMinimalModeBool.double(forKey: "darkMinimalBool")
-        let spaceDoubleTapDouble = spaceDoubleTapBool.double(forKey: "spaceDoubleTapBool")
+        let darkMode = defaults.double(forKey: "darkBool")
+        let whiteMinimal = defaults.double(forKey: "whiteMinimalBool")
+        let darkMinimal = defaults.double(forKey: "darkMinimalBool")
+        let spaceDoubleTapDouble = defaults.double(forKey: "spaceDoubleTapBool")
         
         if darkMode == 1 {
             loadColours("darkMode")
@@ -555,7 +548,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         
         moreDetailLabel.numberOfLines = 0
         
-        hideView.isEnabled = false
+        insertTranslation.isEnabled = false
         clearTranslation.isEnabled = false
         symbolsRow1.isHidden = true
         symbolsRow2.isHidden = true
@@ -569,10 +562,10 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         moreDetailView.layer.shadowOffset = CGSize(width: 0, height: 5)
         moreDetailView.layer.shadowPath = UIBezierPath(rect: moreDetailView.bounds).cgPath
         
-        if self.lastUsedLanguage.object(forKey: "lastUsedLang") == nil {
+        if self.defaults.object(forKey: "lastUsedLang") == nil {
             self.lastLang = "French"
         } else {
-            self.lastLang = self.lastUsedLanguage.object(forKey: "lastUsedLang") as! String
+            self.lastLang = self.defaults.object(forKey: "lastUsedLang") as! String
         }
         let arr = whichOne(0)
         let indexTo = arr.index(of: self.lastLang)
@@ -627,13 +620,13 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.tapSendToInput = UITapGestureRecognizer(target: self, action: #selector(self.showDetailView))
         self.tapSendToInput.numberOfTapsRequired = 1
         self.tapSendToInput.numberOfTouchesRequired = 1
-        self.sendToInput.tag = 1
-        self.sendToInput.setTitle("", for: .normal)
-        self.sendToInput.titleLabel?.lineBreakMode = .byTruncatingTail
-        self.sendToInput.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+        self.translationText.tag = 1
+        self.translationText.setTitle("", for: .normal)
+        self.translationText.titleLabel?.lineBreakMode = .byTruncatingTail
+        self.translationText.titleLabel?.font = UIFont.systemFont(ofSize: 18)
         
-        self.hideView.setImage(UIImage(named: "appLogo")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        self.hideView.setImage(UIImage(named: "appLogo_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
+        self.insertTranslation.setImage(UIImage(named: "appLogo")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        self.insertTranslation.setImage(UIImage(named: "appLogo_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
         
         self.shiftButton.setImage(UIImage(named: "shift0_selected")?.withRenderingMode(.alwaysTemplate), for: .normal)
         
@@ -662,14 +655,14 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.showPickerBtn.setTitle(self.toKey, for: .normal)
         
         self.nextKeyboardButton.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .allTouchEvents)
-        self.hideView.addTarget(self, action: #selector(self.translateCaller), for: .touchUpInside)
+        self.insertTranslation.addTarget(self, action: #selector(self.translateCaller), for: .touchUpInside)
         self.clearTranslation.addTarget(self, action: #selector(self.clearButton(_:)), for: .touchUpInside)
         
         if !fullAccessIsEnabled() {
-            hideView.isEnabled = false
+            insertTranslation.isEnabled = false
             clearTranslation.isEnabled = false
-            sendToInput.isEnabled = false
-            sendToInput.setTitle("Please Enable Full Access", for: .disabled)
+            translationText.isEnabled = false
+            translationText.setTitle("Please Enable Full Access", for: .disabled)
         }
         
      
@@ -701,45 +694,22 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     func setColours() {
         
-        let keyBackground = keyBackgroundBool.double(forKey: "keyBackgroundBool")
+        let keyBackground = defaults.double(forKey: "keyBackgroundBool")
         
         if keyBackground == 1 {
             
             for letter in self.allKeys {
                 letter.addTarget(self, action: #selector(self.playKeySound), for: .touchDown)
                 letter.layer.cornerRadius = 6
-                letter.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor // keyShadowColor.cgColor
-                letter.layer.shadowOffset = CGSize(width: 0, height: 0.5)
-                letter.layer.shadowRadius = 0.0
-                letter.layer.shadowOpacity = 1.0
-                letter.layer.shadowPath = UIBezierPath(roundedRect: letter.bounds, cornerRadius: 6).cgPath
                 letter.backgroundColor = keyBackgroundColor
                 letter.setTitleColor(keyTextColor, for: .normal)
                 letter.tintColor = keyTextColor
                 letter.titleLabel?.font = UIFont.systemFont(ofSize: 21)
-                if letter == sendToInput || letter == hideView || letter == clearTranslation {
+                if letter == translationText || letter == insertTranslation || letter == clearTranslation {
                     letter.backgroundColor = UIColor.clear
                     letter.layer.cornerRadius = 0
-                    letter.layer.shadowOpacity = 0.0
                 }
             }
-            
-            self.shiftButton.backgroundColor = altKeyBackgroundColor
-            self.shiftButton.layer.shadowColor = altKeyShadowColor.cgColor
-            self.backspaceButton.backgroundColor = altKeyBackgroundColor
-            self.backspaceButton.layer.shadowColor = altKeyShadowColor.cgColor
-            self.backspaceButton2.backgroundColor = altKeyBackgroundColor
-            self.backspaceButton2.layer.shadowColor = altKeyShadowColor.cgColor
-            self.nextKeyboardButton.backgroundColor = altKeyBackgroundColor
-            self.nextKeyboardButton.layer.shadowColor = altKeyShadowColor.cgColor
-            self.symbolsKey.backgroundColor = altKeyBackgroundColor
-            self.symbolsKey.layer.shadowColor = altKeyShadowColor.cgColor
-            self.altBoard.backgroundColor = altKeyBackgroundColor
-            self.altBoard.layer.shadowColor = altKeyShadowColor.cgColor
-            self.returnKey.backgroundColor = altKeyBackgroundColor
-            self.returnKey.layer.shadowColor = altKeyShadowColor.cgColor
-            self.showPickerBtn.backgroundColor = altKeyBackgroundColor
-            self.showPickerBtn.layer.shadowColor = altKeyShadowColor.cgColor
             
             /* if !(blurBG.isHidden) {
                 self.blurBG.alpha = 0.7
@@ -756,7 +726,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
                 letter.setTitleColor(keyTextColor, for: .normal)
                 letter.tintColor = keyTextColor
                 letter.titleLabel?.font = UIFont.systemFont(ofSize: 21)
-                if letter == sendToInput || letter == hideView || letter == clearTranslation {
+                if letter == translationText || letter == insertTranslation || letter == clearTranslation {
                     letter.backgroundColor = UIColor.clear
                     letter.layer.cornerRadius = 0
                 }
@@ -779,7 +749,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
                 letter.setTitleColor(keyTextColor, for: .normal)
                 letter.tintColor = keyTextColor
                 letter.titleLabel?.font = UIFont.systemFont(ofSize: 21)
-                if letter == sendToInput || letter == hideView || letter == clearTranslation{
+                if letter == translationText || letter == insertTranslation || letter == clearTranslation{
                     letter.backgroundColor = UIColor.clear
                     letter.layer.cornerRadius = 0
                 }
@@ -798,7 +768,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
 
         self.view.backgroundColor = bgColor
         self.blurBG.effect = blurEffect
-        self.hideView.tintColor = keyTextColor
+        self.insertTranslation.tintColor = keyTextColor
         self.shiftButton.tintColor = keyTextColor
         self.backspaceButton.tintColor = keyTextColor
         self.backspaceButton2.tintColor = keyTextColor
@@ -808,7 +778,7 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         self.returnKey.tintColor = keyTextColor
         self.showPickerBtn.tintColor = keyTextColor
         
-        self.sendToInput.setTitleColor(keyTextColor, for: .normal)
+        self.translationText.setTitleColor(keyTextColor, for: .normal)
         self.prediction1.setTitleColor(keyTextColor, for: .normal)
         self.prediction2.setTitleColor(keyTextColor, for: .normal)
         self.prediction3.setTitleColor(keyTextColor, for: .normal)
@@ -1092,17 +1062,17 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     func showDetailView() {
         
-        if self.sendToInput.tag == 0 {
+        if self.translationText.tag == 0 {
             
             self.moreDetailView.isHidden = true
-            self.sendToInput.tag = 1
-            self.sendToInput.isEnabled = true
+            self.translationText.tag = 1
+            self.translationText.isEnabled = true
             
             if self.moreDetailView.gestureRecognizers == nil || (self.moreDetailView.gestureRecognizers?.isEmpty)! {
                 
             } else {
                 
-                self.sendToInput.addGestureRecognizer(self.tapSendToInput)
+                self.translationText.addGestureRecognizer(self.tapSendToInput)
                 
             }
             
@@ -1120,15 +1090,15 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
         } else {
             
             self.moreDetailView.isHidden = false
-            self.sendToInput.tag = 0
-            self.sendToInput.isEnabled = false
+            self.translationText.tag = 0
+            self.translationText.isEnabled = false
             
-            self.sendToInput.removeGestureRecognizer(self.tapSendToInput)
+            self.translationText.removeGestureRecognizer(self.tapSendToInput)
             self.moreDetailView.addGestureRecognizer(self.tapSendToInput)
             
             self.moreDetailView.isHidden = false
-            self.sendToInput.tag = 0
-            self.sendToInput.isEnabled = false
+            self.translationText.tag = 0
+            self.translationText.isEnabled = false
             self.row1.isUserInteractionEnabled = false
             self.row1.layer.opacity = 0.1
             self.row2.isUserInteractionEnabled = false
@@ -1337,12 +1307,12 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     func clearButton(_ sender: UIButton) {
         
-        self.hideView.removeTarget(self, action: #selector(self.addToText), for: .touchUpInside)
-        self.hideView.addTarget(self, action: #selector(self.translateCaller), for: .touchUpInside)
-        self.hideView.setImage(UIImage(named: "appLogo")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        self.hideView.setImage(UIImage(named: "appLogo_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
+        self.insertTranslation.removeTarget(self, action: #selector(self.addToText), for: .touchUpInside)
+        self.insertTranslation.addTarget(self, action: #selector(self.translateCaller), for: .touchUpInside)
+        self.insertTranslation.setImage(UIImage(named: "appLogo")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        self.insertTranslation.setImage(UIImage(named: "appLogo_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
         
-        self.sendToInput.setTitle("", for: .normal)
+        self.translationText.setTitle("", for: .normal)
         self.clearTranslation.isEnabled = false 
         
     }
@@ -1373,38 +1343,38 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
     
     func addToText() {
         
-        self.hideView.setImage(UIImage(named: "appLogo")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        self.hideView.setImage(UIImage(named: "appLogo_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
+        self.insertTranslation.setImage(UIImage(named: "appLogo")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        self.insertTranslation.setImage(UIImage(named: "appLogo_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
         
         deleteAllText()
-        self.textDocumentProxy.insertText(self.sendToInput.currentTitle!)
+        self.textDocumentProxy.insertText(self.translationText.currentTitle!)
         self.shouldAutoCap()
-        self.sendToInput.setTitle("", for: .normal)
-        self.sendToInput.removeGestureRecognizer(tapSendToInput)
+        self.translationText.setTitle("", for: .normal)
+        self.translationText.removeGestureRecognizer(tapSendToInput)
         self.clearTranslation.isEnabled = false
-        self.hideView.removeTarget(self, action: #selector(self.addToText), for: .touchUpInside)
-        self.hideView.addTarget(self, action: #selector(self.translateCaller), for: .touchUpInside)
-        self.hideView.isEnabled = false
+        self.insertTranslation.removeTarget(self, action: #selector(self.addToText), for: .touchUpInside)
+        self.insertTranslation.addTarget(self, action: #selector(self.translateCaller), for: .touchUpInside)
+        self.insertTranslation.isEnabled = false
         
     }
     
     func translateCaller() {
         
-        self.hideView.setImage(UIImage(named: "translateUp")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        self.hideView.setImage(UIImage(named: "translateUp_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
+        self.insertTranslation.setImage(UIImage(named: "translateUp")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        self.insertTranslation.setImage(UIImage(named: "translateUp_selected")?.withRenderingMode(.alwaysTemplate), for: .highlighted)
         
         let inputText = (textDocumentProxy.documentContextBeforeInput ?? "") + (textDocumentProxy.documentContextAfterInput ?? "")
         
         googleTranslate(inputText, "en", self.toKey)
         
-        if (hideView.actions(forTarget: self, forControlEvent: .touchUpInside)!.contains("addToText")) {
+        if (insertTranslation.actions(forTarget: self, forControlEvent: .touchUpInside)!.contains("addToText")) {
             
-            self.hideView.removeTarget(self, action: #selector(self.addToText), for: .touchUpInside)
+            self.insertTranslation.removeTarget(self, action: #selector(self.addToText), for: .touchUpInside)
             
         } else {
             
-            self.hideView.removeTarget(self, action: #selector(self.translateCaller), for: .touchUpInside)
-            self.hideView.addTarget(self, action: #selector(self.addToText), for: .touchUpInside)
+            self.insertTranslation.removeTarget(self, action: #selector(self.translateCaller), for: .touchUpInside)
+            self.insertTranslation.addTarget(self, action: #selector(self.addToText), for: .touchUpInside)
             
         }
         
@@ -1424,9 +1394,9 @@ class KeyboardViewController: UIInputViewController, UIPickerViewDelegate, UIPic
                 for translation in json["data"]["translations"].arrayValue {
                     
                     let text = translation["translatedText"].stringValue
-                    self.sendToInput.setTitle(text.stringByDecodingHTMLEntities, for: .normal)
+                    self.translationText.setTitle(text.stringByDecodingHTMLEntities, for: .normal)
                     self.moreDetailLabel.text = text.stringByDecodingHTMLEntities
-                    self.sendToInput.addGestureRecognizer(self.tapSendToInput)
+                    self.translationText.addGestureRecognizer(self.tapSendToInput)
                     
                 }
             }
